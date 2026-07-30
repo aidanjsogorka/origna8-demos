@@ -105,15 +105,35 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 /* ─────────────────────────── CONTENT COLUMN ─────────────────── */
 .page{padding:var(--page-pad) var(--page-pad) 64px}
 
+/* ── the A / B argument switch. Scaffolding, deliberately not product chrome. ── */
+.arg{display:flex;align-items:stretch;border:1px solid var(--rule);border-radius:3px;overflow:hidden;margin-bottom:20px}
+.arg-k{padding:11px 16px;display:flex;flex-direction:column;justify-content:center;gap:3px;background:var(--surface-1);
+       border-right:1px solid var(--rule);min-width:212px}
+.arg-k b{font-size:9.5px;letter-spacing:.15em;text-transform:uppercase;color:var(--text-3);font-weight:600}
+.arg-k span{font-size:11.5px;color:var(--text-3);line-height:1.35}
+.arg a{flex:1;padding:10px 18px;text-decoration:none;display:flex;flex-direction:column;gap:3px;border-right:1px solid var(--rule);
+       transition:background var(--dur-fast) var(--ease)}
+.arg a:last-of-type{border-right:0}
+.arg a:hover{background:#ffffff05}
+.arg .t{font-size:13.5px;color:var(--text-3);display:flex;align-items:center;gap:9px}
+.arg .t i{font-style:normal;font-family:'Geist Mono',monospace;font-size:10.5px;border:1px solid var(--rule);border-radius:2px;
+          padding:1px 5px;color:var(--text-3)}
+.arg .s{font-size:11.5px;color:var(--text-3);line-height:1.4}
+.arg a.on{background:var(--heat-soft);box-shadow:inset 2px 0 0 var(--heat)}
+.arg a.on .t{color:var(--text-1);font-weight:500}
+.arg a.on .t i{border-color:var(--heat-line);color:var(--heat)}
+.arg a.on .s{color:var(--text-2)}
+
 /* Page header ledger */
-.hd{display:flex;align-items:flex-end;gap:24px;border-bottom:1px solid var(--rule);padding-bottom:14px}
-.hd-l{display:flex;flex-direction:column;gap:5px}
-.hd-kick{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);display:flex;gap:10px;align-items:center}
+.hd{display:flex;align-items:flex-end;gap:28px;border-bottom:1px solid var(--rule);padding-bottom:14px}
+.hd-l{display:flex;flex-direction:column;gap:5px;flex:1 1 auto;min-width:326px}
+.hd-kick{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);display:flex;gap:10px;align-items:center;white-space:nowrap}
 .hd-kick s{text-decoration:none;color:var(--heat)}
-.hd h1{font-size:26px;font-weight:700;letter-spacing:-.78px;line-height:1}
-.hd-sub{font-size:13px;color:var(--text-2);max-width:38ch;line-height:1.45}
-.stats{margin-left:auto;display:flex;align-items:stretch}
-.stat{padding:0 20px;border-left:1px solid var(--rule);display:flex;flex-direction:column;gap:3px;min-width:118px}
+.hd h1{font-size:26px;font-weight:700;letter-spacing:-.78px;line-height:1;white-space:nowrap}
+.hd-sub{font-size:13px;color:var(--text-2);max-width:46ch;line-height:1.45}
+.hd-r{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:13px;flex:0 0 auto}
+.stats{display:flex;align-items:stretch}
+.stat{padding:0 15px;border-left:1px solid var(--rule);display:flex;flex-direction:column;gap:3px;min-width:104px;white-space:nowrap}
 .stat:first-child{border-left:0}
 .stat-k{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);font-weight:600}
 .stat-v{font-size:24px;font-weight:500;letter-spacing:-.02em;line-height:1.05;display:flex;align-items:baseline;gap:6px}
@@ -128,7 +148,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .pnl-h .r{margin-left:auto;font-size:11px;color:var(--text-3);white-space:nowrap}
 
 /* ── row 2: the lit node + standings ── */
-.r2{display:grid;grid-template-columns:1fr 430px;gap:16px;margin-top:18px}
+.r2{display:grid;grid-template-columns:minmax(0,1fr) 430px;gap:16px;margin-top:18px}
 
 .lit{position:relative;background:var(--surface-1);border:1px solid var(--rule);border-left:2px solid var(--heat);border-radius:3px;
      padding:18px 20px 16px;display:flex;flex-direction:column}
@@ -175,7 +195,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .bd-foot b{color:var(--heat);font-weight:600}
 
 /* ── row 3: streak + mentor ── */
-.r3{display:grid;grid-template-columns:1fr 404px;gap:16px;margin-top:16px}
+.r3{display:grid;grid-template-columns:minmax(0,1fr) 404px;gap:16px;margin-top:16px}
 .wk{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;padding:14px 16px 4px}
 .d{display:flex;flex-direction:column;align-items:flex-start;gap:7px}
 .d-lbl{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
@@ -307,7 +327,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .vbar span{margin-left:auto;letter-spacing:.06em;text-transform:none;font-size:11.5px}
 
 /* ── VIEW 2 ── */
-.c2{display:grid;grid-template-columns:236px 1fr 328px;gap:0;margin-top:18px;border-top:1px solid var(--rule)}
+.c2{display:grid;grid-template-columns:236px minmax(0,1fr) 328px;gap:0;margin-top:18px;border-top:1px solid var(--rule)}
 .spine{border-right:1px solid var(--rule);padding:16px 18px 20px 0}
 .spine-h{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin-bottom:14px}
 .ch{display:flex;gap:12px;align-items:flex-start;padding:0 0 16px;position:relative}
@@ -513,7 +533,7 @@ body.tech .pl-panel .pl-inner{transform:none}
 .pl-nav a i{font-style:normal;font-family:'Geist Mono',ui-monospace,monospace;font-size:9.5px;color:#6c6c74}
 .pl-nav a.on{color:#f4f4f5;background:#FF7A2F1f;box-shadow:inset 0 2px 0 #FF7A2F}
 .pl-nav a.on i{color:#FF7A2F}
-.pl-nav .end{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
+.pl-nav .end{margin-left:auto;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
               padding-left:14px;white-space:nowrap}
 
 /* ═════════ tweak bar, dev only: ?tweaks=1 ═════════ */
@@ -539,19 +559,6 @@ body.tech .pl-panel .pl-inner{transform:none}
          letter-spacing:.06em;color:#6c6c74;display:none;cursor:pointer}
 .pl-twopen.on{display:block}
 .pl-twopen:hover{color:#f4f4f5;border-color:#ffffff38}
-
-/* the switch lives in the demo bar on the five archived directions, so their own
-   headers are left exactly as they were designed */
-.pl-navsw{margin-left:auto;display:flex;align-items:center;gap:10px;height:100%;padding:0 14px;
-          border-left:1px solid #ffffff0e;white-space:nowrap}
-.pl-navsw .pl-sw-l{font-size:11.5px}
-.pl-navsw .pl-sw-t{width:34px;height:19px;flex:0 0 34px}
-.pl-navsw .pl-sw-t i{width:13px;height:13px}
-body.tech .pl-navsw .pl-sw-t i{transform:translateX(15px)}
-.pl-navsw .pl-sw-s{width:auto;min-width:52px;font-size:9.5px;line-height:1.15}
-body.tech .pl-navsw{background:#FF7A2F14}
-.pl-nav .end{padding-left:14px;border-left:1px solid #ffffff0e;height:100%;display:flex;align-items:center}
-.pl-nav a.on{box-shadow:inset 0 2px 0 #FF7A2F}
 
 /* ═════════ reduced motion ═════════
    Not a blanket 0.01s kill, which destroys the feedback the page depends on.
@@ -647,8 +654,8 @@ body.tech .pl-navsw{background:#FF7A2F14}
   <!-- top bar -->
   <div class="top">
     <div class="search"><svg><use href="#i-search"/></svg>Search staff, loans, contacts<span class="kbd mono">⌘K</span></div>
-    <button class="ghost"><svg><use href="#i-bug"/></svg></button>
-    <button class="ghost"><svg><use href="#i-flag"/></svg></button>
+    <button class="ghost" aria-label="Report a bug"><svg><use href="#i-bug"/></svg></button>
+    <button class="ghost" aria-label="Send feedback"><svg><use href="#i-flag"/></svg></button>
     <div class="top-r">
       <div class="tp-pill"><i class="vdot"></i>Leads to contact<span style="color:var(--text-3)">·</span><b class="mono" style="color:var(--text-1);font-weight:500">8</b></div>
       <div class="bell"><svg><use href="#i-bell"/></svg><b class="mono">9</b></div>
@@ -661,33 +668,54 @@ body.tech .pl-navsw{background:#FF7A2F14}
   <!-- ═══════════ VIEW 1 · INDEX ═══════════ -->
   <div class="page">
 
+    <!-- the argument switch -->
+    <div class="arg">
+      <div class="arg-k"><b>This demo argues</b><span>Two versions of the same section. Same content, same shell, opposite theory of why anybody opens it.</span></div>
+      <a href="learner-a-competitive.html" class="on" aria-current="page">
+        <div class="t"><i>A</i>Competition</div>
+        <div class="s">Streak, branch leaderboard, XP, a season track. Learning feeds the scoreboard the app already has.</div>
+      </a>
+      <a href="learner-b-mastery.html">
+        <div class="t"><i>B</i>Relevance and mastery</div>
+        <div class="s">No streak, no board, no points. Your open loans set the order and your own files supply the evidence.</div>
+      </a>
+    </div>
+
     <!-- header ledger -->
     <div class="hd">
       <div class="hd-l">
         <div class="hd-kick">Educa8 <span style="color:var(--rule)">/</span> Season 03 <span style="color:var(--rule)">/</span> Week 31 <s>· live</s></div>
         <h1>Your ledger</h1>
         <div class="hd-sub">Everything you finish here posts to Domina8 Standings. Nothing else on this page matters more than that.</div>
+        <div class="pl-rel" style="--d:0ms">season ← <b>NEW: season (id, starts_at, ends_at, xp_total)</b> · week 31 derived from starts_at</div>
       </div>
-      <div class="stats">
-        <div class="stat">
-          <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Season XP</i><i class="pl-lt">sum(xp_event)<b class="pl-ty new">table</b></i></span></div>
-          <div class="stat-v mono" id="xp1">1,240</div>
-          <div class="dl up mono" id="xp1d">+180 wk 31</div>
+      <div class="hd-r">
+        <div class="pl-sw">
+          <span class="pl-sw-l">Show the plumbing</span>
+          <button class="pl-sw-t" id="swT" role="switch" aria-checked="false" aria-label="Show the plumbing"><i></i></button>
+          <span class="pl-sw-s mono" id="swS">off</span>
         </div>
-        <div class="stat">
-          <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Streak</i><i class="pl-lt">streak_day<b class="pl-ty new">job x17</b></i></span></div>
-          <div class="stat-v mono">5<em>days</em></div>
-          <div class="dl mono">Jul 25 – Jul 29</div>
-        </div>
-        <div class="stat">
-          <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Branch rank</i><i class="pl-lt">rank()<b class="pl-ty new">15 min</b></i></span></div>
-          <div class="stat-v mono" id="rank1">3<em>of 17</em></div>
-          <div class="dl up mono" id="rank1d">+2 since Jul 20</div>
-        </div>
-        <div class="stat">
-          <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Chapters</i><i class="pl-lt">chapter_completion</i></span></div>
-          <div class="stat-v mono">3<em>of 29</em></div>
-          <div class="dl mono">70 min to next course</div>
+        <div class="stats">
+          <div class="stat">
+            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Season XP</i><i class="pl-lt mono">sum(xp_event)<b class="pl-ty new">table</b></i></span></div>
+            <div class="stat-v mono" id="xp1">1,240</div>
+            <div class="dl up mono" id="xp1d">+180 wk 31</div>
+          </div>
+          <div class="stat">
+            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Streak</i><i class="pl-lt mono">streak_day<b class="pl-ty new">job</b></i></span></div>
+            <div class="stat-v mono">5<em>days</em></div>
+            <div class="dl mono">Jul 25 to Jul 29</div>
+          </div>
+          <div class="stat">
+            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Branch rank</i><i class="pl-lt mono">rank() over branch<b class="pl-ty new">15 min</b></i></span></div>
+            <div class="stat-v mono" id="rank1">3<em>of 17</em></div>
+            <div class="dl up mono" id="rank1d">+2 since Jul 20</div>
+          </div>
+          <div class="stat">
+            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Chapters</i><i class="pl-lt mono">chapter_completion<b class="pl-ty new">table</b></i></span></div>
+            <div class="stat-v mono">3<em>of 29</em></div>
+            <div class="dl mono">70 min to next course</div>
+          </div>
         </div>
       </div>
     </div>
@@ -712,6 +740,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
           <div><span class="k">Banks today</span><span class="v mono">10 of 25 min</span></div>
           <div><span class="k">Opens</span><span class="v mono">Ch. 04</span></div>
         </div>
+        <div class="pl-rel" style="--d:40ms">position ← <b>NEW season_node</b> · pays ← <b>NEW chapter.xp_award</b> · banks today ← <b>NEW study_session</b> · opens ← <b>NEW requires[]</b></div>
         <div class="lit-act">
           <button class="cta" id="startBtn">Start chapter 03 <span class="m mono">25 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
           <button class="alt">Re-read chapter 02 instead</button>
@@ -720,7 +749,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
       </div>
 
       <div class="pnl" style="display:flex;flex-direction:column">
-        <div class="pnl-h"><h2><span class="pl-lb"><i class="pl-lp">Domina8 Standings</i><i class="pl-lt">domina8_standings + learning_xp</i></span></h2><span class="r mono">Pacific Ridge branch · week 31</span></div>
+        <div class="pnl-h"><h2><span class="pl-lb"><i class="pl-lp">Domina8 Standings</i><i class="pl-lt mono">domina8_standings + learning_xp</i></span></h2><span class="r mono">Pacific Ridge branch · week 31</span></div>
         <table class="bd">
           <thead><tr><th>#</th><th>Officer</th><th class="mono">XP</th><th class="mono">Δ wk</th><th class="mono">Ch</th></tr></thead>
           <tbody id="board">
@@ -732,6 +761,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
             <tr class="brow"><td class="pos mono">6</td><td class="nm">S. Lindqvist</td><td class="mono">495</td><td class="mono dl up">+150</td><td class="mono">4</td></tr>
           </tbody>
         </table>
+        <div class="pl-rel" style="--d:80ms;padding:6px 16px 0">rank() over branch <b>materialised every 15 min</b> · the promotion recomputes on insert · <b>POLICY: seventeen names, weekly</b></div>
         <div class="bd-foot" style="margin-top:auto">Chapter 03 pays 100, its check pays 40. <b>820 XP takes 2nd on the branch</b> and puts you 120 off Ferraro with three days left in week 31.</div>
       </div>
     </div>
@@ -739,7 +769,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
     <!-- row 3 : streak week + mentor queue -->
     <div class="r3">
       <div class="pnl" style="display:flex;flex-direction:column">
-        <div class="pnl-h"><h2>Streak</h2><span class="r mono">5 days · longest 14, Jun 2 – Jun 15 · 10 min banks a day</span></div>
+        <div class="pnl-h"><h2><span class="pl-lb"><i class="pl-lp">Streak</i><i class="pl-lt mono">streak_day<b class="pl-ty new">job</b></i></span></h2><span class="r mono">5 days · longest 14, Jun 2 – Jun 15 · 10 min banks a day</span></div>
         <div class="wk" id="wk"></div>
         <div class="hist">
           <div class="hist-k">Prior weeks</div>
@@ -752,10 +782,11 @@ body.tech .pl-navsw{background:#FF7A2F14}
           <div><span class="k">Breaking costs</span><span class="mono">5 days + 60 XP bonus</span></div>
           <div class="risk"><svg style="width:13px;height:13px"><use href="#i-clock"/></svg><span class="mono" id="cd">6h 12m left today</span></div>
         </div>
+        <div class="pl-rel" style="--d:120ms;padding:0 16px 12px">minutes ← <b>NEW study_session, heartbeat every 30s</b> · rollover fires <b>00:00 in each officer local timezone, ×17</b></div>
       </div>
 
       <div class="pnl" style="display:flex;flex-direction:column">
-        <div class="pnl-h"><h2>AI Mentor</h2><span class="r mono">3 checks due · 6 min · +120 XP</span></div>
+        <div class="pnl-h"><h2><span class="pl-lb"><i class="pl-lp">AI Mentor</i><i class="pl-lt mono">retrieval_check_attempt</i></span></h2><span class="r mono">3 checks due · 6 min · +120 XP</span></div>
         <div class="mq">
           <div class="mq-row due"><span class="mq-n mono">01</span><div><b>Mortgage Fundamentals</b> Ch.1 <span style="color:var(--text-3)">·</span> day 3 recall</div><span class="mq-x mono">+40</span></div>
           <div class="mq-row due"><span class="mq-n mono">02</span><div><b>Mortgage Fundamentals</b> Ch.2 <span style="color:var(--text-3)">·</span> day 1 recall</div><span class="mq-x mono">+40</span></div>
@@ -766,12 +797,13 @@ body.tech .pl-navsw{background:#FF7A2F14}
           <button class="btn-line">Answer 3 now</button>
           <span style="font-size:11.5px;color:var(--text-3);line-height:1.45">Missed checks decay to +20 after 7 days.</span>
         </div>
+        <div class="pl-rel" style="--d:160ms;padding:0 16px 12px">due ← next_due_at &lt;= now <b>NEW</b> · decay ← check_xp after decay_after_days <b>NEW rule</b></div>
       </div>
     </div>
 
     <!-- row 4 : season track -->
     <div class="pnl" style="margin-top:16px">
-      <div class="pnl-h"><h2><span class="pl-lb"><i class="pl-lp">Season 03 track</i><i class="pl-lt">season + season_node</i></span></h2><span class="r mono">3 of 29 banked · 1 live · 3 open · 22 locked · 640 of 2,460 XP</span></div>
+      <div class="pnl-h"><h2><span class="pl-lb"><i class="pl-lp">Season 03 track</i><i class="pl-lt mono">season ⨝ season_node</i></span></h2><span class="r mono">3 of 29 banked · 1 live · 3 open · 22 locked · 640 of 2,460 XP</span></div>
       <div class="trk-wrap">
         <div class="trk-lbls" id="segs"></div>
         <div class="trk" id="trk"><div class="rule-base"></div><div class="rule-earn" id="ruleEarn"></div></div>
@@ -782,6 +814,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
           <span class="key"><i></i>locked</span>
           <span style="margin-left:auto" class="mono">position 06 banked out of order on Jul 22, off the recommended path</span>
         </div>
+        <div class="pl-rel" style="--d:200ms;padding-top:12px">29 nodes ← <b>NEW season_node</b> · state ← chapter_completion against requires[] <b>NEW</b> · earned rule drawn on read</div>
       </div>
     </div>
 
@@ -900,6 +933,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
           <div class="mono">Position 01</div>
           <div class="mono" style="color:var(--heat)">Check due · +40 unclaimed</div>
         </div>
+        <div class="pl-rel" style="--d:0ms;margin-top:8px">banked ← chapter_completion + xp_event <b>NEW</b> · unclaimed ← attempt where correct is null <b>NEW</b></div>
 
         <p class="lede">A mortgage is a loan used to purchase real estate, where the property itself serves as collateral.</p>
 
@@ -937,6 +971,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
             <span style="margin-left:auto" class="mono" id="chkNext">2 checks left after this</span>
           </div>
         </div>
+        <div class="pl-rel" style="--d:40ms;margin-top:10px">on submit: insert attempt <b>NEW</b> → insert xp_event <b>NEW</b> → recompute rank over the branch <b>NEW, 15 min job or on write</b> → animate the board</div>
 
         <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
           <button class="cta" id="startBtn2">Start chapter 03 <span class="m mono">25 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
@@ -973,6 +1008,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
           </div>
         </div>
 
+        <div class="pl-rel" style="--d:80ms;margin-bottom:6px">learning_xp is a <b>NEW column on domina8_standings</b>, kept apart from funded volume</div>
         <div class="foot-note">Educa8 XP is the learning column of Domina8 Standings. It does not touch funded volume or units.</div>
       </div>
 
@@ -1217,57 +1253,58 @@ function flyChip(from, amount){
 
 <aside class="pl-panel" aria-hidden="true">
  <div class="pl-inner">
-  <div class="pl-hd"><i class="pl-dot"></i>Where every number comes from<span class="r">direction 05 · the ledger</span></div>
+  <div class="pl-hd"><i class="pl-dot"></i>Where every number comes from<span class="r">variant A</span></div>
   <div class="pl-cost">
     <div><div class="k">New tables</div><div class="v heat">7</div><div class="s">xp_event, xp_ledger, streak_day, season, season_node, plus the shared two</div></div>
     <div><div class="k">New events</div><div class="v">3</div><div class="s">xp_event, chapter_completion, retrieval_check_attempt</div></div>
-    <div><div class="k">Scheduled</div><div class="v heat">2</div><div class="s">streak rollover 00:00 per timezone, rank materialise every 15 min</div></div>
+    <div><div class="k">Scheduled</div><div class="v heat">2</div><div class="s">streak rollover 00:00 per user timezone, rank materialise every 15 min</div></div>
   </div>
   <div class="pl-body">
-  <div class="pl-sec">Header ledger<span>season xp, streak, rank, chapters</span></div>
-  <div class="pl-row"><div><div class="f">season xp</div><div class="o">sum(xp_event.amount) where season_id = current</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
-  <div class="pl-row"><div><div class="f">streak</div><div class="o">count back over streak_day to the first gap</div></div><div class="c"><i class="new">new</i><i class="cad">nightly + on write</i></div></div>
-  <div class="pl-row"><div><div class="f">branch rank</div><div class="o">rank() over branch on the new learning column</div></div><div class="c"><i class="new">new</i><i class="cad">every 15 min</i></div></div>
+  <div class="pl-sec">Header ledger<span>four figures, top right</span></div>
+  <div class="pl-row"><div><div class="f">season_xp</div><div class="o">sum(xp_event.amount) where season_id = current</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">streak_days</div><div class="o">count back over streak_day until the first gap</div></div><div class="c"><i class="new">new</i><i class="cad">nightly + on write</i></div></div>
+  <div class="pl-row"><div><div class="f">branch_rank</div><div class="o">rank() over branch ordered by learning_xp</div></div><div class="c"><i class="new">new</i><i class="cad">every 15 min</i></div></div>
   <div class="pl-row"><div><div class="f">chapters</div><div class="o">count(chapter_completion)</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
-  <div class="pl-sec">The lit node<span>next up, position 03 of 29</span></div>
-  <div class="pl-row"><div><div class="f">position</div><div class="o">season_node.order_index</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
-  <div class="pl-row"><div><div class="f">pays and check</div><div class="o">chapter.xp_award, retrieval_check.check_xp</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
-  <div class="pl-row"><div><div class="f">banks today</div><div class="o">sum(study_session.minutes) for today</div></div><div class="c"><i class="new">new</i><i class="cad">live</i></div></div>
+  <div class="pl-sec">The lit node<span>next up, position 03</span></div>
+  <div class="pl-row"><div><div class="f">position</div><div class="o">chapter.order_index over the season sequence</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
+  <div class="pl-row"><div><div class="f">pays / check</div><div class="o">chapter.xp_award, retrieval_check.check_xp</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
+  <div class="pl-row"><div><div class="f">banks today</div><div class="o">sum(study_session.minutes) where date = today</div></div><div class="c"><i class="new">new</i><i class="cad">live</i></div></div>
   <div class="pl-row"><div><div class="f">opens</div><div class="o">the next chapter whose requires[] is then met</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
   <div class="pl-sec">Domina8 Standings<span>the branch board</span></div>
-  <div class="pl-row"><div><div class="f">the six rows</div><div class="o">domina8_standings plus a new learning column</div></div><div class="c"><i class="has">exists</i><i class="cad">every 15 min</i></div></div>
-  <div class="pl-row"><div><div class="f">delta week</div><div class="o">sum(xp_event) over 7 days per officer</div></div><div class="c"><i class="new">new</i><i class="cad">every 15 min</i></div></div>
-  <div class="pl-row"><div><div class="f">the promotion</div><div class="o">rank recomputed on insert, then the row animates</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
-  <div class="pl-row"><div><div class="f">who sees it</div><div class="o">all seventeen officers, by name, weekly</div></div><div class="c"><i class="new">policy</i><i class="cad">n/a</i></div></div>
-  <div class="pl-sec">Streak<span>week grid, prior weeks, cost of breaking</span></div>
+  <div class="pl-row"><div><div class="f">officer, xp, chapters</div><div class="o">domina8_standings joined to the new learning column</div></div><div class="c"><i class="has">exists</i><i class="cad">every 15 min</i></div></div>
+  <div class="pl-row"><div><div class="f">delta week</div><div class="o">sum(xp_event) over the last 7 days per officer</div></div><div class="c"><i class="new">new</i><i class="cad">every 15 min</i></div></div>
+  <div class="pl-row"><div><div class="f">the promotion</div><div class="o">recompute rank on insert, then animate the row</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">who can see it</div><div class="o">every officer on the branch, by name, weekly</div></div><div class="c"><i class="new">policy</i><i class="cad">n/a</i></div></div>
+  <div class="pl-sec">Streak<span>week grid and prior weeks</span></div>
   <div class="pl-row"><div><div class="f">day cell</div><div class="o">streak_day (user_id, local_date, minutes)</div></div><div class="c"><i class="new">new</i><i class="cad">nightly rollover</i></div></div>
-  <div class="pl-row"><div><div class="f">minutes</div><div class="o">sum(study_session.minutes) by local date</div></div><div class="c"><i class="new">new</i><i class="cad">live</i></div></div>
-  <div class="pl-row"><div><div class="f">longest run</div><div class="o">max run length over streak_day</div></div><div class="c"><i class="new">new</i><i class="cad">nightly</i></div></div>
-  <div class="pl-row"><div><div class="f">rollover</div><div class="o">00:00 in each officer’s own timezone</div></div><div class="c"><i class="new">new</i><i class="cad">nightly ×17</i></div></div>
-  <div class="pl-sec">AI Mentor<span>three checks due</span></div>
-  <div class="pl-row"><div><div class="f">due now</div><div class="o">retrieval_check_attempt where next_due_at <= now</div></div><div class="c"><i class="new">new</i><i class="cad">live</i></div></div>
-  <div class="pl-row"><div><div class="f">decay 40 to 20</div><div class="o">check_xp reduced after decay_after_days</div></div><div class="c"><i class="new">new</i><i class="cad">on read</i></div></div>
+  <div class="pl-row"><div><div class="f">minutes</div><div class="o">sum(study_session.minutes) grouped by local date</div></div><div class="c"><i class="new">new</i><i class="cad">live</i></div></div>
+  <div class="pl-row"><div><div class="f">longest</div><div class="o">max run length over streak_day</div></div><div class="c"><i class="new">new</i><i class="cad">nightly</i></div></div>
+  <div class="pl-row"><div><div class="f">breaking costs</div><div class="o">streak_days + the banked bonus, both forfeited</div></div><div class="c"><i class="new">new</i><i class="cad">on rollover</i></div></div>
+  <div class="pl-row"><div><div class="f">timezone</div><div class="o">rollover must fire at 00:00 in the officer’s own zone</div></div><div class="c"><i class="new">new</i><i class="cad">nightly ×17</i></div></div>
+  <div class="pl-sec">AI Mentor queue<span>checks due</span></div>
+  <div class="pl-row"><div><div class="f">due</div><div class="o">retrieval_check_attempt where next_due_at <= now</div></div><div class="c"><i class="new">new</i><i class="cad">live</i></div></div>
+  <div class="pl-row"><div><div class="f">worth</div><div class="o">check_xp, decayed after decay_after_days</div></div><div class="c"><i class="new">new</i><i class="cad">on read</i></div></div>
   <div class="pl-row"><div><div class="f">recall accuracy</div><div class="o">correct / total over attempts</div></div><div class="c"><i class="new">new</i><i class="cad">on answer</i></div></div>
-  <div class="pl-sec">Season 03 track<span>29 nodes and the earned rule</span></div>
-  <div class="pl-row"><div><div class="f">node state</div><div class="o">banked, live, open or locked</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-sec">Season track<span>29 nodes</span></div>
+  <div class="pl-row"><div><div class="f">node state</div><div class="o">banked / live / open / locked from completion and requires[]</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
   <div class="pl-row"><div><div class="f">season</div><div class="o">season (id, starts_at, ends_at, xp_total)</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
-  <div class="pl-row"><div><div class="f">out of order</div><div class="o">a node banked outside the recommended path</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">earned rule</div><div class="o">banked positions over total, drawn once</div></div><div class="c"><i class="new">new</i><i class="cad">on read</i></div></div>
   <div class="pl-sec">Course ledger<span>the table at the bottom</span></div>
-  <div class="pl-row"><div><div class="f">xp over total</div><div class="o">sum(xp_event) per course over sum(chapter.xp_award)</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">xp / total</div><div class="o">sum(xp_event) per course over sum(chapter.xp_award)</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
   <div class="pl-row"><div><div class="f">left</div><div class="o">sum(duration_minutes) of unread chapters</div></div><div class="c"><i class="new">new</i><i class="cad">on read</i></div></div>
   <div class="pl-row"><div><div class="f">branch finished</div><div class="o">count(distinct user) with the course complete</div></div><div class="c"><i class="new">new</i><i class="cad">nightly</i></div></div>
-  <div class="pl-row"><div><div class="f">status</div><div class="o">requires[] resolved against this officer</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">status</div><div class="o">derived from requires[] against this officer’s completions</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
   <div class="pl-sec">Chapter view<span>view two</span></div>
-  <div class="pl-row"><div><div class="f">banked and xp</div><div class="o">chapter_completion, xp_event</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
-  <div class="pl-row"><div><div class="f">first try 40, second 20</div><div class="o">attempt_index on the attempt row</div></div><div class="c"><i class="new">new</i><i class="cad">on answer</i></div></div>
-  <div class="pl-row"><div><div class="f">gap to 2nd</div><div class="o">the rank query for one row</div></div><div class="c"><i class="new">new</i><i class="cad">every 15 min</i></div></div>
+  <div class="pl-row"><div><div class="f">banked date and xp</div><div class="o">chapter_completion, xp_event</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">first try pays 40, second 20</div><div class="o">attempt_index on retrieval_check_attempt</div></div><div class="c"><i class="new">new</i><i class="cad">on answer</i></div></div>
+  <div class="pl-row"><div><div class="f">gap to 2nd</div><div class="o">the rank query again, for one row</div></div><div class="c"><i class="new">new</i><i class="cad">every 15 min</i></div></div>
   <div class="pl-row"><div><div class="f">on a correct answer</div><div class="o">insert xp_event, recompute rank, animate the board</div></div><div class="c"><i class="new">new</i><i class="cad">on answer</i></div></div>
   </div>
   <div class="pl-foot">
-    <b>The chosen direction, and the most expensive one after 04.</b> Every mechanic on this page writes somewhere. The two that are easy to underestimate: the streak has to roll over at midnight in each officer's own timezone, and the branch board has to recompute fast enough that finishing a chapter visibly moves your row. There is also a policy question here that is not an engineering question: publishing a ranked list of seventeen people by name, every week.
-    <div class="pl-cmp"><s>05</s> 7 new tables · 3 events · 2 jobs · <em>1 ranking policy</em><br>
-          <s>05 without streak and board</s> 4 new tables · 2 events · 0 jobs<br>
-          <s>B</s> the same page argued the other way: 5 tables, 1 event, 1 job</div>
+    <b>A is the expensive one, and the cost is not the tables.</b> It is the streak job, which has to roll over at midnight in each officer's own timezone, and the rank materialisation, which has to be fast enough that finishing a chapter visibly moves you. Add to that a policy decision nobody has made: a weekly board that names the bottom of the branch.
+    <div class="pl-cmp"><s>A</s> 7 new tables · 3 events · 2 jobs · <em>1 ranking policy</em><br>
+          <s>B</s> 5 new tables · 1 event · 1 job · <em>1 taxonomy, ~40 concepts</em><br>
+          cheapest of the five: <s>03</s> the publication, 3 tables and no jobs</div>
   </div>
  </div>
 </aside>
@@ -1275,15 +1312,14 @@ function flyChip(from, amount){
   <span class="lbl">Origna8 · Educa8</span>
   <a href="index.html"><i>◂</i>Hub</a>
   <a href="andrew-authoring.html"><i>W</i>Course studio</a>
-  <a href="learner-a-competitive.html"><i>A</i>Competition</a>
+  <a href="learner-a-competitive.html" class="on" aria-current="page"><i>A</i>Competition</a>
   <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
   <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
   <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
   <a href="v3-editorial-longform.html"><i>03</i>Publication</a>
   <a href="v4-mono-technical.html"><i>04</i>Instrument</a>
-  <a href="v5-arcade-ledger.html" class="on" aria-current="page"><i>05</i>Ledger</a>
-  <span class="pl-navsw"><span class="pl-sw-l">Show the plumbing</span><button class="pl-sw-t" id="swT" role="switch" aria-checked="false" aria-label="Show the plumbing"><i></i></button><span class="pl-sw-s" id="swS">off</span></span>
-  <span class="end">1440 × 900</span>
+  <a href="v5-arcade-ledger.html"><i>05</i>Ledger</a>
+  <span class="end">1440 × 900 · dark only · no backend</span>
 </nav>
 <button class="pl-twopen" id="twOpen">tweaks</button>
 <div class="pl-tweaks" id="tweaks">

@@ -50,13 +50,13 @@ body{
   -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
 }
 ::selection{background:#f2680c33;color:var(--ink-hi)}
-.app{display:flex;align-items:flex-start;min-height:100vh}
+.app{display:flex;align-items:flex-start;min-height:100dvh}
 
 /* ═════════ SHELL: sidebar ═════════ */
 .sidebar{
   width:var(--sidebar-w);flex:0 0 var(--sidebar-w);
   background:var(--surface-1);border-right:1px solid var(--border);
-  height:100vh;position:sticky;top:0;display:flex;flex-direction:column;
+  height:100dvh;position:sticky;top:0;display:flex;flex-direction:column;
 }
 .logo{display:flex;align-items:center;gap:9px;padding:18px 16px 14px}
 .logo-mark{width:24px;height:24px;border-radius:7px;background:var(--rainbow-logo);flex:0 0 24px}
@@ -441,6 +441,173 @@ table.t tr.off td{color:var(--ink-2)}
 .nextup h3:hover{background-size:100% 1px}
 .nextup .r{text-align:right;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
 .hide{display:none}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   PLUMBING LAYER · added 2026-07-30
+   Self-contained on purpose: every colour here is literal, because the five
+   directions do not share variable names. Same interaction as the course
+   studio: labels crossfade in place, ids appear, a panel opens.
+   ═══════════════════════════════════════════════════════════════════════ */
+:focus-visible{outline:2px solid #FF7A2F;outline-offset:2px}
+body{padding-bottom:34px}
+
+/* dual label: both children share one grid cell, so the box is the wider of the two */
+.pl-lb{display:inline-grid;vertical-align:baseline}
+.pl-lb>i{grid-area:1/1;font-style:normal;white-space:nowrap;display:flex;align-items:center;
+      transition:opacity .2s cubic-bezier(.22,.61,.36,1),transform .28s cubic-bezier(.22,.61,.36,1);transition-delay:var(--d,0ms)}
+.pl-lb>i.pl-lt{opacity:0;transform:translateY(4px);pointer-events:none;letter-spacing:-.01em;text-transform:none;
+         font-family:'Geist Mono',ui-monospace,monospace;font-size:.94em}
+body.tech .pl-lb>i.pl-lp{opacity:0;transform:translateY(-4px)}
+body.tech .pl-lb>i.pl-lt{opacity:1;transform:none}
+.pl-ty{font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;font-weight:400;letter-spacing:.02em;color:#6c6c74;
+    border:1px solid #ffffff1a;border-radius:2px;padding:1px 4px;margin-left:6px;line-height:1.25}
+.pl-ty.new{color:#FF7A2F;border-color:#FF7A2F66}
+
+/* reserved provenance strip: never changes height, only fills */
+.pl-rel{height:14px;overflow:hidden;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
+     opacity:0;transform:translateX(-5px);
+     transition:opacity .24s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);
+     transition-delay:var(--d,0ms);white-space:nowrap;line-height:14px}
+body.tech .pl-rel{opacity:1;transform:none}
+.pl-rel b{color:#FF7A2F;font-weight:400}
+.pl-rel s{text-decoration:none;color:#34d399}
+
+/* the switch */
+.pl-sw{display:flex;align-items:center;gap:11px}
+.pl-sw-l{font-size:12.5px;color:#a0a0a8;white-space:nowrap}
+body.tech .pl-sw-l{color:#f4f4f5}
+.pl-sw-t{width:40px;height:22px;border-radius:999px;background:#16161a;border:1px solid #ffffff1a;position:relative;
+      cursor:pointer;transition:background .22s cubic-bezier(.22,.61,.36,1);flex:0 0 40px;padding:0}
+.pl-sw-t i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#6c6c74;display:block;
+        transition:transform .28s cubic-bezier(.22,.61,.36,1),background .28s cubic-bezier(.22,.61,.36,1)}
+body.tech .pl-sw-t{background:#1e1e23;border-color:transparent;
+  background-image:linear-gradient(#1e1e23,#1e1e23),linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%);
+  background-origin:border-box;background-clip:padding-box,border-box}
+body.tech .pl-sw-t i{transform:translateX(18px);background:#FF7A2F}
+.pl-sw-s{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;width:104px;line-height:1.35}
+
+/* docked switch, used on the five archived directions so their own headers are untouched */
+.pl-dock{position:fixed;top:66px;right:24px;z-index:71;background:#111114;border:1px solid #ffffff1a;border-radius:3px;
+         padding:7px 12px;display:flex;align-items:center;gap:11px;
+         transition:right .42s cubic-bezier(.22,.61,.36,1),border-color .22s cubic-bezier(.22,.61,.36,1)}
+.pl-dock .pl-sw-s{width:auto;max-width:104px}
+body.tech .pl-dock{border-color:#FF7A2F66;right:408px}
+
+/* ═════════ the panel ═════════ */
+.pl-panel{position:fixed;top:0;right:0;bottom:34px;width:392px;z-index:70;background:#111114;border-left:1px solid #ffffff12;
+       display:flex;flex-direction:column;overflow:hidden;clip-path:inset(0 0 0 100%);
+       transition:clip-path .42s cubic-bezier(.22,.61,.36,1);
+       font-family:'Hanken Grotesk',system-ui,sans-serif;text-align:left}
+body.tech .pl-panel{clip-path:inset(0 0 0 0)}
+.pl-panel::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;z-index:2;
+              background:linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%)}
+.pl-panel .pl-inner{display:flex;flex-direction:column;height:100%;transform:translateX(22px);
+              transition:transform .42s cubic-bezier(.22,.61,.36,1)}
+body.tech .pl-panel .pl-inner{transform:none}
+.pl-hd{display:flex;align-items:center;gap:9px;padding:12px 16px;border-bottom:1px solid #ffffff08;
+    font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#a0a0a8;font-weight:600}
+.pl-hd .pl-dot{width:5px;height:5px;border-radius:50%;background:#FF7A2F;box-shadow:0 0 0 3px #FF7A2F1f}
+.pl-hd .r{margin-left:auto;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0;
+       text-transform:none;color:#6c6c74;font-weight:400}
+.pl-cost{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid #ffffff08}
+.pl-cost div{padding:11px 13px;border-right:1px solid #ffffff08}
+.pl-cost div:last-child{border-right:0}
+.pl-cost .k{font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:#6c6c74;font-weight:600}
+.pl-cost .v{font-family:'Geist Mono',ui-monospace,monospace;font-size:19px;color:#f4f4f5;margin-top:4px;line-height:1}
+.pl-cost .v.heat{color:#FF7A2F}
+.pl-cost .s{font-size:10px;color:#6c6c74;margin-top:4px;line-height:1.35}
+.pl-body{flex:1;overflow:auto;padding:0 0 10px;min-height:0}
+.pl-body::-webkit-scrollbar{width:6px} .pl-body::-webkit-scrollbar-thumb{background:#ffffff1a;border-radius:3px}
+.pl-sec{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:#6c6c74;font-weight:600;padding:14px 16px 8px;
+      border-bottom:1px solid #ffffff08;display:flex;align-items:baseline;gap:9px}
+.pl-sec span{margin-left:auto;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;letter-spacing:0;
+           text-transform:none;color:#6c6c74}
+.pl-row{display:grid;grid-template-columns:1fr 66px;gap:10px;padding:9px 16px;border-bottom:1px solid #ffffff08;align-items:start}
+.pl-row .f{font-family:'Geist Mono',ui-monospace,monospace;font-size:11px;color:#f4f4f5;line-height:1.4;overflow-wrap:anywhere}
+.pl-row .o{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;line-height:1.45;margin-top:3px;
+          overflow-wrap:anywhere}
+.pl-row .c{font-family:'Geist Mono',ui-monospace,monospace;font-size:9px;letter-spacing:.05em;text-transform:uppercase;
+          text-align:right;line-height:1.55}
+.pl-row .c i{font-style:normal;display:block}
+.pl-row .c .has{color:#34d399}
+.pl-row .c .new{color:#FF7A2F}
+.pl-row .c .cad{color:#6c6c74}
+.pl-foot{padding:12px 16px 14px;border-top:1px solid #ffffff12;font-size:11.5px;color:#a0a0a8;line-height:1.6;flex:0 0 auto}
+.pl-foot b{color:#FF7A2F;font-weight:500}
+.pl-foot .pl-cmp{margin-top:10px;padding-top:10px;border-top:1px solid #ffffff08;
+            font-family:'Geist Mono',ui-monospace,monospace;font-size:10.5px;color:#6c6c74;line-height:1.75}
+.pl-foot .pl-cmp s{text-decoration:none;color:#f4f4f5}
+.pl-foot .pl-cmp em{font-style:normal;color:#FF7A2F}
+
+/* ═════════ demo nav. Scaffolding, never product chrome. ═════════ */
+.pl-nav{position:fixed;left:0;right:0;bottom:0;height:34px;z-index:90;background:#0b0b0c;border-top:1px solid #ffffff1a;
+         display:flex;align-items:center;padding:0 12px 0 0;font-size:11.5px;
+         font-family:'Hanken Grotesk',system-ui,sans-serif}
+.pl-nav::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;
+                 background:linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%)}
+.pl-nav .lbl{font-family:'Geist Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+              color:#6c6c74;padding:0 14px;border-right:1px solid #ffffff0e;height:100%;display:flex;align-items:center;
+              white-space:nowrap}
+.pl-nav a{color:#6c6c74;text-decoration:none;padding:0 11px;height:100%;display:flex;align-items:center;gap:7px;
+           white-space:nowrap;border-right:1px solid #ffffff0e;
+           transition:color .14s cubic-bezier(.22,.61,.36,1),background .14s cubic-bezier(.22,.61,.36,1)}
+.pl-nav a:hover{color:#f4f4f5;background:#ffffff08}
+.pl-nav a i{font-style:normal;font-family:'Geist Mono',ui-monospace,monospace;font-size:9.5px;color:#6c6c74}
+.pl-nav a.on{color:#f4f4f5;background:#FF7A2F1f;box-shadow:inset 0 2px 0 #FF7A2F}
+.pl-nav a.on i{color:#FF7A2F}
+.pl-nav .end{font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
+              padding-left:14px;white-space:nowrap}
+
+/* ═════════ tweak bar, dev only: ?tweaks=1 ═════════ */
+.pl-tweaks{position:fixed;right:16px;bottom:50px;width:250px;z-index:95;background:#0b0b0c;border:1px solid #ffffff1a;
+        border-radius:3px;display:none;flex-direction:column;box-shadow:0 22px 60px #000000a6;
+        font-family:'Hanken Grotesk',system-ui,sans-serif}
+.pl-tweaks.on{display:flex}
+.pl-tweaks h4{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#a0a0a8;font-weight:600;padding:11px 14px;
+           border-bottom:1px solid #ffffff08;display:flex;align-items:center;gap:8px}
+.pl-tweaks h4 button{margin-left:auto;color:#6c6c74;font-size:14px;line-height:1;background:none;border:0;cursor:pointer}
+.pl-tweaks .row{padding:9px 14px;border-bottom:1px solid #ffffff08;display:flex;flex-direction:column;gap:6px}
+.pl-tweaks .row:last-of-type{border-bottom:0}
+.pl-tweaks label{font-size:10.5px;color:#6c6c74;display:flex;align-items:center;justify-content:space-between;
+              font-family:'Geist Mono',ui-monospace,monospace}
+.pl-tweaks label b{color:#f4f4f5;font-weight:400}
+.pl-tweaks input[type=range]{width:100%;accent-color:#FF7A2F;height:14px}
+.pl-tweaks input[type=color]{width:100%;height:24px;border:1px solid #ffffff12;background:none;border-radius:2px;padding:1px;cursor:pointer}
+.pl-tweaks .reset{padding:9px 14px;border-top:1px solid #ffffff12;font-size:11px;color:#6c6c74;text-align:left;
+               background:none;border-left:0;border-right:0;border-bottom:0;cursor:pointer;font-family:inherit}
+.pl-tweaks .reset:hover{color:#f4f4f5}
+.pl-twopen{position:fixed;right:16px;bottom:50px;z-index:94;height:28px;padding:0 12px;border:1px solid #ffffff1a;
+         border-radius:999px;background:#0b0b0c;font-family:'Geist Mono',ui-monospace,monospace;font-size:10.5px;
+         letter-spacing:.06em;color:#6c6c74;display:none;cursor:pointer}
+.pl-twopen.on{display:block}
+.pl-twopen:hover{color:#f4f4f5;border-color:#ffffff38}
+
+/* the switch lives in the demo bar on the five archived directions, so their own
+   headers are left exactly as they were designed */
+.pl-navsw{margin-left:auto;display:flex;align-items:center;gap:10px;height:100%;padding:0 14px;
+          border-left:1px solid #ffffff0e;white-space:nowrap}
+.pl-navsw .pl-sw-l{font-size:11.5px}
+.pl-navsw .pl-sw-t{width:34px;height:19px;flex:0 0 34px}
+.pl-navsw .pl-sw-t i{width:13px;height:13px}
+body.tech .pl-navsw .pl-sw-t i{transform:translateX(15px)}
+.pl-navsw .pl-sw-s{width:auto;min-width:52px;font-size:9.5px;line-height:1.15}
+body.tech .pl-navsw{background:#FF7A2F14}
+.pl-nav .end{padding-left:14px;border-left:1px solid #ffffff0e;height:100%;display:flex;align-items:center}
+.pl-nav a.on{box-shadow:inset 0 2px 0 #FF7A2F}
+
+/* ═════════ reduced motion ═════════
+   Not a blanket 0.01s kill, which destroys the feedback the page depends on.
+   The infinite loop stops, travel is removed, and every state change still
+   lands: colours, dates and counters update, rows still reorder, just at once. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:1ms !important;animation-iteration-count:1 !important}
+  .node-xl::after,.nd.live::after{animation:none !important;opacity:.4 !important;transform:none !important}
+  .pl-lb>i,.pl-rel{transition-delay:0ms !important;transition-duration:80ms !important;transform:none !important}
+  .pl-panel,.pl-panel .pl-inner{transition-duration:1ms !important}
+  .d-cell.live,.d-cell.live.land{animation:none !important;transform:none !important;opacity:1 !important}
+  .meter i,.rule-earn{transition-duration:1ms !important}
+  .flychip{display:none !important}
+}
 </style>
 </head>
 <body>
@@ -508,7 +675,7 @@ table.t tr.off td{color:var(--ink-2)}
   <button class="btn-o">$ Pricing</button>
 </header>
 
-<!-- ═════════════════ VIEW 1 — THE INDEX, SET AS ISSUE FRONT MATTER ═════════════════ -->
+<!-- ═════════════════ VIEW 1 · THE INDEX, SET AS ISSUE FRONT MATTER ═════════════════ -->
 <div class="page">
 <div class="sheet">
 
@@ -523,8 +690,8 @@ table.t tr.off td{color:var(--ink-2)}
         <h1 class="wordmark">Educa8<em>Six courses on originating well, written to be read once and used for years.</em></h1>
       </div>
       <div class="colophon">
-        <div class="r"><b>29</b> chapters</div>
-        <div class="r"><b>9 h 55 m</b> of reading</div>
+        <div class="r"><b>29</b> <span class="pl-lb"><i class="pl-lp">chapters</i><i class="pl-lt">count(chapter)</i></span></div>
+        <div class="r"><b>9 h 55 m</b> <span class="pl-lb"><i class="pl-lp">of reading</i><i class="pl-lt">sum(duration_minutes)</i></span></div>
         <div class="r">Revised <b>30 Jul 2026</b></div>
       </div>
     </div>
@@ -535,6 +702,7 @@ table.t tr.off td{color:var(--ink-2)}
     <div class="lead-rail">
       <div class="kick">You are here</div>
       <div class="note">Two chapters behind you. Twenty five minutes to the third.</div>
+      <div class="pl-rel" style="--d:0ms;margin-top:8px;height:auto;white-space:normal;line-height:1.6">position ← <b>NEW reading_position</b><br>read ← <b>NEW chapter_completion</b><br>no streak, no rank, no jobs</div>
     </div>
     <div>
       <div class="kick" style="margin-bottom:14px">Continue · Mortgage Fundamentals · chapter three of five</div>
@@ -547,6 +715,7 @@ table.t tr.off td{color:var(--ink-2)}
     <div class="lead-right">
       <div class="reg" title="Chapters read"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
       <div class="e-stat">2 of 5 read · 70 m left</div>
+      <div class="pl-rel" style="--d:60ms">chapter_completion + sum(duration_minutes)</div>
       <div class="e-stat" style="color:var(--ink-3)">Last opened 26 Jul</div>
     </div>
   </div>
@@ -709,9 +878,9 @@ table.t tr.off td{color:var(--ink-2)}
 </div>
 
 <!-- ═════════════════ VIEW DIVIDER ═════════════════ -->
-<div class="viewbar" id="v2">VIEW 2 — COURSE DETAIL</div>
+<div class="viewbar" id="v2">VIEW 2 · COURSE DETAIL</div>
 
-<!-- ═════════════════ VIEW 2 — THE READING VIEW ═════════════════ -->
+<!-- ═════════════════ VIEW 2 · THE READING VIEW ═════════════════ -->
 <div class="page">
 <div class="read">
 
@@ -1075,6 +1244,118 @@ function postXP(){
     document.querySelector('#s5 .kick').textContent='Retrieval check · two questions · complete';
   },420);
 }
+</script>
+
+<aside class="pl-panel" aria-hidden="true">
+ <div class="pl-inner">
+  <div class="pl-hd"><i class="pl-dot"></i>Where every number comes from<span class="r">direction 03 · the publication</span></div>
+  <div class="pl-cost">
+    <div><div class="k">New tables</div><div class="v">3</div><div class="s">reading_position, xp_event, plus chapter_completion</div></div>
+    <div><div class="k">New events</div><div class="v">2</div><div class="s">chapter_completion, xp_event</div></div>
+    <div><div class="k">Scheduled</div><div class="v">0</div><div class="s">nothing runs on a schedule</div></div>
+  </div>
+  <div class="pl-body">
+  <div class="pl-sec">Front matter<span>the contents list</span></div>
+  <div class="pl-row"><div><div class="f">ordered by prerequisite</div><div class="o">course.requires[], topologically sorted</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
+  <div class="pl-row"><div><div class="f">issue numbering</div><div class="o">presentation only. Nothing is stored.</div></div><div class="c"><i class="has">none</i><i class="cad">client</i></div></div>
+  <div class="pl-sec">Reading position<span>the rule in the margin</span></div>
+  <div class="pl-row"><div><div class="f">position</div><div class="o">reading_position (user_id, chapter_id, scroll_pct, at)</div></div><div class="c"><i class="new">new</i><i class="cad">on scroll, throttled</i></div></div>
+  <div class="pl-row"><div><div class="f">resume</div><div class="o">the same row, read on open</div></div><div class="c"><i class="new">new</i><i class="cad">on read</i></div></div>
+  <div class="pl-sec">Chapter register<span>filled boxes, current one ruled</span></div>
+  <div class="pl-row"><div><div class="f">filled</div><div class="o">chapter_completion</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">current</div><div class="o">reading_position.chapter_id</div></div><div class="c"><i class="new">new</i><i class="cad">on read</i></div></div>
+  <div class="pl-sec">Side notes and figures<span>definitions in the margin</span></div>
+  <div class="pl-row"><div><div class="f">definitions</div><div class="o">a definition block inside chapter.body. Content, not schema.</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
+  <div class="pl-row"><div><div class="f">figure numbers</div><div class="o">assigned at render time</div></div><div class="c"><i class="has">none</i><i class="cad">client</i></div></div>
+  <div class="pl-row"><div><div class="f">footnotes</div><div class="o">same, inside the body</div></div><div class="c"><i class="new">new</i><i class="cad">static</i></div></div>
+  <div class="pl-sec">XP posted to Standings<span>the one number that leaves the page</span></div>
+  <div class="pl-row"><div><div class="f">xp_event</div><div class="o">one insert per chapter completed</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">learning column</div><div class="o">domina8_standings.learning_xp</div></div><div class="c"><i class="new">new</i><i class="cad">on write</i></div></div>
+  <div class="pl-row"><div><div class="f">no rank on this page</div><div class="o">the number is posted, never ranked back into the reading view</div></div><div class="c"><i class="has">none</i><i class="cad">n/a</i></div></div>
+  </div>
+  <div class="pl-foot">
+    <b>This is the cheapest direction on the list by a wide margin, and it is not close.</b> No streak, so no timezone job. No board, so no rank materialisation. No sessions, so no heartbeat. The reading position is one small row per officer per chapter, written on scroll and read on open. If the decision is being made on build cost alone, this one wins and the argument is over.
+    <div class="pl-cmp"><s>03</s> 3 new tables · 2 events · 0 jobs<br>
+          <s>02</s> 6 new tables · 3 events · 2 jobs, twice the surface<br>
+          <s>04</s> 8 new tables · 4 events · 2 jobs, nearly three times</div>
+  </div>
+ </div>
+</aside>
+<nav class="pl-nav">
+  <span class="lbl">Origna8 · Educa8</span>
+  <a href="index.html"><i>◂</i>Hub</a>
+  <a href="andrew-authoring.html"><i>W</i>Course studio</a>
+  <a href="learner-a-competitive.html"><i>A</i>Competition</a>
+  <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
+  <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
+  <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
+  <a href="v3-editorial-longform.html" class="on" aria-current="page"><i>03</i>Publication</a>
+  <a href="v4-mono-technical.html"><i>04</i>Instrument</a>
+  <a href="v5-arcade-ledger.html"><i>05</i>Ledger</a>
+  <span class="pl-navsw"><span class="pl-sw-l">Show the plumbing</span><button class="pl-sw-t" id="swT" role="switch" aria-checked="false" aria-label="Show the plumbing"><i></i></button><span class="pl-sw-s" id="swS">off</span></span>
+  <span class="end">1440 × 900</span>
+</nav>
+<button class="pl-twopen" id="twOpen">tweaks</button>
+<div class="pl-tweaks" id="tweaks">
+  <h4>Tweaks<button id="twClose" aria-label="Close tweaks">×</button></h4>
+  <div class="row"><label>accent <b id="vAcc">#FF7A2F</b></label><input type="color" id="tAcc" value="#FF7A2F"></div>
+  <div class="row"><label>base size <b id="vSize">16px</b></label><input type="range" id="tSize" min="14" max="19" step="0.5" value="16"></div>
+  <div class="row"><label>rule weight <b id="vRule">12</b></label><input type="range" id="tRule" min="4" max="34" step="1" value="12"></div>
+  <div class="row"><label>motion <b id="vDur">1.0×</b></label><input type="range" id="tDur" min="0" max="2.5" step=".1" value="1"></div>
+  <button class="reset" id="twReset">reset everything</button>
+</div>
+<script>
+/* ═════════ the switch. Same interaction as the course studio. ═════════ */
+(function(){
+  var tech=false, swT=document.getElementById('swT');
+  function stagger(){
+    var n=document.querySelectorAll('.pl-lb,.pl-rel');
+    for(var i=0;i<n.length;i++) n[i].style.setProperty('--d',((i*13)%230)+'ms');
+  }
+  stagger();
+  swT.addEventListener('click',function(){
+    tech=!tech;
+    document.body.classList.toggle('tech',tech);
+    swT.setAttribute('aria-checked',String(tech));
+    document.querySelector('.pl-panel').setAttribute('aria-hidden',String(!tech));
+    document.getElementById('swS').innerHTML = tech ? 'on · sources,<br>cadence, cost' : 'off';
+    stagger();
+  });
+})();
+
+/* ═════════ tweak bar, dev only ═════════ */
+(function(){
+  if(new URLSearchParams(location.search).get('tweaks')!=='1') return;
+  var bar=document.getElementById('tweaks'), open=document.getElementById('twOpen');
+  bar.classList.add('on');
+  function bind(id,out,fn){
+    var el=document.getElementById(id), o=document.getElementById(out);
+    el.addEventListener('input',function(){ o.textContent=fn(el.value); });
+    o.textContent=fn(el.value);
+  }
+  var R=document.documentElement.style;
+  bind('tAcc','vAcc',function(v){
+    ['--heat','--accent','--hot','--mark','--live'].forEach(function(k){ R.setProperty(k,v); });
+    R.setProperty('--heat-soft',v+'1f'); R.setProperty('--heat-line',v+'66');
+    document.documentElement.style.setProperty('--pl-accent',v);
+    return v.toUpperCase();
+  });
+  bind('tSize','vSize',function(v){ document.body.style.fontSize=v+'px'; return v+'px'; });
+  bind('tRule','vRule',function(v){
+    var h=Number(v).toString(16); if(h.length<2) h='0'+h;
+    var l=Math.max(4,Math.round(v/1.7)).toString(16); if(l.length<2) l='0'+l;
+    ['--rule','--line','--border'].forEach(function(k){ R.setProperty(k,'#ffffff'+h); });
+    ['--rule-2','--line2','--border-2'].forEach(function(k){ R.setProperty(k,'#ffffff'+l); });
+    return v;
+  });
+  bind('tDur','vDur',function(v){
+    R.setProperty('--dur-fast',(0.14*v)+'s'); R.setProperty('--dur-base',(0.22*v)+'s'); R.setProperty('--dur-slow',(0.32*v)+'s');
+    return (+v).toFixed(1)+'×';
+  });
+  document.getElementById('twClose').addEventListener('click',function(){ bar.classList.remove('on'); open.classList.add('on'); });
+  open.addEventListener('click',function(){ bar.classList.add('on'); open.classList.remove('on'); });
+  document.getElementById('twReset').addEventListener('click',function(){ location.reload(); });
+})();
 </script>
 </body>
 </html>

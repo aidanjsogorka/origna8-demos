@@ -23,7 +23,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{background:var(--background)}
 body{font-family:'Hanken Grotesk',system-ui,sans-serif;background:var(--background);color:var(--text-1);
-     font-size:16px;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh}
+     font-size:16px;-webkit-font-smoothing:antialiased;display:flex;min-height:100dvh}
 svg{display:block}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .mono{font-family:'Geist Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
@@ -31,7 +31,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 
 /* ───────── SHELL: sidebar ───────── */
 .sb{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:var(--surface-1);border-right:1px solid var(--border);
-    display:flex;flex-direction:column;padding:14px 12px 12px;height:100vh;position:sticky;top:0;z-index:5}
+    display:flex;flex-direction:column;padding:14px 12px 12px;height:100dvh;position:sticky;top:0;z-index:5}
 .logo{display:flex;align-items:center;gap:9px;padding:2px 6px 16px}
 .logo-mark{width:26px;height:26px;border-radius:8px;background:var(--sweep);flex:0 0 26px}
 .logo-word{font-size:20px;font-weight:600;letter-spacing:-.045em;color:#fff}
@@ -309,7 +309,7 @@ select.inp{cursor:pointer;appearance:none;background-image:url("data:image/svg+x
 
 /* right rail: preview + json drawer */
 .rail{padding:16px 0 20px 20px;min-width:0}
-.railstick{position:sticky;top:16px;height:min(724px,calc(100vh - 128px));display:flex;flex-direction:column}
+.railstick{position:sticky;top:16px;height:min(724px,calc(100dvh - 128px));display:flex;flex-direction:column}
 .prev{flex:1;min-height:0;border:1px solid var(--rule);border-radius:3px;background:var(--surface-1);display:flex;flex-direction:column;overflow:hidden}
 .prev-h{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--rule-2);
         font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);font-weight:600}
@@ -390,7 +390,7 @@ body.tech .jsonp .inner{transform:none}
 /* preview overlay */
 .ov{position:fixed;inset:0;background:#000000e8;z-index:80;display:none;align-items:flex-start;justify-content:center;padding:52px 24px}
 .ov.on{display:flex}
-.ovp{width:836px;max-height:calc(100vh - 104px);background:var(--surface-1);border:1px solid var(--border);border-radius:3px;
+.ovp{width:836px;max-height:calc(100dvh - 104px);background:var(--surface-1);border:1px solid var(--border);border-radius:3px;
      display:flex;flex-direction:column;overflow:hidden;animation:ovin .3s var(--ease)}
 @keyframes ovin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 .ovh{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--rule)}
@@ -948,6 +948,40 @@ function wordsOf(html){const d=document.createElement('div');d.innerHTML=html;co
 <style>
 .body:empty::before{content:"Nothing here yet. Write the lesson, and use the buttons above for a heading, bold, a list, or a definition block.";color:var(--text-3);font-size:14px}
 .qprompt:focus,.qwhy textarea:focus{outline:none}
+
+/* ═════════ demo nav. Scaffolding, never product chrome. ═════════ */
+.pl-nav{position:fixed;left:0;right:0;bottom:0;height:34px;z-index:90;background:#0b0b0c;border-top:1px solid #ffffff1a;
+        display:flex;align-items:center;padding:0 12px 0 0;font-size:11.5px;
+        font-family:'Hanken Grotesk',system-ui,sans-serif}
+.pl-nav::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;
+                background:linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%)}
+.pl-nav .lbl{font-family:'Geist Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+             color:#6c6c74;padding:0 14px;border-right:1px solid #ffffff0e;height:100%;display:flex;align-items:center;
+             white-space:nowrap}
+.pl-nav a{color:#6c6c74;text-decoration:none;padding:0 11px;height:100%;display:flex;align-items:center;gap:7px;
+          white-space:nowrap;border-right:1px solid #ffffff0e;
+          transition:color .14s cubic-bezier(.22,.61,.36,1),background .14s cubic-bezier(.22,.61,.36,1)}
+.pl-nav a:hover{color:#f4f4f5;background:#ffffff08}
+.pl-nav a i{font-style:normal;font-family:'Geist Mono',ui-monospace,monospace;font-size:9.5px;color:#6c6c74}
+.pl-nav a.on{color:#f4f4f5;background:#FF7A2F1f;box-shadow:inset 0 2px 0 #FF7A2F}
+.pl-nav a.on i{color:#FF7A2F}
+.pl-nav .end{margin-left:auto;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
+             padding-left:14px;white-space:nowrap}
+body{padding-bottom:34px}
+
+/* ═════════ reduced motion ═════════
+   Not a blanket 0.01s kill, which destroys the feedback the page depends on.
+   The infinite loop stops, travel is removed, and every state change still
+   lands: colours, dates and counters update, rows still reorder, just at once. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:1ms !important;animation-iteration-count:1 !important}
+  .node-xl::after,.nd.live::after{animation:none !important;opacity:.4 !important;transform:none !important}
+  .pl-lb>i,.pl-rel{transition-delay:0ms !important;transition-duration:80ms !important;transform:none !important}
+  .pl-panel,.pl-panel .pl-inner{transition-duration:1ms !important}
+  .d-cell.live,.d-cell.live.land{animation:none !important;transform:none !important;opacity:1 !important}
+  .meter i,.rule-earn{transition-duration:1ms !important}
+  .flychip{display:none !important}
+}
 </style>
 <script>
 const FIN={crs_1e07:41,crs_2b77:31,crs_3c14:22,crs_5d2a:35,crs_6e31:18,crs_9c4a:0};
@@ -1261,5 +1295,19 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')$('ov').classList.re
 function renderAll(){renderTable();renderDetails();renderSpine();loadLesson();}
 renderAll();
 </script>
+
+<nav class="pl-nav">
+  <span class="lbl">Origna8 · Educa8</span>
+  <a href="index.html"><i>◂</i>Hub</a>
+  <a href="andrew-authoring.html" class="on" aria-current="page"><i>W</i>Course studio</a>
+  <a href="learner-a-competitive.html"><i>A</i>Competition</a>
+  <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
+  <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
+  <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
+  <a href="v3-editorial-longform.html"><i>03</i>Publication</a>
+  <a href="v4-mono-technical.html"><i>04</i>Instrument</a>
+  <a href="v5-arcade-ledger.html"><i>05</i>Ledger</a>
+  <span class="end">1440 × 900 · dark only · no backend</span>
+</nav>
 </body>
 </html>

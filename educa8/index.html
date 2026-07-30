@@ -93,7 +93,7 @@
   }
   .vhead .open:hover{border-color:var(--accent);color:var(--accent)}
 
-  .vbody{display:grid;grid-template-columns:1fr 336px;gap:0;border-bottom:1px solid var(--line)}
+  .vbody{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:0;border-bottom:1px solid var(--line)}
   .stage{
     position:relative;overflow:hidden;
     height:600px;border-right:1px solid var(--line2);
@@ -125,28 +125,159 @@
   .notes .verdict b{color:var(--t1)}
   footer{padding-top:66px;color:var(--t3);font-size:13px;max-width:70ch;line-height:1.6}
   footer b{color:var(--t2);font-weight:500}
+
+  /* the A/B comparison */
+  .abgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-top:1px solid var(--line);margin-top:0}
+  .ab{padding:22px 30px 26px 0;border-right:1px solid var(--line2);display:flex;flex-direction:column}
+  .ab:last-child{border-right:0;padding-right:0;padding-left:30px}
+  .ab-h{display:flex;align-items:center;gap:11px;font-size:19px;font-weight:600;letter-spacing:-.015em}
+  .ab-h .tag{font-family:var(--mono);font-size:11px;font-weight:400;border:1px solid var(--accent);color:var(--accent);
+             border-radius:2px;padding:2px 7px;letter-spacing:.06em}
+  .ab-h .ab-go{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--t3);text-decoration:none;letter-spacing:.06em}
+  .ab-h .ab-go:hover{color:var(--accent)}
+  .stage.sm{height:342px;margin-top:16px;border:1px solid var(--line2);border-right:1px solid var(--line2)}
+  .stage.sm iframe{width:1440px;height:1010px;transform:scale(.415);transform-origin:0 0}
+  .ab-claim{margin-top:18px;font-size:14.5px;color:var(--t1);line-height:1.55;font-weight:400}
+  .ab-l{list-style:none;margin-top:16px}
+  .ab-l li{font-size:13.5px;color:var(--t2);line-height:1.5;padding:8px 0 9px;border-bottom:1px solid var(--line2);
+           display:grid;grid-template-columns:15px 1fr;gap:10px}
+  .ab-l li i{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--t3)}
+  .ab-cost{margin-top:auto;padding-top:18px;font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.02em}
+  .ab-cost b{color:var(--accent);font-weight:400}
+  .ab-cost span{display:block;margin-top:5px;color:var(--t3);font-size:11px}
+
+  /* the price list */
+  table.price{width:100%;border-collapse:collapse;margin-top:0;border-top:1px solid var(--line)}
+  table.price th{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--t3);
+                 font-weight:400;text-align:left;padding:13px 16px 11px 0;border-bottom:1px solid var(--line2)}
+  table.price th.n,table.price td.n{text-align:right;padding-right:24px;width:104px}
+  table.price td{padding:14px 16px 15px 0;border-bottom:1px solid var(--line2);font-size:13.5px;color:var(--t2);
+                 line-height:1.5;vertical-align:top}
+  table.price td:first-child{font-size:14.5px;color:var(--t1);white-space:nowrap;width:264px}
+  table.price td:first-child a{text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
+  table.price td:first-child a:hover{color:var(--accent);border-color:var(--accent)}
+  table.price td:first-child em{font-style:normal;color:var(--t3);font-size:12px}
+  table.price td.n{font-family:var(--mono);font-size:15px;color:var(--t1)}
+  table.price tr.hot td.n{color:var(--accent)}
+  table.price tr.hot td:first-child{box-shadow:inset 2px 0 0 var(--accent);padding-left:13px}
+  table.price tr:last-child td{border-bottom:0}
+
+/* ═════════ demo nav. Scaffolding, never product chrome. ═════════ */
+.pl-nav{position:fixed;left:0;right:0;bottom:0;height:34px;z-index:90;background:#0b0b0c;border-top:1px solid #ffffff1a;
+        display:flex;align-items:center;padding:0 12px 0 0;font-size:11.5px;
+        font-family:'Hanken Grotesk',system-ui,sans-serif}
+.pl-nav::before{content:"";position:absolute;left:0;right:0;top:-1px;height:1px;
+                background:linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%)}
+.pl-nav .lbl{font-family:'Geist Mono',ui-monospace,monospace;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;
+             color:#6c6c74;padding:0 14px;border-right:1px solid #ffffff0e;height:100%;display:flex;align-items:center;
+             white-space:nowrap}
+.pl-nav a{color:#6c6c74;text-decoration:none;padding:0 11px;height:100%;display:flex;align-items:center;gap:7px;
+          white-space:nowrap;border-right:1px solid #ffffff0e;
+          transition:color .14s cubic-bezier(.22,.61,.36,1),background .14s cubic-bezier(.22,.61,.36,1)}
+.pl-nav a:hover{color:#f4f4f5;background:#ffffff08}
+.pl-nav a i{font-style:normal;font-family:'Geist Mono',ui-monospace,monospace;font-size:9.5px;color:#6c6c74}
+.pl-nav a.on{color:#f4f4f5;background:#FF7A2F1f;box-shadow:inset 0 2px 0 #FF7A2F}
+.pl-nav a.on i{color:#FF7A2F}
+.pl-nav .end{margin-left:auto;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
+             padding-left:14px;white-space:nowrap}
+body{padding-bottom:34px}
+
+/* ═════════ reduced motion ═════════
+   Not a blanket 0.01s kill, which destroys the feedback the page depends on.
+   The infinite loop stops, travel is removed, and every state change still
+   lands: colours, dates and counters update, rows still reorder, just at once. */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:1ms !important;animation-iteration-count:1 !important}
+  .node-xl::after,.nd.live::after{animation:none !important;opacity:.4 !important;transform:none !important}
+  .pl-lb>i,.pl-rel{transition-delay:0ms !important;transition-duration:80ms !important;transform:none !important}
+  .pl-panel,.pl-panel .pl-inner{transition-duration:1ms !important}
+  .d-cell.live,.d-cell.live.land{animation:none !important;transform:none !important;opacity:1 !important}
+  .meter i,.rule-earn{transition-duration:1ms !important}
+  .flychip{display:none !important}
+}
 </style>
 </head>
 <body>
 <div class="wrap">
 
 <header>
-  <div class="kicker">Origna8 · Educa8 · 30 Jul 2026 · direction chosen</div>
+  <div class="kicker">Origna8 · Educa8 · 30 Jul 2026 · one question left open</div>
   <h1>Educa8, rebuilt</h1>
-  <p class="deck">A redesign of the learning section, in two halves: <strong>the side Andrew writes on</strong> and <strong>the side loan officers read on</strong>. Below that, the five directions the design was picked from, kept as the record of how we got here.</p>
+  <p class="deck">A redesign of the learning section, in two halves: <strong>the side Andrew writes on</strong> and <strong>the side loan officers read on</strong>. The reading side is built twice, because there are two defensible answers to why anybody opens it, and picking between them is a product decision rather than a design one.</p>
   <div class="rule"></div>
 </header>
 
 <section class="v" id="system" style="padding-top:44px">
   <div class="vhead">
-    <h2><em>the system · arcade-ledger · chosen direction</em>Start here</h2>
+    <h2><em>three screens · arcade-ledger · all interactive</em>Start here</h2>
   </div>
   <nav class="idx" style="border-top:0;margin-top:0">
-    <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">A</span><span class="nm">Course studio<span>Andrew's side. Write lessons, set questions, publish. Plain English, with one switch that shows the plumbing underneath.</span></span><span class="fam">authoring</span><span class="go">open →</span></a>
-    <a class="row" href="v5-arcade-ledger.html" target="_blank"><span class="n">B</span><span class="nm">Your ledger<span>The learner's side. One lit lesson, a streak, and the branch board that moves when you finish something.</span></span><span class="fam">reading</span><span class="go">open →</span></a>
+    <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">W</span><span class="nm">Course studio<span>Andrew's side. Write lessons, set questions, publish. Plain English, with one switch that shows the plumbing underneath.</span></span><span class="fam">authoring</span><span class="go">open →</span></a>
+    <a class="row" href="learner-a-competitive.html" target="_blank"><span class="n">A</span><span class="nm">Your ledger<span>The learner's side, argued as competition. One lit lesson, a streak, and the branch board that moves when you finish something.</span></span><span class="fam">reading · A</span><span class="go">open →</span></a>
+    <a class="row" href="learner-b-mastery.html" target="_blank"><span class="n">B</span><span class="nm">What your files need<span>The learner's side, argued as relevance. No streak, no board, no points. Your open loans set the order and your own files supply the evidence.</span></span><span class="fam">reading · B</span><span class="go">open →</span></a>
   </nav>
   <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">
-    <b style="color:var(--t1)">The switch on Andrew's screen is the thing to try.</b> Off, it reads like a writing tool: "Lesson", "How long it takes", "Question at the end". On, every label becomes the real field name with its type, the IDs appear, and a live panel shows the exact object being saved as you type into it. Same screen, two audiences: Andrew never meets a piece of jargon, and the data model is right there to build against.
+    <b style="color:var(--t1)">The switch in the header is the thing to try, on all three.</b> Off, every screen reads in ordinary English. On, every label becomes the real field name with its type, the sources appear inline under the numbers, and a panel opens showing where each figure comes from, whether it is computed live or on a schedule, and what the backend would have to add that does not exist today. Same screen, two audiences: Andrew never meets a piece of jargon, and Jawad gets the data model to build against.
+  </p>
+</section>
+
+<!-- ═══════════ the A/B comparison, the point of this round ═══════════ -->
+<section class="v" id="ab" style="padding-top:72px">
+  <div class="vhead">
+    <h2><em>the open question · same content, same shell, opposite theory</em>Why would a 24 year old open this</h2>
+  </div>
+
+  <div class="abgrid">
+    <div class="ab">
+      <div class="ab-h"><span class="tag">A</span>Competition<a class="ab-go" href="learner-a-competitive.html" target="_blank">open ↗</a></div>
+      <div class="stage sm"><iframe src="learner-a-competitive.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
+      <p class="ab-claim">Learning should feed the scoreboard the app already has. Finishing a chapter moves your row on Domina8 Standings, in front of the branch, this week.</p>
+      <ul class="ab-l">
+        <li><i>+</i>Highest engagement ceiling of anything in the round, and the mechanics are proven elsewhere</li>
+        <li><i>+</i>Uses Domina8 Standings, which exists and is currently unused by Educa8</li>
+        <li><i>−</i>Motivates the top three and names the bottom half, weekly. The people who most need the training will rank lowest</li>
+        <li><i>−</i>The streak borrows a Duolingo mechanic where the stakes were self-chosen. Here the guilt comes from an employer</li>
+      </ul>
+      <div class="ab-cost"><b>7</b> new tables · <b>3</b> events · <b>2</b> jobs<span>plus a policy decision nobody has made</span></div>
+    </div>
+
+    <div class="ab">
+      <div class="ab-h"><span class="tag">B</span>Relevance and mastery<a class="ab-go" href="learner-b-mastery.html" target="_blank">open ↗</a></div>
+      <div class="stage sm"><iframe src="learner-b-mastery.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
+      <p class="ab-claim">Educa8 sits beside a live pipeline, which almost no LMS can say. Your twelve open loans set the reading order, and your own closed files supply the evidence for what you are weak at.</p>
+      <ul class="ab-l">
+        <li><i>+</i>Answers the real reason training goes unfinished: it feels disconnected from the work</li>
+        <li><i>+</i>Nothing is public, so nobody is demoralised by name. A manager sees capability, not a rank</li>
+        <li><i>+</i>Cheaper to run: no rank job, no timezone-correct streak, no season</li>
+        <li><i>−</i>Needs a concept taxonomy and a rule set mapping loan attributes to concepts. That is real work, and it is Andrew's, not Jawad's</li>
+      </ul>
+      <div class="ab-cost"><b>5</b> new tables · <b>1</b> event · <b>1</b> job<span>plus a taxonomy of roughly forty concepts</span></div>
+    </div>
+  </div>
+
+  <p style="margin-top:26px;font-size:14px;color:var(--t2);line-height:1.65;max-width:78ch">
+    <b style="color:var(--t1)">Both keep spaced retrieval</b>, because a mentor re-asking a question three days later is real pedagogy rather than a game trick, and it is the strongest mechanic in either version. They differ on everything else. A says the page should be exciting. B says it should be right. They are not mutually exclusive forever, but they are for the first build, because the second one to arrive will be read as decoration on the first.
+  </p>
+</section>
+
+<!-- ═══════════ the price list ═══════════ -->
+<section class="v" id="price" style="padding-top:72px">
+  <div class="vhead">
+    <h2><em>what each one costs to build · switch on any screen to see the detail</em>The price list</h2>
+  </div>
+  <table class="price">
+    <thead><tr><th>Screen</th><th class="n">New tables</th><th class="n">Events</th><th class="n">Jobs</th><th>The line that carries the cost</th></tr></thead>
+    <tbody>
+      <tr><td><a href="v3-editorial-longform.html" target="_blank">03 · The publication</a></td><td class="n">3</td><td class="n">2</td><td class="n">0</td><td>Nothing. No streak, no board, no sessions. If the decision is on build cost alone this one wins.</td></tr>
+      <tr><td><a href="learner-b-mastery.html" target="_blank">B · Relevance and mastery</a></td><td class="n">5</td><td class="n">1</td><td class="n">1</td><td>The concept taxonomy, and the rules mapping loan attributes to concepts. Authoring work, not engineering.</td></tr>
+      <tr><td><a href="v2-swiss-grid.html" target="_blank">02 · The syllabus</a></td><td class="n">6</td><td class="n">3</td><td class="n">2</td><td>"Minutes read" needs a session heartbeat, so a tab left open overnight is not nine hours of study.</td></tr>
+      <tr><td><a href="v1-product-dense.html" target="_blank">01 · The dashboard</a></td><td class="n">7</td><td class="n">3</td><td class="n">2</td><td>The 14 day sparkline and the competency readout. The table itself is nearly free.</td></tr>
+      <tr class="hot"><td><a href="learner-a-competitive.html" target="_blank">A · Competition</a> <em>and</em> <a href="v5-arcade-ledger.html" target="_blank">05</a></td><td class="n">7</td><td class="n">3</td><td class="n">2</td><td>Streak rollover at midnight in each officer's own timezone, and a rank fast enough that finishing visibly moves you.</td></tr>
+      <tr><td><a href="v4-mono-technical.html" target="_blank">04 · The instrument</a></td><td class="n">8</td><td class="n">4</td><td class="n">2</td><td>The run log. One write every thirty seconds per active reader, plus the rules for when an idle tab stops counting.</td></tr>
+    </tbody>
+  </table>
+  <p style="margin-top:18px;font-size:13.5px;color:var(--t3);line-height:1.65;max-width:78ch">
+    Two tables are shared by every row and are not counted as a difference: <b style="color:var(--t2)">chapter_completion</b> and <b style="color:var(--t2)">retrieval_check_attempt</b>. Anything Educa8 does needs both. Turning the plumbing switch on inside any screen lists every figure on it, the table or event behind it, and whether it is computed live, on write, or on a schedule.
   </p>
 </section>
 
@@ -154,14 +285,14 @@
   <div class="vhead">
     <h2><em>the record · five directions · one was chosen</em>How we got here</h2>
   </div>
-  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">The same content built five times in five different design families, to choose by comparison instead of by argument. <b style="color:var(--t1)">05, the ledger, won</b> and became the system above. The other four are left up because the reasons they lost are useful.</p>
+  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">The same content built five times in five different design families, to choose by comparison instead of by argument. <b style="color:var(--t1)">05, the ledger, won</b> and became the system above. The other four are left up because the reasons they lost are useful, and because <b style="color:var(--t1)">all five now carry the plumbing switch</b>, which is what the price list above is drawn from. Open any of them and turn it on.</p>
 </section>
 
 <dl class="meta">
   <div><dt>What is fixed</dt><dd>Sidebar, top bar, tokens, <b>Hanken Grotesk</b>. Every variant is inside the real product, not a microsite.</dd></div>
   <div><dt>What each one fixes</dt><dd>No reason to start · progress that means nothing · six identical cards · a dead AI Mentor · <b>Domina8 Standings unused</b>.</dd></div>
-  <div><dt>Sourced from</dt><dd>Four families from the taste library. The fifth is new, proposed for this brief, and named.</dd></div>
-  <div><dt>State shown</dt><dd>A real in-progress learner: <b>3 of 29 chapters</b>, 5 day streak, 3rd on the branch. Not an empty account.</dd></div>
+  <div><dt>Sourced from</dt><dd>Four families from the taste library. The fifth is new, proposed for this brief, and named. A and B share it, and differ only in argument.</dd></div>
+  <div><dt>State shown</dt><dd>A real in-progress learner, never an empty account. In A: <b>3 of 29 chapters</b>, 5 day streak, 3rd on the branch. In B: <b>12 open loans</b>, three of them running on something never read.</dd></div>
 </dl>
 
 <nav class="idx">
@@ -181,7 +312,7 @@
     <div class="stage"><iframe src="v1-product-dense.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
     <div class="notes">
       <h3>The move</h3>
-      <p>The six-card wall becomes a <b>real data table</b>: sequence, level, chapters done, time left, progress, last touched. Sortable. Locked rows say what unlocks them. The hero is the product itself, the chapter reader shown at an angle with real content in it.</p>
+      <p>The six-card wall becomes a <b>real data table</b>: sequence, level, chapters done, time left, progress, last touched. Sortable. Locked rows say what opens them. The hero is the product itself, the chapter reader shown at an angle with real content in it.</p>
       <h3>Carries</h3>
       <ul>
         <li><i>01</i>⌘K jump-to-chapter, J/K row navigation, real key chips</li>
@@ -277,7 +408,7 @@
         <li><i>03</i>Spaced retrieval: checks decay from +40 to +20 after seven days</li>
         <li><i>04</i>Motion spent on four specific events, not a page-wide fade</li>
       </ul>
-      <p class="verdict"><b>Reads as:</b> the direct answer to the actual brief. Highest engagement ceiling, highest backend cost, and the only one with a real design risk: the streak pressure could read as coercive rather than motivating.</p>
+      <p class="verdict"><b>Reads as:</b> the direct answer to the actual brief. Highest engagement ceiling, highest backend cost, and the only one with a real design risk: the streak pressure could read as coercive rather than motivating. That risk is what <a href="#ab" style="color:var(--accent)">the A and B pair above</a> exists to settle.</p>
     </div>
   </div>
 </section>
@@ -285,10 +416,24 @@
 <footer>
   <div class="rule thin" style="margin-bottom:26px"></div>
   <p><b>On colour.</b> Everything here is built on Origna8's real palette, sampled from what the app actually paints rather than from the variable names in its stylesheet, which turned out to disagree. The true logo sweep runs <b>#FF7A2F</b> orange to <b>#FF4D8D</b> pink to <b>#B14DFF</b> purple to <b>#4D6BFF</b> blue: warmer and younger than anything the product uses outside the logo mark, which is worth noticing on its own. The orange is the accent throughout, and it means one thing only: this is yours, this is next. The six course colours are the app's own.</p>
-  <p style="margin-top:16px">The chosen direction and Andrew's screen are fully interactive. The four archived variants are scaled previews here; <b>open full size</b> to click through them.</p>
+  <p style="margin-top:16px">Every screen here is fully interactive and carries the plumbing switch. The previews on this page are scaled and not clickable; <b>open full size</b> to use them. A bar across the bottom of every screen jumps between all nine.</p>
   <p style="margin-top:16px">Known gap: the app has a light theme and these are dark only.</p>
 </footer>
 
 </div>
+
+<nav class="pl-nav">
+  <span class="lbl">Origna8 · Educa8</span>
+  <a href="index.html" class="on" aria-current="page"><i>◂</i>Hub</a>
+  <a href="andrew-authoring.html"><i>W</i>Course studio</a>
+  <a href="learner-a-competitive.html"><i>A</i>Competition</a>
+  <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
+  <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
+  <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
+  <a href="v3-editorial-longform.html"><i>03</i>Publication</a>
+  <a href="v4-mono-technical.html"><i>04</i>Instrument</a>
+  <a href="v5-arcade-ledger.html"><i>05</i>Ledger</a>
+  <span class="end">9 screens · nothing is connected to a backend</span>
+</nav>
 </body>
 </html>

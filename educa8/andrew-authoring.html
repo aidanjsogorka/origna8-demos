@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Educa8 Course Studio · Origna8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ───────── Origna8 true tokens, sampled 30 Jul 2026 ───────── */
+:root{
+  --background:#08080a; --surface-1:#111114; --surface-2:#16161a; --surface-3:#1e1e23;
+  --text-1:#f4f4f5; --text-2:#a0a0a8; --text-3:#6c6c74;
+  --border:#ffffff1a; --border-2:#ffffff0e; --ring:#ffffff38;
+  --pos:#34d399; --pos-soft:#34d3991f; --neg:#f87171; --neg-soft:#f8717124; --warn:#f0b649; --warn-soft:#f0b64924;
+  --sweep:linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%);
+  --heat:#FF7A2F; --heat-soft:#FF7A2F1c; --heat-line:#FF7A2F5c;
+  --brand-violet:#7c3aed;
+  --rule:#ffffff12; --rule-2:#ffffff08;
+  --ease:cubic-bezier(.22,.61,.36,1); --dur-fast:.14s; --dur-base:.22s; --dur-slow:.32s;
+  --app-bar-h:3.5rem; --page-pad:1.5rem; --sidebar-w:246px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--background)}
+body{font-family:'Hanken Grotesk',system-ui,sans-serif;background:var(--background);color:var(--text-1);
+     font-size:16px;-webkit-font-smoothing:antialiased;display:flex;min-height:100vh}
+svg{display:block}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+::selection{background:#FF7A2F33}
+
+/* ───────── SHELL: sidebar ───────── */
+.sb{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:var(--surface-1);border-right:1px solid var(--border);
+    display:flex;flex-direction:column;padding:14px 12px 12px;height:100vh;position:sticky;top:0;z-index:5}
+.logo{display:flex;align-items:center;gap:9px;padding:2px 6px 16px}
+.logo-mark{width:26px;height:26px;border-radius:8px;background:var(--sweep);flex:0 0 26px}
+.logo-word{font-size:20px;font-weight:600;letter-spacing:-.045em;color:#fff}
+.logo-word i{font-style:normal;background:var(--sweep);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav-grp{margin-bottom:14px}
+.nav-lbl{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);padding:0 8px 7px;font-weight:600}
+.nav-i{display:flex;align-items:center;gap:9px;height:34px;padding:0 8px;border-radius:10px;color:var(--text-2);
+       font-size:14px;cursor:pointer;transition:background var(--dur-fast) var(--ease)}
+.nav-i:hover{background:#ffffff08}
+.nav-i.on{background:var(--surface-3);color:var(--text-1)}
+.nav-i svg{width:16px;height:16px;flex:0 0 16px;opacity:.85}
+.nav-i .sp{margin-left:auto;display:flex;align-items:center;gap:6px}
+.pill-2{background:var(--brand-violet);color:#fff;font-size:10.5px;font-weight:600;border-radius:999px;padding:1px 6px;line-height:16px}
+.livedot{width:5px;height:5px;border-radius:50%;background:var(--heat);box-shadow:0 0 0 3px var(--heat-soft);flex:0 0 5px}
+.sb-foot{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.org{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--border);border-radius:12px;padding:8px 10px}
+.org-av{width:26px;height:26px;border-radius:7px;background:var(--surface-3);border:1px solid var(--border);display:grid;place-items:center;
+        font-size:11px;font-weight:700;color:var(--text-2)}
+.org-t{font-size:12.5px;font-weight:600;line-height:1.25;color:var(--text-1)}
+.org-s{font-size:11px;color:var(--text-3);line-height:1.25}
+.collapse{display:flex;align-items:center;gap:9px;padding:0 10px;height:32px;font-size:13px;color:var(--text-2);border-radius:10px;cursor:pointer}
+.collapse:hover{background:#ffffff08}
+.user{display:flex;align-items:center;gap:9px;padding:6px 10px;border-radius:12px}
+.user-av{width:28px;height:28px;border-radius:50%;background:var(--surface-3);border:1px solid var(--border);display:grid;place-items:center;
+         font-size:11px;font-weight:700;color:var(--text-1)}
+
+/* ───────── SHELL: top bar ───────── */
+.main{flex:1;min-width:0;background:var(--background)}
+.top{height:var(--app-bar-h);display:flex;align-items:center;gap:10px;padding:0 var(--page-pad);border-bottom:1px solid var(--border-2)}
+.search{width:246px;height:34px;background:var(--surface-2);border:1px solid var(--border);border-radius:10px;display:flex;align-items:center;
+        gap:8px;padding:0 8px 0 10px;color:var(--text-3);font-size:12.5px;white-space:nowrap;overflow:hidden}
+.search svg{width:14px;height:14px;flex:0 0 14px;opacity:.7}
+.kbd{margin-left:auto;font-size:11px;color:var(--text-3);background:#ffffff0d;border:1px solid var(--border-2);border-radius:5px;padding:1px 5px}
+.ghost{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:var(--text-3)}
+.ghost:hover{background:#ffffff08;color:var(--text-2)}
+.ghost svg{width:16px;height:16px}
+.top-r{margin-left:auto;display:flex;align-items:center;gap:10px}
+.tp-pill{display:flex;align-items:center;gap:7px;height:30px;padding:0 11px;border:1px solid var(--border);border-radius:999px;font-size:12.5px;color:var(--text-2)}
+.vdot{width:6px;height:6px;border-radius:50%;background:var(--brand-violet)}
+.bell{position:relative;width:32px;height:32px;display:grid;place-items:center;color:var(--text-2)}
+.bell svg{width:17px;height:17px}
+.bell b{position:absolute;top:-1px;right:-2px;background:#e0218a;color:#fff;font-size:9.5px;font-weight:700;border-radius:999px;
+        min-width:15px;height:15px;display:grid;place-items:center;padding:0 3px;border:2px solid var(--background)}
+.thm{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;padding:2px}
+.thm span{width:26px;height:24px;display:grid;place-items:center;border-radius:999px;color:var(--text-3)}
+.thm span.on{background:var(--surface-3);color:var(--text-1)}
+.thm svg{width:14px;height:14px}
+.btn-w{height:32px;background:#fff;color:#0b0b0c;font-weight:600;font-size:13px;border-radius:999px;padding:0 14px}
+.btn-o{height:32px;background:transparent;color:#fff;font-size:13px;border:1px solid var(--brand-violet);border-radius:999px;padding:0 14px}
+
+/* ───────── content column ───────── */
+.page{padding:var(--page-pad) var(--page-pad) 72px}
+.pnl{background:var(--surface-1);border:1px solid var(--rule);border-radius:3px}
+.pnl-h{display:flex;align-items:center;gap:10px;padding:11px 16px;border-bottom:1px solid var(--rule-2)}
+.pnl-h h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);font-weight:600}
+.pnl-h .r{margin-left:auto;font-size:11px;color:var(--text-3);white-space:nowrap}
+
+/* dual label: both children share one grid cell, so the box is always the wider of the two */
+.lb{display:inline-grid;vertical-align:baseline}
+.lb>i{grid-area:1/1;font-style:normal;white-space:nowrap;display:flex;align-items:center;
+      transition:opacity .2s var(--ease),transform .28s var(--ease);transition-delay:var(--d,0ms)}
+.lb>i.lt{opacity:0;transform:translateY(4px);pointer-events:none;letter-spacing:-.01em}
+body.tech .lb>i.lp{opacity:0;transform:translateY(-4px)}
+body.tech .lb>i.lt{opacity:1;transform:none}
+.ty{font-family:'Geist Mono',monospace;font-size:9px;font-weight:400;letter-spacing:.02em;color:var(--text-3);
+    border:1px solid var(--border);border-radius:2px;padding:1px 4px;margin-left:6px;line-height:1.25}
+/* reserved id strip: never changes height, only fills */
+.idl{height:14px;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
+     opacity:0;transform:translateX(-5px);transition:opacity .24s var(--ease),transform .3s var(--ease);transition-delay:var(--d,0ms);
+     white-space:nowrap;line-height:14px}
+body.tech .idl{opacity:1;transform:none}
+.rel{height:14px;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
+     opacity:0;transition:opacity .24s var(--ease);line-height:14px;white-space:nowrap}
+body.tech .rel{opacity:1}
+.rel b{color:var(--heat);font-weight:400}
+
+/* ───────── page header ───────── */
+.hd{display:flex;align-items:flex-end;gap:24px;border-bottom:1px solid var(--rule);padding-bottom:14px}
+.hd-l{display:flex;flex-direction:column;gap:5px;min-width:0}
+.hd-kick{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);display:flex;gap:10px;align-items:center}
+.hd-kick s{text-decoration:none;color:var(--heat)}
+.hd h1{font-size:26px;font-weight:700;letter-spacing:-.78px;line-height:1}
+.hd-sub{font-size:13px;color:var(--text-2);max-width:46ch;line-height:1.45}
+.hd-r{margin-left:auto;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+.stats{display:flex;align-items:stretch}
+.stat{padding:0 18px;border-left:1px solid var(--rule);display:flex;flex-direction:column;gap:3px;min-width:104px}
+.stat-k{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);font-weight:600}
+.stat-v{font-size:21px;font-weight:500;letter-spacing:-.02em;line-height:1.05;display:flex;align-items:baseline;gap:5px}
+.stat-v em{font-style:normal;font-size:11px;color:var(--text-2)}
+
+/* the switch */
+.sw{display:flex;align-items:center;gap:11px;padding:0 0 0 18px;border-left:1px solid var(--rule)}
+.sw-l{font-size:12.5px;color:var(--text-2);white-space:nowrap}
+body.tech .sw-l{color:var(--text-1)}
+.sw-t{width:40px;height:22px;border-radius:999px;background:var(--surface-2);border:1px solid var(--border);position:relative;
+      cursor:pointer;transition:background var(--dur-base) var(--ease);flex:0 0 40px}
+.sw-t i{position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:var(--text-3);display:block;
+        transition:transform .28s var(--ease),background .28s var(--ease)}
+body.tech .sw-t{background:var(--surface-3);border-color:transparent;
+  background-image:linear-gradient(var(--surface-3),var(--surface-3)),var(--sweep);
+  background-origin:border-box;background-clip:padding-box,border-box}
+body.tech .sw-t i{transform:translateX(18px);background:var(--heat)}
+.sw-s{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);width:96px;line-height:1.35}
+
+/* ───────── courses table ───────── */
+.ct{width:100%;border-collapse:collapse;table-layout:fixed}
+.ct th{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);font-weight:600;text-align:left;
+       padding:12px 12px 9px;border-bottom:1px solid var(--rule);white-space:nowrap}
+.ct th .lb>i.lt{text-transform:none;letter-spacing:0;font-size:10.5px;color:var(--text-2)}
+.ct th.n,.ct td.n{text-align:right}
+.ct th.n .lb{justify-items:end}
+.ct td{padding:11px 12px;border-bottom:1px solid var(--rule-2);vertical-align:middle;font-size:13px;color:var(--text-2);white-space:nowrap}
+.ct tr:last-child td{border-bottom:0}
+.ct tr.open-row td{background:#ffffff05}
+.ct tr.open-row td:first-child{box-shadow:inset 2px 0 0 var(--heat)}
+.ct tr.sel td{background:var(--heat-soft);color:var(--text-1)}
+.ct tr.sel td:first-child{box-shadow:inset 2px 0 0 var(--heat)}
+.ct tr.open-row{cursor:pointer}
+.ct tr.open-row:hover td{background:#ffffff0a}
+.cname{display:flex;align-items:center;gap:11px;min-width:0}
+.cover{width:20px;height:20px;flex:0 0 20px;border-radius:6px}
+.cname .t{font-size:14px;color:var(--text-1);font-weight:500;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis}
+.opencaret{margin-left:auto;color:var(--text-3);opacity:0;transition:opacity var(--dur-fast) var(--ease)}
+.ct tr.open-row:hover .opencaret{opacity:1}
+.st{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;max-width:100%;overflow:hidden}
+.st>.sq{width:7px;height:7px;border-radius:2px;display:block;flex:0 0 7px}
+.st.live{color:var(--text-2)} .st.live>.sq{background:var(--text-2)}
+.st.draft{color:var(--heat)} .st.draft>.sq{background:transparent;border:1px dashed var(--heat-line)}
+.lessbar{display:flex;gap:3px}
+.lessbar i{width:11px;height:16px;border-radius:2px;background:var(--surface-3);border:1px solid var(--rule-2);display:block}
+.lessbar i.f{background:var(--text-2);border-color:transparent}
+.lessbar i.e{background:transparent;border:1px dashed #ffffff26}
+
+/* ───────── workspace bar ───────── */
+.wsb{display:flex;align-items:center;gap:14px;margin-top:26px;padding-bottom:13px;border-bottom:1px solid var(--rule)}
+.wsb-node{width:34px;height:34px;flex:0 0 34px;border-radius:11px;display:grid;place-items:center;color:#0b0b0c;font-weight:700;font-size:13px}
+.wsb h2{font-size:19px;font-weight:600;letter-spacing:-.03em;line-height:1.1}
+.chip{font-size:10.5px;letter-spacing:.09em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;padding:3px 7px;color:var(--text-3);white-space:nowrap}
+.chip.draft{color:var(--heat);border-color:var(--heat-line)}
+.wsb-r{margin-left:auto;display:flex;align-items:center;gap:12px}
+/* the sanctioned inset-border sweep pill */
+.btn-sweep{height:34px;padding:0 17px;border-radius:999px;font-size:13px;font-weight:500;color:var(--text-1);display:flex;align-items:center;gap:9px;
+  border:1px solid transparent;background-image:linear-gradient(var(--surface-1),var(--surface-1)),var(--sweep);
+  background-origin:border-box;background-clip:padding-box,border-box;transition:filter var(--dur-fast) var(--ease)}
+.btn-sweep:hover{filter:brightness(1.35)}
+.btn-sweep svg{width:15px;height:15px}
+.cta{height:34px;background:var(--heat);color:#0b0b0c;font-weight:600;font-size:13px;border-radius:999px;padding:0 17px;display:flex;
+     align-items:center;gap:9px;transition:filter var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease);white-space:nowrap}
+.cta:hover{filter:brightness(1.07)} .cta:active{transform:translateY(1px)}
+.cta svg{width:15px;height:15px}
+.btn-line{height:32px;border:1px solid var(--ring);border-radius:999px;padding:0 14px;font-size:12.5px;color:var(--text-1);white-space:nowrap}
+.btn-line:hover{background:#ffffff0a}
+.btn-q{height:26px;border:1px solid var(--rule);border-radius:2px;padding:0 8px;font-size:11px;color:var(--text-2);white-space:nowrap}
+.btn-q:hover{border-color:var(--ring);color:var(--text-1)}
+
+/* ───────── course details strip ───────── */
+.det{display:grid;grid-template-columns:1fr 176px 186px 1fr;border-bottom:1px solid var(--rule)}
+.fld{padding:14px 18px 13px;border-right:1px solid var(--rule-2);display:flex;flex-direction:column;gap:7px;min-width:0}
+.det .fld:last-child{border-right:0}
+.fld-k{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);font-weight:600;display:flex;align-items:center}
+.fld-k .lb>i.lt{letter-spacing:0;text-transform:none;font-size:11px;color:var(--text-2)}
+.inp{background:var(--surface-2);border:1px solid var(--rule);border-radius:2px;padding:7px 10px;font-size:14px;color:var(--text-1);
+     font-family:inherit;width:100%;outline:none;transition:border-color var(--dur-fast) var(--ease)}
+.inp:focus{border-color:var(--ring)}
+.inp::placeholder{color:var(--text-3)}
+select.inp{cursor:pointer;appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='none' stroke='%236c6c74' stroke-width='1.6'><path d='M2 4.5 6 8.5 10 4.5'/></svg>");
+  background-repeat:no-repeat;background-position:right 9px center;padding-right:26px}
+.sw6{display:flex;gap:6px;align-items:center}
+.sw6 button{width:24px;height:24px;border-radius:8px;border:1px solid transparent;position:relative;transition:transform var(--dur-fast) var(--ease)}
+.sw6 button:hover{transform:translateY(-1px)}
+.sw6 button.on{box-shadow:0 0 0 1px var(--background),0 0 0 2px var(--ring)}
+.hintl{font-size:11.5px;color:var(--text-3);line-height:1.45}
+
+/* ───────── 3 col workspace ───────── */
+.ws{display:grid;grid-template-columns:268px 1fr 348px;border-bottom:1px solid var(--rule)}
+.spine{border-right:1px solid var(--rule);padding:16px 18px 20px 0}
+.sh{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;display:flex;align-items:center;gap:8px}
+.sh .lb>i.lt{text-transform:none;letter-spacing:0;font-size:11px;color:var(--text-2)}
+.chip .lb>i.lt{text-transform:none;letter-spacing:0;font-size:10.5px}
+.sh .n{margin-left:auto;letter-spacing:0;text-transform:none;font-family:'Geist Mono',monospace;font-size:10.5px;white-space:nowrap;flex:0 0 auto}
+.lrow{display:flex;gap:11px;align-items:flex-start;padding:9px 8px 9px 0;border-bottom:1px solid var(--rule-2);cursor:pointer;
+      transition:background var(--dur-fast) var(--ease)}
+.lrow:hover{background:#ffffff05}
+.lrow.on{background:var(--heat-soft);box-shadow:inset 2px 0 0 var(--heat)}
+.lrow.on{padding-left:8px}
+.lrow.drag{opacity:.35}
+.lrow.over{box-shadow:inset 0 2px 0 var(--heat)}
+.lnode{width:26px;height:26px;flex:0 0 26px;border-radius:9px;display:grid;place-items:center;font-size:11px;
+       border:1px solid var(--rule);background:var(--surface-2);color:var(--text-3);font-family:'Geist Mono',monospace}
+.lrow.written .lnode{background:var(--surface-3);border-color:var(--ring);color:var(--text-1)}
+.lrow.on .lnode{background:var(--heat);border-color:var(--heat);color:#0b0b0c;font-weight:600}
+.lrow.empty .lnode{border-style:dashed;background:transparent}
+.lmid{min-width:0;flex:1}
+.lt2{font-size:13.5px;color:var(--text-1);line-height:1.25;letter-spacing:-.01em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lrow.empty .lt2{color:var(--text-3)}
+.lm{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lact{display:flex;flex-direction:column;gap:2px;opacity:0;transition:opacity var(--dur-fast) var(--ease)}
+.lrow:hover .lact,.lrow.on .lact{opacity:1}
+.lact button{width:18px;height:13px;display:grid;place-items:center;color:var(--text-3);border-radius:2px}
+.lact button:hover{background:#ffffff12;color:var(--text-1)}
+.lact svg{width:11px;height:11px}
+.grip{width:12px;color:var(--text-3);display:grid;place-items:center;cursor:grab;opacity:0;transition:opacity var(--dur-fast) var(--ease)}
+.lrow:hover .grip{opacity:.8}
+.note{font-size:11.5px;color:var(--text-2);line-height:1.5;margin-top:12px;padding-left:11px;border-left:1px solid var(--rule)}
+.note b{color:var(--text-1);font-weight:500}
+</style>
+<style>
+/* ───────── editor column ───────── */
+.ed{padding:16px 26px 24px;min-width:0;border-right:1px solid var(--rule)}
+.ed-top{display:flex;align-items:flex-end;gap:16px;padding-bottom:12px;border-bottom:1px solid var(--rule)}
+.ed-top .grow{flex:1;min-width:0;display:flex;flex-direction:column;gap:6px}
+.ttlinp{background:transparent;border:0;outline:none;font-family:inherit;font-size:24px;font-weight:600;letter-spacing:-.035em;
+        color:var(--text-1);width:100%;padding:0;line-height:1.15}
+.ttlinp::placeholder{color:var(--text-3);font-weight:400}
+.mini{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
+.step{display:flex;align-items:center;border:1px solid var(--rule);border-radius:2px;background:var(--surface-2)}
+.step button{width:24px;height:28px;color:var(--text-3);display:grid;place-items:center;font-size:14px}
+.step button:hover{color:var(--text-1);background:#ffffff0a}
+.step .v{min-width:52px;text-align:center;font-family:'Geist Mono',monospace;font-size:13px;color:var(--text-1)}
+.toolbar{display:flex;align-items:center;gap:6px;padding:11px 0 10px;border-bottom:1px solid var(--rule-2)}
+.toolbar .sep{width:1px;height:16px;background:var(--rule);margin:0 4px}
+.toolbar .r{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);display:flex;gap:12px;white-space:nowrap}
+.toolbar .r b{color:var(--text-2);font-weight:400}
+
+.body{outline:none;padding:18px 0 4px;font-size:14.5px;line-height:1.62;color:var(--text-2);max-width:58ch;min-height:200px}
+.body:focus-visible{outline:none}
+.body .lede{font-size:17px;line-height:1.55;color:var(--text-1);font-weight:300;letter-spacing:-.005em;margin-bottom:16px}
+.body h3{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin:22px 0 8px}
+.body p{margin-bottom:12px}
+.body ul{margin:0 0 14px 0;padding:0;list-style:none}
+.body li{padding-left:16px;position:relative;margin-bottom:6px}
+.body li::before{content:"";position:absolute;left:0;top:10px;width:6px;height:1px;background:var(--text-3)}
+.body b,.body strong{color:var(--text-1);font-weight:600}
+.body .defs{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:4px 0 16px}
+.body .def{display:flex;gap:16px;padding:9px 0;border-bottom:1px solid var(--rule-2);font-size:13.5px}
+.body .def:last-child{border-bottom:0}
+.body .def b{flex:0 0 132px;color:var(--text-1);font-weight:500}
+.emptybody{border:1px dashed #ffffff1f;border-radius:2px;padding:22px 20px;margin-top:18px;
+  background:repeating-linear-gradient(135deg,#ffffff04 0 6px,transparent 6px 12px)}
+.emptybody h4{font-size:15px;font-weight:600;color:var(--text-1);letter-spacing:-.02em}
+.emptybody p{font-size:12.5px;color:var(--text-2);margin-top:7px;line-height:1.55;max-width:46ch}
+
+/* question builder */
+.qb{margin-top:26px;border:1px solid var(--rule);border-left:2px solid var(--heat);border-radius:3px;background:var(--surface-1)}
+.qb-h{display:flex;align-items:center;gap:9px;padding:10px 15px;border-bottom:1px solid var(--rule-2)}
+.qb-h .k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--heat);font-weight:600;display:flex;align-items:center}
+.qb-h .k .lb>i.lt{letter-spacing:0;text-transform:none;font-size:11px}
+.qb-h .r{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3)}
+.qb-body{padding:14px 15px 4px}
+.qprompt{background:transparent;border:0;outline:none;font-family:inherit;font-size:15.5px;line-height:1.45;color:var(--text-1);
+         width:100%;resize:none;overflow:hidden}
+.qprompt::placeholder{color:var(--text-3)}
+.opts{padding:12px 15px 4px;display:flex;flex-direction:column;gap:6px}
+.optr{display:flex;align-items:center;gap:11px;padding:8px 11px;border:1px solid var(--rule);border-radius:3px;background:var(--surface-2);
+      transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.optr:hover{border-color:var(--ring)}
+.optk{width:20px;height:20px;flex:0 0 20px;border-radius:6px;border:1px solid var(--rule);display:grid;place-items:center;
+      font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);cursor:pointer;transition:all var(--dur-fast) var(--ease)}
+.optk:hover{border-color:var(--ring);color:var(--text-1)}
+.optr input{background:transparent;border:0;outline:none;font-family:inherit;font-size:13.5px;color:var(--text-2);flex:1;min-width:0}
+.optr input::placeholder{color:var(--text-3)}
+.optr.right{border-color:var(--pos);background:var(--pos-soft)}
+.optr.right .optk{border-color:var(--pos);color:var(--pos);background:var(--pos-soft)}
+.optr.right input{color:var(--text-1)}
+.optr .mk{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3);white-space:nowrap;display:none}
+.optr.right .mk{display:block;color:var(--pos)}
+.qwhy{padding:14px 15px 4px;border-top:1px solid var(--rule-2);margin-top:12px}
+.qwhy-k{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin-bottom:7px;display:flex;align-items:center}
+.qwhy-k .lb>i.lt{letter-spacing:0;text-transform:none;font-size:11px;color:var(--text-2)}
+.qwhy textarea{background:transparent;border:0;outline:none;font-family:inherit;font-size:13.5px;line-height:1.55;color:var(--text-2);
+               width:100%;resize:none;overflow:hidden}
+.qb-f{display:flex;align-items:center;gap:14px;padding:12px 15px;border-top:1px solid var(--rule-2);font-size:11.5px;color:var(--text-3);flex-wrap:wrap}
+.qb-f .ok{color:var(--pos)}
+.qb-f .warn{color:var(--warn)}
+
+/* right rail: preview + json drawer */
+.rail{padding:16px 0 20px 20px;min-width:0}
+.railstick{position:sticky;top:16px;height:min(724px,calc(100vh - 128px));display:flex;flex-direction:column}
+.prev{flex:1;min-height:0;border:1px solid var(--rule);border-radius:3px;background:var(--surface-1);display:flex;flex-direction:column;overflow:hidden}
+.prev-h{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--rule-2);
+        font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);font-weight:600}
+.prev-h .r{margin-left:auto;letter-spacing:0;text-transform:none;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);font-weight:400}
+.screen{flex:1;overflow:auto;padding:15px 15px 18px;background:var(--background)}
+.screen::-webkit-scrollbar{width:6px} .screen::-webkit-scrollbar-thumb{background:#ffffff1a;border-radius:3px}
+.pv-crumb{font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--text-3)}
+.pv-h{font-size:18px;font-weight:600;letter-spacing:-.03em;margin-top:6px;line-height:1.15;color:var(--text-1)}
+.pv-meta{display:flex;gap:0;margin-top:9px;padding:7px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+         font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-2)}
+.pv-meta div{padding-right:10px;margin-right:10px;border-right:1px solid var(--rule-2);white-space:nowrap}
+.pv-meta div:last-child{border:0;margin:0;padding:0}
+.pv-meta .h{color:var(--heat)}
+.pv-lede{font-size:13px;line-height:1.55;color:var(--text-1);font-weight:300;margin-top:13px}
+.pv-k{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin:16px 0 6px}
+.pv-t{width:100%;border-collapse:collapse}
+.pv-t td{padding:6px 0;border-bottom:1px solid var(--rule-2);font-size:11.5px;color:var(--text-2);vertical-align:top;line-height:1.45}
+.pv-t td:first-child{width:96px;padding-right:12px;color:var(--text-1);font-weight:500}
+.pv-chk{margin-top:16px;border:1px solid var(--rule);border-left:2px solid var(--heat);border-radius:3px;background:var(--surface-1);padding:11px 12px 12px}
+.pv-chk .who{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--heat);font-weight:600;display:flex;align-items:center;gap:7px}
+.pv-q{font-size:12.5px;color:var(--text-1);line-height:1.4;margin-top:9px}
+.pv-o{display:flex;align-items:flex-start;gap:9px;padding:7px 9px;border:1px solid var(--rule);border-radius:3px;background:var(--surface-2);
+      font-size:11.5px;color:var(--text-2);margin-top:6px;line-height:1.35}
+.pv-o span{font-family:'Geist Mono',monospace;font-size:9.5px;color:var(--text-3);flex:0 0 auto;
+           width:16px;height:16px;border:1px solid var(--rule);border-radius:5px;display:grid;place-items:center}
+.pv-pay{font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);margin-top:10px;padding-top:9px;border-top:1px solid var(--rule-2)}
+.pv-pay b{color:var(--heat);font-weight:400}
+
+.jsonp{position:absolute;inset:0;background:var(--surface-1);border:1px solid var(--rule);border-radius:3px;display:flex;flex-direction:column;
+       overflow:hidden;clip-path:inset(0 0 0 100%);transition:clip-path .42s var(--ease)}
+body.tech .jsonp{clip-path:inset(0 0 0 0)}
+.jsonp::after{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--sweep);z-index:2}
+.jsonp .inner{display:flex;flex-direction:column;height:100%;transform:translateX(22px);transition:transform .42s var(--ease)}
+body.tech .jsonp .inner{transform:none}
+.jh{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid var(--rule-2);
+    font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);font-weight:600}
+.jh .dot{width:5px;height:5px;border-radius:50%;background:var(--text-3);transition:background .3s var(--ease),box-shadow .3s var(--ease)}
+.jh .dot.hot{background:var(--heat);box-shadow:0 0 0 3px var(--heat-soft)}
+.jh .r{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:0;text-transform:none;color:var(--text-3);font-weight:400}
+.jbody{flex:1;overflow:auto;padding:12px 14px 14px;font-family:'Geist Mono',monospace;font-size:10.5px;line-height:1.7;
+       white-space:pre-wrap;overflow-wrap:anywhere;color:var(--text-2)}
+.jbody::-webkit-scrollbar{width:6px} .jbody::-webkit-scrollbar-thumb{background:#ffffff1a;border-radius:3px}
+.jk{color:var(--text-3)} .js{color:var(--text-2)} .jn{color:var(--text-1)} .jc{color:#4a4a52}
+.jflash{animation:jf .8s var(--ease)}
+@keyframes jf{0%{background:#FF7A2F40}100%{background:transparent}}
+.jsec{color:var(--text-3);border-top:1px solid var(--rule-2);display:block;margin:12px 0 8px;padding-top:9px;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase}
+.jf2{padding:10px 14px;border-top:1px solid var(--rule-2);font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);line-height:1.65}
+.jf2 b{color:var(--heat);font-weight:400}
+
+/* ───────── bottom three panels ───────── */
+.b3{display:grid;grid-template-columns:1.25fr .82fr 1.06fr;border-bottom:1px solid var(--rule)}
+.b3>div{border-right:1px solid var(--rule);padding:16px 20px 20px}
+.b3>div:first-child{padding-left:0}
+.b3>div:last-child{border-right:0;padding-right:0}
+.reqs{display:flex;flex-direction:column;gap:1px;margin-top:12px}
+.req{display:flex;align-items:center;gap:11px;padding:8px 10px 8px 0;border-bottom:1px solid var(--rule-2);cursor:pointer}
+.req:hover .box{border-color:var(--ring)}
+.box{width:16px;height:16px;flex:0 0 16px;border:1px solid var(--rule);border-radius:3px;display:grid;place-items:center;color:transparent;
+     transition:all var(--dur-fast) var(--ease)}
+.req.on .box{background:var(--heat);border-color:var(--heat);color:#0b0b0c}
+.box svg{width:11px;height:11px}
+.req .t{font-size:13px;color:var(--text-2)}
+.req.on .t{color:var(--text-1)}
+.req .n{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);white-space:nowrap}
+.earn{display:flex;flex-direction:column;gap:0;margin-top:12px}
+.erow{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:9px 0;border-bottom:1px solid var(--rule-2)}
+.erow:last-child{border-bottom:0}
+.erow .k{font-size:12.5px;color:var(--text-2);display:flex;align-items:center}
+.erow .k .lb>i.lt{font-size:11.5px}
+.pubck{display:flex;flex-direction:column;gap:0;margin-top:12px}
+.pck{display:flex;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid var(--rule-2);font-size:12.5px;color:var(--text-2)}
+.pck:last-child{border-bottom:0}
+.pck svg{width:13px;height:13px;flex:0 0 13px}
+.pck.ok svg{color:var(--pos)} .pck.no svg{color:var(--warn)}
+.pck .r{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3)}
+.pubact{display:flex;align-items:center;gap:14px;margin-top:16px}
+
+/* preview overlay */
+.ov{position:fixed;inset:0;background:#000000e8;z-index:80;display:none;align-items:flex-start;justify-content:center;padding:52px 24px}
+.ov.on{display:flex}
+.ovp{width:836px;max-height:calc(100vh - 104px);background:var(--surface-1);border:1px solid var(--border);border-radius:3px;
+     display:flex;flex-direction:column;overflow:hidden;animation:ovin .3s var(--ease)}
+@keyframes ovin{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.ovh{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid var(--rule)}
+.ovh .k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);font-weight:600}
+.ovh .r{margin-left:auto;display:flex;align-items:center;gap:14px;font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3)}
+.ovb{overflow:auto;padding:26px 40px 34px;background:var(--background)}
+.ovb::-webkit-scrollbar{width:8px} .ovb::-webkit-scrollbar-thumb{background:#ffffff1a;border-radius:4px}
+.ovb .c{max-width:60ch}
+.ovb .crumb{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3)}
+.ovb h2{font-size:30px;font-weight:600;letter-spacing:-.035em;margin-top:8px;line-height:1.1}
+.ovb .meta{display:flex;margin-top:12px;padding:9px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+           font-family:'Geist Mono',monospace;font-size:12px;color:var(--text-2)}
+.ovb .meta div{padding-right:15px;margin-right:15px;border-right:1px solid var(--rule-2);white-space:nowrap}
+.ovb .meta div:last-child{border:0;margin:0;padding:0}
+.ovb .meta .h{color:var(--heat)}
+.ovb .lede{font-size:18px;line-height:1.6;color:var(--text-1);margin-top:20px;font-weight:300;letter-spacing:-.005em}
+.ovb h3{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;margin:26px 0 10px}
+.ovb p{font-size:15px;line-height:1.62;color:var(--text-2);margin-bottom:13px}
+.ovb ul{margin:0 0 14px;padding:0;list-style:none}
+.ovb li{padding-left:17px;position:relative;margin-bottom:7px;font-size:15px;color:var(--text-2);line-height:1.6}
+.ovb li::before{content:"";position:absolute;left:0;top:11px;width:7px;height:1px;background:var(--text-3)}
+.ovb b,.ovb strong{color:var(--text-1);font-weight:600}
+.ovb .defs{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);margin:6px 0 18px}
+.ovb .def{display:flex;gap:18px;padding:10px 0;border-bottom:1px solid var(--rule-2);font-size:14px;color:var(--text-2)}
+.ovb .def:last-child{border-bottom:0}
+.ovb .def b{flex:0 0 150px;color:var(--text-1);font-weight:500}
+.ovchk{margin-top:26px;border:1px solid var(--rule);border-left:2px solid var(--heat);border-radius:3px;background:var(--surface-1)}
+.ovchk .h{display:flex;align-items:center;gap:9px;padding:11px 16px;border-bottom:1px solid var(--rule-2);
+          font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--heat);font-weight:600}
+.ovchk .h .r{margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);letter-spacing:0;text-transform:none;font-weight:400}
+.ovchk .q{padding:15px 16px 2px;font-size:16px;color:var(--text-1);line-height:1.45}
+.ovchk .os{padding:13px 16px 6px;display:flex;flex-direction:column;gap:7px}
+.ovo{display:flex;align-items:center;gap:12px;padding:11px 13px;border:1px solid var(--rule);border-radius:3px;background:var(--surface-2);
+     text-align:left;font-size:13.5px;color:var(--text-2);width:100%;transition:border-color var(--dur-fast) var(--ease)}
+.ovo:hover{border-color:var(--ring);color:var(--text-1)}
+.ovo i{width:20px;height:20px;flex:0 0 20px;border-radius:6px;border:1px solid var(--rule);display:grid;place-items:center;
+       font-family:'Geist Mono',monospace;font-size:10.5px;font-style:normal;color:var(--text-3)}
+.ovo.right{border-color:var(--pos);background:var(--pos-soft);color:var(--text-1)}
+.ovo.right i{border-color:var(--pos);color:var(--pos)}
+.ovo.wrong{border-color:var(--neg);background:var(--neg-soft);color:var(--text-1)}
+.ovo.wrong i{border-color:var(--neg);color:var(--neg)}
+.ovfb{padding:12px 16px 16px;font-size:13px;color:var(--text-2);line-height:1.55;display:none}
+.ovfb.show{display:block}
+.ovfb b{color:var(--text-1);font-weight:500}
+.ovbar{display:flex;gap:16px;padding:12px 16px;border-top:1px solid var(--rule-2);font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3)}
+.ovbar .h{color:var(--heat)}
+
+/* toast */
+.toast{position:fixed;left:50%;bottom:28px;transform:translate(-50%,16px);opacity:0;background:var(--surface-3);border:1px solid var(--border);
+       border-left:2px solid var(--heat);border-radius:3px;padding:11px 16px;font-size:13px;color:var(--text-1);z-index:90;
+       transition:opacity .24s var(--ease),transform .3s var(--ease);pointer-events:none;max-width:520px;line-height:1.5}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast .m{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);display:block;margin-top:4px}
+</style>
+</head>
+<body>
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-cup" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/><path d="M12 14v4M9 20h6"/></symbol>
+  <symbol id="i-cal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3.5" y="5" width="17" height="15" rx="2"/><path d="M3.5 10h17M8 3v4M16 3v4"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M13 3 5 13h6l-1 8 8-10h-6l1-8Z"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"><path d="M12 3 4 7v10l8 4 8-4V7l-8-4Z"/><path d="M4 7l8 4 8-4M12 11v10"/></symbol>
+  <symbol id="i-split" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h6l4 6h6M4 18h6l2-3"/><path d="M17 3l3 3-3 3M17 15l3 3-3 3"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="9" cy="8" r="3.2"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0"/><path d="M16 6.2a3 3 0 0 1 0 5.6M17.5 19a5.4 5.4 0 0 0-3-4.6"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5 4h3l1.6 4-2 1.4a12 12 0 0 0 5 5l1.4-2 4 1.6v3a2 2 0 0 1-2.2 2C10.5 19 5 13.5 4.4 6.2A2 2 0 0 1 5 4Z"/></symbol>
+  <symbol id="i-bot" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="4" y="8" width="16" height="11" rx="3"/><path d="M12 4v4M8.5 13v1.5M15.5 13v1.5"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9.5" y="3" width="5" height="10" rx="2.5"/><path d="M6 11a6 6 0 0 0 12 0M12 17v4"/></symbol>
+  <symbol id="i-msg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5h16v11H9l-5 4V5Z"/></symbol>
+  <symbol id="i-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19V5M4 19h16"/><path d="M8 15l4-5 3 3 5-6"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="11" cy="11" r="6.5"/><path d="M16 16l4 4"/></symbol>
+  <symbol id="i-bug" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="8" y="7" width="8" height="12" rx="4"/><path d="M8 11H4M20 11h-4M8 16H4.5M20 16h-3.5M9.5 7 8 4.5M14.5 7 16 4.5"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 21V4M6 4h11l-2 3.5L17 11H6"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6.5 10a5.5 5.5 0 1 1 11 0c0 4 1.5 5.5 1.5 5.5H5s1.5-1.5 1.5-5.5Z"/><path d="M10 19a2 2 0 0 0 4 0"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5 19 19M19 5l-1.5 1.5M6.5 17.5 5 19"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5Z"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M7 8h11l-3-3M17 16H6l3 3"/></symbol>
+  <symbol id="i-chevl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M14 6l-6 6 6 6"/></symbol>
+  <symbol id="i-chevr" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M10 6l6 6-6 6"/></symbol>
+  <symbol id="i-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 15l6-6 6 6"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></symbol>
+  <symbol id="i-out" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 5h5v14h-5M12 12H4M8 8l-4 4 4 4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12.5 10 17 19 7"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="2.8"/></symbol>
+  <symbol id="i-grip" viewBox="0 0 24 24" fill="currentColor"><circle cx="9" cy="6" r="1.3"/><circle cx="15" cy="6" r="1.3"/><circle cx="9" cy="12" r="1.3"/><circle cx="15" cy="12" r="1.3"/><circle cx="9" cy="18" r="1.3"/><circle cx="15" cy="18" r="1.3"/></symbol>
+  <symbol id="i-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h13M13 6l6 6-6 6"/></symbol>
+  <symbol id="i-cap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4 2.5 8.5 12 13l9.5-4.5L12 4Z"/><path d="M6.5 11v4.5c0 1.4 2.5 2.5 5.5 2.5s5.5-1.1 5.5-2.5V11M21.5 8.5V14"/></symbol>
+</svg>
+
+<!-- ══════ SIDEBAR ══════ -->
+<aside class="sb">
+  <div class="logo"><div class="logo-mark"></div><div class="logo-word">Origna<i>8</i></div></div>
+  <div class="nav-grp">
+    <div class="nav-lbl">Origna8 HQ</div>
+    <div class="nav-i"><svg><use href="#i-grid"/></svg>Command Center</div>
+    <div class="nav-i"><svg><use href="#i-cup"/></svg>Domina8 Standings<span class="sp"><i class="livedot"></i></span></div>
+    <div class="nav-i"><svg><use href="#i-cal"/></svg>My Day</div>
+  </div>
+  <div class="nav-grp">
+    <div class="nav-lbl">Genera8 Market</div>
+    <div class="nav-i"><svg><use href="#i-bolt"/></svg>Live Leads</div>
+    <div class="nav-i"><svg><use href="#i-box"/></svg>Lead Packs</div>
+    <div class="nav-i"><svg><use href="#i-split"/></svg>Alloca8</div>
+  </div>
+  <div class="nav-grp">
+    <div class="nav-lbl">Cultiva8</div>
+    <div class="nav-i"><svg><use href="#i-users"/></svg>Relationships</div>
+    <div class="nav-i"><svg><use href="#i-phone"/></svg>Dialer</div>
+    <div class="nav-i"><svg><use href="#i-bot"/></svg>Activa8 Agents</div>
+    <div class="nav-i"><svg><use href="#i-mic"/></svg>Activa8 Voice</div>
+    <div class="nav-i"><svg><use href="#i-msg"/></svg>Activa8 Text<span class="sp"><b class="pill-2 mono">2</b></span></div>
+    <div class="nav-i"><svg><use href="#i-chart"/></svg>Activa8 Insights</div>
+  </div>
+  <div class="sb-foot">
+    <div class="org">
+      <div class="org-av">O8</div>
+      <div><div class="org-t">Origna8 Corpor…</div><div class="org-s">Admin</div></div>
+      <svg style="margin-left:auto;width:15px;height:15px;color:var(--text-3)"><use href="#i-swap"/></svg>
+    </div>
+    <div class="collapse"><svg style="width:15px;height:15px"><use href="#i-chevl"/></svg>Collapse</div>
+    <div class="user">
+      <div class="user-av">AS</div>
+      <div><div class="org-t">Aidan Sogorka</div><div class="org-s">Admin</div></div>
+      <svg style="margin-left:auto;width:15px;height:15px;color:var(--text-3)"><use href="#i-out"/></svg>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+  <!-- ══════ TOP BAR ══════ -->
+  <div class="top">
+    <div class="search"><svg><use href="#i-search"/></svg>Search staff, loans, contacts<span class="kbd mono">⌘K</span></div>
+    <button class="ghost"><svg><use href="#i-bug"/></svg></button>
+    <button class="ghost"><svg><use href="#i-flag"/></svg></button>
+    <div class="top-r">
+      <div class="tp-pill"><i class="vdot"></i>Leads to contact<span style="color:var(--text-3)">·</span><b class="mono" style="color:var(--text-1);font-weight:500">8</b></div>
+      <div class="bell"><svg><use href="#i-bell"/></svg><b class="mono">9</b></div>
+      <div class="thm"><span class="on"><svg><use href="#i-moon"/></svg></span><span><svg><use href="#i-sun"/></svg></span></div>
+      <button class="btn-w">+ New loan</button>
+      <button class="btn-o">$ Pricing</button>
+    </div>
+  </div>
+
+  <div class="page">
+    <!-- ══════ PAGE HEADER ══════ -->
+    <div class="hd">
+      <div class="hd-l">
+        <div class="hd-kick">Educa8 <span style="color:var(--rule)">/</span> Course studio <span style="color:var(--rule)">/</span> Andrew Boone <s>· editing</s></div>
+        <h1>Course studio</h1>
+        <div class="hd-sub">Write the lessons here. When you publish one, it shows up in Educa8 the next time somebody opens it.</div>
+      </div>
+      <div class="hd-r">
+        <div class="stats">
+          <div class="stat"><div class="stat-k">Live</div><div class="stat-v mono">5<em>courses</em></div></div>
+          <div class="stat"><div class="stat-k">Draft</div><div class="stat-v mono" style="color:var(--heat)">1</div></div>
+          <div class="stat"><div class="stat-k">Lessons</div><div class="stat-v mono" id="stLessons">29</div></div>
+          <div class="stat"><div class="stat-k">Partway through</div><div class="stat-v mono">56<em>of 68</em></div></div>
+          <div class="sw">
+            <span class="sw-l">Show the plumbing</span>
+            <button class="sw-t" id="swT" role="switch" aria-checked="false" aria-label="Show the plumbing"><i></i></button>
+            <span class="sw-s" id="swS">off</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ══════ ALL COURSES ══════ -->
+    <div class="pnl" style="margin-top:18px">
+      <div class="pnl-h"><h2>Your courses</h2><span class="r mono" id="cListNote">5 live · 1 you have not published yet · open one to edit it</span></div>
+      <table class="ct">
+        <colgroup><col><col style="width:124px"><col style="width:132px"><col style="width:198px"><col style="width:118px"><col style="width:124px"><col style="width:118px"></colgroup>
+        <thead><tr>
+          <th><span class="lb"><i class="lp">Course</i><i class="lt mono">course.title<b class="ty">text</b></i></span></th>
+          <th><span class="lb"><i class="lp">Subject</i><i class="lt mono">category<b class="ty">enum</b></i></span></th>
+          <th><span class="lb"><i class="lp">Who it is for</i><i class="lt mono">level<b class="ty">enum</b></i></span></th>
+          <th><span class="lb"><i class="lp">Who can see it</i><i class="lt mono">visibility<b class="ty">enum</b></i></span></th>
+          <th><span class="lb"><i class="lp">Lessons</i><i class="lt mono">chapters[]<b class="ty">int</b></i></span></th>
+          <th><span class="lb"><i class="lp">Last touched</i><i class="lt mono">updated_at<b class="ty">time</b></i></span></th>
+          <th class="n"><span class="lb"><i class="lp">Partway through</i><i class="lt mono">in_progress<b class="ty">int</b></i></span></th>
+        </tr></thead>
+        <tbody id="cbody"></tbody>
+      </table>
+    </div>
+
+    <!-- ══════ WORKSPACE BAR ══════ -->
+    <div class="wsb">
+      <div class="wsb-node" id="wsNode">RL</div>
+      <div>
+        <h2 id="wsTitle">Rate Lock Strategies</h2>
+        <div class="idl" id="wsId">course · crs_9c4a · rate-lock-strategies</div>
+      </div>
+      <span class="chip draft" id="wsChip">Draft, only you can see it</span>
+      <span class="mono" style="font-size:11px;color:var(--text-3)" id="wsSaved">saved 9:14am</span>
+      <div class="wsb-r">
+        <button class="btn-sweep" id="prevBtn"><svg><use href="#i-eye"/></svg>Preview as a learner</button>
+        <button class="cta" id="pubBtn2">Publish <svg><use href="#i-arrow"/></svg></button>
+      </div>
+    </div>
+
+    <!-- ══════ COURSE DETAILS ══════ -->
+    <div class="det">
+      <div class="fld">
+        <div class="fld-k"><span class="lb"><i class="lp">Course name</i><i class="lt mono">title<b class="ty">text</b></i></span></div>
+        <input class="inp" id="fTitle" value="Rate Lock Strategies">
+      </div>
+      <div class="fld">
+        <div class="fld-k"><span class="lb"><i class="lp">Subject</i><i class="lt mono">category<b class="ty">enum</b></i></span></div>
+        <select class="inp" id="fCat">
+          <option>Fundamentals</option><option>Products</option><option>Compliance</option>
+          <option selected>Pricing</option><option>Sales</option><option>Underwriting</option>
+        </select>
+      </div>
+      <div class="fld">
+        <div class="fld-k"><span class="lb"><i class="lp">Who it is for</i><i class="lt mono">level<b class="ty">enum</b></i></span></div>
+        <select class="inp" id="fLevel"><option>Beginner</option><option>Intermediate</option><option selected>Advanced</option></select>
+      </div>
+      <div class="fld">
+        <div class="fld-k"><span class="lb"><i class="lp">Cover colour</i><i class="lt mono">category_color<b class="ty">hex</b></i></span></div>
+        <div class="sw6" id="fColor"></div>
+        <div class="hintl" id="colHint">Set from the subject. Change it if you want.</div>
+      </div>
+    </div>
+    <div class="det" style="grid-template-columns:1fr">
+      <div class="fld" style="padding-left:18px">
+        <div class="fld-k"><span class="lb"><i class="lp">Short description</i><i class="lt mono">summary<b class="ty">text</b></i></span></div>
+        <input class="inp" id="fSummary" style="font-size:13.5px" value="Advanced pricing tactics: when to lock, float-down options, and how to protect your borrower in volatile markets.">
+      </div>
+    </div>
+    <!-- ══════ WORKSPACE ══════ -->
+    <div class="ws">
+
+      <!-- lessons -->
+      <div class="spine">
+        <div class="sh"><span class="lb"><i class="lp">Lessons in this course</i><i class="lt mono">chapters[]<b class="ty">int</b></i></span><span class="n" id="lCount">3 of 4</span></div>
+        <div class="rel" style="margin:6px 0 4px">chapter.course_id <b>→</b> course.id</div>
+        <div id="lessons" style="margin-top:4px"></div>
+        <div class="note" id="reorderNote">Drag a lesson, or use the arrows. Nobody is partway through this course yet, so changing the order costs nothing.</div>
+        <button class="btn-q" style="margin-top:14px;width:100%;height:30px" id="addLesson">+ Add a lesson</button>
+
+        <div class="sh" style="margin-top:26px">Where it sits</div>
+        <div class="note" style="border-left-color:var(--heat-line)" id="sitNote">This is the last course on the path. Nothing is waiting behind it.</div>
+      </div>
+
+      <!-- editor -->
+      <div class="ed">
+        <div class="ed-top">
+          <div class="grow">
+            <div class="fld-k" style="margin-bottom:2px"><span class="lb"><i class="lp">Lesson</i><i class="lt mono">chapter.title<b class="ty">text</b></i></span></div>
+            <input class="ttlinp" id="eTitle" value="When to Lock" placeholder="Give this lesson a name">
+            <div class="idl" id="eId">chapter · chp_4a19 · when-to-lock · order_index 1</div>
+          </div>
+          <div class="mini">
+            <div class="fld-k"><span class="lb"><i class="lp">How long it takes</i><i class="lt mono">duration_minutes<b class="ty">int</b></i></span></div>
+            <div class="step">
+              <button id="durDown">−</button><span class="v" id="durV">6 min</span><button id="durUp">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="toolbar">
+          <button class="btn-q" data-cmd="h3">Heading</button>
+          <button class="btn-q" data-cmd="bold" style="font-weight:700">Bold</button>
+          <button class="btn-q" data-cmd="list">List</button>
+          <button class="btn-q" data-cmd="def">Definition</button>
+          <span class="sep"></span>
+          <button class="btn-q" data-cmd="p">Plain</button>
+          <div class="r">
+            <span><b id="wcN">0</b> words</span>
+            <span>reads in <b id="rtN">0</b> min</span>
+            <span id="useMeasure" style="color:var(--heat);cursor:pointer">use 2</span>
+          </div>
+        </div>
+
+        <div class="body" id="eBody" contenteditable="true" spellcheck="false"></div>
+        <div class="hintl" style="margin-top:14px;padding-left:11px;border-left:1px solid var(--rule)" id="measureNote">
+          The reading time is measured from what you have written. Keep your own number higher if the lesson has a worksheet or a call to sit through.
+        </div>
+
+        <!-- question builder -->
+        <div class="qb" id="qb">
+          <div class="qb-h">
+            <i class="livedot"></i>
+            <span class="k"><span class="lb"><i class="lp">Question at the end</i><i class="lt mono">retrieval_check<b class="ty">object</b></i></span></span>
+            <span class="r" id="qbR">asked 3 days after they finish</span>
+          </div>
+          <div class="qb-body">
+            <textarea class="qprompt" id="qPrompt" rows="2" placeholder="Ask one thing they should still know in a week."></textarea>
+          </div>
+          <div class="opts" id="qOpts"></div>
+          <div class="qwhy">
+            <div class="qwhy-k"><span class="lb"><i class="lp">Why that is the answer</i><i class="lt mono">explanation<b class="ty">text</b></i></span></div>
+            <textarea id="qWhy" rows="3" placeholder="They see this after they answer. Say why in one or two sentences."></textarea>
+          </div>
+          <div class="qb-f">
+            <span id="qbState" class="ok">Right answer: B</span>
+            <span style="color:var(--rule)">|</span>
+            <span>They see this a few days after they finish the lesson, once.</span>
+            <span class="rel" style="margin-left:auto">correct_index <b>1</b> · check_xp <b>40</b></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- rail: preview, with the plumbing panel over it -->
+      <div class="rail">
+        <div class="railstick">
+          <div class="prev">
+            <div class="prev-h"><i class="livedot"></i>Preview as a learner<span class="r" id="prevR">live</span></div>
+            <div class="screen" id="screen"></div>
+          </div>
+
+          <div class="jsonp">
+            <div class="inner">
+              <div class="jh"><i class="dot" id="jDot"></i>The object you are editing<span class="r" id="jHint">updates as you type</span></div>
+              <div class="jbody" id="jBody"></div>
+              <div class="jf2" id="jFoot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ══════ PREREQS · EARN · PUBLISH ══════ -->
+    <div class="b3">
+      <div>
+        <div class="sh"><span class="lb"><i class="lp">Must finish first</i><i class="lt mono">course.requires[]<b class="ty">uuid[]</b></i></span></div>
+        <div class="rel" style="margin-top:6px">course.requires[] <b>→</b> course.id</div>
+        <div class="reqs" id="reqs"></div>
+        <div class="note" id="reqNote"></div>
+      </div>
+
+      <div>
+        <div class="sh"><span class="lb"><i class="lp">What they earn</i><i class="lt mono">xp_award<b class="ty">int</b></i></span></div>
+        <div class="rel" style="margin-top:6px">posts xp_event <b>→</b> domina8_standings</div>
+        <div class="earn">
+          <div class="erow"><span class="k"><span class="lb"><i class="lp">Finishing this lesson</i><i class="lt mono">xp_award<b class="ty">int</b></i></span></span>
+            <div class="step"><button data-xp="-10">−</button><span class="v" id="xpV">90</span><button data-xp="10">+</button></div></div>
+          <div class="erow"><span class="k"><span class="lb"><i class="lp">Bonus for the question</i><i class="lt mono">check_xp<b class="ty">int</b></i></span></span>
+            <div class="step"><button data-cx="-10">−</button><span class="v" id="cxV">40</span><button data-cx="10">+</button></div></div>
+          <div class="erow"><span class="k"><span class="lb"><i class="lp">Worth less after a week</i><i class="lt mono">decay_after_days<b class="ty">int</b></i></span></span>
+            <span class="mono" style="font-size:12.5px;color:var(--text-1);white-space:nowrap">7 days</span></div>
+        </div>
+        <div class="note" id="earnNote">Finishing this lesson moves someone about one place on their branch board. The bonus only lands if they get the question right the first time.</div>
+      </div>
+
+      <div>
+        <div class="sh"><span class="lb"><i class="lp">Publish</i><i class="lt mono">status · visibility<b class="ty">enum</b></i></span></div>
+        <div class="rel" style="margin-top:6px">PATCH /v1/courses/crs_9c4a <b>{ status, visibility }</b></div>
+        <div class="pubck" id="pubck"></div>
+        <div class="pubact">
+          <button class="cta" id="pubBtn">Publish to the branch</button>
+          <button class="btn-line" id="saveBtn">Save, keep it hidden</button>
+        </div>
+        <div class="note" id="pubNote" style="border-left-color:var(--heat-line)"></div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:18px;padding-top:14px;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3)">
+      <span>Educa8 course studio</span><span style="color:var(--rule)">/</span>
+      <span id="footState">plain English. nothing on this screen needs a developer.</span>
+      <span style="margin-left:auto">1440 × 900 · dark only, the light theme is not drawn here</span>
+    </div>
+  </div><!-- /page -->
+</div><!-- /main -->
+
+<!-- ══════ LEARNER PREVIEW OVERLAY ══════ -->
+<div class="ov" id="ov">
+  <div class="ovp">
+    <div class="ovh">
+      <i class="livedot"></i><span class="k">This is what a loan officer sees</span>
+      <div class="r"><span id="ovMeta">Rate Lock Strategies · lesson 01</span><button class="btn-q" id="ovClose">Close</button></div>
+    </div>
+    <div class="ovb"><div class="c" id="ovc"></div></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<script>
+/* ═════════ data ═════════ */
+const CATS={Fundamentals:'#F0B93A',Products:'#5EEAD4',Compliance:'#8B5CF6',Pricing:'#6D28D9',Sales:'#EF4444',Underwriting:'#10B981'};
+const CATORDER=['Fundamentals','Products','Compliance','Pricing','Sales','Underwriting'];
+
+const B_RL1=`<p class="lede">A rate lock is the lender promising to hold one interest rate for a set number of days while the loan is processed. Once it is locked the rate does not move against your borrower. It also does not move in their favour, which is the part they forget.</p>
+<h3>What a lock costs</h3>
+<p>Time is the price. A 30 day lock prices at par on most rate sheets. A 45 day lock usually costs an eighth of a point, and a 60 day lock a quarter. The borrower pays for every extra day, so do not buy days the file does not need.</p>
+<h3>Read the file before you read the market</h3>
+<p>Three things decide the length of a lock, and none of them are your opinion about where rates are going.</p>
+<ul><li>The contract closing date, plus about a week of slack</li><li>Whether the appraisal is ordered, and how backed up appraisers are in that county</li><li>Whether anything is still outstanding in underwriting</li></ul>
+<div class="defs">
+<div class="def"><b>Lock period</b><span>The number of days the rate is held.</span></div>
+<div class="def"><b>Extension</b><span>Buying more days after the lock expires, usually an eighth of a point for seven.</span></div>
+<div class="def"><b>Float</b><span>Choosing not to lock, and taking whatever the rate is later.</span></div>
+<div class="def"><b>Worst case pricing</b><span>A re-lock is priced at the worse of the original rate and today's market.</span></div>
+</div>
+<h3>The habit worth building</h3>
+<p>Lock when the file is clean and the closing date is real. Do not lock a file that is still waiting on a pay stub, and do not float a file that closes in eleven days because of something you read about the Fed on Tuesday.</p>`;
+
+const B_RL2=`<p class="lede">A float-down lets the borrower take a lower rate once, after locking, if the market drops far enough before closing.</p>
+<p>It is not free and it is not automatic. Most lenders charge for the option up front, set a minimum improvement before it can be used, and only allow it inside a window. Know all three numbers before you offer it, because a borrower who hears the words float-down will hold you to them.</p>
+<h3>What to check on your own sheet</h3>
+<ul><li>The cost of the option, in points</li><li>How far the market has to move before it triggers</li><li>How late in the process it can still be used</li></ul>`;
+
+const B_RL3=`<p class="lede">A rate sheet is a grid of prices, not a list of rates. Reading it is a skill and it takes about a week to get comfortable.</p>
+<p>Columns are lock periods. Rows are rates. The number in the cell is the price, where 100 is par, above 100 is credit back to the borrower, and below 100 is a cost. Adjustments for credit score, loan to value, property type and occupancy come off that number afterwards.</p>
+<h3>Work it in this order</h3>
+<ul><li>Pick the lock period the file actually needs</li><li>Find the rate the borrower wants</li><li>Apply the adjustments, then look at what is left</li></ul>`;
+
+const B_MF1=`<p class="lede">A mortgage is a loan used to purchase real estate, where the property itself serves as collateral.</p>
+<h3>Key Concepts</h3>
+<div class="defs">
+<div class="def"><b>Principal</b><span>The amount borrowed.</span></div>
+<div class="def"><b>Interest</b><span>The cost of borrowing.</span></div>
+<div class="def"><b>Amortization</b><span>How the loan is paid off over time.</span></div>
+<div class="def"><b>Escrow</b><span>Funds held for taxes and insurance.</span></div>
+</div>`;
+const B_MF2=`<p class="lede">Conventional, FHA, VA and USDA are the four families a new loan officer will meet in the first month.</p><p>Each one has its own qualifying rules, its own mortgage insurance treatment, and its own paperwork. The point of this lesson is not to memorise every guideline. It is to be able to hear a borrower's situation and know which two loans are worth pricing.</p>`;
+const B_MF3=`<p class="lede">Qualifying is four questions: can they repay it, will they repay it, is there enough money to close, and is the property worth it.</p><p>Income, credit, assets and collateral. Every document you ask for maps to one of those four. If you cannot say which one a document belongs to, you probably do not need it.</p>`;
+const B_MF4=`<p class="lede">From application to closing is a fixed sequence, and most delays come from doing the steps out of order.</p><p>Application, disclosures, processing, appraisal, underwriting, conditions, clear to close, closing disclosure, signing, funding. Learn the order and you can tell a borrower where their file is without opening it.</p>`;
+const B_MF5=`<p class="lede">The document list looks long until you group it. Income, assets, identity, property.</p><p>Collect the whole group at once rather than asking three times. Every extra request costs a day and a little trust.</p>`;
+
+let COURSES=[
+ {id:'crs_1e07',slug:'mortgage-fundamentals',title:'Mortgage Fundamentals',cat:'Fundamentals',level:'Beginner',status:'published',vis:'branch',
+  summary:'Master the basics of mortgage lending, from loan types and qualifying criteria to the full application-to-closing workflow.',
+  touched:'Jul 12',touchedT:'2026-07-12T16:02:11Z',partway:23,requires:[],n:5,
+  lessons:[
+   {id:'chp_11a2',title:'What Is a Mortgage?',dur:15,body:B_MF1,xp:60,cx:40,
+    q:{prompt:"A borrower's monthly payment is 2,340. Their taxes and homeowners insurance are collected by the servicer. Which part of the payment is that?",
+       opts:['Interest accrued on the principal balance','Escrow, held by the servicer and paid out when the bills come due','The origination fee, spread across the loan term',''],
+       correct:1,why:'Escrow is not part of principal or interest. The servicer collects it monthly, holds it, and pays the tax and insurance bills when they come due. A shortage shows up later as a payment change the borrower did not expect.'}},
+   {id:'chp_11a5',title:'Loan Types Overview',dur:20,body:B_MF2,xp:80,cx:40,q:{prompt:'A borrower has 3.5% down and a 640 score. Which loan do you price first?',opts:['Conventional with mortgage insurance','FHA','VA',''],correct:1,why:'At 640 with 3.5% down, FHA is almost always the cheaper monthly payment. Price conventional as the comparison, not the starting point.'}},
+   {id:'chp_11a9',title:'The Qualification Process',dur:25,body:B_MF3,xp:100,cx:40,q:null},
+   {id:'chp_11ad',title:'Application to Closing',dur:30,body:B_MF4,xp:120,cx:40,q:null},
+   {id:'chp_11b1',title:'Key Documents Checklist',dur:15,body:B_MF5,xp:60,cx:40,q:null}]},
+
+ {id:'crs_2b77',slug:'fha-va-loan-programs',title:'FHA & VA Loan Programs',cat:'Products',level:'Intermediate',status:'published',vis:'branch',
+  summary:'Deep dive into government-backed loan programs. Understand eligibility, guidelines, and how to structure these loans for your borrowers.',
+  touched:'Jul 09',touchedT:'2026-07-09T11:41:30Z',partway:9,requires:['crs_1e07'],n:5,lessons:null},
+
+ {id:'crs_3c14',slug:'compliance-trid',title:'Compliance & TRID',cat:'Compliance',level:'Intermediate',status:'published',vis:'branch',
+  summary:'Navigate regulatory requirements confidently. Master TRID timelines, disclosure rules, and compliance best practices.',
+  touched:'Jul 02',touchedT:'2026-07-02T08:20:04Z',partway:6,requires:['crs_1e07'],n:4,lessons:null},
+
+ {id:'crs_5d2a',slug:'building-your-pipeline',title:'Building Your Pipeline',cat:'Sales',level:'Beginner',status:'published',vis:'branch',
+  summary:'Proven strategies for lead generation, referral partner development, and consistent follow-up that keeps your pipeline full.',
+  touched:'Jun 30',touchedT:'2026-06-30T14:55:19Z',partway:14,requires:[],n:5,lessons:null},
+
+ {id:'crs_6e31',slug:'underwriting-essentials',title:'Underwriting Essentials',cat:'Underwriting',level:'Intermediate',status:'published',vis:'branch',
+  summary:'Think like an underwriter. Learn how income, assets, and credit are analyzed so you can submit clean files that close faster.',
+  touched:'Jul 18',touchedT:'2026-07-18T09:12:47Z',partway:4,requires:['crs_1e07'],n:6,lessons:null},
+
+ {id:'crs_9c4a',slug:'rate-lock-strategies',title:'Rate Lock Strategies',cat:'Pricing',level:'Advanced',status:'draft',vis:'author',
+  summary:'Advanced pricing tactics: when to lock, float-down options, and how to protect your borrower in volatile markets.',
+  touched:'Today, 9:14am',touchedT:'2026-07-30T09:14:22Z',partway:0,requires:['crs_2b77'],n:4,
+  lessons:[
+   {id:'chp_4a19',title:'When to Lock',dur:6,body:B_RL1,xp:90,cx:40,
+    q:{prompt:'A borrower’s contract closes in 38 days and the appraisal has not been ordered yet. Which lock do you take?',
+       opts:['30 days, and pay for an extension later if you need one','45 days, because the appraisal is not ordered and there is no slack','60 days, because longer is always safer for the borrower','Float it, rates have been falling this week'],
+       correct:1,
+       why:'38 days with an unordered appraisal makes a 30 day lock a coin flip, and an extension gets priced at worst case. 60 days costs the borrower a quarter point they do not need. Floating a file with a real closing date is not a strategy.'}},
+   {id:'chp_4a1b',title:'Float-Down Options',dur:9,body:B_RL2,xp:90,cx:40,q:null},
+   {id:'chp_4a1e',title:'Reading the Rate Sheet',dur:7,body:B_RL3,xp:90,cx:40,q:null},
+   {id:'chp_4a22',title:'Protecting the Borrower',dur:0,body:'',xp:90,cx:40,q:null}]}
+];
+
+const S={ci:5,li:0,tech:false};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'\\"');
+const cur=()=>COURSES[S.ci];
+const lsn=()=>cur().lessons[S.li];
+const slugify=s=>s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,42)||'untitled';
+function stagger(){document.querySelectorAll('.lb,.idl').forEach((e,i)=>e.style.setProperty('--d',((i*11)%210)+'ms'));}
+function dual(p,t,ty){return '<span class="lb"><i class="lp">'+p+'</i><i class="lt mono">'+t+(ty?'<b class="ty">'+ty+'</b>':'')+'</i></span>';}
+
+/* ═════════ courses table ═════════ */
+function renderTable(){
+  $('cbody').innerHTML=COURSES.map((c,i)=>{
+    const openable=!!c.lessons, sel=i===S.ci;
+    const written=c.lessons?c.lessons.filter(l=>l.body.trim()).length:c.n;
+    let bars='';for(let k=0;k<c.n;k++)bars+='<i class="'+(k<written?'f':'e')+'"></i>';
+    const live=c.status==='published';
+    return '<tr class="'+(openable?'open-row ':'')+(sel?'sel':'')+'" data-i="'+i+'">'+
+     '<td><div class="cname"><span class="cover" style="background:'+CATS[c.cat]+'"></span>'+
+       '<div style="min-width:0"><div class="t">'+c.title+'</div><div class="idl">'+c.id+' · '+c.slug+'</div></div>'+
+       (openable?'<svg class="opencaret" style="width:14px;height:14px"><use href="#i-chevr"/></svg>':'')+'</div></td>'+
+     '<td>'+dual(c.cat,'"'+c.cat.toLowerCase()+'"')+'</td>'+
+     '<td>'+dual(c.level,'"'+c.level.toLowerCase()+'"')+'</td>'+
+     '<td><span class="st '+(live?'live':'draft')+'"><i class="sq"></i>'+dual(live?'Everyone on the branch':'Only you',(live?'published':'draft')+' · '+c.vis)+'</span></td>'+
+     '<td><div class="lessbar">'+bars+'</div><div class="mono" style="font-size:10.5px;color:var(--text-3);margin-top:5px">'+
+       (written<c.n?written+' of '+c.n+' written':c.n+' lessons')+'</div></td>'+
+     '<td>'+dual(c.touched,c.touchedT.slice(0,16).replace('T',' '))+'</td>'+
+     '<td class="n">'+(c.partway?'<span class="mono" style="color:var(--text-1)">'+c.partway+'</span> people':'<span style="color:var(--text-3)">nobody yet</span>')+'</td>'+
+    '</tr>';
+  }).join('');
+  $('cbody').querySelectorAll('tr.open-row').forEach(tr=>tr.addEventListener('click',()=>{
+    const i=+tr.dataset.i; if(i===S.ci)return; S.ci=i; S.li=0; renderAll();
+    document.querySelector('.wsb').scrollIntoView({behavior:'smooth',block:'start'});
+  }));
+  stagger();
+}
+
+/* ═════════ lesson spine ═════════ */
+function renderSpine(){
+  const c=cur();
+  const box=$('lessons'); box.innerHTML='';
+  c.lessons.forEach((l,i)=>{
+    const written=!!l.body.trim();
+    const r=document.createElement('div');
+    r.className='lrow '+(written?'written ':'empty ')+(i===S.li?'on':'');
+    r.draggable=true; r.dataset.i=i;
+    r.innerHTML='<div class="grip"><svg style="width:12px;height:12px"><use href="#i-grip"/></svg></div>'+
+      '<div class="lnode">'+String(i+1).padStart(2,'0')+'</div>'+
+      '<div class="lmid"><div class="lt2">'+(l.title||'Untitled lesson')+'</div>'+
+      '<div class="lm">'+(written?l.dur+' min · '+wordsOf(l.body)+' w'+(l.q&&l.q.prompt?' · question':''):'not written yet')+'</div>'+
+      '<div class="idl">'+l.id+' · order_index '+(i+1)+'</div></div>'+
+      '<div class="lact"><button data-up="'+i+'"'+(i===0?' disabled style="opacity:.25"':'')+'><svg><use href="#i-up"/></svg></button>'+
+      '<button data-dn="'+i+'"'+(i===c.lessons.length-1?' disabled style="opacity:.25"':'')+'><svg><use href="#i-down"/></svg></button></div>';
+    box.appendChild(r);
+  });
+  const written=c.lessons.filter(l=>l.body.trim()).length;
+  $('lCount').textContent=written+' of '+c.lessons.length;
+  $('reorderNote').innerHTML= c.partway
+    ? 'Drag a lesson, or use the arrows. <b>'+c.partway+' people are partway through.</b> They keep every lesson they have already finished. Their next lesson becomes the first one on this list they have not done.'
+    : 'Drag a lesson, or use the arrows. Nobody has started this course yet, so changing the order costs nothing.';
+  const behind=COURSES.filter(x=>x.requires.includes(c.id));
+  $('sitNote').innerHTML = behind.length
+    ? 'Finishing this opens <b>'+behind.map(b=>b.title).join('</b> and <b>')+'</b> for everyone on the branch.'
+    : 'This sits at the end of the path. Nothing is waiting behind it, so nobody is blocked while it is a draft.';
+  bindSpine();
+  stagger();
+}
+function bindSpine(){
+  const box=$('lessons');
+  box.querySelectorAll('.lrow').forEach(r=>{
+    r.addEventListener('click',e=>{
+      if(e.target.closest('button'))return;
+      S.li=+r.dataset.i; renderSpine(); loadLesson(); });
+    r.addEventListener('dragstart',e=>{drag=+r.dataset.i;r.classList.add('drag');e.dataTransfer.effectAllowed='move';});
+    r.addEventListener('dragend',()=>{r.classList.remove('drag');box.querySelectorAll('.lrow').forEach(x=>x.classList.remove('over'));});
+    r.addEventListener('dragover',e=>{e.preventDefault();box.querySelectorAll('.lrow').forEach(x=>x.classList.remove('over'));r.classList.add('over');});
+    r.addEventListener('drop',e=>{e.preventDefault();move(drag,+r.dataset.i);});
+  });
+  box.querySelectorAll('[data-up]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const i=+b.dataset.up;if(i>0)move(i,i-1);}));
+  box.querySelectorAll('[data-dn]').forEach(b=>b.addEventListener('click',e=>{e.stopPropagation();const i=+b.dataset.dn;if(i<cur().lessons.length-1)move(i,i+1);}));
+}
+let drag=null;
+function move(from,to){
+  if(from===to||from==null)return;
+  const L=cur().lessons, open=L[S.li];
+  const [m]=L.splice(from,1); L.splice(to,0,m);
+  S.li=L.indexOf(open); renderSpine(); syncAll();
+  toast(cur().partway
+    ? 'Order changed. '+cur().partway+' people partway through keep what they finished.'
+    : 'Order changed. Nobody is partway through, so nothing else moved.',
+    'order_index rewritten · '+L.map(l=>l.id).join(', '));
+}
+function wordsOf(html){const d=document.createElement('div');d.innerHTML=html;const t=d.innerText.trim();return t?t.split(/\s+/).length:0;}
+</script>
+<style>
+.body:empty::before{content:"Nothing here yet. Write the lesson, and use the buttons above for a heading, bold, a list, or a definition block.";color:var(--text-3);font-size:14px}
+.qprompt:focus,.qwhy textarea:focus{outline:none}
+</style>
+<script>
+const FIN={crs_1e07:41,crs_2b77:31,crs_3c14:22,crs_5d2a:35,crs_6e31:18,crs_9c4a:0};
+const TOTALPPL=68;
+
+/* ═════════ load a lesson into the editor ═════════ */
+function loadLesson(){
+  const c=cur(), l=lsn();
+  if(!l.q) l.q={prompt:'',opts:['','','',''],correct:-1,why:''};
+  $('eTitle').value=l.title;
+  $('eBody').innerHTML=l.body;
+  $('durV').textContent=l.dur+' min';
+  $('qPrompt').value=l.q.prompt;
+  $('qWhy').value=l.q.why;
+  $('xpV').textContent=l.xp;
+  $('cxV').textContent=l.cx;
+  renderOpts();
+  autosize($('qPrompt')); autosize($('qWhy'));
+  syncAll();
+}
+function renderOpts(){
+  const l=lsn();
+  $('qOpts').innerHTML=l.q.opts.map((o,i)=>
+    '<div class="optr'+(l.q.correct===i?' right':'')+'" data-i="'+i+'">'+
+    '<button class="optk" data-mark="'+i+'">'+(l.q.correct===i?'<svg style="width:11px;height:11px"><use href="#i-check"/></svg>':'ABCD'[i])+'</button>'+
+    '<input value="'+String(o).replace(/"/g,'&quot;')+'" placeholder="Answer '+'ABCD'[i]+'" data-opt="'+i+'">'+
+    '<span class="mk">'+(l.q.correct===i?'correct':'')+'</span></div>').join('');
+  $('qOpts').querySelectorAll('[data-mark]').forEach(b=>b.addEventListener('click',()=>{
+    lsn().q.correct=+b.dataset.mark; renderOpts(); syncAll();
+  }));
+  $('qOpts').querySelectorAll('[data-opt]').forEach(inp=>inp.addEventListener('input',()=>{
+    lsn().q.opts[+inp.dataset.opt]=inp.value; syncAll();
+  }));
+}
+function autosize(t){t.style.height='auto';t.style.height=(t.scrollHeight+2)+'px';}
+
+/* ═════════ live sync: word count, preview, json, panels ═════════ */
+function syncAll(){
+  const c=cur(), l=lsn();
+  l.title=$('eTitle').value; l.body=$('eBody').innerHTML;
+  l.q.prompt=$('qPrompt').value; l.q.why=$('qWhy').value;
+  const w=wordsOf(l.body), m=Math.max(1,Math.round(w/150));
+  $('wcN').textContent=w.toLocaleString('en-US');
+  $('rtN').textContent=m;
+  $('useMeasure').textContent = l.dur===m ? 'matches' : 'use '+m;
+  $('useMeasure').style.color = l.dur===m ? 'var(--text-3)' : 'var(--heat)';
+  $('eId').textContent='chapter · '+l.id+' · '+slugify(l.title)+' · order_index '+(S.li+1);
+  $('wsId').textContent='course · '+c.id+' · '+c.slug;
+  const nq=c.lessons.filter(x=>x.q&&x.q.prompt.trim()).length;
+  $('qbState').innerHTML = l.q.correct<0 ? '<span style="color:var(--warn)">No answer marked yet</span>'
+      : 'Right answer: '+'ABCD'[l.q.correct];
+  $('qbState').className = l.q.correct<0?'warn':'ok';
+  $('qbR').textContent = l.q.prompt.trim() ? 'asked 3 days after they finish' : 'not written yet';
+  $('qb').querySelector('.rel').innerHTML='correct_index <b>'+l.q.correct+'</b> · check_xp <b>'+l.cx+'</b> · decay_after_days <b>7</b>';
+  $('stLessons').textContent=COURSES.reduce((a,x)=>a+(x.lessons?x.lessons.length:x.n),0);
+  renderPreview(); renderJSON(); renderPublish(); renderReqs();
+  const lm=document.querySelector('.lrow.on .lm');
+  if(lm) lm.textContent = l.body.trim() ? l.dur+' min · '+w+' w'+(l.q.prompt.trim()?' · question':'') : 'not written yet';
+  const lt=document.querySelector('.lrow.on .lt2'); if(lt) lt.textContent=l.title||'Untitled lesson';
+}
+
+/* ═════════ learner preview (rail) ═════════ */
+function firstPara(html){const d=document.createElement('div');d.innerHTML=html;const p=d.querySelector('.lede')||d.querySelector('p');return p?p.innerText:'';}
+function defsOf(html){const d=document.createElement('div');d.innerHTML=html;
+  return [...d.querySelectorAll('.def')].map(x=>[x.querySelector('b')?x.querySelector('b').innerText:'',x.querySelector('span')?x.querySelector('span').innerText:'']);}
+function renderPreview(){
+  const c=cur(), l=lsn(), w=wordsOf(l.body);
+  if(!l.body.trim()){
+    $('screen').innerHTML='<div style="padding:24px 4px;font-size:12.5px;color:var(--text-3);line-height:1.6">'+
+      'Nothing to show yet. Write the lesson on the left and this fills in as you type, exactly as a loan officer will see it.</div>';
+    return;
+  }
+  const defs=defsOf(l.body);
+  $('screen').innerHTML=
+   '<div class="pv-crumb">Educa8 / '+c.title+' / Lesson '+String(S.li+1).padStart(2,'0')+'</div>'+
+   '<div class="pv-h">'+(l.title||'Untitled lesson')+'</div>'+
+   '<div class="pv-meta"><div>'+l.dur+' min</div><div class="h">+'+l.xp+' XP</div><div>'+c.level+'</div></div>'+
+   '<div class="pv-lede">'+firstPara(l.body)+'</div>'+
+   (defs.length?'<div class="pv-k">Key concepts</div><table class="pv-t">'+
+     defs.map(d=>'<tr><td>'+d[0]+'</td><td>'+d[1]+'</td></tr>').join('')+'</table>':'')+
+   (l.q.prompt.trim()?'<div class="pv-chk"><div class="who"><i class="livedot"></i>Mentor asks</div>'+
+     '<div class="pv-q">'+l.q.prompt+'</div>'+
+     l.q.opts.map((o,i)=>o.trim()?'<div class="pv-o"><span>'+'ABCD'[i]+'</span>'+o+'</div>':'').join('')+
+     '<div class="pv-pay">first try pays <b>+'+l.cx+'</b> · posts to Domina8 Standings</div></div>':'')+
+   '<div class="pv-pay" style="border:0;padding-top:14px">'+w+' words · '+c.cat.toLowerCase()+' · '+
+     (c.status==='published'?'live':'draft, not visible yet')+'</div>';
+}
+
+/* ═════════ the plumbing panel ═════════ */
+function renderJSON(){
+  const c=cur(), l=lsn();
+  const k=x=>'<span class="jk">"'+x+'"</span>', s=x=>'<span class="js">"'+esc(x)+'"</span>', n=x=>'<span class="jn">'+x+'</span>';
+  const _d=document.createElement('div'); _d.innerHTML=l.body;
+  const bodyTxt=(_d.innerText||'').replace(/\s+/g,' ').trim();
+  const snip=bodyTxt.length>30?bodyTxt.slice(0,30)+'…':bodyTxt;
+  const w=wordsOf(l.body);
+  const q=l.q;
+  let out='{\n'+
+   '  '+k('id')+': '+s(l.id)+',\n'+
+   '  '+k('course_id')+': '+s(c.id)+',\n'+
+   '  '+k('title')+': '+s(l.title)+',\n'+
+   '  '+k('slug')+': '+s(slugify(l.title))+',\n'+
+   '  '+k('order_index')+': '+n(S.li+1)+',\n'+
+   '  '+k('duration_minutes')+': '+n(l.dur)+',\n'+
+   '  '+k('body')+': '+s(snip)+',\n'+
+   '  <span class="jc">// richtext · '+bodyTxt.length+' chars · '+w+' words</span>\n'+
+   '  '+k('xp_award')+': '+n(l.xp)+',\n'+
+   '  '+k('retrieval_check')+': {\n'+
+   '    '+k('prompt')+': '+s(q.prompt.length>28?q.prompt.slice(0,28)+'…':q.prompt)+',\n'+
+   '    '+k('options')+': [\n'+
+   q.opts.map((o,i)=>'      '+s(o.length>24?o.slice(0,24)+'…':o)+(i<q.opts.length-1?',':'')+(q.correct===i?'   <span class="jc">// correct</span>':'')).join('\n')+'\n'+
+   '    ],\n'+
+   '    '+k('correct_index')+': '+n(q.correct)+',\n'+
+   '    '+k('explanation')+': '+s(q.why.length>28?q.why.slice(0,28)+'…':q.why)+',\n'+
+   '    '+k('check_xp')+': '+n(l.cx)+',\n'+
+   '    '+k('decay_after_days')+': '+n(7)+'\n'+
+   '  },\n'+
+   '  '+k('status')+': '+s(c.status)+',\n'+
+   '  '+k('visibility')+': '+s(c.vis)+',\n'+
+   '  '+k('updated_at')+': '+s(c.touchedT)+'\n'+
+   '}\n'+
+   '<span class="jsec">parent · course</span>'+
+   '{ '+k('id')+': '+s(c.id)+', '+k('category')+': '+s(c.cat.toLowerCase())+', '+k('level')+': '+s(c.level.toLowerCase())+',\n'+
+   '  '+k('category_color')+': '+s(CATS[c.cat])+', '+k('chapters')+': '+n(c.lessons.length)+',\n'+
+   '  '+k('requires')+': ['+c.requires.map(r=>s(r)).join(', ')+'] }';
+  $('jBody').innerHTML=out;
+  $('jFoot').innerHTML='chapter.course_id <b>→</b> course.id<br>course.requires[] <b>→</b> course.id<br>'+
+    'on complete: emit xp_event <b>→</b> domina8_standings';
+  $('jDot').classList.add('hot'); clearTimeout(window._jt);
+  window._jt=setTimeout(()=>$('jDot').classList.remove('hot'),700);
+}
+
+/* ═════════ prerequisites ═════════ */
+function renderReqs(){
+  const c=cur();
+  $('reqs').innerHTML=COURSES.filter(x=>x.id!==c.id).map(x=>
+    '<div class="req'+(c.requires.includes(x.id)?' on':'')+'" data-id="'+x.id+'">'+
+    '<span class="box"><svg><use href="#i-check"/></svg></span>'+
+    '<span class="t">'+x.title+'</span>'+
+    '<span class="n">'+FIN[x.id]+' of '+TOTALPPL+' finished</span></div>').join('');
+  $('reqs').querySelectorAll('.req').forEach(r=>r.addEventListener('click',()=>{
+    const id=r.dataset.id, i=c.requires.indexOf(id);
+    if(i<0)c.requires.push(id); else c.requires.splice(i,1);
+    renderReqs(); renderJSON(); renderSpine();
+  }));
+  const names=c.requires.map(id=>COURSES.find(x=>x.id===id));
+  $('reqNote').innerHTML = names.length
+    ? 'Somebody has to finish <b>'+names.map(x=>x.title).join('</b> and <b>')+'</b> before this course shows up for them. '+
+      Math.min(...names.map(x=>FIN[x.id]))+' of '+TOTALPPL+' people have, so it appears for them on day one and opens for everyone else as they get there.'
+    : 'Anybody can start this course the moment it goes live. Nothing has to come first.';
+}
+
+/* ═════════ publish ═════════ */
+function renderPublish(){
+  const c=cur();
+  const written=c.lessons.filter(l=>l.body.trim()).length;
+  const withQ=c.lessons.filter(l=>l.q&&l.q.prompt.trim()&&l.q.correct>=0).length;
+  const rows=[
+    [written===c.lessons.length, written+' of '+c.lessons.length+' lessons written', 'body'],
+    [withQ===c.lessons.length, withQ+' of '+c.lessons.length+' have a question at the end', 'retrieval_check'],
+    [true,'Cover colour set', CATS[c.cat]],
+    [c.summary.trim().length>0,'Short description written', 'summary'],
+    [true, c.requires.length? 'Must finish first: '+c.requires.map(id=>COURSES.find(x=>x.id===id).title).join(', ') : 'Nothing has to come first', 'requires[]']
+  ];
+  $('pubck').innerHTML=rows.map(r=>'<div class="pck '+(r[0]?'ok':'no')+'">'+
+    '<svg><use href="#'+(r[0]?'i-check':'i-alert')+'"/></svg>'+r[1]+
+    '<span class="r rel" style="margin-left:auto">'+r[2]+'</span></div>').join('');
+  const live=c.status==='published';
+  $('pubBtn').textContent = live?'Update the live course':'Publish to the branch';
+  $('pubBtn2').innerHTML = (live?'Update':'Publish')+' <svg><use href="#i-arrow"/></svg>';
+  $('saveBtn').textContent = live?'Unpublish, hide it again':'Save, keep it hidden';
+  $('pubNote').innerHTML = live
+    ? 'This is live. '+(c.partway?'<b>'+c.partway+' people are partway through it.</b>':'<b>Nobody has started it yet.</b>')+' Anything you change here shows up the next time somebody opens the lesson, and nobody loses their place.'
+    : 'Publishing puts this in Educa8 for all '+TOTALPPL+' loan officers on Pacific Ridge branch. It shows up the next time they open Educa8. Nobody gets an email about it.';
+  $('wsTitle').textContent=c.title;
+  $('wsNode').style.background=CATS[c.cat];
+  $('wsNode').textContent=c.title.split(' ').slice(0,2).map(x=>x[0]).join('');
+  $('wsChip').innerHTML=dual(live?'Live, everyone on the branch':'Draft, only you can see it',(live?'status: "published"':'status: "draft"')+' · '+c.vis);stagger();
+  $('wsChip').className='chip'+(live?'':' draft');
+  $('wsSaved').textContent='saved '+(c.status==='draft'?'9:14am':c.touched.toLowerCase());
+  $('cListNote').textContent=COURSES.filter(x=>x.status==='published').length+' live · '+
+    COURSES.filter(x=>x.status==='draft').length+' you have not published yet · open one to edit it';
+}
+</script>
+<script>
+/* ═════════ course detail fields ═════════ */
+function renderDetails(){
+  const c=cur();
+  $('fTitle').value=c.title; $('fCat').value=c.cat; $('fLevel').value=c.level; $('fSummary').value=c.summary;
+  $('fColor').innerHTML=CATORDER.map(k=>'<button data-cat="'+k+'" class="'+(k===c.cat?'on':'')+'" style="background:'+CATS[k]+'" title="'+k+'"></button>').join('');
+  $('fColor').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>{
+    cur().cat=b.dataset.cat; renderDetails(); renderTable(); syncAll();
+    $('colHint').textContent='Cover colour set to '+b.dataset.cat.toLowerCase()+'. The subject moved with it.';
+  }));
+  $('colHint').textContent='Set from the subject. Change it if you want.';
+}
+$('fTitle').addEventListener('input',()=>{cur().title=$('fTitle').value;renderTable();renderPublish();renderPreview();renderJSON();});
+$('fCat').addEventListener('change',()=>{cur().cat=$('fCat').value;renderDetails();renderTable();syncAll();});
+$('fLevel').addEventListener('change',()=>{cur().level=$('fLevel').value;renderTable();syncAll();});
+$('fSummary').addEventListener('input',()=>{cur().summary=$('fSummary').value;renderPublish();renderJSON();});
+
+/* ═════════ editor bindings ═════════ */
+$('eTitle').addEventListener('input',()=>{syncAll();
+  const lt=document.querySelector('.lrow.on .lt2'); if(lt) lt.textContent=$('eTitle').value||'Untitled lesson';});
+$('eBody').addEventListener('input',()=>{const was=!!lsn().body.trim();syncAll();
+  if(was!==!!lsn().body.trim()) renderSpine();});
+$('qPrompt').addEventListener('input',function(){autosize(this);syncAll();});
+$('qWhy').addEventListener('input',function(){autosize(this);syncAll();});
+
+document.querySelectorAll('.toolbar [data-cmd]').forEach(b=>b.addEventListener('mousedown',e=>{
+  e.preventDefault(); const c=b.dataset.cmd; $('eBody').focus();
+  if(c==='bold')document.execCommand('bold');
+  else if(c==='h3')document.execCommand('formatBlock',false,'h3');
+  else if(c==='p')document.execCommand('formatBlock',false,'p');
+  else if(c==='list')document.execCommand('insertUnorderedList');
+  else if(c==='def')document.execCommand('insertHTML',false,
+    '<div class="defs"><div class="def"><b>Term</b><span>What it means, in one line.</span></div></div><p><br></p>');
+  syncAll();
+}));
+$('durUp').addEventListener('click',()=>{lsn().dur++;$('durV').textContent=lsn().dur+' min';syncAll();});
+$('durDown').addEventListener('click',()=>{lsn().dur=Math.max(0,lsn().dur-1);$('durV').textContent=lsn().dur+' min';syncAll();});
+$('useMeasure').addEventListener('click',()=>{lsn().dur=Math.max(1,Math.round(wordsOf(lsn().body)/150));$('durV').textContent=lsn().dur+' min';syncAll();renderSpine();});
+document.querySelectorAll('[data-xp]').forEach(b=>b.addEventListener('click',()=>{
+  lsn().xp=Math.max(0,lsn().xp+ +b.dataset.xp);$('xpV').textContent=lsn().xp;syncAll();}));
+document.querySelectorAll('[data-cx]').forEach(b=>b.addEventListener('click',()=>{
+  lsn().cx=Math.max(0,lsn().cx+ +b.dataset.cx);$('cxV').textContent=lsn().cx;syncAll();}));
+
+$('addLesson').addEventListener('click',()=>{
+  const c=cur();
+  c.lessons.push({id:'chp_'+Math.random().toString(16).slice(2,6),title:'',dur:0,body:'',xp:90,cx:40,q:null});
+  c.n=c.lessons.length; S.li=c.lessons.length-1; renderSpine(); loadLesson(); renderTable();
+  $('eTitle').focus();
+  toast('New lesson added at the end. It stays hidden until you write it.','chapters[] length '+c.lessons.length+' · order_index '+c.lessons.length);
+});
+
+/* ═════════ publish ═════════ */
+function doPublish(){
+  const c=cur();
+  if(c.status==='draft'){
+    c.status='published'; c.vis='branch'; c.touched='Today, 9:31am'; c.touchedT='2026-07-30T09:31:08Z';
+    toast(c.title+' is live. All '+TOTALPPL+' loan officers will see it the next time they open Educa8.',
+      'PATCH /v1/courses/'+c.id+' { status: "published", visibility: "branch" }');
+  } else {
+    toast(c.title+' updated. '+c.partway+' people partway through keep their place.',
+      'PATCH /v1/courses/'+c.id+' { updated_at } · no enrollment reset');
+  }
+  renderAll();
+}
+$('pubBtn').addEventListener('click',doPublish);
+$('pubBtn2').addEventListener('click',doPublish);
+$('saveBtn').addEventListener('click',()=>{
+  const c=cur();
+  if(c.status==='published'){c.status='draft';c.vis='author';
+    toast(c.title+' is hidden again. Anyone partway through keeps their progress and stops seeing it.',
+      'PATCH /v1/courses/'+c.id+' { status: "draft", visibility: "author" }');renderAll();}
+  else toast('Saved. Still only you can see it.','autosave · status stays draft');
+});
+
+/* ═════════ toast ═════════ */
+let tt;
+function toast(msg,mono){
+  const t=$('toast'); t.innerHTML=msg+(mono&&S.tech?'<span class="m">'+mono+'</span>':'');
+  t.classList.add('on'); clearTimeout(tt); tt=setTimeout(()=>t.classList.remove('on'),4200);
+}
+
+/* ═════════ the switch ═════════ */
+$('swT').addEventListener('click',()=>{
+  S.tech=!S.tech;
+  document.body.classList.toggle('tech',S.tech);
+  $('swT').setAttribute('aria-checked',String(S.tech));
+  $('swS').innerHTML=S.tech?'on · fields,<br>types, ids':'off';
+  $('footState').textContent=S.tech
+    ? 'field names, types, ids and the live object. same screen, nothing moved.'
+    : 'plain English. nothing on this screen needs a developer.';
+  $('jHint').textContent=S.tech?'updates as you type':'';
+  $('prevR').textContent=S.tech?'behind the panel':'live';
+});
+
+/* ═════════ full-size learner preview ═════════ */
+function buildOverlay(){
+  const c=cur(), l=lsn();
+  $('ovMeta').textContent=c.title+' · lesson '+String(S.li+1).padStart(2,'0');
+  const q=l.q, hasQ=q.prompt.trim();
+  $('ovc').innerHTML=
+   '<div class="crumb">Educa8 / '+c.title+' / Chapter '+String(S.li+1).padStart(2,'0')+'</div>'+
+   '<h2>'+(l.title||'Untitled lesson')+'</h2>'+
+   '<div class="meta"><div>'+l.dur+' min</div><div class="h">+'+l.xp+' XP</div><div>'+c.level+'</div>'+
+     '<div>'+(c.status==='published'?'live on your branch':'draft, nobody sees this yet')+'</div></div>'+
+   (l.body.trim()?l.body:'<p style="color:var(--text-3)">This lesson has no writing in it yet.</p>')+
+   (hasQ?'<div class="ovchk"><div class="h"><i class="livedot"></i>Mentor asks<span class="r">day 3 recall · chapter '+
+     String(S.li+1).padStart(2,'0')+'</span></div><div class="q">'+q.prompt+'</div><div class="os" id="ovOpts">'+
+     q.opts.map((o,i)=>o.trim()?'<button class="ovo" data-i="'+i+'"><i>'+'ABCD'[i]+'</i>'+o+'</button>':'').join('')+
+     '</div><div class="ovfb" id="ovfb"></div><div class="ovbar"><span class="h">+'+l.cx+' XP</span>'+
+     '<span>first try pays '+l.cx+', second pays '+Math.round(l.cx/2)+'</span>'+
+     '<span style="margin-left:auto">posts to Domina8 Standings</span></div></div>':'');
+  const ob=$('ovOpts');
+  if(ob) ob.querySelectorAll('.ovo').forEach(b=>b.addEventListener('click',()=>{
+    const right=+b.dataset.i===q.correct;
+    b.classList.add(right?'right':'wrong');
+    const f=$('ovfb'); f.className='ovfb show';
+    f.innerHTML=right?'<b>Correct.</b> '+q.why:'<b>Not that one.</b> '+q.why;
+    if(right) ob.querySelectorAll('.ovo').forEach(x=>x.disabled=true);
+  }));
+}
+$('prevBtn').addEventListener('click',()=>{buildOverlay();$('ov').classList.add('on');});
+$('ovClose').addEventListener('click',()=>$('ov').classList.remove('on'));
+$('ov').addEventListener('click',e=>{if(e.target===$('ov'))$('ov').classList.remove('on');});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('ov').classList.remove('on');});
+
+/* ═════════ boot ═════════ */
+function renderAll(){renderTable();renderDetails();renderSpine();loadLesson();}
+renderAll();
+</script>
+</body>
+</html>

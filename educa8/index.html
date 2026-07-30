@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Educa8 — five directions</title>
+<title>Educa8, rebuilt · Origna8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -11,7 +11,7 @@
     --bg:#08080a; --s1:#111114; --s2:#16161a;
     --t1:#f4f4f5; --t2:#a0a0a8; --t3:#6c6c74;
     --line:#ffffff1a; --line2:#ffffff0e;
-    --accent:#f2680c;
+    --accent:#FF7A2F;
     --mono:"Geist Mono",ui-monospace,monospace;
   }
   *{box-sizing:border-box;margin:0;padding:0}
@@ -131,11 +131,31 @@
 <div class="wrap">
 
 <header>
-  <div class="kicker">Origna8 · Educa8 · direction fan-out · 30 Jul 2026</div>
-  <h1>Five ways Educa8 could work</h1>
-  <p class="deck">The same six courses, the same twenty eight guides, the same app shell, built five times in five different design families. <strong>Pick one.</strong> The next step narrows it to three layouts inside whichever one you choose, and adds the authoring side for Andrew.</p>
+  <div class="kicker">Origna8 · Educa8 · 30 Jul 2026 · direction chosen</div>
+  <h1>Educa8, rebuilt</h1>
+  <p class="deck">A redesign of the learning section, in two halves: <strong>the side Andrew writes on</strong> and <strong>the side loan officers read on</strong>. Below that, the five directions the design was picked from, kept as the record of how we got here.</p>
   <div class="rule"></div>
 </header>
+
+<section class="v" id="system" style="padding-top:44px">
+  <div class="vhead">
+    <h2><em>the system · arcade-ledger · chosen direction</em>Start here</h2>
+  </div>
+  <nav class="idx" style="border-top:0;margin-top:0">
+    <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">A</span><span class="nm">Course studio<span>Andrew's side. Write lessons, set questions, publish. Plain English, with one switch that shows the plumbing underneath.</span></span><span class="fam">authoring</span><span class="go">open →</span></a>
+    <a class="row" href="v5-arcade-ledger.html" target="_blank"><span class="n">B</span><span class="nm">Your ledger<span>The learner's side. One lit lesson, a streak, and the branch board that moves when you finish something.</span></span><span class="fam">reading</span><span class="go">open →</span></a>
+  </nav>
+  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">
+    <b style="color:var(--t1)">The switch on Andrew's screen is the thing to try.</b> Off, it reads like a writing tool: "Lesson", "How long it takes", "Question at the end". On, every label becomes the real field name with its type, the IDs appear, and a live panel shows the exact object being saved as you type into it. Same screen, two audiences: Andrew never meets a piece of jargon, and the data model is right there to build against.
+  </p>
+</section>
+
+<section class="v" id="archive" style="padding-top:66px">
+  <div class="vhead">
+    <h2><em>the record · five directions · one was chosen</em>How we got here</h2>
+  </div>
+  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">The same content built five times in five different design families, to choose by comparison instead of by argument. <b style="color:var(--t1)">05, the ledger, won</b> and became the system above. The other four are left up because the reasons they lost are useful.</p>
+</section>
 
 <dl class="meta">
   <div><dt>What is fixed</dt><dd>Sidebar, top bar, tokens, <b>Hanken Grotesk</b>. Every variant is inside the real product, not a microsite.</dd></div>
@@ -242,7 +262,7 @@
 
 <section class="v" id="v5">
   <div class="vhead">
-    <h2><em>05 · arcade-ledger · new family · Strava, Elo, Duolingo's path</em>The ledger</h2>
+    <h2><em>05 · arcade-ledger · new family · CHOSEN</em>The ledger</h2>
     <a class="open" href="v5-arcade-ledger.html" target="_blank">OPEN FULL SIZE ↗</a>
   </div>
   <div class="vbody">
@@ -264,8 +284,9 @@
 
 <footer>
   <div class="rule thin" style="margin-bottom:26px"></div>
-  <p><b>One honest note.</b> All five independently chose the same accent, the orange stop from the Origna8 logo sweep, because the app over-uses violet and orange is the one warm brand colour sitting unused. That was convergence, not coordination, and it is good evidence the choice is right. It does mean the five differ by structure, type, and density rather than by colour, so compare them on how the information is organised, not on palette.</p>
-  <p style="margin-top:16px">Previews above are scaled and not interactive. <b>Open full size</b> to click the tabs and answer the quiz.</p>
+  <p><b>On colour.</b> Everything here is built on Origna8's real palette, sampled from what the app actually paints rather than from the variable names in its stylesheet, which turned out to disagree. The true logo sweep runs <b>#FF7A2F</b> orange to <b>#FF4D8D</b> pink to <b>#B14DFF</b> purple to <b>#4D6BFF</b> blue: warmer and younger than anything the product uses outside the logo mark, which is worth noticing on its own. The orange is the accent throughout, and it means one thing only: this is yours, this is next. The six course colours are the app's own.</p>
+  <p style="margin-top:16px">The chosen direction and Andrew's screen are fully interactive. The four archived variants are scaled previews here; <b>open full size</b> to click through them.</p>
+  <p style="margin-top:16px">Known gap: the app has a light theme and these are dark only.</p>
 </footer>
 
 </div>

@@ -15,8 +15,12 @@
   --surface-1:#111114; --surface-2:#16161a; --surface-3:#1e1e23; --card:#111114;
   --text-1:#f4f4f5; --text-2:#a0a0a8; --text-3:#6c6c74;
   --border:#ffffff1a; --border-2:#ffffff0e; --ring:#ffffff38;
-  --rainbow-logo:linear-gradient(115deg,#f2680c 0%,#ffa31c 22%,#ffd15e 38%,#9fe3ec 46%,#4fc0e0 55%,#3e6ff0 74%,#5b45ce 90%,#7c3aed 100%);
-  --brand-orange:#f2680c; --brand-amber:#ffa31c; --brand-cyan:#22b8c9; --brand-blue:#3e6ff0; --brand-violet:#7c3aed;
+  /* true logo sweep, sampled from the painted app 30 Jul 2026 */
+  --rainbow-logo:linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%);
+  --brand-orange:#FF7A2F; --brand-pink:#FF4D8D; --brand-purple:#B14DFF; --brand-blue:#4D6BFF; --brand-violet:#7c3aed;
+  /* course category coding, live-app solids. never gradients, never decoration */
+  --cat-fundamentals:#F0B93A; --cat-products:#5EEAD4; --cat-compliance:#8B5CF6;
+  --cat-pricing:#6D28D9; --cat-sales:#EF4444; --cat-underwriting:#10B981;
   --pos:#34d399; --pos-soft:#34d3991f; --neg:#f87171; --neg-soft:#f8717124; --warn:#f0b649; --warn-soft:#f0b64924;
   --radius:18px; --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:24px; --r-pill:999px;
   --shadow-sm:0 1px 2px #00000073,0 1px 1px #00000059;
@@ -27,8 +31,8 @@
 
   /* arcade-ledger, content column only */
   --heat:var(--brand-orange);
-  --heat-soft:#f2680c1f;
-  --heat-line:#f2680c66;
+  --heat-soft:#FF7A2F1f;
+  --heat-line:#FF7A2F66;
   --rule:#ffffff12;
   --rule-2:#ffffff08;
 }
@@ -250,7 +254,8 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .ct td{padding:13px 12px;white-space:nowrap;border-bottom:1px solid var(--rule-2);vertical-align:middle;font-size:13px;color:var(--text-2)}
 .ct tr:last-child td{border-bottom:0}
 .ct tr.rowlink:hover td{background:#ffffff05}
-.ct .cat{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3)}
+.ct .cat{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--text-3);display:flex;align-items:center;gap:7px}
+.ct .cat i{width:6px;height:6px;flex:0 0 6px;border-radius:2px;background:var(--cat,var(--text-3));display:block}
 .ttl{font-size:15px;color:var(--text-1);font-weight:500;letter-spacing:-.01em;line-height:1.2}
 .ttl-d{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.45;max-width:52ch;white-space:normal}
 .chbar{display:flex;gap:3px}
@@ -850,7 +855,7 @@ function rowHTML(c){
   const stIcon = c.st==='lock' ? '<svg><use href="#i-lock"/></svg>' : '';
   return '<tr class="rowlink">'+
     '<td class="mono" style="color:var(--text-3)">'+c.pos+'</td>'+
-    '<td><span class="cat">'+c.cat+'</span></td>'+
+    '<td><span class="cat" style="--cat:var(--cat-'+c.cat.toLowerCase()+')"><i></i>'+c.cat+'</span></td>'+
     '<td><div class="ttl">'+c.ttl+'</div><div class="ttl-d">'+c.d+'</div></td>'+
     '<td>'+chbar(c.n,c.done,c.live)+'<div class="mono" style="font-size:11px;color:var(--text-2);margin-top:7px">'+c.done+' of '+c.n+'</div>'+
       '<div class="mono" style="font-size:10.5px;color:var(--text-3);margin-top:2px">'+c.branch+'</div></td>'+

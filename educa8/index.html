@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Educa8 — five directions</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#08080a; --s1:#111114; --s2:#16161a;
+    --t1:#f4f4f5; --t2:#a0a0a8; --t3:#6c6c74;
+    --line:#ffffff1a; --line2:#ffffff0e;
+    --accent:#f2680c;
+    --mono:"Geist Mono",ui-monospace,monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bg); color:var(--t1);
+    font-family:"Hanken Grotesk",system-ui,sans-serif;
+    font-size:15px; line-height:1.45;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit}
+  .wrap{max-width:1560px;margin:0 auto;padding:0 40px 120px}
+
+  /* masthead */
+  header{padding:56px 0 0}
+  .kicker{
+    font-family:var(--mono);font-size:11px;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--t3);
+  }
+  h1{
+    font-size:54px;font-weight:700;letter-spacing:-.035em;line-height:1;
+    margin:14px 0 0;
+  }
+  .deck{
+    margin-top:16px;max-width:62ch;color:var(--t2);font-size:17px;line-height:1.55;
+  }
+  .deck strong{color:var(--t1);font-weight:600}
+  .rule{height:1px;background:var(--line);margin:34px 0 0}
+  .rule.thin{background:var(--line2)}
+
+  /* meta strip */
+  .meta{
+    display:grid;grid-template-columns:repeat(4,1fr);
+    border-bottom:1px solid var(--line);
+  }
+  .meta div{padding:16px 20px 18px;border-left:1px solid var(--line2)}
+  .meta div:first-child{border-left:0;padding-left:0}
+  .meta dt{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--t3);display:block;margin-bottom:7px;
+  }
+  .meta dd{font-size:14px;color:var(--t2);line-height:1.4}
+  .meta dd b{color:var(--t1);font-weight:600}
+
+  /* index of variants */
+  .idx{margin-top:40px;border-top:1px solid var(--line)}
+  .idx a.row{
+    display:grid;grid-template-columns:44px 1fr 200px 96px;
+    gap:24px;align-items:baseline;
+    padding:15px 0 16px;border-bottom:1px solid var(--line2);
+    text-decoration:none;transition:background .14s cubic-bezier(.22,.61,.36,1);
+  }
+  .idx a.row:hover{background:#ffffff08}
+  .idx .n{font-family:var(--mono);font-size:12px;color:var(--t3)}
+  .idx .nm{font-size:17px;font-weight:600;letter-spacing:-.012em}
+  .idx .nm span{
+    display:block;font-weight:400;font-size:13.5px;color:var(--t2);
+    margin-top:3px;letter-spacing:0;
+  }
+  .idx .fam{font-family:var(--mono);font-size:11px;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--t3)}
+  .idx .go{font-family:var(--mono);font-size:11px;color:var(--accent);text-align:right;
+    letter-spacing:.06em}
+
+  /* panels */
+  section.v{padding-top:76px}
+  .vhead{display:flex;align-items:flex-end;gap:22px;justify-content:space-between;
+    border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:0}
+  .vhead h2{font-size:29px;font-weight:700;letter-spacing:-.028em;line-height:1.1}
+  .vhead h2 em{
+    font-style:normal;font-family:var(--mono);font-size:12px;color:var(--accent);
+    letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:9px;
+    font-weight:400;
+  }
+  .vhead .open{
+    font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;color:var(--t2);
+    text-decoration:none;border:1px solid var(--line);padding:8px 14px;white-space:nowrap;
+    transition:all .14s;
+  }
+  .vhead .open:hover{border-color:var(--accent);color:var(--accent)}
+
+  .vbody{display:grid;grid-template-columns:1fr 336px;gap:0;border-bottom:1px solid var(--line)}
+  .stage{
+    position:relative;overflow:hidden;
+    height:600px;border-right:1px solid var(--line2);
+    background:var(--bg);
+  }
+  .stage iframe{
+    width:1440px;height:1600px;border:0;
+    transform:scale(.812);transform-origin:0 0;
+    pointer-events:none;
+  }
+  .stage .veil{position:absolute;inset:0}
+  .notes{padding:26px 0 30px 26px}
+  .notes h3{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
+    color:var(--t3);font-weight:400;margin-bottom:10px;
+  }
+  .notes p{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:20px}
+  .notes p b{color:var(--t1);font-weight:600}
+  .notes ul{list-style:none;margin-bottom:20px}
+  .notes li{
+    font-size:13.5px;color:var(--t2);line-height:1.5;padding:7px 0 8px;
+    border-bottom:1px solid var(--line2);display:grid;grid-template-columns:16px 1fr;gap:9px;
+  }
+  .notes li i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--t3)}
+  .notes .verdict{
+    font-size:13.5px;line-height:1.55;color:var(--t2);
+    border-left:2px solid var(--accent);padding:2px 0 3px 13px;
+  }
+  .notes .verdict b{color:var(--t1)}
+  footer{padding-top:66px;color:var(--t3);font-size:13px;max-width:70ch;line-height:1.6}
+  footer b{color:var(--t2);font-weight:500}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">Origna8 · Educa8 · direction fan-out · 30 Jul 2026</div>
+  <h1>Five ways Educa8 could work</h1>
+  <p class="deck">The same six courses, the same twenty eight guides, the same app shell, built five times in five different design families. <strong>Pick one.</strong> The next step narrows it to three layouts inside whichever one you choose, and adds the authoring side for Andrew.</p>
+  <div class="rule"></div>
+</header>
+
+<dl class="meta">
+  <div><dt>What is fixed</dt><dd>Sidebar, top bar, tokens, <b>Hanken Grotesk</b>. Every variant is inside the real product, not a microsite.</dd></div>
+  <div><dt>What each one fixes</dt><dd>No reason to start · progress that means nothing · six identical cards · a dead AI Mentor · <b>Domina8 Standings unused</b>.</dd></div>
+  <div><dt>Sourced from</dt><dd>Four families from the taste library. The fifth is new, proposed for this brief, and named.</dd></div>
+  <div><dt>State shown</dt><dd>A real in-progress learner: <b>3 of 29 chapters</b>, 5 day streak, 3rd on the branch. Not an empty account.</dd></div>
+</dl>
+
+<nav class="idx">
+  <a class="row" href="#v1"><span class="n">01</span><span class="nm">The dashboard<span>Courses as a sortable data table, keyboard-first</span></span><span class="fam">product-dense</span><span class="go">jump →</span></a>
+  <a class="row" href="#v2"><span class="n">02</span><span class="nm">The syllabus<span>All 29 chapters and 28 guides on one ruled index</span></span><span class="fam">swiss-grid</span><span class="go">jump →</span></a>
+  <a class="row" href="#v3"><span class="n">03</span><span class="nm">The publication<span>A journal you read, with margins and figure numbers</span></span><span class="fam">editorial-longform</span><span class="go">jump →</span></a>
+  <a class="row" href="#v4"><span class="n">04</span><span class="nm">The instrument<span>Study as measured activity, with a coverage map</span></span><span class="fam">mono-technical</span><span class="go">jump →</span></a>
+  <a class="row" href="#v5"><span class="n">05</span><span class="nm">The ledger<span>A progression system with the cartoon removed</span></span><span class="fam">arcade-ledger · new</span><span class="go">jump →</span></a>
+</nav>
+
+<section class="v" id="v1">
+  <div class="vhead">
+    <h2><em>01 · product-dense · Linear, Mercury, Stripe</em>The dashboard</h2>
+    <a class="open" href="v1-product-dense.html" target="_blank">OPEN FULL SIZE ↗</a>
+  </div>
+  <div class="vbody">
+    <div class="stage"><iframe src="v1-product-dense.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
+    <div class="notes">
+      <h3>The move</h3>
+      <p>The six-card wall becomes a <b>real data table</b>: sequence, level, chapters done, time left, progress, last touched. Sortable. Locked rows say what unlocks them. The hero is the product itself, the chapter reader shown at an angle with real content in it.</p>
+      <h3>Carries</h3>
+      <ul>
+        <li><i>01</i>⌘K jump-to-chapter, J/K row navigation, real key chips</li>
+        <li><i>02</i>Telemetry strip: streak, XP, branch rank, 14-day study sparkline</li>
+        <li><i>03</i>Competency readout that names your weakest topic and routes to it</li>
+        <li><i>04</i>Mentor asks two queued questions instead of waiting</li>
+      </ul>
+      <p class="verdict"><b>Reads as:</b> the most obviously shippable of the five, and the least surprising. It will look right to anyone who already uses the app all day. It is also the one a competitor could arrive at independently.</p>
+    </div>
+  </div>
+</section>
+
+<section class="v" id="v2">
+  <div class="vhead">
+    <h2><em>02 · swiss-grid · Klim, Grilli Type, Fonts In Use</em>The syllabus</h2>
+    <a class="open" href="v2-swiss-grid.html" target="_blank">OPEN FULL SIZE ↗</a>
+  </div>
+  <div class="vbody">
+    <div class="stage"><iframe src="v2-swiss-grid.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
+    <div class="notes">
+      <h3>The move</h3>
+      <p>Tabs are gone. Courses and guides live in <b>one ruled index</b> under a shared taxonomy, all 29 chapters expandable in place, so the entire body of work is legible on one screen. You can see exactly where you are in it. Hairline rules do every separation, no cards anywhere.</p>
+      <h3>Carries</h3>
+      <ul>
+        <li><i>01</i>Four-weight rule system built for dark ground, not inverted from paper</li>
+        <li><i>02</i>Progress ledger replaces the banner: chapters, minutes, XP, rank, recall %</li>
+        <li><i>03</i>Orange marks exactly one thing on the page: your position</li>
+        <li><i>04</i>Wrong quiz answers cite the definition row in the text above</li>
+      </ul>
+      <p class="verdict"><b>Reads as:</b> the most confident and the most information-dense. Strongest family in your library, executed properly. Risk is that a 23-year-old reads a syllabus as homework rather than as a game.</p>
+    </div>
+  </div>
+</section>
+
+<section class="v" id="v3">
+  <div class="vhead">
+    <h2><em>03 · editorial-longform, End B · Works in Progress, Quanta</em>The publication</h2>
+    <a class="open" href="v3-editorial-longform.html" target="_blank">OPEN FULL SIZE ↗</a>
+  </div>
+  <div class="vbody">
+    <div class="stage"><iframe src="v3-editorial-longform.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
+    <div class="notes">
+      <h3>The move</h3>
+      <p>Educa8 becomes something you <b>read</b>, and the design gets out of the way. The index is issue front matter with a contents list ordered by prerequisite. Definitions move into the margin as side notes. The Mentor is a question written in the margin like an editor's note, not a chat rail.</p>
+      <h3>Carries</h3>
+      <ul>
+        <li><i>01</i>Reading-position rule in the margin instead of a progress bar</li>
+        <li><i>02</i>Measure held at 68 characters, serif set at 19px on warmed ink</li>
+        <li><i>03</i>Thumbnails replaced by a chapter register: filled boxes, current one ruled</li>
+        <li><i>04</i>Figure numbers, footnotes, a real table. Zero shadows, zero radius.</li>
+      </ul>
+      <p class="verdict"><b>Reads as:</b> the most expensive and the least like software. Best single answer to the reading view specifically. Weakest on the index, because prestige is not the same thing as pull.</p>
+    </div>
+  </div>
+</section>
+
+<section class="v" id="v4">
+  <div class="vhead">
+    <h2><em>04 · mono-technical · State of AI Design, Val Town</em>The instrument</h2>
+    <a class="open" href="v4-mono-technical.html" target="_blank">OPEN FULL SIZE ↗</a>
+  </div>
+  <div class="vbody">
+    <div class="stage"><iframe src="v4-mono-technical.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
+    <div class="notes">
+      <h3>The move</h3>
+      <p>Study becomes <b>instrumented activity</b>. A coverage map puts all 29 chapters on screen as state-marked cells, so competency is one glance. Prerequisites are drawn as a real diagram with dimension lines. A run log records sessions with timestamps, durations, and outcomes.</p>
+      <h3>Carries</h3>
+      <ul>
+        <li><i>01</i>Coverage map, 6 courses × 29 chapters, hover for detail</li>
+        <li><i>02</i>Prerequisite graph with orthogonal connectors and met/unmet edges</li>
+        <li><i>03</i>Retrieval checks as pass/fail assertions, three colors, all semantic</li>
+        <li><i>04</i>One serif jump at 52px against a flat mono scale, so it is not austere</li>
+      </ul>
+      <p class="verdict"><b>Reads as:</b> the sharpest break from every other LMS on earth. Strava for underwriting. It is also the variant most likely to divide the room, and it tells the learner plainly that past effort scored zero.</p>
+    </div>
+  </div>
+</section>
+
+<section class="v" id="v5">
+  <div class="vhead">
+    <h2><em>05 · arcade-ledger · new family · Strava, Elo, Duolingo's path</em>The ledger</h2>
+    <a class="open" href="v5-arcade-ledger.html" target="_blank">OPEN FULL SIZE ↗</a>
+  </div>
+  <div class="vbody">
+    <div class="stage"><iframe src="v5-arcade-ledger.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
+    <div class="notes">
+      <h3>The move</h3>
+      <p>The one that goes furthest on mechanics. <b>One lit node</b>, its cost and its payout stated in the same breath. The branch leaderboard sits next to it, so finishing a chapter visibly moves you from 3rd to 2nd. Every reward is a figure in a ledger, never a badge or a trophy.</p>
+      <h3>Carries</h3>
+      <ul>
+        <li><i>01</i>Domina8 Standings wired in, with the exact XP gap to the next rank</li>
+        <li><i>02</i>Streak as a dated week grid, with the cost of breaking it stated</li>
+        <li><i>03</i>Spaced retrieval: checks decay from +40 to +20 after seven days</li>
+        <li><i>04</i>Motion spent on four specific events, not a page-wide fade</li>
+      </ul>
+      <p class="verdict"><b>Reads as:</b> the direct answer to the actual brief. Highest engagement ceiling, highest backend cost, and the only one with a real design risk: the streak pressure could read as coercive rather than motivating.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="rule thin" style="margin-bottom:26px"></div>
+  <p><b>One honest note.</b> All five independently chose the same accent, the orange stop from the Origna8 logo sweep, because the app over-uses violet and orange is the one warm brand colour sitting unused. That was convergence, not coordination, and it is good evidence the choice is right. It does mean the five differ by structure, type, and density rather than by colour, so compare them on how the information is organised, not on palette.</p>
+  <p style="margin-top:16px">Previews above are scaled and not interactive. <b>Open full size</b> to click the tabs and answer the quiz.</p>
+</footer>
+
+</div>
+</body>
+</html>

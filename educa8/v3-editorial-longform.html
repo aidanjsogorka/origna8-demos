@@ -1,0 +1,1080 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Educa8 · Origna8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&family=Source+Serif+4:ital,opsz,wght@0,8..60,200..700;1,8..60,200..700&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   Origna8 live tokens
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --background:#08080a; --foreground:#f4f4f5;
+  --surface-1:#111114; --surface-2:#16161a; --surface-3:#1e1e23; --card:#111114;
+  --text-1:#f4f4f5; --text-2:#a0a0a8; --text-3:#6c6c74;
+  --border:#ffffff1a; --border-2:#ffffff0e; --ring:#ffffff38;
+  --rainbow-logo:linear-gradient(115deg,#f2680c 0%,#ffa31c 22%,#ffd15e 38%,#9fe3ec 46%,#4fc0e0 55%,#3e6ff0 74%,#5b45ce 90%,#7c3aed 100%);
+  --brand-orange:#f2680c; --brand-amber:#ffa31c; --brand-cyan:#22b8c9;
+  --brand-blue:#3e6ff0; --brand-violet:#7c3aed;
+  --pos:#34d399; --pos-soft:#34d3991f; --neg:#f87171; --neg-soft:#f8717124;
+  --warn:#f0b649; --warn-soft:#f0b64924;
+  --radius:18px; --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:24px; --r-pill:999px;
+  --shadow-sm:0 1px 2px #00000073,0 1px 1px #00000059;
+  --ease:cubic-bezier(.22,.61,.36,1); --dur-fast:.14s; --dur-base:.22s; --dur-slow:.32s;
+  --app-bar-h:3.5rem; --page-pad:1.5rem; --sidebar-w:246px;
+
+  /* ── editorial-longform, End B. Warmed ink for a dark ground.
+        Never pure #f4f4f5 at essay length. ── */
+  --ink:#ded7ca;        /* body ink, 19px serif */
+  --ink-hi:#f0eadd;     /* display only */
+  --ink-2:#958d80;      /* marginalia, metadata */
+  --ink-3:#6a645a;      /* figure numbers, faint */
+  --rule:#ffffff1c;     /* hairlines do all the separation */
+  --rule-2:#ffffff0f;
+  --accent:#f2680c;     /* one accent. warm end of the logo sweep. */
+  --serif:'Source Serif 4',Georgia,'Times New Roman',serif;
+  --sans:'Hanken Grotesk',system-ui,sans-serif;
+  --mono:'Geist Mono',ui-monospace,monospace;
+  /* scale ratio 1.25 off a 19px body */
+  --t-micro:10.5px; --t-mono:12.2px; --t-cap:15.2px; --t-body:19px;
+  --t-lead:23.75px; --t-3:29.7px; --t-2:37.1px; --t-1:46.4px;
+  --rail:176px; --gut:48px; --marg:264px; --measure:496px; --sheet:1032px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--background); color:var(--text-1);
+  font-family:var(--sans); font-size:16px;
+  -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale;
+}
+::selection{background:#f2680c33;color:var(--ink-hi)}
+.app{display:flex;align-items:flex-start;min-height:100vh}
+
+/* ═════════ SHELL: sidebar ═════════ */
+.sidebar{
+  width:var(--sidebar-w);flex:0 0 var(--sidebar-w);
+  background:var(--surface-1);border-right:1px solid var(--border);
+  height:100vh;position:sticky;top:0;display:flex;flex-direction:column;
+}
+.logo{display:flex;align-items:center;gap:9px;padding:18px 16px 14px}
+.logo-mark{width:24px;height:24px;border-radius:7px;background:var(--rainbow-logo);flex:0 0 24px}
+.logo-word{font-size:20px;font-weight:600;letter-spacing:-.02em;color:#fff}
+.logo-word i{font-style:normal;background:var(--rainbow-logo);-webkit-background-clip:text;background-clip:text;color:transparent}
+.nav{flex:1;overflow:hidden;padding:4px 10px}
+.nav-label{font-size:10.5px;text-transform:uppercase;letter-spacing:.12em;color:var(--text-3);
+  font-weight:600;padding:14px 8px 6px}
+.nav-item{display:flex;align-items:center;gap:9px;height:34px;padding:0 8px;border-radius:10px;
+  font-size:14px;color:var(--text-2);cursor:pointer;transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.nav-item:hover{background:#ffffff08;color:var(--text-1)}
+.nav-item.on{background:var(--surface-3);color:var(--text-1)}
+.nav-item svg{flex:0 0 16px;opacity:.8}
+.nav-item.on svg{opacity:1}
+.badge-v{margin-left:auto;background:var(--brand-violet);color:#fff;font-family:var(--mono);
+  font-size:10px;font-weight:500;border-radius:var(--r-pill);padding:1px 6px;line-height:1.5}
+.side-foot{padding:10px;display:flex;flex-direction:column;gap:6px}
+.org{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:12px;padding:7px 9px;cursor:pointer}
+.org-av{width:26px;height:26px;border-radius:7px;background:var(--rainbow-logo);flex:0 0 26px;opacity:.9}
+.org-t{font-size:12.5px;color:var(--text-1);font-weight:500;line-height:1.25}
+.org-s{font-size:11px;color:var(--text-3);line-height:1.25}
+.side-row{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:10px;
+  font-size:13px;color:var(--text-2);cursor:pointer}
+.side-row:hover{background:#ffffff08}
+.user-av{width:26px;height:26px;border-radius:50%;background:var(--surface-3);border:1px solid var(--border);
+  display:grid;place-items:center;font-size:10.5px;font-weight:600;color:var(--text-1);flex:0 0 26px;font-family:var(--mono)}
+.mlauto{margin-left:auto}
+
+/* ═════════ SHELL: top bar ═════════ */
+.main{flex:1;min-width:0}
+.topbar{height:var(--app-bar-h);display:flex;align-items:center;gap:8px;padding:0 var(--page-pad);
+  background:var(--background);position:sticky;top:0;z-index:20;border-bottom:1px solid var(--border-2)}
+.search{width:246px;height:32px;display:flex;align-items:center;gap:7px;padding:0 8px;
+  background:var(--surface-2);border:1px solid var(--border);border-radius:10px;color:var(--text-3);font-size:12.5px;white-space:nowrap;overflow:hidden}
+.kbd{margin-left:auto;flex:0 0 auto;font-family:var(--mono);font-size:11px;color:var(--text-3);
+  border:1px solid var(--border);border-radius:5px;padding:1px 4px}
+.ghost{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:var(--text-3);cursor:pointer}
+.ghost:hover{background:var(--surface-2);color:var(--text-2)}
+.tb-pill{display:flex;align-items:center;gap:7px;height:30px;padding:0 11px;border:1px solid var(--border);
+  border-radius:var(--r-pill);font-size:12.5px;color:var(--text-2)}
+.dot-v{width:6px;height:6px;border-radius:50%;background:var(--brand-violet)}
+.tb-pill b{font-family:var(--mono);font-weight:500;color:var(--text-1);font-size:12px}
+.bell{position:relative}
+.bell span{position:absolute;top:1px;right:0;background:#e11d74;color:#fff;font-family:var(--mono);
+  font-size:9px;line-height:1;padding:2px 3.5px;border-radius:var(--r-pill)}
+.theme{display:flex;align-items:center;border:1px solid var(--border);border-radius:var(--r-pill);padding:2px}
+.theme div{width:26px;height:24px;display:grid;place-items:center;border-radius:var(--r-pill);color:var(--text-3);cursor:pointer}
+.theme div.on{background:var(--surface-3);color:var(--text-1)}
+.btn-w{height:32px;padding:0 14px;border-radius:var(--r-pill);background:#fff;color:#0b0b0c;
+  font-size:13px;font-weight:600;display:flex;align-items:center;cursor:pointer;border:none;font-family:var(--sans)}
+.btn-o{height:32px;padding:0 14px;border-radius:var(--r-pill);background:transparent;color:#fff;
+  border:1px solid var(--brand-violet);font-size:13px;font-weight:500;display:flex;align-items:center;cursor:pointer;font-family:var(--sans)}
+
+/* ═════════ CONTENT COLUMN. zero radius, hairlines, no shadow. ═════════ */
+.page{padding:var(--page-pad) var(--page-pad) 96px}
+.sheet{max-width:var(--sheet)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums lining-nums}
+.kick{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500}
+.meta{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.04em;color:var(--ink-2);
+  font-variant-numeric:tabular-nums lining-nums}
+
+/* ── masthead ── */
+.masthead{border-top:1px solid var(--rule);padding-top:14px;margin-top:8px}
+.mh-top{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:26px}
+.mh-grid{display:grid;grid-template-columns:var(--rail) var(--measure) var(--marg);gap:0 var(--gut);align-items:end;
+  padding-bottom:22px;border-bottom:1px solid var(--rule)}
+.wordmark{font-family:var(--serif);font-size:var(--t-1);font-weight:600;color:var(--ink-hi);
+  letter-spacing:-.02em;line-height:.94;font-variation-settings:'opsz' 60}
+.wordmark em{font-style:italic;font-weight:300;color:var(--ink-2);font-size:.44em;letter-spacing:0;
+  display:block;margin-top:10px}
+.colophon{display:flex;flex-direction:column;gap:5px;align-items:flex-end;text-align:right;padding-bottom:4px}
+.colophon .r{font-family:var(--mono);font-size:var(--t-mono);color:var(--ink-2);
+  font-variant-numeric:tabular-nums lining-nums}
+.colophon .r b{color:var(--ink);font-weight:500}
+
+/* ── the lead: continue reading ── */
+.lead{display:grid;grid-template-columns:var(--rail) var(--measure) var(--marg);gap:0 var(--gut);
+  padding:30px 0 28px;border-bottom:1px solid var(--rule);position:relative}
+.lead:hover .lead-title{color:#fff}
+.lead-rail{position:relative}
+.lead-rail:before{content:'';position:absolute;left:0;top:4px;bottom:6px;width:2px;background:var(--accent)}
+.lead-rail .kick{padding-left:14px;color:var(--accent);letter-spacing:.16em}
+.lead-rail .note{padding-left:14px;margin-top:9px;font-family:var(--serif);font-size:var(--t-cap);
+  color:var(--ink-2);line-height:1.5;font-style:italic}
+.lead-title{font-family:var(--serif);font-size:var(--t-2);font-weight:600;color:var(--ink-hi);
+  letter-spacing:-.018em;line-height:1.08;transition:color var(--dur-base) var(--ease);cursor:pointer}
+.lead-sub{font-family:var(--serif);font-size:var(--t-cap);color:var(--ink-2);margin-top:10px;line-height:1.55;max-width:52ch}
+.lead-cta{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-family:var(--mono);
+  font-size:var(--t-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink-hi);
+  background:none;border:0;border-bottom:1px solid var(--accent);padding:0 0 5px;cursor:pointer;
+  transition:gap var(--dur-base) var(--ease)}
+.lead-cta:hover{gap:15px}
+.lead-cta svg{color:var(--accent)}
+.lead-right{display:flex;flex-direction:column;align-items:flex-end;gap:12px;padding-top:5px}
+
+/* register: the information-bearing replacement for a thumbnail */
+.reg{display:flex;gap:3px}
+.reg i{display:block;width:13px;height:22px;border:1px solid var(--rule);border-radius:0}
+.reg i.done{background:var(--ink-2);border-color:var(--ink-2)}
+.reg i.now{border-color:var(--accent);box-shadow:inset 0 -3px 0 var(--accent)}
+.reg.sm i{width:9px;height:15px}
+.lvl{display:inline-flex;gap:2px;vertical-align:middle;margin-left:6px}
+.lvl b{width:4px;height:4px;border:1px solid var(--ink-3);border-radius:50%;display:block}
+.lvl b.f{background:var(--ink-2);border-color:var(--ink-2)}
+
+/* ── tabs, set as a running head ── */
+.runhead{display:flex;align-items:flex-end;gap:26px;border-bottom:1px solid var(--rule);margin-top:44px}
+.tab{background:none;border:0;font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.1em;
+  text-transform:uppercase;color:var(--ink-3);padding:0 0 11px;cursor:pointer;position:relative;
+  transition:color var(--dur-fast) var(--ease)}
+.tab:hover{color:var(--ink-2)}
+.tab.on{color:var(--ink-hi)}
+.tab.on:after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;background:var(--accent)}
+.tab sup{font-size:9.5px;color:var(--ink-3);margin-left:4px;vertical-align:super}
+.tab.on sup{color:var(--accent)}
+.runhead .mlauto{font-family:var(--mono);font-size:var(--t-mono);color:var(--ink-3);padding-bottom:11px}
+
+/* ── contents ── */
+.contents{display:grid;grid-template-columns:var(--rail) 1fr;gap:0 var(--gut)}
+.c-side{padding-top:34px}
+.c-note{border-top:1px solid var(--rule);padding-top:11px;margin-bottom:30px}
+.c-note h4{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:500;margin-bottom:8px}
+.c-note p{font-family:var(--serif);font-size:var(--t-cap);line-height:1.5;color:var(--ink-2);font-weight:300}
+.c-note p b{color:var(--ink);font-weight:600;font-variant-numeric:oldstyle-nums}
+.c-note a{color:var(--accent);text-decoration:none;border-bottom:1px solid #f2680c55;
+  font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.04em}
+.c-note a:hover{border-bottom-color:var(--accent)}
+.week{display:flex;gap:4px;margin:10px 0 2px}
+.week i{width:10px;height:10px;border:1px solid var(--rule);display:block}
+.week i.f{background:#b8500c;border-color:#b8500c}
+.week i.t{border-color:var(--accent)}
+
+.entry{display:grid;grid-template-columns:56px 1fr var(--marg);gap:0 20px;padding:26px 0;
+  border-top:1px solid var(--rule-2);position:relative}
+.entry:first-child{border-top:0}
+.entry.locked .e-title{color:#a19787}
+.entry.locked .e-desc{color:var(--ink-3)}
+.e-num{font-family:var(--mono);font-size:var(--t-mono);color:var(--ink-3);
+  font-variant-numeric:tabular-nums lining-nums;padding-top:5px;transition:color var(--dur-base) var(--ease)}
+.entry:hover .e-num{color:var(--accent)}
+.entry.locked:hover .e-num{color:var(--ink-3)}
+.e-kick{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:9px}
+.e-kick b{color:var(--ink-2);font-weight:500}
+.e-title{font-family:var(--serif);font-size:var(--t-3);font-weight:500;color:var(--ink-hi);
+  letter-spacing:-.014em;line-height:1.12;cursor:pointer;display:inline;
+  background-image:linear-gradient(var(--accent),var(--accent));background-size:0 1px;
+  background-repeat:no-repeat;background-position:0 100%;transition:background-size var(--dur-slow) var(--ease)}
+.entry:not(.locked) .e-title:hover{background-size:100% 1px}
+.e-desc{font-family:var(--serif);font-size:var(--t-cap);line-height:1.58;color:var(--ink-2);
+  max-width:54ch;margin-top:11px;font-weight:300;font-variant-numeric:oldstyle-nums}
+.e-next{margin-top:15px;display:flex;align-items:center;gap:10px}
+.e-next .mono{font-size:var(--t-mono);color:var(--ink-2);letter-spacing:.03em}
+.e-next .go{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-hi);background:none;border:0;border-bottom:1px solid var(--accent);padding-bottom:3px;cursor:pointer}
+.e-right{display:flex;flex-direction:column;align-items:flex-end;gap:9px;padding-top:3px}
+.e-stat{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.05em;color:var(--ink-2);
+  font-variant-numeric:tabular-nums lining-nums;text-align:right}
+.e-stat.on{color:var(--accent)}
+.e-marker{position:absolute;left:-14px;top:31px;width:6px;height:6px;background:var(--accent)}
+.e-prereq{font-family:var(--mono);font-size:var(--t-mono);color:var(--ink-3);letter-spacing:.05em;
+  border:1px solid var(--rule);padding:4px 8px}
+
+/* ── guides index ── */
+.gx{border-top:1px solid var(--rule);margin-top:34px}
+.gx-h{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 20px}
+.gx-h h3{font-family:var(--serif);font-size:var(--t-3);font-weight:500;color:var(--ink-hi);letter-spacing:-.012em}
+.gtable{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums lining-nums}
+.gtable th{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:right;padding:0 0 9px;border-bottom:1px solid var(--rule)}
+.gtable th:first-child{text-align:left}
+.gtable td{font-family:var(--serif);font-size:17px;color:var(--ink);padding:12px 0;
+  border-bottom:1px solid var(--rule-2);text-align:right;font-weight:300}
+.gtable td:first-child{text-align:left}
+.gtable tr:hover td{color:var(--ink-hi)}
+.gtable td.n{font-family:var(--mono);font-size:13.5px;color:var(--ink-2);letter-spacing:.03em}
+.gtable tr.tot td{border-bottom:0;border-top:1px solid var(--rule);color:var(--ink-2);
+  font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.06em;text-transform:uppercase;padding-top:11px}
+.gtable td .sub{font-family:var(--mono);font-size:11px;color:var(--ink-3);letter-spacing:.05em;margin-left:10px}
+.empty{font-family:var(--serif);font-size:var(--t-lead);color:var(--ink-2);font-weight:300;
+  padding:52px 0 8px;max-width:44ch;line-height:1.45}
+.empty span{color:var(--ink-3);display:block;font-size:var(--t-cap);margin-top:14px;font-family:var(--mono);
+  letter-spacing:.05em}
+
+/* ═════════ view divider ═════════ */
+.viewbar{border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  padding:9px var(--page-pad);font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.2em;
+  color:var(--ink-3);background:#0b0b0d}
+
+/* ═════════ VIEW 2 ═════════ */
+.read{display:grid;grid-template-columns:var(--rail) 1fr;gap:0 var(--gut);max-width:var(--sheet);padding-top:26px}
+
+/* left rail: chapter register + reading-position rule */
+.rail{position:sticky;top:80px;max-width:var(--rail);align-self:start;padding-bottom:40px}
+.rail h5{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:500;padding-bottom:11px;border-bottom:1px solid var(--rule)}
+.chreg{list-style:none;margin:0 0 26px}
+.chreg li{display:grid;grid-template-columns:16px 1fr;gap:8px;padding:9px 0;border-bottom:1px solid var(--rule-2);
+  font-family:var(--serif);font-size:13.5px;line-height:1.32;color:var(--ink-3);font-weight:300;cursor:pointer;
+  transition:color var(--dur-fast) var(--ease)}
+.chreg li:hover{color:var(--ink-2)}
+.chreg li b{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);font-weight:400;padding-top:2px;
+  font-variant-numeric:tabular-nums lining-nums}
+.chreg li.done{color:var(--ink-2)}
+.chreg li.done b{color:var(--ink-2)}
+.chreg li.now{color:var(--ink-hi)}
+.chreg li.now b{color:var(--accent)}
+.chreg li span{display:block;font-family:var(--mono);font-size:9.5px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--ink-3);margin-top:4px}
+.chreg li.now span{color:var(--accent)}
+
+.posrule{display:grid;grid-template-columns:11px 1fr;gap:11px}
+.track{position:relative;width:1px;background:var(--rule);justify-self:center;height:270px}
+.track .fill{position:absolute;left:-1px;top:0;width:3px;background:var(--accent);height:0}
+.track .knob{position:absolute;left:-4px;width:9px;height:1px;background:var(--accent);top:0;transition:top .08s linear}
+.secs{position:relative;height:270px}
+.secs a{position:absolute;left:0;font-family:var(--mono);font-size:10.5px;letter-spacing:.08em;
+  color:var(--ink-3);text-decoration:none;line-height:1;transition:color var(--dur-base) var(--ease);white-space:nowrap}
+.secs a.on{color:var(--ink-hi)}
+.secs a:hover{color:var(--ink-2)}
+.pct{margin-top:16px;font-family:var(--mono);font-size:var(--t-mono);color:var(--ink-2);
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:.05em}
+.pct b{color:var(--ink-hi);font-weight:500}
+
+/* article */
+.art{max-width:100%;padding-bottom:60px}
+.titleblock{border-top:1px solid var(--rule);padding-top:14px}
+.titleblock .kick{margin-bottom:26px}
+.titleblock h1{font-family:var(--serif);font-size:var(--t-1);font-weight:600;color:var(--ink-hi);
+  letter-spacing:-.022em;line-height:1.03;max-width:16ch;font-variation-settings:'opsz' 60}
+.titleblock .sub{font-family:var(--serif);font-size:var(--t-lead);line-height:1.45;color:var(--ink);
+  font-weight:300;max-width:44ch;margin-top:20px;font-variant-numeric:oldstyle-nums}
+.byline{display:flex;flex-wrap:wrap;gap:0 18px;align-items:center;margin-top:28px;padding:11px 0;
+  border-top:1px solid var(--rule-2);border-bottom:1px solid var(--rule-2)}
+.byline span{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.06em;color:var(--ink-3);
+  font-variant-numeric:tabular-nums lining-nums}
+.byline span.warn{color:var(--accent)}
+
+.tier{display:grid;grid-template-columns:var(--measure) var(--marg);gap:0 var(--gut);align-items:start}
+.tier > .col{min-width:0}
+h2.sec{font-family:var(--serif);font-size:var(--t-3);font-weight:500;color:var(--ink-hi);
+  letter-spacing:-.014em;line-height:1.16;max-width:30ch}
+.sec-head{border-top:1px solid var(--rule);margin-top:52px;padding-top:13px}
+.sec-head .kick{margin-bottom:14px}
+p.body{font-family:var(--serif);font-size:var(--t-body);line-height:1.63;color:var(--ink);
+  font-weight:370;margin-top:22px;font-variant-numeric:oldstyle-nums;
+  font-variation-settings:'opsz' 18;text-wrap:pretty}
+p.body:first-child{margin-top:24px}
+p.body em{font-style:italic;color:var(--ink-hi)}
+p.body strong{font-weight:600;color:var(--ink-hi)}
+.sc{font-variant-caps:all-small-caps;letter-spacing:.06em;color:var(--ink-hi);font-weight:500}
+sup.fn{font-family:var(--mono);font-size:10px;color:var(--accent);vertical-align:super;line-height:0;
+  padding-left:1px;cursor:pointer;font-variant-numeric:lining-nums}
+
+/* side notes: marginalia instead of callout boxes */
+.side{border-top:1px solid var(--rule);padding-top:9px;margin-top:26px;opacity:0;transform:translateX(9px);
+  transition:opacity .42s var(--ease),transform .42s var(--ease)}
+.side.in{opacity:1;transform:none}
+.side .term{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-2);font-weight:500;margin-bottom:6px}
+.side .term i{font-style:normal;color:var(--ink-3);letter-spacing:.06em;margin-left:5px;text-transform:lowercase}
+.side p{font-family:var(--serif);font-size:14.4px;line-height:1.52;color:var(--ink-2);font-weight:300;
+  font-variant-numeric:oldstyle-nums}
+.side p b{color:var(--ink);font-weight:600}
+.side.acc{border-top-color:var(--accent)}
+.side.acc .term{color:var(--accent)}
+
+/* figure */
+figure{margin-top:40px}
+figure .fnum{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);padding-bottom:12px;border-bottom:1px solid var(--rule);margin-bottom:22px;display:block}
+.bars{display:flex;flex-direction:column;gap:0}
+.barrow{display:grid;grid-template-columns:64px 1fr 52px;gap:14px;align-items:center;padding:7px 0}
+.barrow .yr{font-family:var(--mono);font-size:11.5px;color:var(--ink-3);letter-spacing:.06em;
+  font-variant-numeric:tabular-nums lining-nums}
+.barrow .pc{font-family:var(--mono);font-size:11.5px;color:var(--ink-2);text-align:right;
+  font-variant-numeric:tabular-nums lining-nums}
+.bar{height:13px;position:relative;border:1px solid var(--rule);
+  background:repeating-linear-gradient(90deg,#ffffff12 0 1px,transparent 1px 6px)}
+.bar i{position:absolute;left:0;top:0;bottom:0;width:0;background:#c9560c;
+  transition:width .7s var(--ease)}
+figcaption{font-family:var(--serif);font-size:14.4px;line-height:1.5;color:var(--ink-2);font-weight:300;
+  margin-top:18px;padding-top:11px;border-top:1px solid var(--rule-2);max-width:56ch;font-variant-numeric:oldstyle-nums}
+
+/* table as a first-class object */
+table.t{width:100%;border-collapse:collapse;margin-top:40px;
+  font-variant-numeric:tabular-nums lining-nums}
+table.t caption{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);text-align:left;padding-bottom:12px;border-bottom:1px solid var(--rule);margin-bottom:2px}
+table.t th{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--ink-3);font-weight:500;text-align:right;padding:13px 0 9px;border-bottom:1px solid var(--rule-2)}
+table.t th:first-child{text-align:left}
+table.t td{font-family:var(--serif);font-size:17px;color:var(--ink);text-align:right;padding:11px 0;
+  border-bottom:1px solid var(--rule-2);font-weight:300}
+table.t td:first-child{text-align:left}
+table.t td.n{font-family:var(--mono);font-size:14px;letter-spacing:.01em}
+table.t tr.sum td{border-bottom:0;border-top:1px solid var(--rule);color:var(--ink-hi);font-weight:500}
+table.t tr.sum td.n{color:var(--ink-hi)}
+table.t tr.off td{color:var(--ink-2)}
+
+/* mentor: an editor's query in the margin */
+.mentor{border-top:1px solid var(--accent);padding-top:9px;margin-top:34px}
+.mentor .term{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--accent);font-weight:500;margin-bottom:9px}
+.mentor q{font-family:var(--serif);font-size:15.6px;line-height:1.5;color:var(--ink);font-style:italic;
+  font-weight:300;quotes:none;display:block}
+.mentor button{margin-top:13px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-2);background:none;border:0;border-bottom:1px solid var(--rule);padding:0 0 3px;cursor:pointer;
+  transition:color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease)}
+.mentor button:hover{color:var(--ink-hi);border-bottom-color:var(--accent)}
+.mentor .ans{max-height:0;overflow:hidden;transition:max-height .45s var(--ease)}
+.mentor .ans.open{max-height:340px}
+.mentor .ans p{font-family:var(--serif);font-size:14.4px;line-height:1.55;color:var(--ink-2);
+  font-weight:300;padding-top:14px}
+
+/* retrieval check */
+.check{border-top:1px solid var(--rule);margin-top:64px;padding-top:13px}
+.check .kick{margin-bottom:14px}
+.q{margin-top:34px}
+.q .qn{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.14em;text-transform:uppercase;
+  color:var(--ink-3);margin-bottom:11px}
+.q .qt{font-family:var(--serif);font-size:20px;line-height:1.42;color:var(--ink-hi);font-weight:400;
+  max-width:56ch;font-variant-numeric:oldstyle-nums}
+.opts{margin-top:20px;border-top:1px solid var(--rule-2)}
+.opt{display:grid;grid-template-columns:26px 1fr 78px;gap:12px;align-items:baseline;width:100%;text-align:left;
+  background:none;border:0;border-bottom:1px solid var(--rule-2);padding:13px 0;cursor:pointer;
+  font-family:var(--serif);font-size:16.5px;line-height:1.45;color:var(--ink);font-weight:300;
+  transition:color var(--dur-fast) var(--ease),padding-left var(--dur-base) var(--ease)}
+.opt:hover:not(:disabled){color:var(--ink-hi);padding-left:7px}
+.opt:disabled{cursor:default}
+.opt .l{font-family:var(--mono);font-size:12px;color:var(--ink-3);letter-spacing:.05em}
+.opt .v{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;text-align:right;
+  opacity:0;transition:opacity var(--dur-base) var(--ease)}
+.opt.right{color:var(--ink-hi)}
+.opt.right .l{color:var(--pos)}
+.opt.right .v{opacity:1;color:var(--pos)}
+.opt.wrong{color:var(--ink-3)}
+.opt.wrong .l{color:var(--neg)}
+.opt.wrong .v{opacity:1;color:var(--neg)}
+.opt.dim{color:var(--ink-3)}
+.expl{max-height:0;overflow:hidden;transition:max-height .4s var(--ease)}
+.expl.open{max-height:220px}
+.expl p{font-family:var(--serif);font-size:15.2px;line-height:1.56;color:var(--ink-2);font-weight:300;
+  padding:16px 0 0;max-width:58ch;font-variant-numeric:oldstyle-nums}
+.expl p b{color:var(--ink);font-weight:600}
+
+/* posting to Domina8 */
+.post{max-height:0;overflow:hidden;opacity:0;border-top:1px solid transparent;
+  transform:translateY(8px);transition:opacity .5s var(--ease),transform .5s var(--ease),
+  max-height .5s var(--ease),margin-top .4s var(--ease),padding-top .4s var(--ease)}
+.post.in{opacity:1;transform:none;max-height:260px;margin-top:44px;padding-top:16px;
+  border-top-color:var(--rule)}
+.post .row{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.post .xp{font-family:var(--mono);font-size:29px;color:var(--accent);font-weight:500;
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.01em}
+.post .txt{font-family:var(--serif);font-size:17px;color:var(--ink);font-weight:300;max-width:46ch;line-height:1.5}
+.post .txt b{color:var(--ink-hi);font-weight:600}
+.post a{font-family:var(--mono);font-size:var(--t-mono);letter-spacing:.09em;text-transform:uppercase;
+  color:var(--ink-hi);text-decoration:none;border-bottom:1px solid var(--accent);padding-bottom:3px}
+
+/* end matter */
+.endmark{margin-top:60px;display:flex;align-items:center;gap:14px}
+.endmark i{width:9px;height:9px;background:var(--ink);display:block}
+.endmark span{font-family:var(--mono);font-size:var(--t-micro);letter-spacing:.2em;text-transform:uppercase;color:var(--ink-2)}
+.endmark hr{flex:1;height:1px;background:var(--rule);border:0}
+.footnotes{margin-top:36px;border-top:1px solid var(--rule-2);padding-top:16px;max-width:62ch}
+.footnotes li{list-style:none;display:grid;grid-template-columns:22px 1fr;gap:8px;
+  font-family:var(--serif);font-size:14px;line-height:1.55;color:var(--ink-3);font-weight:300;padding:7px 0;
+  font-variant-numeric:oldstyle-nums}
+.footnotes li b{font-family:var(--mono);font-size:10.5px;color:var(--accent);font-weight:400;padding-top:3px;
+  font-variant-numeric:lining-nums}
+.nextup{margin-top:56px;border-top:1px solid var(--rule);padding-top:22px;display:flex;
+  justify-content:space-between;align-items:flex-end;gap:30px}
+.nextup .kick{margin-bottom:12px}
+.nextup h3{font-family:var(--serif);font-size:var(--t-3);font-weight:500;color:var(--ink-hi);letter-spacing:-.014em;
+  cursor:pointer;display:inline;background-image:linear-gradient(var(--accent),var(--accent));
+  background-size:0 1px;background-repeat:no-repeat;background-position:0 100%;
+  transition:background-size var(--dur-slow) var(--ease)}
+.nextup h3:hover{background-size:100% 1px}
+.nextup .r{text-align:right;display:flex;flex-direction:column;gap:9px;align-items:flex-end}
+.hide{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+
+<!-- ═════════════════ SHELL: SIDEBAR ═════════════════ -->
+<aside class="sidebar">
+  <div class="logo">
+    <div class="logo-mark"></div>
+    <div class="logo-word">Origna<i>8</i></div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Origna8 HQ</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/></svg>Command Center</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 13V8M8 13V4M13 13V6"/><path d="M2 14h12"/></svg>Domina8 Standings</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="3" width="11" height="10.5" rx="1.5"/><path d="M2.5 6.5h11M5.5 1.8v2.4M10.5 1.8v2.4"/></svg>My Day</div>
+    <div class="nav-item on"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2.4 15 6l-7 3.6L1 6l7-3.6Z"/><path d="M4 7.6v3.2c0 1 1.8 2 4 2s4-1 4-2V7.6"/></svg>Educa8</div>
+
+    <div class="nav-label">Genera8 Market</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 9.2a1.6 1.6 0 1 0 0-3.2 1.6 1.6 0 0 0 0 3.2Z"/><path d="M4.4 11.2a5 5 0 0 1 0-6.4M11.6 4.8a5 5 0 0 1 0 6.4"/></svg>Live Leads</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m8 2 6 3-6 3-6-3 6-3Z"/><path d="m2 8.6 6 3 6-3M2 11.4l6 3 6-3"/></svg>Lead Packs</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="3.6" r="1.9"/><circle cx="4" cy="8" r="1.9"/><circle cx="12" cy="12.4" r="1.9"/><path d="m5.7 7 4.6-2.5M5.7 9l4.6 2.5"/></svg>Alloca8</div>
+
+    <div class="nav-label">Cultiva8</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="5.4" r="2.4"/><path d="M1.8 13c0-2.3 1.9-3.8 4.2-3.8s4.2 1.5 4.2 3.8"/><path d="M11 4.2a2.2 2.2 0 0 1 0 4.3M12.3 12.6c0-1.5-.5-2.5-1.4-3.2"/></svg>Relationships</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 3.2h2.6l1.2 3-1.5 1.1a8 8 0 0 0 3.4 3.4l1.1-1.5 3 1.2V13c0 .6-.5 1-1.1 1A11 11 0 0 1 2 4.3c0-.6.4-1.1 1-1.1Z"/></svg>Dialer</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.6" y="5" width="10.8" height="8" rx="2"/><path d="M8 2.2v2.8M5.6 8.6v1.2M10.4 8.6v1.2"/></svg>Activa8 Agents</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="6" y="1.8" width="4" height="7.4" rx="2"/><path d="M3.6 7.6a4.4 4.4 0 0 0 8.8 0M8 12v2.2"/></svg>Activa8 Voice</div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 9.4c0 1.4-1.3 2.5-3 2.5H8l-3.4 2.2.5-2.4C3.6 11.2 2 10.5 2 8.6v-3C2 4.2 3.3 3 5 3h6c1.7 0 3 1.2 3 2.6v3.8Z"/></svg>Activa8 Text<span class="badge-v">2</span></div>
+    <div class="nav-item"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 1.6 9.5 6 14 7.5 9.5 9 8 13.4 6.5 9 2 7.5 6.5 6 8 1.6Z"/></svg>Activa8 Insights</div>
+  </nav>
+  <div class="side-foot">
+    <div class="org">
+      <div class="org-av"></div>
+      <div><div class="org-t">Origna8 Corpor…</div><div class="org-s">Admin</div></div>
+      <svg class="mlauto" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#6c6c74" stroke-width="1.5"><path d="M4 5h8l-2-2M12 11H4l2 2"/></svg>
+    </div>
+    <div class="side-row"><svg width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m9.5 4-4 4 4 4"/></svg>Collapse</div>
+    <div class="side-row">
+      <div class="user-av">AS</div>
+      <div><div class="org-t">Aidan Sogorka</div><div class="org-s">Admin</div></div>
+      <svg class="mlauto" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="#6c6c74" stroke-width="1.5"><path d="M6 14H3.5A1.5 1.5 0 0 1 2 12.5v-9A1.5 1.5 0 0 1 3.5 2H6M10.5 11 14 8l-3.5-3M14 8H6"/></svg>
+    </div>
+  </div>
+</aside>
+
+<div class="main">
+<!-- ═════════════════ SHELL: TOP BAR ═════════════════ -->
+<header class="topbar">
+  <div class="search">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7" cy="7" r="4.4"/><path d="m10.4 10.4 3.1 3.1"/></svg>
+    Search staff, loans, contacts
+    <span class="kbd">⌘K</span>
+  </div>
+  <div class="ghost"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="5" y="5" width="6" height="7.5" rx="3"/><path d="M5 8H2.4M13.6 8H11M5.6 5.4 4.2 3.6M10.4 5.4l1.4-1.8M5.4 11.6 4 13.2M10.6 11.6l1.4 1.6"/></svg></div>
+  <div class="ghost"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.6 9.2c0 1-.8 1.8-1.8 1.8H6.2L3 13.4V4.6c0-1 .8-1.8 1.8-1.8h7c1 0 1.8.8 1.8 1.8v4.6Z"/></svg></div>
+  <div style="flex:1"></div>
+  <div class="tb-pill"><span class="dot-v"></span>Leads to contact<span style="color:#3a3a40">·</span><b>8</b></div>
+  <div class="ghost bell"><svg width="17" height="17" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M8 2.2a3.8 3.8 0 0 0-3.8 3.8c0 3.2-1.2 4.2-1.2 4.2h10s-1.2-1-1.2-4.2A3.8 3.8 0 0 0 8 2.2Z"/><path d="M9.3 12.4a1.5 1.5 0 0 1-2.6 0"/></svg><span>9</span></div>
+  <div class="theme">
+    <div class="on"><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="3"/><path d="M8 1.6v1.6M8 12.8v1.6M1.6 8h1.6M12.8 8h1.6M3.5 3.5l1.1 1.1M11.4 11.4l1.1 1.1M12.5 3.5l-1.1 1.1M4.6 11.4l-1.1 1.1"/></svg></div>
+    <div><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13.4 9.6A5.6 5.6 0 0 1 6.4 2.6a5.6 5.6 0 1 0 7 7Z"/></svg></div>
+  </div>
+  <button class="btn-w">+ New loan</button>
+  <button class="btn-o">$ Pricing</button>
+</header>
+
+<!-- ═════════════════ VIEW 1 — THE INDEX, SET AS ISSUE FRONT MATTER ═════════════════ -->
+<div class="page">
+<div class="sheet">
+
+  <div class="masthead">
+    <div class="mh-grid">
+      <div class="colophon" style="align-items:flex-start;text-align:left">
+        <div class="r kick" style="color:var(--ink-3)">Origna8</div>
+        <div class="r" style="margin-top:6px">In-app academy</div>
+        <div class="r">Set for early-career LOs</div>
+      </div>
+      <div>
+        <h1 class="wordmark">Educa8<em>Six courses on originating well, written to be read once and used for years.</em></h1>
+      </div>
+      <div class="colophon">
+        <div class="r"><b>29</b> chapters</div>
+        <div class="r"><b>9 h 55 m</b> of reading</div>
+        <div class="r">Revised <b>30 Jul 2026</b></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- the lead piece: one dominant object, not six equal cards -->
+  <div class="lead">
+    <div class="lead-rail">
+      <div class="kick">You are here</div>
+      <div class="note">Two chapters behind you. Twenty five minutes to the third.</div>
+    </div>
+    <div>
+      <div class="kick" style="margin-bottom:14px">Continue · Mortgage Fundamentals · chapter three of five</div>
+      <div class="lead-title" onclick="document.getElementById('v2').scrollIntoView()">The Qualification Process</div>
+      <div class="lead-sub">Income, assets, credit and the ratios that decide whether a file is real. This is the chapter the rest of the course leans on, and the one new LOs most often guess at on a call.</div>
+      <button class="lead-cta" onclick="document.getElementById('v2').scrollIntoView()">Resume reading
+        <svg width="15" height="9" viewBox="0 0 15 9" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M0 4.5h13M9.6 1 13.2 4.5 9.6 8"/></svg>
+      </button>
+    </div>
+    <div class="lead-right">
+      <div class="reg" title="Chapters read"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+      <div class="e-stat">2 of 5 read · 70 m left</div>
+      <div class="e-stat" style="color:var(--ink-3)">Last opened 26 Jul</div>
+    </div>
+  </div>
+
+  <!-- running head / tabs -->
+  <div class="runhead">
+    <button class="tab on" data-p="all">All courses<sup>6</sup></button>
+    <button class="tab" data-p="active">In progress<sup>2</sup></button>
+    <button class="tab" data-p="done">Finished<sup>0</sup></button>
+    <button class="tab" data-p="guides">Guides<sup>28</sup></button>
+    <div class="mlauto" id="rh-note">Ordered by prerequisite, not alphabetically</div>
+  </div>
+
+  <div class="contents">
+    <!-- left margin: the reader's own ledger -->
+    <div class="c-side">
+      <div class="c-note">
+        <h4>Reading streak</h4>
+        <div class="week"><i class="f"></i><i class="f"></i><i></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="t"></i></div>
+        <p style="margin-top:10px"><b>4</b> days running, and today is still open. Longest run so far is <b>9</b>.</p>
+      </div>
+      <div class="c-note">
+        <h4>Branch ledger</h4>
+        <p><b>340</b> XP this week. You sit <b>3rd</b> of <b>11</b> on Pacific Beach, <b>60</b> XP behind second.</p>
+        <p style="margin-top:12px"><a href="#">Domina8 Standings →</a></p>
+      </div>
+      <div class="c-note">
+        <h4>Note</h4>
+        <p>Three courses open the moment Mortgage Fundamentals closes. Nothing here is gated by tenure.</p>
+      </div>
+    </div>
+
+    <!-- the contents list -->
+    <div id="panel-all">
+      <div class="entry" data-state="active">
+        <div class="e-marker"></div>
+        <div class="e-num">01</div>
+        <div>
+          <div class="e-kick">Fundamentals · <b>Beginner</b><span class="lvl"><b class="f"></b><b></b><b></b></span> · 5 chapters</div>
+          <span class="e-title" onclick="document.getElementById('v2').scrollIntoView()">Mortgage Fundamentals</span>
+          <p class="e-desc">Master the basics of mortgage lending, from loan types and qualifying criteria to the full application-to-closing workflow.</p>
+          <div class="e-next">
+            <span class="mono">Next: The Qualification Process, 25 min</span>
+            <button class="go" onclick="document.getElementById('v2').scrollIntoView()">Resume</button>
+          </div>
+        </div>
+        <div class="e-right">
+          <div class="reg"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+          <div class="e-stat on">Reading · 2 / 5</div>
+          <div class="e-stat" style="color:var(--ink-3)">105 min total</div>
+        </div>
+      </div>
+
+      <div class="entry" data-state="active">
+        <div class="e-marker"></div>
+        <div class="e-num">02</div>
+        <div>
+          <div class="e-kick">Sales · <b>Beginner</b><span class="lvl"><b class="f"></b><b></b><b></b></span> · 5 chapters</div>
+          <span class="e-title">Building Your Pipeline</span>
+          <p class="e-desc">Proven strategies for lead generation, referral partner development, and consistent follow-up that keeps your pipeline full.</p>
+          <div class="e-next">
+            <span class="mono">Next: Referral partners that actually refer, 20 min</span>
+            <button class="go">Resume</button>
+          </div>
+        </div>
+        <div class="e-right">
+          <div class="reg"><i class="done"></i><i class="now"></i><i></i><i></i><i></i></div>
+          <div class="e-stat on">Reading · 1 / 5</div>
+          <div class="e-stat" style="color:var(--ink-3)">95 min total</div>
+        </div>
+      </div>
+
+      <div class="entry locked" data-state="locked">
+        <div class="e-num">03</div>
+        <div>
+          <div class="e-kick">Compliance · <b>Intermediate</b><span class="lvl"><b class="f"></b><b class="f"></b><b></b></span> · 4 chapters</div>
+          <span class="e-title">Compliance &amp; TRID</span>
+          <p class="e-desc">Navigate regulatory requirements confidently. Master TRID timelines, disclosure rules, and compliance best practices.</p>
+        </div>
+        <div class="e-right">
+          <div class="e-prereq">Opens after 01</div>
+          <div class="e-stat" style="color:var(--ink-3)">80 min total</div>
+        </div>
+      </div>
+
+      <div class="entry locked" data-state="locked">
+        <div class="e-num">04</div>
+        <div>
+          <div class="e-kick">Underwriting · <b>Intermediate</b><span class="lvl"><b class="f"></b><b class="f"></b><b></b></span> · 6 chapters</div>
+          <span class="e-title">Underwriting Essentials</span>
+          <p class="e-desc">Think like an underwriter. Learn how income, assets, and credit are analyzed so you can submit clean files that close faster.</p>
+        </div>
+        <div class="e-right">
+          <div class="e-prereq">Opens after 01</div>
+          <div class="e-stat" style="color:var(--ink-3)">130 min total</div>
+        </div>
+      </div>
+
+      <div class="entry locked" data-state="locked">
+        <div class="e-num">05</div>
+        <div>
+          <div class="e-kick">Products · <b>Intermediate</b><span class="lvl"><b class="f"></b><b class="f"></b><b></b></span> · 5 chapters</div>
+          <span class="e-title">FHA &amp; VA Loan Programs</span>
+          <p class="e-desc">Deep dive into government-backed loan programs. Understand eligibility, guidelines, and how to structure these loans for your borrowers.</p>
+        </div>
+        <div class="e-right">
+          <div class="e-prereq">Opens after 04</div>
+          <div class="e-stat" style="color:var(--ink-3)">110 min total</div>
+        </div>
+      </div>
+
+      <div class="entry locked" data-state="locked">
+        <div class="e-num">06</div>
+        <div>
+          <div class="e-kick">Pricing · <b>Advanced</b><span class="lvl"><b class="f"></b><b class="f"></b><b class="f"></b></span> · 4 chapters</div>
+          <span class="e-title">Rate Lock Strategies</span>
+          <p class="e-desc">Advanced pricing tactics: when to lock, float-down options, and how to protect your borrower in volatile markets.</p>
+        </div>
+        <div class="e-right">
+          <div class="e-prereq">Opens after 03 and 05</div>
+          <div class="e-stat" style="color:var(--ink-3)">75 min total</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- empty state, handled as a note rather than a banner -->
+    <div id="panel-done" class="hide">
+      <div class="empty">Nothing finished yet, which is accurate rather than discouraging. The first course closes three chapters from here.
+        <span>Finished courses post to Domina8 Standings and stay on your profile.</span>
+      </div>
+    </div>
+
+    <!-- guides, set as an index -->
+    <div id="panel-guides" class="hide">
+      <div class="gx" style="margin-top:0;border-top:0">
+        <div class="gx-h">
+          <h3>Guides</h3>
+          <div class="meta">28 guides · 9 groups · screenshots and step counts</div>
+        </div>
+        <table class="gtable">
+          <thead><tr><th>Group</th><th>Guides</th><th>Steps</th><th>Read</th></tr></thead>
+          <tbody>
+            <tr><td>Start here<span class="sub">orientation, read first</span></td><td class="n">·</td><td class="n">4</td><td class="n">3 min</td></tr>
+            <tr><td>Nurturing playbook</td><td class="n">6</td><td class="n">41</td><td class="n">34 min</td></tr>
+            <tr><td>Origna8 HQ</td><td class="n">2</td><td class="n">13</td><td class="n">9 min</td></tr>
+            <tr><td>Relationships</td><td class="n">3</td><td class="n">19</td><td class="n">14 min</td></tr>
+            <tr><td>Cultiva8</td><td class="n">3</td><td class="n">22</td><td class="n">17 min</td></tr>
+            <tr><td>Loan Center</td><td class="n">5</td><td class="n">38</td><td class="n">29 min</td></tr>
+            <tr><td>Borrower portal</td><td class="n">2</td><td class="n">11</td><td class="n">8 min</td></tr>
+            <tr><td>Eleva8</td><td class="n">1</td><td class="n">6</td><td class="n">5 min</td></tr>
+            <tr><td>Branch management</td><td class="n">6</td><td class="n">44</td><td class="n">33 min</td></tr>
+            <tr class="tot"><td>Total</td><td>28</td><td>198</td><td>2 h 32 m</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═════════════════ VIEW DIVIDER ═════════════════ -->
+<div class="viewbar" id="v2">VIEW 2 — COURSE DETAIL</div>
+
+<!-- ═════════════════ VIEW 2 — THE READING VIEW ═════════════════ -->
+<div class="page">
+<div class="read">
+
+  <!-- LEFT RAIL: chapter register + reading-position rule -->
+  <div class="rail">
+    <h5>Mortgage Fundamentals</h5>
+    <ul class="chreg">
+      <li class="done now"><b>i</b><div>What Is a Mortgage?<span>Read 26 Jul · check not taken</span></div></li>
+      <li class="done"><b>ii</b><div>Loan Types Overview<span>Read 27 Jul</span></div></li>
+      <li><b>iii</b><div>The Qualification Process<span>25 min</span></div></li>
+      <li><b>iv</b><div>Application to Closing<span>30 min</span></div></li>
+      <li><b>v</b><div>Key Documents Checklist<span>15 min</span></div></li>
+    </ul>
+    <div class="posrule">
+      <div class="track"><div class="fill" id="fill"></div><div class="knob" id="knob"></div></div>
+      <div class="secs" id="secs">
+        <a href="#s1" data-t="s1">§1 &nbsp;Collateral</a>
+        <a href="#s2" data-t="s2">§2 &nbsp;Four words</a>
+        <a href="#s3" data-t="s3">§3 &nbsp;First payment</a>
+        <a href="#s4" data-t="s4">§4 &nbsp;At the desk</a>
+        <a href="#s5" data-t="s5">§5 &nbsp;Check</a>
+      </div>
+    </div>
+    <div class="pct"><b id="pctn">0%</b> read · <span id="mleft">15</span> min left</div>
+  </div>
+
+  <!-- ARTICLE -->
+  <div class="art" id="article">
+
+    <div class="titleblock">
+      <div class="kick">Mortgage Fundamentals · Chapter one of five</div>
+      <h1>What Is a Mortgage?</h1>
+      <p class="sub">Four words carry most of this course: principal, interest, amortization, escrow. Everything after chapter one is a variation on how they interact.</p>
+      <div class="byline">
+        <span>15 min read</span>
+        <span>4 definitions in the margin</span>
+        <span>1 figure · 1 table</span>
+        <span class="warn">Check not yet taken</span>
+      </div>
+    </div>
+
+    <div class="sec-head" id="s1"><div class="kick">Section one</div>
+      <h2 class="sec">The collateral is the whole idea</h2>
+    </div>
+
+    <div class="tier">
+      <div class="col">
+        <p class="body">A mortgage is a loan used to purchase real estate, where the property itself serves as collateral. That last clause is the part borrowers skip and the part that explains everything else you will learn here.</p>
+        <p class="body">Because the house secures the debt, the lender's exposure is tied to something it can appraise, inspect, insure and, in the worst case, take back. Almost every rule in this course exists to protect that link. Title work protects it. Hazard insurance protects it. Appraisal review, reserve requirements and occupancy certification all protect it.</p>
+        <p class="body">An unsecured loan prices the borrower alone. A mortgage prices the borrower <em>and</em> the property together. That is why a file with a 780 credit score and eleven months of reserves can still stall on a survey line or an appraisal that lands under contract price.<sup class="fn">1</sup></p>
+      </div>
+      <div>
+        <aside class="side">
+          <div class="term">Collateral <i>n.</i></div>
+          <p>Property pledged against a debt. If the loan fails, the lender can take the property instead of the money.</p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="sec-head" id="s2"><div class="kick">Section two</div>
+      <h2 class="sec">Four words, and the arithmetic between them</h2>
+    </div>
+
+    <div class="tier">
+      <div class="col">
+        <p class="body">The key concepts are defined in the margin, not in the sentence, because you will look them up later and prose is a poor place to store a definition. What matters in the running text is how they behave together.</p>
+        <p class="body"><span class="sc">Principal</span> shrinks. <span class="sc">Interest</span> is charged on whatever principal is left, so it shrinks with it, slowly. <span class="sc">Amortization</span> is the schedule that holds the total payment flat while the mix inside it moves. <span class="sc">Escrow</span> sits outside all three: it rides along on the same monthly draft but never touches the loan balance.<sup class="fn">2</sup></p>
+        <p class="body">A borrower will almost never ask you what amortization means. They will ask why twelve months of payments moved their balance by about four thousand four hundred dollars. Those are the same question, and only one of them is answerable with a definition.</p>
+      </div>
+      <div>
+        <aside class="side">
+          <div class="term">Principal <i>n.</i></div>
+          <p>The amount borrowed.</p>
+        </aside>
+        <aside class="side">
+          <div class="term">Interest <i>n.</i></div>
+          <p>The cost of borrowing.</p>
+        </aside>
+        <aside class="side">
+          <div class="term">Amortization <i>n.</i></div>
+          <p>How the loan is paid off over time.</p>
+        </aside>
+        <aside class="side">
+          <div class="term">Escrow <i>n.</i></div>
+          <p>Funds held for taxes and insurance.</p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="sec-head" id="s3"><div class="kick">Section three</div>
+      <h2 class="sec">Where the first payment actually goes</h2>
+    </div>
+
+    <div class="tier">
+      <div class="col">
+        <p class="body">Take a 400,000 dollar loan at 6.5 percent over 30 years. The payment is fixed at 2,528.34 for principal and interest. The split inside that number is not fixed at all, and month one is the least flattering month of the entire schedule.</p>
+
+        <table class="t">
+          <caption>Table 1. Month 1 of 360 · $400,000 · 6.5% · 30-year fixed</caption>
+          <thead><tr><th>Component</th><th>Amount</th><th>Share of P&amp;I</th></tr></thead>
+          <tbody>
+            <tr><td>Interest</td><td class="n">$2,166.67</td><td class="n">85.7%</td></tr>
+            <tr><td>Principal</td><td class="n">$361.67</td><td class="n">14.3%</td></tr>
+            <tr class="sum"><td>Principal and interest</td><td class="n">$2,528.34</td><td class="n">100.0%</td></tr>
+            <tr class="off"><td>Escrow, taxes and insurance</td><td class="n">$541.00</td><td class="n">collected on top</td></tr>
+            <tr class="sum"><td>Total monthly draft</td><td class="n">$3,069.34</td><td class="n"></td></tr>
+          </tbody>
+        </table>
+
+        <p class="body">Interest is calculated on the balance at the start of the period, and in month one the balance is the largest it will ever be. Nothing is being hidden. The arithmetic is simply front-loaded by design, and it stays that way for years.</p>
+
+        <figure id="fig1">
+          <span class="fnum">Fig. 1. Interest share of the payment, by year</span>
+          <div class="bars">
+            <div class="barrow"><span class="yr">Year 1</span><div class="bar"><i data-w="85.7"></i></div><span class="pc">85.7%</span></div>
+            <div class="barrow"><span class="yr">Year 5</span><div class="bar"><i data-w="80.2"></i></div><span class="pc">80.2%</span></div>
+            <div class="barrow"><span class="yr">Year 10</span><div class="bar"><i data-w="72.6"></i></div><span class="pc">72.6%</span></div>
+            <div class="barrow"><span class="yr">Year 20</span><div class="bar"><i data-w="47.7"></i></div><span class="pc">47.7%</span></div>
+            <div class="barrow"><span class="yr">Year 25</span><div class="bar"><i data-w="27.7"></i></div><span class="pc">27.7%</span></div>
+            <div class="barrow"><span class="yr">Year 30</span><div class="bar"><i data-w="0.5"></i></div><span class="pc">0.5%</span></div>
+          </div>
+          <figcaption>The monthly payment never changes. The mix inside it does, and the crossover from mostly interest to mostly principal does not arrive until somewhere around year 19.</figcaption>
+        </figure>
+      </div>
+      <div>
+        <aside class="side">
+          <div class="term">Rounding</div>
+          <p>Figures assume no extra payments and a fixed rate held for the full term. Live pricing sits in the <b>Pricing</b> tab.</p>
+        </aside>
+        <aside class="side">
+          <div class="term">Worth memorising</div>
+          <p>Balance times rate, divided by twelve, gives month one interest. <b>400,000 × .065 ÷ 12 = 2,166.67</b>. You can do this on a call.</p>
+        </aside>
+      </div>
+    </div>
+
+    <div class="sec-head" id="s4"><div class="kick">Section four</div>
+      <h2 class="sec">Why any of this matters at your desk</h2>
+    </div>
+
+    <div class="tier">
+      <div class="col">
+        <p class="body">A borrower who understands the split at application does not call you in month nine to complain about it. The conversation costs ninety seconds up front and saves a defensive one later, usually with someone who has already decided you were not straight with them.</p>
+        <p class="body">This is the pattern for the rest of the course. Each mechanism has a borrower-facing sentence and a file-facing consequence, and the LOs who last learn both at the same time.</p>
+      </div>
+      <div>
+        <!-- the AI mentor, written as an editor's query in the margin -->
+        <div class="mentor" id="mentor">
+          <div class="term">In the margin · Mentor</div>
+          <q>You have the arithmetic. Now say it out loud: a borrower asks why their balance barely moved in a year. Thirty seconds, no jargon. What do you actually say?</q>
+          <button id="mentor-btn">Show a good answer</button>
+          <div class="ans" id="mentor-ans">
+            <p>"Your payment is the same every month, but early on most of it is interest, because interest is charged on what you still owe and right now that is almost the whole loan. It flips over time. Around year nineteen more of your payment goes to the balance than to interest, and anything extra you send goes straight at the balance."</p>
+            <p style="color:var(--ink-3);font-size:13px;padding-top:12px">No numbers unless they ask. If they ask, use Table 1.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- retrieval check -->
+    <div class="check" id="s5">
+      <div class="kick">Retrieval check · two questions · unattempted</div>
+      <h2 class="sec">Close the chapter</h2>
+
+      <div class="tier">
+        <div class="col">
+          <div class="q" data-q="1">
+            <div class="qn">Question one</div>
+            <div class="qt">A borrower on a 30-year fixed asks why twelve months of payments cut the balance by only about 4,400 dollars. What is the accurate answer?</div>
+            <div class="opts">
+              <button class="opt" data-c="0"><span class="l">a</span><span>The lender front-loads its fees into the first year of payments.</span><span class="v"></span></button>
+              <button class="opt" data-c="1"><span class="l">b</span><span>Interest is charged on the outstanding balance, which in year one is near its highest point.</span><span class="v"></span></button>
+              <button class="opt" data-c="0"><span class="l">c</span><span>Escrow absorbs most of the payment during the first year of the loan.</span><span class="v"></span></button>
+            </div>
+            <div class="expl"><p><b>b.</b> Fees are settled at closing and are not inside the monthly payment. Escrow is collected in addition to principal and interest, never out of it. The balance moves slowly because interest is priced off a balance that has barely moved.</p></div>
+          </div>
+
+          <div class="q" data-q="2">
+            <div class="qn">Question two</div>
+            <div class="qt">A file has strong credit and eleven months of reserves, but the appraisal comes in 20,000 dollars under contract. Why does that threaten the loan?</div>
+            <div class="opts">
+              <button class="opt" data-c="0"><span class="l">a</span><span>The borrower's debt-to-income ratio changes when the appraisal changes.</span><span class="v"></span></button>
+              <button class="opt" data-c="0"><span class="l">b</span><span>TRID requires the disclosure clock to restart on any appraisal revision.</span><span class="v"></span></button>
+              <button class="opt" data-c="1"><span class="l">c</span><span>The lender sizes the loan against the property's appraised value, not the contract price.</span><span class="v"></span></button>
+            </div>
+            <div class="expl"><p><b>c.</b> The collateral, not the contract, sets the ceiling. Loan-to-value is calculated on the lower of the two, so the gap has to be closed with cash, a renegotiation, or a challenge to the appraisal.</p></div>
+          </div>
+
+          <div class="post" id="post">
+            <div class="row">
+              <div class="xp" id="xpn">+0</div>
+              <div class="txt">XP posted to <b>Domina8 Standings</b>. Chapter one now counts as closed. You moved to <b>2nd of 11</b> on Pacific Beach and your streak is at <b>5 days</b>.</div>
+            </div>
+            <div style="margin-top:18px"><a href="#">Open Domina8 Standings →</a></div>
+          </div>
+        </div>
+        <div>
+          <aside class="side">
+            <div class="term">Why the check exists</div>
+            <p>Reading twice is worse than reading once and answering. The questions are here to make you retrieve, not to grade you. A wrong answer costs nothing.</p>
+          </aside>
+        </div>
+      </div>
+    </div>
+
+    <div class="tier">
+      <div class="col">
+        <div class="endmark"><i></i><span>End of chapter one</span><hr></div>
+
+        <ol class="footnotes">
+          <li><b>1</b><div>Rates and figures throughout are illustrative. Pull live pricing from the Pricing tab before quoting anyone.</div></li>
+          <li><b>2</b><div>Escrow is not universal. Loans at or under 80 percent loan-to-value can often waive it, usually in exchange for a small pricing adjustment.</div></li>
+        </ol>
+
+        <div class="nextup">
+          <div>
+            <div class="kick">Next · chapter three</div>
+            <h3>The Qualification Process</h3>
+          </div>
+          <div class="r">
+            <div class="reg sm"><i class="done"></i><i class="done"></i><i class="now"></i><i></i><i></i></div>
+            <div class="meta">25 min · then 2 chapters left</div>
+          </div>
+        </div>
+      </div>
+      <div></div>
+    </div>
+
+  </div>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+/* ── tabs ────────────────────────────────────────────── */
+const panels = {
+  all:['panel-all'], active:['panel-all'], done:['panel-done'], guides:['panel-guides']
+};
+const notes = {
+  all:'Ordered by prerequisite, not alphabetically',
+  active:'Two open. Both started, neither finished.',
+  done:'Nothing closed yet',
+  guides:'Shortest path first'
+};
+document.querySelectorAll('.tab').forEach(t=>{
+  t.onclick=()=>{
+    document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+    t.classList.add('on');
+    const p=t.dataset.p;
+    document.getElementById('panel-all').classList.toggle('hide',p==='done'||p==='guides');
+    document.getElementById('panel-done').classList.toggle('hide',p!=='done');
+    document.getElementById('panel-guides').classList.toggle('hide',p!=='guides');
+    document.querySelectorAll('#panel-all .entry').forEach(e=>{
+      e.classList.toggle('hide', p==='active' && e.dataset.state!=='active');
+    });
+    document.getElementById('rh-note').textContent=notes[p];
+  };
+});
+
+/* ── reading-position rule ───────────────────────────── */
+const art=document.getElementById('article'),
+      fill=document.getElementById('fill'), knob=document.getElementById('knob'),
+      pctn=document.getElementById('pctn'), mleft=document.getElementById('mleft'),
+      secWrap=document.getElementById('secs'), secLinks=[...secWrap.querySelectorAll('a')];
+const TRACK=270;
+
+function span(){ return Math.max(1, art.offsetHeight - innerHeight*0.55); }
+function layoutSecs(){
+  const aTop=art.getBoundingClientRect().top+scrollY, sp=span();
+  secLinks.forEach(a=>{
+    const el=document.getElementById(a.dataset.t);
+    if(!el) return;
+    a._rel=Math.max(0,Math.min(1,((el.getBoundingClientRect().top+scrollY)-aTop)/sp));
+    a._y=Math.max(0,Math.min(TRACK-8,a._rel*TRACK));
+  });
+  let last=-99;
+  secLinks.forEach(a=>{ if(a._y<last+24) a._y=last+24; last=a._y; });
+  if(last>TRACK-8){
+    let floor=TRACK-8;
+    for(let i=secLinks.length-1;i>=0;i--){ const a=secLinks[i];
+      if(a._y>floor) a._y=floor; floor=a._y-24; }
+  }
+  secLinks.forEach(a=>a.style.top=Math.max(0,a._y)+'px');
+}
+function onScroll(){
+  const r=art.getBoundingClientRect(), vh=innerHeight;
+  let p=(vh*0.55-r.top)/span();
+  p=Math.max(0,Math.min(1,p));
+  fill.style.height=(p*TRACK)+'px';
+  knob.style.top=(p*TRACK)+'px';
+  pctn.textContent=Math.round(p*100)+'%';
+  mleft.textContent=Math.max(0,Math.round(15*(1-p)));
+  let cur=secLinks[0];
+  secLinks.forEach(a=>{ if(a._rel!==undefined && a._rel<=p+0.005) cur=a; });
+  secLinks.forEach(a=>a.classList.toggle('on',a===cur));
+}
+addEventListener('scroll',onScroll,{passive:true});
+addEventListener('resize',()=>{layoutSecs();onScroll();});
+addEventListener('load',()=>{layoutSecs();onScroll();});
+layoutSecs();onScroll();
+
+/* ── marginalia arrive as you reach them ─────────────── */
+const io=new IntersectionObserver((es)=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{rootMargin:'0px 0px -22% 0px'});
+document.querySelectorAll('.side').forEach(s=>io.observe(s));
+
+/* ── figure 1 draws when reached, staggered per bar ──── */
+const figIO=new IntersectionObserver((es)=>{
+  es.forEach(e=>{
+    if(!e.isIntersecting) return;
+    e.target.querySelectorAll('.bar i').forEach((b,i)=>{
+      setTimeout(()=>{ b.style.width=b.dataset.w+'%'; }, i*70);
+    });
+    figIO.unobserve(e.target);
+  });
+},{threshold:.35});
+figIO.observe(document.getElementById('fig1'));
+
+/* ── mentor margin note ──────────────────────────────── */
+const mb=document.getElementById('mentor-btn'), ma=document.getElementById('mentor-ans');
+mb.onclick=()=>{
+  const open=ma.classList.toggle('open');
+  mb.textContent=open?'Hide the answer':'Show a good answer';
+};
+
+/* ── retrieval check ─────────────────────────────────── */
+let answered=0;
+document.querySelectorAll('.q').forEach(q=>{
+  const opts=[...q.querySelectorAll('.opt')], expl=q.querySelector('.expl');
+  opts.forEach(o=>{
+    o.onclick=()=>{
+      if(q.dataset.locked) return;
+      q.dataset.locked='1';
+      const right=o.dataset.c==='1';
+      o.classList.add(right?'right':'wrong');
+      o.querySelector('.v').textContent=right?'correct':'not this';
+      opts.forEach(x=>{
+        x.disabled=true;
+        if(x!==o){
+          if(x.dataset.c==='1' && !right){ x.classList.add('right'); x.querySelector('.v').textContent='correct'; }
+          else x.classList.add('dim');
+        }
+      });
+      expl.classList.add('open');
+      q.querySelector('.qn').textContent = right ? 'Question '+(q.dataset.q==='1'?'one':'two')+' · answered' : 'Question '+(q.dataset.q==='1'?'one':'two')+' · reviewed';
+      if(++answered===2) postXP();
+    };
+  });
+});
+function postXP(){
+  const post=document.getElementById('post'), n=document.getElementById('xpn');
+  setTimeout(()=>{
+    post.classList.add('in');
+    let v=0; const t=setInterval(()=>{ v+=2; n.textContent='+'+v; if(v>=40) clearInterval(t); },22);
+    document.querySelector('.byline .warn').textContent='Check complete · chapter closed';
+    document.querySelector('.byline .warn').style.color='var(--ink-2)';
+    document.querySelector('.chreg li.now span').textContent='Read 26 Jul · check complete';
+    document.querySelector('#s5 .kick').textContent='Retrieval check · two questions · complete';
+  },420);
+}
+</script>
+</body>
+</html>

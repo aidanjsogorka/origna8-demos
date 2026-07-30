@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Educa8 · Origna8</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   ORIGNA8 TOKENS — inherited verbatim
+   ============================================================ */
+:root{
+  --background:#08080a; --foreground:#f4f4f5;
+  --surface-1:#111114; --surface-2:#16161a; --surface-3:#1e1e23; --card:#111114;
+  --text-1:#f4f4f5; --text-2:#a0a0a8; --text-3:#6c6c74;
+  --border:#ffffff1a; --border-2:#ffffff0e; --ring:#ffffff38;
+  --rainbow-logo:linear-gradient(115deg,#f2680c 0%,#ffa31c 22%,#ffd15e 38%,#9fe3ec 46%,#4fc0e0 55%,#3e6ff0 74%,#5b45ce 90%,#7c3aed 100%);
+  --brand-orange:#f2680c; --brand-amber:#ffa31c; --brand-cyan:#22b8c9;
+  --brand-blue:#3e6ff0; --brand-violet:#7c3aed;
+  --pos:#34d399; --pos-soft:#34d3991f; --neg:#f87171; --neg-soft:#f8717124;
+  --warn:#f0b649; --warn-soft:#f0b64924;
+  --radius:18px; --r-sm:8px; --r-md:12px; --r-lg:18px; --r-xl:24px; --r-pill:999px;
+  --shadow-sm:0 1px 2px #00000073,0 1px 1px #00000059;
+  --shadow-md:0 6px 20px #00000080,0 2px 4px #0006;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --dur-fast:.14s; --dur-base:.22s; --dur-slow:.32s;
+  --app-bar-h:3.5rem; --page-pad:1.5rem; --sidebar-w:246px;
+
+  /* --- swiss-grid: dark-ground rule system -----------------
+     On paper a black rule is the highest-contrast mark available.
+     On #08080a the equivalent has to run the other direction, so
+     the hierarchy is built out of four weights of near-white,
+     not out of thickness. Nothing here is thicker than 1px
+     except the single masthead rule. -------------------------- */
+  --rule-hard:rgba(255,255,255,.42);   /* masthead / section head */
+  --rule-mid:rgba(255,255,255,.16);    /* table head, group breaks */
+  --rule-hair:rgba(255,255,255,.075);  /* every listing row */
+  --rule-ghost:rgba(255,255,255,.038); /* column grid, visible on purpose */
+
+  /* "paper tint" translated as a surface step, not a wash */
+  --paper:#0a0a0c;
+  --paper-2:#0d0d10;
+
+  --accent:#f2680c;                    /* the ONLY accent in the content column */
+  --accent-dim:rgba(242,104,12,.16);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--background)}
+body{
+  font-family:'Hanken Grotesk',system-ui,sans-serif;
+  background:var(--background); color:var(--text-1);
+  -webkit-font-smoothing:antialiased; font-size:16px;
+}
+::selection{background:var(--accent);color:#0b0b0c}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.mono{font-family:'Geist Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"tnum" 1,"lnum" 1}
+
+/* ============================================================
+   APP SHELL  (not redesigned)
+   ============================================================ */
+.app{display:flex;min-height:100vh}
+
+/* ---- sidebar ---- */
+.sb{width:var(--sidebar-w);flex:0 0 var(--sidebar-w);background:var(--surface-1);
+  border-right:1px solid var(--border);display:flex;flex-direction:column;
+  position:sticky;top:0;height:100vh}
+.sb-logo{display:flex;align-items:center;gap:9px;padding:16px 14px 14px}
+.sb-mark{width:26px;height:26px;border-radius:8px;background:var(--rainbow-logo);flex:0 0 26px}
+.sb-word{font-size:20px;font-weight:600;letter-spacing:-.03em;color:#fff}
+.sb-word span{background:var(--rainbow-logo);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sb-scroll{flex:1;overflow-y:auto;padding:2px 10px 10px}
+.sb-scroll::-webkit-scrollbar{width:0}
+.sb-grp{margin-top:14px;padding:0 8px 6px;font-size:10.5px;text-transform:uppercase;
+  letter-spacing:.12em;color:var(--text-3);font-weight:600}
+.sb-item{display:flex;align-items:center;gap:9px;height:34px;padding:0 9px;border-radius:10px;
+  font-size:14px;color:var(--text-2);transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.sb-item:hover{background:#ffffff08;color:var(--text-1)}
+.sb-item.on{background:var(--surface-3);color:var(--text-1)}
+.sb-item svg{flex:0 0 16px;opacity:.85}
+.sb-badge{margin-left:auto;background:var(--brand-violet);color:#fff;font-size:10px;font-weight:600;
+  min-width:17px;height:17px;border-radius:999px;display:grid;place-items:center;padding:0 5px}
+.sb-foot{padding:10px;border-top:1px solid var(--border-2);display:flex;flex-direction:column;gap:6px}
+.sb-org{display:flex;align-items:center;gap:9px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:12px;padding:7px 9px}
+.sb-org-av{width:26px;height:26px;border-radius:7px;background:#2a2a31;display:grid;place-items:center;
+  font-size:11px;font-weight:700;color:#d5d5db}
+.sb-l1{font-size:12.5px;color:var(--text-1);line-height:1.15}
+.sb-l2{font-size:10.5px;color:var(--text-3);line-height:1.25}
+.sb-row{display:flex;align-items:center;gap:9px;padding:7px 9px;border-radius:10px;color:var(--text-2);font-size:13px}
+.sb-row:hover{background:#ffffff08}
+.sb-user-av{width:26px;height:26px;border-radius:999px;background:#33333c;display:grid;place-items:center;
+  font-size:10.5px;font-weight:700;color:#e2e2e8}
+.ic{stroke:currentColor;stroke-width:1.5;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---- main / top bar ---- */
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{height:var(--app-bar-h);flex:0 0 var(--app-bar-h);background:var(--background);
+  display:flex;align-items:center;gap:8px;padding:0 var(--page-pad);position:sticky;top:0;z-index:60;
+  border-bottom:1px solid var(--border-2)}
+.tb-search{width:246px;height:32px;background:var(--surface-2);border:1px solid var(--border);
+  border-radius:10px;display:flex;align-items:center;gap:7px;padding:0 8px;color:var(--text-3);font-size:12.5px}
+.tb-search input{flex:1;min-width:0;background:none;border:0;outline:0;color:var(--text-1);font-size:12.5px;font-family:inherit}
+.tb-search input::placeholder{color:var(--text-3)}
+.tb-k{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);border:1px solid var(--border);
+  border-radius:5px;padding:1px 4px}
+.tb-ghost{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:var(--text-2)}
+.tb-ghost:hover{background:var(--surface-2);color:var(--text-1)}
+.tb-right{margin-left:auto;display:flex;align-items:center;gap:8px}
+.tb-pill{display:flex;align-items:center;gap:7px;height:30px;padding:0 11px;border:1px solid var(--border);
+  border-radius:999px;font-size:12.5px;color:var(--text-2)}
+.tb-dot{width:6px;height:6px;border-radius:999px;background:var(--brand-violet)}
+.tb-bell{position:relative;width:32px;height:32px;border-radius:9px;display:grid;place-items:center;color:var(--text-2)}
+.tb-bell b{position:absolute;top:1px;right:0;background:#e0399b;color:#fff;font-size:9.5px;font-weight:700;
+  min-width:14px;height:14px;border-radius:999px;display:grid;place-items:center;padding:0 3px}
+.tb-theme{display:flex;align-items:center;border:1px solid var(--border);border-radius:999px;height:30px;padding:0 3px}
+.tb-theme button{width:26px;height:24px;border-radius:999px;display:grid;place-items:center;color:var(--text-3)}
+.tb-theme button.on{background:var(--surface-3);color:var(--text-1)}
+.tb-new{height:30px;padding:0 13px;border-radius:999px;background:#fff;color:#0b0b0c;font-weight:600;font-size:12.5px}
+.tb-price{height:30px;padding:0 13px;border-radius:999px;border:1px solid var(--brand-violet);color:#fff;font-size:12.5px}
+
+/* ============================================================
+   CONTENT COLUMN — swiss-grid
+   radius 0, no cards, no shadows, hairlines do all separation
+   ============================================================ */
+.ed{
+  padding:0 var(--page-pad) 80px;
+  /* the column grid is visible and you are meant to notice it */
+  background-image:linear-gradient(to right,var(--rule-ghost) 0 1px,transparent 1px 100%);
+  background-size:calc((100% - 48px)/12) 100%;
+  background-position:24px 0;
+  background-repeat:repeat-x;
+}
+.ed.nogrid{background-image:none}
+.ed *{border-radius:0}
+
+.lbl{font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-3);font-variant-numeric:tabular-nums lining-nums}
+.lbl-1{color:var(--text-2)}
+
+/* ---- masthead ---- */
+.mast{padding-top:26px}
+.mast-top{display:flex;align-items:flex-end;gap:20px;padding-bottom:12px}
+.mast-cap{width:34px;height:34px;background:rgba(124,58,237,.14);border:1px solid rgba(124,58,237,.34);
+  display:grid;place-items:center;color:#c4a6ff;margin-bottom:6px;flex:0 0 34px}
+.mast-h1{font-size:62px;line-height:.9;font-weight:700;letter-spacing:-.045em}
+.mast-sub{padding-bottom:9px;max-width:300px;font-size:13.5px;line-height:1.4;color:var(--text-2)}
+.mast-rule{border-top:1px solid var(--rule-hard)}
+.mast-meta{display:flex;align-items:center;gap:18px;padding:7px 0 0;flex-wrap:wrap}
+.mast-meta .sep{color:#ffffff24}
+.gridtog{font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.1em;color:var(--text-3);
+  border-bottom:1px solid transparent;text-transform:uppercase}
+.gridtog:hover{color:var(--text-1);border-bottom-color:var(--rule-mid)}
+
+/* ---- ledger (replaces the 0/0/6 banner) ---- */
+.ledger{display:grid;grid-template-columns:repeat(5,1fr) 1.35fr;border-top:1px solid var(--rule-mid);
+  border-bottom:1px solid var(--rule-mid);margin-top:20px;background:var(--paper)}
+.lg{padding:12px 16px 13px;border-left:1px solid var(--rule-hair)}
+.lg:first-child{border-left:0;padding-left:0}
+.lg-k{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.11em;text-transform:uppercase;color:var(--text-3)}
+.lg-v{font-family:'Geist Mono',monospace;font-size:27px;letter-spacing:-.02em;margin-top:7px;line-height:1;
+  font-variant-numeric:tabular-nums lining-nums;color:var(--text-1);font-weight:500}
+.lg-v small{font-size:13px;color:var(--text-3);letter-spacing:0}
+.lg-n{font-size:11px;color:var(--text-3);margin-top:6px;line-height:1.3}
+.streak{display:flex;gap:3px;margin-top:9px}
+.streak i{width:100%;height:16px;background:#ffffff0d;border:1px solid var(--rule-hair);display:block}
+.streak i.f{background:#ffffff2e;border-color:#ffffff3d}
+.streak-d{display:flex;gap:3px;margin-top:4px}
+.streak-d span{flex:1;text-align:center;font-family:'Geist Mono',monospace;font-size:9px;color:var(--text-3)}
+
+/* ---- resume band : the ONE accented object ---- */
+.resume{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:22px;
+  border-bottom:1px solid var(--rule-mid);background:var(--paper-2);
+  padding:16px 18px 17px 16px;position:relative;cursor:pointer}
+.resume::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--accent);
+  transform-origin:top;animation:markIn .42s var(--ease) both}
+@keyframes markIn{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+.resume:hover{background:#101014}
+.resume-no{font-family:'Geist Mono',monospace;font-size:44px;line-height:.86;color:var(--accent);
+  font-variant-numeric:tabular-nums lining-nums;letter-spacing:-.04em}
+.resume-k{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.14em;color:var(--accent);text-transform:uppercase}
+.resume-t{font-size:23px;font-weight:600;letter-spacing:-.022em;margin-top:5px}
+.resume-m{display:flex;gap:14px;margin-top:7px}
+.resume-go{border:1px solid var(--rule-hard);padding:9px 18px;font-size:12.5px;font-weight:600;letter-spacing:.01em;
+  transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.resume:hover .resume-go{background:#fff;color:#0b0b0c;border-color:#fff}
+
+/* ---- taxonomy filter ---- */
+.tax{border-bottom:1px solid var(--rule-hair);padding:11px 0;display:grid;
+  grid-template-columns:64px 1fr;gap:0 14px;align-items:baseline}
+.tax + .tax{border-bottom:1px solid var(--rule-mid)}
+.tax-set{display:flex;flex-wrap:wrap;gap:0 18px}
+.tg{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.07em;text-transform:uppercase;
+  color:var(--text-3);padding:2px 0;border-bottom:1px solid transparent;
+  transition:color var(--dur-fast) var(--ease)}
+.tg:hover{color:var(--text-1)}
+.tg.on{color:var(--text-1);border-bottom-color:#fff}
+.tg em{font-style:normal;color:var(--text-3);margin-left:4px}
+.tg.on em{color:var(--text-2)}
+
+/* ---- the index ---- */
+.tbl{--cols:44px 130px minmax(0,1fr) 116px 114px 42px 58px 52px 70px 92px;margin-top:0}
+.trow{display:grid;grid-template-columns:var(--cols);align-items:center;column-gap:0}
+.thead{position:sticky;top:var(--app-bar-h);z-index:20;background:var(--background);
+  border-bottom:1px solid var(--rule-mid);border-top:1px solid var(--rule-mid)}
+.thead > *{padding:8px 10px;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.11em;
+  text-transform:uppercase;color:var(--text-3)}
+.thead > *:first-child{padding-left:0}
+.r{text-align:right}
+.trow.item{border-bottom:1px solid var(--rule-hair);background:var(--paper);
+  transition:background var(--dur-fast) var(--ease)}
+.trow.item:hover{background:#0e0e11}
+.trow.item > *{padding:13px 10px;font-size:13.5px}
+.trow.item > *:first-child{padding-left:0}
+.c-no{font-family:'Geist Mono',monospace;font-size:12px;color:var(--text-3);font-variant-numeric:tabular-nums lining-nums}
+.c-cat{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--text-2);white-space:nowrap}
+.c-title{font-size:16.5px;font-weight:600;letter-spacing:-.014em;display:flex;align-items:center;gap:9px;min-width:0}
+.c-title .caret{color:var(--text-3);transition:transform var(--dur-base) var(--ease);flex:0 0 9px}
+.trow.item.open .caret{transform:rotate(90deg)}
+.c-desc{font-size:12px;color:var(--text-3);line-height:1.35;margin-top:3px;
+  max-width:52ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.num{font-family:'Geist Mono',monospace;font-variant-numeric:tabular-nums lining-nums;text-align:right;
+  font-size:13px;color:var(--text-2)}
+.num.dim{color:var(--text-3)}
+.num.pct{color:var(--text-1);background:rgba(255,255,255,.022)}
+.lvl{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--text-3);white-space:nowrap}
+.st{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;text-align:right}
+.st.active{color:var(--text-1)}
+.st.open{color:var(--text-2)}
+.st.gated{color:var(--text-3)}
+.st.done{color:var(--text-2)}
+.st.next{color:var(--accent)}
+
+/* chapter tick strip = the information-bearing "thumbnail" */
+.ticks{display:flex;gap:2px;align-items:center}
+.ticks i{width:11px;height:20px;border:1px solid var(--rule-hair);background:transparent;display:block}
+.ticks i.f{background:#ffffff33;border-color:#ffffff40}
+.ticks i.n{border-color:var(--accent);background:var(--accent-dim);position:relative}
+.ticks i.n::after{content:"";position:absolute;inset:2px;background:var(--accent);
+  animation:pulseTick 2.6s var(--ease) infinite}
+@keyframes pulseTick{0%,100%{opacity:1}50%{opacity:.42}}
+
+/* expanded chapter sub-rows */
+.chaps{display:none;border-bottom:1px solid var(--rule-hair);background:#09090b}
+.chaps.show{display:block}
+.crow{display:grid;grid-template-columns:var(--cols);align-items:center;
+  border-bottom:1px solid var(--rule-ghost)}
+.crow:last-of-type{border-bottom:0}
+.crow > *{padding:9px 10px}
+.crow > *:first-child{padding-left:0}
+.crow.anim{animation:chapIn .16s var(--ease) both}
+@keyframes chapIn{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+.crow .cn{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);text-align:right;padding-right:14px}
+.crow .ct{font-size:13.5px;color:var(--text-2);display:flex;align-items:center;gap:10px}
+.crow.is-done .ct{color:var(--text-3)}
+.crow.is-next{background:#0e0d0c}
+.crow.is-next .ct{color:var(--text-1);font-weight:600}
+.crow.is-next{box-shadow:inset 2px 0 0 var(--accent)}
+.chk{width:11px;height:11px;flex:0 0 11px;color:var(--text-3)}
+.prereq{padding:9px 0 12px;grid-column:1/-1;display:flex;gap:22px;border-top:1px solid var(--rule-ghost)}
+
+.tbl.lead .tsec{margin-top:10px;border-top-color:var(--rule-mid)}
+.tsec{display:grid;grid-template-columns:var(--cols);border-top:1px solid var(--rule-hard);
+  background:var(--background);margin-top:44px}
+.tsec > *{padding:10px 10px 9px}
+.tsec > *:first-child{padding-left:0}
+.tsec-h{grid-column:1/4;font-size:19px;font-weight:700;letter-spacing:-.02em;display:flex;align-items:baseline;gap:14px}
+.tsec-n{grid-column:4/-1;display:flex;justify-content:flex-end;gap:20px;align-items:baseline}
+
+.tfoot{display:grid;grid-template-columns:var(--cols);border-top:1px solid var(--rule-mid);
+  border-bottom:1px solid var(--rule-hard)}
+.tfoot > *{padding:11px 10px;font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:.04em;
+  color:var(--text-2);font-variant-numeric:tabular-nums lining-nums}
+.tfoot > *:first-child{padding-left:0;color:var(--text-3)}
+.fnote{font-size:11.5px;color:var(--text-3);padding:10px 0 0;line-height:1.45;max-width:62ch}
+
+/* ============================================================
+   VIEW SPLIT LABEL BAR (scaffolding)
+   ============================================================ */
+.viewbar{scroll-margin-top:var(--app-bar-h);border-top:1px solid var(--rule-mid);border-bottom:1px solid var(--rule-mid);
+  background:#0c0c0e;padding:9px var(--page-pad);margin-top:76px;
+  font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:var(--text-3)}
+
+/* ============================================================
+   VIEW 2 — reading view: ruled column + marginalia, no panels
+   ============================================================ */
+.crumb{display:flex;align-items:center;gap:9px;padding:16px 0 0}
+.crumb b{color:var(--text-1);font-weight:400}
+.rd-mast{padding:14px 0 0}
+.rd-h1{font-size:46px;line-height:.94;font-weight:700;letter-spacing:-.04em;max-width:16ch}
+.rd-rule{border-top:1px solid var(--rule-hard);margin-top:16px}
+.rd-meta{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--rule-hair)}
+.rd-meta > div{padding:9px 12px 10px;border-left:1px solid var(--rule-hair)}
+.rd-meta > div:first-child{border-left:0;padding-left:0}
+.rd-meta .v{font-family:'Geist Mono',monospace;font-size:15px;margin-top:5px;color:var(--text-1);
+  font-variant-numeric:tabular-nums lining-nums}
+.rd-meta .v.acc{color:var(--accent)}
+
+.rd{display:grid;grid-template-columns:158px minmax(0,1fr) 296px;gap:0}
+.marg{border-right:1px solid var(--rule-hair);padding:26px 20px 40px 0}
+.marg-b{margin-bottom:22px}
+.marg-b .k{font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--text-3)}
+.marg-b .v{font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--text-2);margin-top:4px;
+  font-variant-numeric:tabular-nums lining-nums}
+.marg-note{font-size:11.5px;line-height:1.5;color:var(--text-3);border-top:1px solid var(--rule-ghost);
+  padding-top:9px;margin-top:26px}
+
+.read{padding:26px 44px 60px;border-right:1px solid var(--rule-hair);max-width:none}
+.read h2{font-size:31px;font-weight:700;letter-spacing:-.032em;line-height:1.06}
+.read .kick{margin-bottom:10px}
+.read p{font-size:17px;line-height:1.62;color:#dcdce0;max-width:66ch;margin-top:20px;font-weight:300}
+.read p strong{font-weight:600;color:var(--text-1)}
+.read .lead{font-size:20px;line-height:1.5;color:var(--text-1);font-weight:400;margin-top:22px;max-width:60ch}
+
+.defs{margin-top:34px;border-top:1px solid var(--rule-mid);max-width:66ch}
+.defs-h{display:flex;align-items:baseline;justify-content:space-between;padding:9px 0 10px;
+  border-bottom:1px solid var(--rule-hair)}
+.def{display:grid;grid-template-columns:150px minmax(0,1fr);border-bottom:1px solid var(--rule-hair);
+  transition:background var(--dur-base) var(--ease)}
+.def dt{padding:13px 12px 13px 0;font-size:14.5px;font-weight:600;letter-spacing:-.008em}
+.def dd{padding:13px 0 13px 12px;font-size:14.5px;color:var(--text-2);line-height:1.45;border-left:1px solid var(--rule-ghost)}
+.def.cited{background:#111114}
+.def.cited dt{box-shadow:inset 2px 0 0 #fff}
+
+/* retrieval check */
+.check{margin-top:44px;border-top:1px solid var(--rule-hard);max-width:66ch}
+.check-h{display:flex;align-items:baseline;justify-content:space-between;padding:10px 0 0}
+.check-q{font-size:19px;font-weight:600;letter-spacing:-.018em;line-height:1.35;margin:14px 0 16px;max-width:52ch}
+.opt{display:grid;grid-template-columns:30px 1fr auto;align-items:center;width:100%;text-align:left;
+  border-top:1px solid var(--rule-hair);padding:13px 0;color:var(--text-2);font-size:14.5px;
+  transition:color .12s var(--ease),background .12s var(--ease),box-shadow .12s var(--ease)}
+.opt:last-of-type{border-bottom:1px solid var(--rule-hair)}
+.opt .ok{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);letter-spacing:.08em}
+.opt .mk{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;opacity:0;transition:opacity .18s var(--ease)}
+.opt:hover:not(.locked){color:var(--text-1);background:#0d0d10}
+.opt.right{color:var(--text-1);box-shadow:inset 2px 0 0 var(--pos);background:#0c1010}
+.opt.right .mk{opacity:1;color:var(--pos)}
+.opt.wrong{color:var(--text-3);box-shadow:inset 2px 0 0 var(--neg)}
+.opt.wrong .mk{opacity:1;color:var(--neg)}
+.opt.locked{cursor:default}
+.mentor{display:none;grid-template-columns:30px 1fr;gap:0;padding:16px 0 0;border-top:1px solid var(--rule-ghost);margin-top:2px}
+.mentor.show{display:grid;animation:mIn .26s var(--ease) both}
+@keyframes mIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.mentor .who{font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.1em;color:var(--text-3);padding-top:3px}
+.mentor .say{font-size:14.5px;line-height:1.55;color:var(--text-2);max-width:54ch}
+.mentor .say b{color:var(--text-1);font-weight:600}
+.xpline{margin-top:14px;display:flex;gap:16px;align-items:baseline}
+.xpline .n{font-family:'Geist Mono',monospace;font-size:22px;color:var(--text-1);font-variant-numeric:tabular-nums lining-nums}
+
+/* right rail: chapter index */
+.rail{padding:26px 0 60px 22px}
+.rail-h{display:flex;align-items:baseline;justify-content:space-between;padding-bottom:8px;
+  border-bottom:1px solid var(--rule-mid)}
+.ci{display:grid;grid-template-columns:24px minmax(0,1fr) 40px;align-items:center;
+  border-bottom:1px solid var(--rule-hair);padding:11px 0 11px 11px;position:relative;width:100%;text-align:left}
+.ci .n{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3)}
+.ci .t{font-size:13.5px;color:var(--text-2);line-height:1.25;padding-right:8px}
+.ci .m{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);text-align:right;
+  font-variant-numeric:tabular-nums lining-nums}
+.ci:hover .t{color:var(--text-1)}
+.ci.done .t{color:var(--text-3);text-decoration:line-through;text-decoration-color:#ffffff2b}
+.ci.here{box-shadow:inset 2px 0 0 #fff}
+.ci.here .t{color:var(--text-1);font-weight:600}
+.ci.here .n{color:var(--text-1)}
+.ci.next{box-shadow:inset 2px 0 0 var(--accent);background:#0e0d0c}
+.ci.next .t{color:var(--text-1);font-weight:600}
+.ci.next .n{color:var(--accent)}
+.ci.gated .t,.ci.gated .n,.ci.gated .m{color:#55555c}
+.rail-blk{margin-top:34px;border-top:1px solid var(--rule-mid);padding-top:10px}
+.rail-row{display:flex;justify-content:space-between;align-items:baseline;padding:8px 0;
+  border-bottom:1px solid var(--rule-ghost)}
+.rail-row .k{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--text-3)}
+.rail-row .v{font-family:'Geist Mono',monospace;font-size:13px;color:var(--text-1);font-variant-numeric:tabular-nums lining-nums}
+.rail-row .v.acc{color:var(--accent)}
+.nextbtn{display:grid;grid-template-columns:1fr auto;align-items:center;width:100%;text-align:left;
+  border:1px solid var(--rule-hard);padding:12px 14px;margin-top:22px;
+  transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.nextbtn:hover{background:#fff;color:#0b0b0c}
+.nextbtn:hover .sub{color:#3a3a3f}
+.nextbtn .sub{display:block;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.1em;
+  color:var(--text-3);text-transform:uppercase}
+.nextbtn .ttl{display:block}
+.nextbtn .ttl{font-size:14.5px;font-weight:600;margin-top:4px;letter-spacing:-.01em;max-width:20ch}
+.hidden{display:none !important}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <!-- ========================= SIDEBAR ========================= -->
+  <aside class="sb">
+    <div class="sb-logo">
+      <div class="sb-mark"></div>
+      <div class="sb-word">Origna<span>8</span></div>
+    </div>
+    <div class="sb-scroll">
+      <div class="sb-grp">Origna8 HQ</div>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="2" width="5" height="5"/><rect x="9" y="2" width="5" height="5"/><rect x="2" y="9" width="5" height="5"/><rect x="9" y="9" width="5" height="5"/></svg>Command Center</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M3 13V8M8 13V3M13 13v-3"/><path d="M1.5 14.5h13"/></svg>Domina8 Standings</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><rect x="2" y="3" width="12" height="11"/><path d="M2 6.5h12M5.5 1.5v3M10.5 1.5v3"/></svg>My Day</a>
+      <a class="sb-item on"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M1.5 5.5L8 2.5l6.5 3L8 8.5 1.5 5.5z"/><path d="M4.5 7v3.6c0 .8 1.6 1.6 3.5 1.6s3.5-.8 3.5-1.6V7"/><path d="M14 6v3.5"/></svg>Educa8</a>
+
+      <div class="sb-grp">Genera8 Market</div>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><circle cx="8" cy="8" r="1.6"/><path d="M4.8 11.2a4.5 4.5 0 010-6.4M11.2 4.8a4.5 4.5 0 010 6.4"/><path d="M2.6 13.4a7.6 7.6 0 010-10.8M13.4 2.6a7.6 7.6 0 010 10.8"/></svg>Live Leads</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M8 2l6 3-6 3-6-3 6-3z"/><path d="M2 8l6 3 6-3M2 11l6 3 6-3"/></svg>Lead Packs</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M2 4h4l3 4 3-4h2"/><path d="M2 12h4l3-4"/><path d="M12 2l2 2-2 2M12 10l2 2-2 2"/></svg>Alloca8</a>
+
+      <div class="sb-grp">Cultiva8</div>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><circle cx="6" cy="6" r="2.3"/><path d="M2 13c0-2.2 1.8-3.6 4-3.6s4 1.4 4 3.6"/><circle cx="11.8" cy="6.6" r="1.8"/><path d="M11 10c2 0 3.4 1.2 3.4 3"/></svg>Relationships</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M3 2.8h2.6l1.1 2.8-1.5 1.1a8 8 0 003.8 3.8l1.1-1.5 2.8 1.1V13a1 1 0 01-1.1 1A11 11 0 012.9 3.9 1 1 0 013 2.8z"/></svg>Dialer</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><rect x="3" y="6" width="10" height="7.5"/><path d="M8 6V3.5M8 2.2v.6"/><circle cx="6" cy="9.5" r=".7"/><circle cx="10" cy="9.5" r=".7"/></svg>Activa8 Agents</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><rect x="6" y="1.8" width="4" height="7.4" rx="2"/><path d="M3.4 7.6a4.6 4.6 0 009.2 0M8 12.2v2"/></svg>Activa8 Voice</a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M2.4 3h11.2v8H6.2L3 13.6V11H2.4z"/></svg>Activa8 Text<span class="sb-badge">2</span></a>
+      <a class="sb-item"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M2 12.4l3.6-4.2 2.7 2.3L14 4"/><path d="M11 4h3v3"/></svg>Activa8 Insights</a>
+    </div>
+    <div class="sb-foot">
+      <div class="sb-org">
+        <div class="sb-org-av">O8</div>
+        <div><div class="sb-l1">Origna8 Corpor…</div><div class="sb-l2">Admin</div></div>
+        <svg class="ic" width="14" height="14" viewBox="0 0 16 16" style="margin-left:auto;color:#6c6c74"><path d="M5 2.5v11M5 2.5L2.8 5M5 2.5L7.2 5M11 13.5v-11M11 13.5L8.8 11M11 13.5l2.2-2.5"/></svg>
+      </div>
+      <div class="sb-row"><svg class="ic" width="15" height="15" viewBox="0 0 16 16"><path d="M9.5 4L5.5 8l4 4"/></svg>Collapse</div>
+      <div class="sb-row">
+        <div class="sb-user-av">AS</div>
+        <div><div class="sb-l1">Aidan Sogorka</div><div class="sb-l2">Admin</div></div>
+        <svg class="ic" width="15" height="15" viewBox="0 0 16 16" style="margin-left:auto"><path d="M9.5 2.5H3.4v11h6.1"/><path d="M11 5.5L13.6 8 11 10.5M6.4 8h7"/></svg>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ========================= MAIN ========================= -->
+  <div class="main">
+
+    <!-- ---------------- TOP BAR ---------------- -->
+    <header class="topbar">
+      <div class="tb-search">
+        <svg class="ic" width="14" height="14" viewBox="0 0 16 16"><circle cx="7.2" cy="7.2" r="4.4"/><path d="M10.5 10.5l3 3"/></svg>
+        <input placeholder="Search staff, loans, contacts">
+        <span class="tb-k">⌘K</span>
+      </div>
+      <button class="tb-ghost" title="Report a bug"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><rect x="5" y="5.5" width="6" height="8" rx="3"/><path d="M5 8H2.4M11 8h2.6M5.3 5.6l-1.6-1.7M10.7 5.6l1.6-1.7M5 11.4l-2 1.4M11 11.4l2 1.4"/></svg></button>
+      <button class="tb-ghost" title="Feedback"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M2.4 3h11.2v8H6.2L3 13.6V11H2.4z"/><path d="M6 6h4M6 8.2h2.6"/></svg></button>
+      <div class="tb-right">
+        <div class="tb-pill"><i class="tb-dot"></i>Leads to contact<span style="color:#3f3f46">·</span><span class="mono" style="color:var(--text-1)">8</span></div>
+        <button class="tb-bell"><svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M4 7a4 4 0 118 0c0 3 1 4 1 4H3s1-1 1-4z"/><path d="M6.6 13a1.5 1.5 0 002.8 0"/></svg><b>9</b></button>
+        <div class="tb-theme">
+          <button><svg class="ic" width="14" height="14" viewBox="0 0 16 16"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3.2 3.2l1.1 1.1M11.7 11.7l1.1 1.1M12.8 3.2l-1.1 1.1M4.3 11.7l-1.1 1.1"/></svg></button>
+          <button class="on"><svg class="ic" width="14" height="14" viewBox="0 0 16 16"><path d="M13.2 9.6A5.6 5.6 0 016.4 2.8a5.6 5.6 0 106.8 6.8z"/></svg></button>
+        </div>
+        <button class="tb-new">+ New loan</button>
+        <button class="tb-price">$ Pricing</button>
+      </div>
+    </header>
+
+    <!-- ============================================================
+         VIEW 1 — THE EDUCA8 INDEX
+         ============================================================ -->
+    <main class="ed" id="ed">
+
+      <!-- masthead -->
+      <div class="mast">
+        <div class="mast-top">
+          <div class="mast-cap">
+            <svg class="ic" width="19" height="19" viewBox="0 0 16 16"><path d="M1.5 5.5L8 2.5l6.5 3L8 8.5 1.5 5.5z"/><path d="M4.5 7v3.6c0 .8 1.6 1.6 3.5 1.6s3.5-.8 3.5-1.6V7"/><path d="M14 6v3.5"/></svg>
+          </div>
+          <h1 class="mast-h1">Educa8</h1>
+          <div class="mast-sub">The whole curriculum on one page. Six courses, twenty nine chapters, twenty eight guides, in the order they are meant to be taken.</div>
+        </div>
+        <div class="mast-rule"></div>
+        <div class="mast-meta">
+          <span class="lbl">Curriculum index</span>
+          <span class="lbl sep">/</span>
+          <span class="lbl">Rev 2026.07</span>
+          <span class="lbl sep">/</span>
+          <span class="lbl">Branch: San Diego North</span>
+          <span class="lbl sep">/</span>
+          <span class="lbl">Reader: A. Sogorka</span>
+          <button class="gridtog" id="gridtog" style="margin-left:auto">Grid: on</button>
+        </div>
+      </div>
+
+      <!-- ledger: replaces the 0 Active / 0 Completed / 6 Not Started banner -->
+      <section class="ledger">
+        <div class="lg">
+          <div class="lg-k">Chapters</div>
+          <div class="lg-v">03<small> / 29</small></div>
+          <div class="lg-n">10.3% of the body of work</div>
+        </div>
+        <div class="lg">
+          <div class="lg-k">Minutes read</div>
+          <div class="lg-v">055<small> / 605</small></div>
+          <div class="lg-n">550 min left at current pace: 12 days</div>
+        </div>
+        <div class="lg">
+          <div class="lg-k">XP</div>
+          <div class="lg-v" id="xpTotal">1,240</div>
+          <div class="lg-n">+240 this week, posted to Domina8</div>
+        </div>
+        <div class="lg">
+          <div class="lg-k">Branch rank</div>
+          <div class="lg-v">03<small> / 14</small></div>
+          <div class="lg-n">160 XP behind 2nd, D. Mercer</div>
+        </div>
+        <div class="lg">
+          <div class="lg-k">Retrieval</div>
+          <div class="lg-v">86.0<small>%</small></div>
+          <div class="lg-n">6 of 7 mentor checks correct</div>
+        </div>
+        <div class="lg">
+          <div class="lg-k">Streak, last 7 days</div>
+          <div class="streak">
+            <i></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i><i class="f"></i>
+          </div>
+          <div class="streak-d"><span>F</span><span>S</span><span>S</span><span>M</span><span>T</span><span>W</span><span>T</span></div>
+          <div class="lg-n" style="margin-top:8px">6 day streak. Today is not banked yet.</div>
+        </div>
+      </section>
+
+      <!-- the one accented object on the page -->
+      <section class="resume" onclick="document.getElementById('view2').scrollIntoView({behavior:'smooth'})">
+        <div class="resume-no">03</div>
+        <div>
+          <div class="resume-k">Next chapter &nbsp;·&nbsp; Mortgage Fundamentals &nbsp;·&nbsp; position 03 of 05</div>
+          <div class="resume-t">The Qualification Process</div>
+          <div class="resume-m">
+            <span class="lbl lbl-1">25 min</span>
+            <span class="lbl">Prereq 02 cleared 3 days ago</span>
+            <span class="lbl">Worth 60 XP</span>
+            <span class="lbl">Unlocks Underwriting Essentials at chapter 05</span>
+          </div>
+        </div>
+        <div class="resume-go">Start chapter</div>
+      </section>
+
+      <!-- taxonomy: one index, two sets, nine tags -->
+      <div class="tax">
+        <span class="lbl">Set</span>
+        <div class="tax-set" id="setrow">
+          <button class="tg on" data-set="all">All <em>34</em></button>
+          <button class="tg" data-set="course">Courses <em>6</em></button>
+          <button class="tg" data-set="guide">Guides <em>28</em></button>
+          <button class="tg" data-set="active">Active <em>2</em></button>
+          <button class="tg" data-set="done">Completed <em>0</em></button>
+          <button class="tg" data-set="gated">Gated <em>2</em></button>
+        </div>
+      </div>
+      <div class="tax">
+        <span class="lbl">Tag</span>
+        <div class="tax-set" id="tagrow">
+          <button class="tg on" data-tag="all">All tags</button>
+          <button class="tg" data-tag="fundamentals">Fundamentals</button>
+          <button class="tg" data-tag="sales">Sales</button>
+          <button class="tg" data-tag="products">Products</button>
+          <button class="tg" data-tag="compliance">Compliance</button>
+          <button class="tg" data-tag="underwriting">Underwriting</button>
+          <button class="tg" data-tag="pricing">Pricing</button>
+          <button class="tg" data-tag="platform">Platform</button>
+          <button class="tg" data-tag="pipeline">Pipeline</button>
+        </div>
+      </div>
+
+      <!-- ============ COURSE INDEX ============ -->
+      <section class="tbl" id="tbl">
+        <div class="trow thead">
+          <div>№</div><div>Category</div><div>Course</div><div>Chapters</div><div>Level</div>
+          <div class="r">Ch</div><div class="r">Min</div><div class="r">Done</div><div class="r">Compl</div><div class="r">Status</div>
+        </div>
+
+        <!-- 01 -->
+        <div class="trow item open" data-set="course active" data-tag="fundamentals" data-c="c1">
+          <div class="c-no">01</div>
+          <div class="c-cat">Fundamentals</div>
+          <div>
+            <div class="c-title"><svg class="ic caret" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5L6.6 5 3 8.5"/></svg>Mortgage Fundamentals</div>
+            <div class="c-desc">Master the basics of mortgage lending, from loan types and qualifying criteria to the full application to closing workflow.</div>
+          </div>
+          <div><div class="ticks"><i class="f"></i><i class="f"></i><i class="n"></i><i></i><i></i></div></div>
+          <div class="lvl">Beginner</div>
+          <div class="num">5</div><div class="num">105</div><div class="num">2</div>
+          <div class="num pct">40.0</div>
+          <div class="st active">Active</div>
+        </div>
+        <div class="chaps show" data-for="c1">
+          <div class="crow is-done"><div></div><div class="cn">01</div><div class="ct"><svg class="ic chk" viewBox="0 0 12 12"><path d="M2 6.3l2.6 2.6L10 3.4"/></svg>What Is a Mortgage?</div><div></div><div></div><div></div><div class="num dim">15</div><div></div><div class="num dim">100.0</div><div class="st done">Done</div></div>
+          <div class="crow is-done"><div></div><div class="cn">02</div><div class="ct"><svg class="ic chk" viewBox="0 0 12 12"><path d="M2 6.3l2.6 2.6L10 3.4"/></svg>Loan Types Overview</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">100.0</div><div class="st done">Done</div></div>
+          <div class="crow is-next"><div></div><div class="cn">03</div><div class="ct">The Qualification Process</div><div></div><div></div><div></div><div class="num">25</div><div></div><div class="num">0.0</div><div class="st next">Next</div></div>
+          <div class="crow"><div></div><div class="cn">04</div><div class="ct">Application to Closing</div><div></div><div></div><div></div><div class="num dim">30</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">05</div><div class="ct">Key Documents Checklist</div><div></div><div></div><div></div><div class="num dim">15</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div class="prereq"><span class="lbl">Prereq: none, entry point</span><span class="lbl">Gates: 05 Underwriting Essentials</span><span class="lbl">Last read: 3 days ago</span><span class="lbl">Course XP: 240 of 600</span></div></div>
+        </div>
+
+        <!-- 02 -->
+        <div class="trow item" data-set="course active" data-tag="sales pipeline" data-c="c2">
+          <div class="c-no">02</div>
+          <div class="c-cat">Sales</div>
+          <div>
+            <div class="c-title"><svg class="ic caret" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5L6.6 5 3 8.5"/></svg>Building Your Pipeline</div>
+            <div class="c-desc">Proven strategies for lead generation, referral partner development, and consistent follow up that keeps your pipeline full.</div>
+          </div>
+          <div><div class="ticks"><i class="f"></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="lvl">Beginner</div>
+          <div class="num">5</div><div class="num">95</div><div class="num">1</div>
+          <div class="num pct">20.0</div>
+          <div class="st active">Active</div>
+        </div>
+        <div class="chaps" data-for="c2">
+          <div class="crow is-done"><div></div><div class="cn">01</div><div class="ct"><svg class="ic chk" viewBox="0 0 12 12"><path d="M2 6.3l2.6 2.6L10 3.4"/></svg>Lead Generation Basics</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">100.0</div><div class="st done">Done</div></div>
+          <div class="crow"><div></div><div class="cn">02</div><div class="ct">Referral Partner Development</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">03</div><div class="ct">Follow Up Cadence</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">04</div><div class="ct">Pipeline Hygiene</div><div></div><div></div><div></div><div class="num dim">15</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">05</div><div class="ct">Keeping the Pipeline Full</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div class="prereq"><span class="lbl">Prereq: none, runs parallel</span><span class="lbl">Gates: nothing</span><span class="lbl">Last read: 9 days ago</span><span class="lbl">Course XP: 60 of 500</span></div></div>
+        </div>
+
+        <!-- 03 -->
+        <div class="trow item" data-set="course open" data-tag="products" data-c="c3">
+          <div class="c-no">03</div>
+          <div class="c-cat">Products</div>
+          <div>
+            <div class="c-title"><svg class="ic caret" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5L6.6 5 3 8.5"/></svg>FHA &amp; VA Loan Programs</div>
+            <div class="c-desc">Deep dive into government backed loan programs. Understand eligibility, guidelines, and how to structure these loans for your borrowers.</div>
+          </div>
+          <div><div class="ticks"><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="lvl">Intermediate</div>
+          <div class="num">5</div><div class="num">110</div><div class="num">0</div>
+          <div class="num pct">0.0</div>
+          <div class="st open">Open</div>
+        </div>
+        <div class="chaps" data-for="c3">
+          <div class="crow"><div></div><div class="cn">01</div><div class="ct">Government Backed Programs</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">02</div><div class="ct">FHA Eligibility</div><div></div><div></div><div></div><div class="num dim">25</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">03</div><div class="ct">FHA Guidelines</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">04</div><div class="ct">VA Eligibility and Entitlement</div><div></div><div></div><div></div><div class="num dim">25</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">05</div><div class="ct">Structuring for the Borrower</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div class="prereq"><span class="lbl">Prereq: 01 Mortgage Fundamentals, ch 02, cleared</span><span class="lbl">Gates: 06 Rate Lock Strategies</span><span class="lbl">Never opened</span><span class="lbl">Course XP: 0 of 600</span></div></div>
+        </div>
+
+        <!-- 04 -->
+        <div class="trow item" data-set="course open" data-tag="compliance" data-c="c4">
+          <div class="c-no">04</div>
+          <div class="c-cat">Compliance</div>
+          <div>
+            <div class="c-title"><svg class="ic caret" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5L6.6 5 3 8.5"/></svg>Compliance &amp; TRID</div>
+            <div class="c-desc">Navigate regulatory requirements confidently. Master TRID timelines, disclosure rules, and compliance best practices.</div>
+          </div>
+          <div><div class="ticks"><i></i><i></i><i></i><i></i></div></div>
+          <div class="lvl">Intermediate</div>
+          <div class="num">4</div><div class="num">85</div><div class="num">0</div>
+          <div class="num pct">0.0</div>
+          <div class="st open">Open</div>
+        </div>
+        <div class="chaps" data-for="c4">
+          <div class="crow"><div></div><div class="cn">01</div><div class="ct">The Regulatory Map</div><div></div><div></div><div></div><div class="num dim">15</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">02</div><div class="ct">TRID Timelines</div><div></div><div></div><div></div><div class="num dim">25</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">03</div><div class="ct">Disclosure Rules</div><div></div><div></div><div></div><div class="num dim">25</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div></div><div class="cn">04</div><div class="ct">Compliance Best Practices</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st open">Queued</div></div>
+          <div class="crow"><div class="prereq"><span class="lbl">Prereq: 01 Mortgage Fundamentals, ch 02, cleared</span><span class="lbl">Gates: nothing</span><span class="lbl">Never opened</span><span class="lbl">Course XP: 0 of 480</span></div></div>
+        </div>
+
+        <!-- 05 -->
+        <div class="trow item" data-set="course gated" data-tag="underwriting" data-c="c5">
+          <div class="c-no">05</div>
+          <div class="c-cat">Underwriting</div>
+          <div>
+            <div class="c-title"><svg class="ic caret" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5L6.6 5 3 8.5"/></svg>Underwriting Essentials</div>
+            <div class="c-desc">Think like an underwriter. Learn how income, assets, and credit are analyzed so you can submit clean files that close faster.</div>
+          </div>
+          <div><div class="ticks"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="lvl">Intermediate</div>
+          <div class="num">6</div><div class="num">130</div><div class="num">0</div>
+          <div class="num pct">0.0</div>
+          <div class="st gated">Gated</div>
+        </div>
+        <div class="chaps" data-for="c5">
+          <div class="crow"><div></div><div class="cn">01</div><div class="ct">Think Like an Underwriter</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">02</div><div class="ct">Income Analysis</div><div></div><div></div><div></div><div class="num dim">25</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">03</div><div class="ct">Asset Analysis</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">04</div><div class="ct">Credit Analysis</div><div></div><div></div><div></div><div class="num dim">25</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">05</div><div class="ct">Building a Clean File</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">06</div><div class="ct">Submission and Conditions</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div class="prereq"><span class="lbl lbl-1">Prereq: 01 Mortgage Fundamentals, ch 05, not cleared</span><span class="lbl">3 chapters away</span><span class="lbl">Gates: nothing</span><span class="lbl">Course XP: 0 of 720</span></div></div>
+        </div>
+
+        <!-- 06 -->
+        <div class="trow item" data-set="course gated" data-tag="pricing" data-c="c6">
+          <div class="c-no">06</div>
+          <div class="c-cat">Pricing</div>
+          <div>
+            <div class="c-title"><svg class="ic caret" width="9" height="9" viewBox="0 0 10 10"><path d="M3 1.5L6.6 5 3 8.5"/></svg>Rate Lock Strategies</div>
+            <div class="c-desc">Advanced pricing tactics: when to lock, float down options, and how to protect your borrower in volatile markets.</div>
+          </div>
+          <div><div class="ticks"><i></i><i></i><i></i><i></i></div></div>
+          <div class="lvl">Advanced</div>
+          <div class="num">4</div><div class="num">80</div><div class="num">0</div>
+          <div class="num pct">0.0</div>
+          <div class="st gated">Gated</div>
+        </div>
+        <div class="chaps" data-for="c6">
+          <div class="crow"><div></div><div class="cn">01</div><div class="ct">When to Lock</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">02</div><div class="ct">Float Down Options</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">03</div><div class="ct">Volatile Market Tactics</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div></div><div class="cn">04</div><div class="ct">Protecting the Borrower</div><div></div><div></div><div></div><div class="num dim">20</div><div></div><div class="num dim">0.0</div><div class="st gated">Locked</div></div>
+          <div class="crow"><div class="prereq"><span class="lbl lbl-1">Prereq: 03 FHA &amp; VA Loan Programs, complete, not started</span><span class="lbl">8 chapters away</span><span class="lbl">Gates: nothing</span><span class="lbl">Course XP: 0 of 480</span></div></div>
+        </div>
+
+        <div class="trow tfoot" id="cfoot">
+          <div>Σ 06</div><div></div><div></div><div></div><div></div>
+          <div class="r">29</div><div class="r">605</div><div class="r">3</div><div class="r" style="color:var(--text-1)">10.3</div><div class="r">2 active</div>
+        </div>
+      </section>
+
+      <!-- ============ GUIDES, SAME INDEX, SAME GRID ============ -->
+      <section class="tbl" id="tbl2">
+        <div class="tsec">
+          <div class="tsec-h">Guides<span class="lbl">Same index, shorter format</span></div>
+          <div class="tsec-n">
+            <span class="lbl">09 groups</span><span class="lbl">28 items</span><span class="lbl">142 steps</span><span class="lbl">175 min</span>
+          </div>
+        </div>
+        <div class="trow thead" style="top:calc(var(--app-bar-h))">
+          <div>№</div><div>Surface</div><div>Group</div><div>Format</div><div>Depth</div>
+          <div class="r">Items</div><div class="r">Min</div><div class="r">Steps</div><div class="r">Compl</div><div class="r">Status</div>
+        </div>
+
+        <div class="trow item" data-set="guide open" data-tag="fundamentals platform">
+          <div class="c-no">G1</div><div class="c-cat">Onboarding</div>
+          <div><div class="c-title" style="font-size:15px">Start here</div><div class="c-desc">Routes into the eight groups below. It holds no items of its own.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Entry</div>
+          <div class="num dim">&ndash;</div><div class="num">4</div><div class="num">3</div><div class="num pct dim">&ndash;</div><div class="st open">Pinned</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="sales pipeline">
+          <div class="c-no">G2</div><div class="c-cat">Cultiva8</div>
+          <div><div class="c-title" style="font-size:15px">Nurturing playbook</div><div class="c-desc">Cadences, templates, and the follow up rules that sit under Building Your Pipeline.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Applied</div>
+          <div class="num">6</div><div class="num">38</div><div class="num">31</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="platform">
+          <div class="c-no">G3</div><div class="c-cat">Origna8 HQ</div>
+          <div><div class="c-title" style="font-size:15px">Origna8 HQ</div><div class="c-desc">Command Center, Domina8 Standings, and where your XP actually lands.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Entry</div>
+          <div class="num">2</div><div class="num">11</div><div class="num">9</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="sales">
+          <div class="c-no">G4</div><div class="c-cat">Cultiva8</div>
+          <div><div class="c-title" style="font-size:15px">Relationships</div><div class="c-desc">Contact records, partner tagging, and the activity timeline.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Applied</div>
+          <div class="num">3</div><div class="num">17</div><div class="num">14</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="platform">
+          <div class="c-no">G5</div><div class="c-cat">Cultiva8</div>
+          <div><div class="c-title" style="font-size:15px">Cultiva8</div><div class="c-desc">Dialer, Activa8 agents, voice and text automation setup.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Applied</div>
+          <div class="num">3</div><div class="num">19</div><div class="num">16</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="underwriting compliance">
+          <div class="c-no">G6</div><div class="c-cat">Loan Center</div>
+          <div><div class="c-title" style="font-size:15px">Loan Center</div><div class="c-desc">File intake, conditions, and document handling. Pairs with Underwriting Essentials.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Applied</div>
+          <div class="num">5</div><div class="num">34</div><div class="num">27</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="compliance">
+          <div class="c-no">G7</div><div class="c-cat">Borrower</div>
+          <div><div class="c-title" style="font-size:15px">Borrower portal</div><div class="c-desc">What the borrower sees, and what they can upload without calling you.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Entry</div>
+          <div class="num">2</div><div class="num">10</div><div class="num">8</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="platform">
+          <div class="c-no">G8</div><div class="c-cat">Eleva8</div>
+          <div><div class="c-title" style="font-size:15px">Eleva8</div><div class="c-desc">Coaching surface. One guide, read it before your first one on one.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Entry</div>
+          <div class="num">1</div><div class="num">6</div><div class="num">5</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+        <div class="trow item" data-set="guide open" data-tag="platform">
+          <div class="c-no">G9</div><div class="c-cat">Branch</div>
+          <div><div class="c-title" style="font-size:15px">Branch management</div><div class="c-desc">Roster, allocation rules, and branch level reporting. Manager track.</div></div>
+          <div class="lbl">Screenshots</div><div class="lvl">Manager</div>
+          <div class="num">6</div><div class="num">36</div><div class="num">29</div><div class="num pct">0.0</div><div class="st open">Open</div>
+        </div>
+
+        <div class="trow tfoot">
+          <div>Σ 09</div><div></div><div></div><div></div><div></div>
+          <div class="r">28</div><div class="r">175</div><div class="r">142</div><div class="r">0.0</div><div class="r">0 started</div>
+        </div>
+        <p class="fnote">Guides carry a step count and a minute estimate because that is the one thing the old Guides tab did better than Courses. Both sets now use the same columns, so a guide and a chapter can be compared before you pick one. Start here is a routing group: the eight groups under it hold all 28 items.</p>
+      </section>
+    </main>
+
+    <!-- =================== VIEW SPLIT =================== -->
+    <div class="viewbar" id="view2">VIEW 2 — COURSE DETAIL</div>
+
+    <!-- ============================================================
+         VIEW 2 — COURSE DETAIL / CHAPTER READING
+         ============================================================ -->
+    <main class="ed">
+      <div class="crumb">
+        <span class="lbl">Educa8</span><span class="lbl" style="color:#ffffff24">/</span>
+        <span class="lbl">Courses</span><span class="lbl" style="color:#ffffff24">/</span>
+        <span class="lbl">01 Mortgage Fundamentals</span><span class="lbl" style="color:#ffffff24">/</span>
+        <span class="lbl lbl-1"><b>Chapter 01</b></span>
+      </div>
+
+      <div class="rd-mast">
+        <h1 class="rd-h1">Mortgage Fundamentals</h1>
+        <div class="rd-rule"></div>
+      </div>
+      <div class="rd-meta">
+        <div><div class="lbl">Category</div><div class="v" style="font-size:13px">Fundamentals</div></div>
+        <div><div class="lbl">Level</div><div class="v" style="font-size:13px">Beginner</div></div>
+        <div><div class="lbl">Chapters</div><div class="v">02 / 05</div></div>
+        <div><div class="lbl">Minutes</div><div class="v">035 / 105</div></div>
+        <div><div class="lbl">Complete</div><div class="v">40.0%</div></div>
+        <div><div class="lbl">Next</div><div class="v acc">Ch 03</div></div>
+      </div>
+
+      <div class="rd">
+        <!-- marginalia -->
+        <div class="marg">
+          <div class="marg-b"><div class="k">Chapter</div><div class="v">01 of 05</div></div>
+          <div class="marg-b"><div class="k">Read time</div><div class="v">15 min</div></div>
+          <div class="marg-b"><div class="k">Status</div><div class="v">Complete 07.27</div></div>
+          <div class="marg-b"><div class="k">Prereq</div><div class="v">None</div></div>
+          <div class="marg-b"><div class="k">XP earned</div><div class="v">120 / 120</div></div>
+          <div class="marg-note">Re-reading a completed chapter does not pay XP twice. The mentor check below does, once per correct first attempt.</div>
+          <div class="marg-note" style="margin-top:20px">Four terms in this chapter appear again in Underwriting Essentials, chapter 02. Escrow is the one people get wrong.</div>
+        </div>
+
+        <!-- reading column -->
+        <div class="read">
+          <div class="kick lbl">Chapter 01</div>
+          <h2>What Is a Mortgage?</h2>
+
+          <p class="lead">A mortgage is a loan used to purchase real estate, where the property itself serves as collateral.</p>
+
+          <p>That single sentence carries the whole structure. The borrower gets money now. The lender gets a claim on the property until the money comes back. Everything else in this course, qualifying ratios, disclosure timing, lock strategy, is a consequence of that trade.</p>
+
+          <dl class="defs">
+            <div class="defs-h"><span class="lbl lbl-1">Key concepts</span><span class="lbl">04 terms</span></div>
+            <div class="def" data-term="principal"><dt>Principal</dt><dd>The amount borrowed.</dd></div>
+            <div class="def" data-term="interest"><dt>Interest</dt><dd>The cost of borrowing.</dd></div>
+            <div class="def" data-term="amortization"><dt>Amortization</dt><dd>How the loan is paid off over time.</dd></div>
+            <div class="def" data-term="escrow"><dt>Escrow</dt><dd>Funds held for taxes and insurance.</dd></div>
+          </dl>
+
+          <p>Read the four terms as a set, not a list. Principal and interest are what the borrower owes the lender. Amortization is the schedule that retires them. Escrow sits outside all three: it is money the borrower pays alongside the loan, held on their behalf, for obligations owed to somebody else entirely.</p>
+
+          <!-- retrieval check -->
+          <section class="check" id="check">
+            <div class="check-h">
+              <span class="lbl lbl-1">Mentor check 01</span>
+              <span class="lbl" id="checkMeta">One attempt, 20 XP</span>
+            </div>
+            <p class="check-q">A borrower's monthly payment includes an escrow amount. What is that portion actually paying for?</p>
+            <button class="opt" data-a="0"><span class="ok">A</span><span>Principal and interest on the loan</span><span class="mk"></span></button>
+            <button class="opt" data-a="1"><span class="ok">B</span><span>Property taxes and insurance</span><span class="mk"></span></button>
+            <button class="opt" data-a="2"><span class="ok">C</span><span>Origination fees and discount points</span><span class="mk"></span></button>
+            <div class="mentor" id="mentor">
+              <div class="who">AI</div>
+              <div>
+                <div class="say" id="mentorSay"></div>
+                <div class="xpline" id="xpline" style="display:none">
+                  <span class="lbl">XP banked</span><span class="n" id="xpGain">+0</span>
+                  <span class="lbl">Posted to Domina8 Standings</span>
+                  <span class="lbl" id="rankNote"></span>
+                </div>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <!-- right rail: chapter index + position -->
+        <div class="rail">
+          <div class="rail-h"><span class="lbl lbl-1">Chapter index</span><span class="lbl">105 min</span></div>
+          <button class="ci done here"><span class="n">01</span><span class="t">What Is a Mortgage?</span><span class="m">15</span></button>
+          <button class="ci done"><span class="n">02</span><span class="t">Loan Types Overview</span><span class="m">20</span></button>
+          <button class="ci next" id="ciNext"><span class="n">03</span><span class="t">The Qualification Process</span><span class="m">25</span></button>
+          <button class="ci gated"><span class="n">04</span><span class="t">Application to Closing</span><span class="m">30</span></button>
+          <button class="ci gated"><span class="n">05</span><span class="t">Key Documents Checklist</span><span class="m">15</span></button>
+
+          <div class="rail-blk">
+            <div class="rail-h" style="border:0;padding:0 0 6px"><span class="lbl lbl-1">Standing</span><span class="lbl">Week 31</span></div>
+            <div class="rail-row"><span class="k">Course XP</span><span class="v" id="courseXp">240</span></div>
+            <div class="rail-row"><span class="k">Total XP</span><span class="v" id="totalXp2">1,240</span></div>
+            <div class="rail-row"><span class="k">Branch rank</span><span class="v" id="rankVal">03 / 14</span></div>
+            <div class="rail-row"><span class="k">To 2nd place</span><span class="v" id="toSecond">160</span></div>
+            <div class="rail-row"><span class="k">Streak</span><span class="v">06 d</span></div>
+            <div class="rail-row" style="border:0"><span class="k">Retrieval</span><span class="v" id="retVal">86.0%</span></div>
+          </div>
+
+          <button class="nextbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+            <span>
+              <span class="sub">Next chapter 03 · 25 min</span>
+              <span class="ttl">The Qualification Process</span>
+            </span>
+            <svg class="ic" width="16" height="16" viewBox="0 0 16 16"><path d="M3 8h9.5M9 4.5L12.8 8 9 11.5"/></svg>
+          </button>
+          <div class="marg-note" style="margin-top:18px;border:0;padding:0">Finishing chapter 05 clears the gate on course 05, Underwriting Essentials.</div>
+        </div>
+      </div>
+    </main>
+
+  </div>
+</div>
+
+<script>
+/* ---------- grid overlay toggle ---------- */
+const gt = document.getElementById('gridtog');
+gt.addEventListener('click',()=>{
+  const on = document.querySelectorAll('.ed');
+  const off = on[0].classList.toggle('nogrid');
+  on.forEach(e=>e.classList.toggle('nogrid', off));
+  gt.textContent = off ? 'Grid: off' : 'Grid: on';
+});
+
+/* ---------- expand / collapse course rows ---------- */
+document.querySelectorAll('.trow.item[data-c]').forEach(row=>{
+  row.addEventListener('click',()=>{
+    const box = document.querySelector('.chaps[data-for="'+row.dataset.c+'"]');
+    const open = row.classList.toggle('open');
+    box.classList.toggle('show', open);
+    if(open){
+      box.querySelectorAll('.crow').forEach((c,i)=>{
+        c.classList.remove('anim');
+        void c.offsetWidth;
+        c.style.animationDelay = (i*18)+'ms';
+        c.classList.add('anim');
+      });
+    }
+  });
+});
+
+/* ---------- taxonomy filter ---------- */
+let curSet='all', curTag='all';
+function apply(){
+  document.querySelectorAll('.trow.item').forEach((row,i)=>{
+    const sets = (row.dataset.set||'').split(' ');
+    const tags = (row.dataset.tag||'').split(' ');
+    const ok = (curSet==='all'||sets.includes(curSet)) && (curTag==='all'||tags.includes(curTag));
+    row.classList.toggle('hidden', !ok);
+    if(ok){
+      row.style.animation='none'; void row.offsetWidth;
+      row.style.animation='rowIn .13s var(--ease) both';
+      row.style.animationDelay=(i*12)+'ms';
+    }
+    const c = row.dataset.c;
+    if(c){
+      const box = document.querySelector('.chaps[data-for="'+c+'"]');
+      box.classList.toggle('hidden', !ok || !row.classList.contains('open'));
+    }
+  });
+  const anyCourse = [...document.querySelectorAll('#tbl .trow.item')].some(r=>!r.classList.contains('hidden'));
+  const anyGuide  = [...document.querySelectorAll('#tbl2 .trow.item')].some(r=>!r.classList.contains('hidden'));
+  document.getElementById('tbl').classList.toggle('hidden', !anyCourse);
+  document.getElementById('tbl2').classList.toggle('hidden', !anyGuide);
+  document.getElementById('tbl2').classList.toggle('lead', !anyCourse);
+}
+const st = document.createElement('style');
+st.textContent='@keyframes rowIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}';
+document.head.appendChild(st);
+document.querySelectorAll('#setrow .tg').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#setrow .tg').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); curSet=b.dataset.set; apply();
+}));
+document.querySelectorAll('#tagrow .tg').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('#tagrow .tg').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); curTag=b.dataset.tag; apply();
+}));
+
+/* ---------- retrieval check ---------- */
+let answered=false;
+const say = document.getElementById('mentorSay');
+const mentor = document.getElementById('mentor');
+document.querySelectorAll('#check .opt').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    if(answered) return;
+    const right = btn.dataset.a === '1';
+    if(right){
+      answered=true;
+      btn.classList.add('right','locked');
+      btn.querySelector('.mk').textContent='Correct';
+      document.querySelectorAll('#check .opt').forEach(o=>o.classList.add('locked'));
+      document.querySelector('.def[data-term="escrow"]').classList.add('cited');
+      say.innerHTML = 'Right. Escrow sits outside the loan itself. Follow up, and this one is the exam question: <b>if a borrower\'s property taxes go up mid year, which number on their statement moves?</b>';
+      document.getElementById('checkMeta').textContent='Answered, first attempt';
+      document.getElementById('xpline').style.display='flex';
+      countTo(document.getElementById('xpGain'), 0, 20, 420, '+');
+      countTo(document.getElementById('xpTotal'), 1240, 1260, 520);
+      countTo(document.getElementById('totalXp2'), 1240, 1260, 520);
+      countTo(document.getElementById('courseXp'), 240, 260, 520);
+      document.getElementById('toSecond').textContent='140';
+      document.getElementById('retVal').textContent='87.5%';
+      document.getElementById('rankNote').textContent='140 XP to 2nd, D. Mercer';
+    }else{
+      btn.classList.add('wrong');
+      btn.querySelector('.mk').textContent='No';
+      const term = btn.dataset.a==='0' ? 'principal' : 'interest';
+      document.querySelectorAll('.def').forEach(d=>d.classList.remove('cited'));
+      document.querySelector('.def[data-term="escrow"]').classList.add('cited');
+      say.innerHTML = btn.dataset.a==='0'
+        ? 'Close, but principal and interest are the loan payment. Escrow is the part that never reaches the lender. Look at the highlighted line above, then answer again.'
+        : 'No. Fees and points are paid once, at closing. Escrow is collected every month. Look at the highlighted line above, then answer again.';
+    }
+    mentor.classList.add('show');
+  });
+});
+function countTo(el, from, to, dur, prefix){
+  const t0 = performance.now();
+  (function step(t){
+    const p = Math.min(1,(t-t0)/dur);
+    const e = 1-Math.pow(1-p,3);
+    const v = Math.round(from+(to-from)*e);
+    el.textContent = (prefix||'') + v.toLocaleString('en-US');
+    if(p<1) requestAnimationFrame(step);
+  })(t0);
+}
+
+/* ---------- rail chapter selection ---------- */
+document.querySelectorAll('.rail .ci').forEach(ci=>{
+  ci.addEventListener('click',()=>{
+    if(ci.classList.contains('gated')) return;
+    document.querySelectorAll('.rail .ci').forEach(x=>x.classList.remove('here'));
+    ci.classList.add('here');
+  });
+});
+</script>
+</body>
+</html>

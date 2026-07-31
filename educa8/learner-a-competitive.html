@@ -279,10 +279,10 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .ct .cat i{width:6px;height:6px;flex:0 0 6px;border-radius:2px;background:var(--cat,var(--text-3));display:block}
 .ttl{font-size:15px;color:var(--text-1);font-weight:500;letter-spacing:-.01em;line-height:1.2}
 .ttl-d{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.45;max-width:52ch;white-space:normal}
-.chbar{display:flex;gap:3px}
-.chbar i{width:14px;height:20px;border-radius:2px;background:var(--surface-3);border:1px solid var(--rule-2);display:block}
-.chbar i.f{background:var(--text-2);border-color:transparent}
-.chbar i.l{background:var(--heat);border-color:transparent}
+/* Lessons read is a count, not a row of boxes. The boxes repeated the number beside
+   them in a mark that read like the season-track nodes, which mean something else. */
+.lessons{font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--text-2);display:block}
+.lessons.none{color:var(--text-3)}
 .lvl{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--text-3);letter-spacing:.06em;text-transform:uppercase}
 .lvl u{display:flex;gap:2px;text-decoration:none}
 .lvl u b{width:4px;height:11px;background:var(--rule);border-radius:1px;display:block}
@@ -1032,22 +1032,14 @@ const COURSES = [
 ];
 
 /* ══════════ course ledger rows ══════════ */
-function chbar(n, done, live){
-  let s='<div class="chbar">';
-  for(let i=0;i<n;i++){
-    const c = i<done ? 'f' : (live && i===done ? 'l' : '');
-    s+='<i class="'+c+'"></i>';
-  }
-  return s+'</div>';
-}
 function rowHTML(c){
   const pct = Math.round(c.xp/c.xpT*100);
   const stIcon = c.st==='lock' ? '<svg><use href="#i-lock"/></svg>' : '';
   return '<tr class="rowlink">'+
     '<td><span class="cat" style="--cat:var(--cat-'+c.cat.toLowerCase()+')"><i></i>'+c.cat+'</span></td>'+
     '<td><div class="ttl">'+c.ttl+' <span style="color:var(--text-3);font-weight:400;font-size:12px">· '+c.lvl.toLowerCase()+'</span></div><div class="ttl-d">'+c.d+'</div></td>'+
-    '<td>'+chbar(c.n,c.done,c.live)+'<div class="mono" style="font-size:11px;color:var(--text-2);margin-top:7px">'+c.done+' of '+c.n+'</div>'+
-      '<div class="mono" style="font-size:10.5px;color:var(--text-3);margin-top:2px">'+c.branch+'</div></td>'+
+    '<td><span class="lessons'+(c.done?'':' none')+'">'+c.done+' of '+c.n+'</span>'+
+      '<div class="mono" style="font-size:10.5px;color:var(--text-3);margin-top:3px">'+c.branch+'</div></td>'+
     '<td class="n"><span class="mono" style="color:'+(c.xp?'var(--text-1)':'var(--text-3)')+'">'+c.xp+' / '+c.xpT+'</span>'+
       '<div class="bar-mini"><i class="'+(c.st==='live'?'h':'')+'" style="width:'+pct+'%"></i></div></td>'+
     '<td class="n mono" style="color:var(--text-2)">'+c.left+'</td>'+

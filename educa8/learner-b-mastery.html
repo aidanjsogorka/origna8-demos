@@ -268,7 +268,7 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
             transform:scaleY(var(--s,0));transform-origin:bottom center;
             transition:transform .78s var(--ease),background .5s var(--ease)}
 .rcn.lapsed{border-color:#f0b64955}
-.rcn.lapsed::after{background:repeating-linear-gradient(135deg,#f0b64988 0 3px,transparent 3px 6px)}
+.rcn.lapsed::after{background:var(--warn)}
 .rcn.gone{border-color:var(--rule-2)}
 .rcn.gone::after{background:#ffffff1f}
 .rcn.never{border-style:dashed;border-color:var(--heat-line)}
@@ -297,7 +297,7 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .rc-key span{display:flex;align-items:center;gap:6px}
 .rc-key i{width:11px;height:11px;border-radius:4px;border:1px solid var(--rule);background:var(--surface-2);display:block}
 .rc-key i.h{background:var(--text-2);border-color:transparent}
-.rc-key i.l{background:repeating-linear-gradient(135deg,#f0b64988 0 3px,transparent 3px 6px);border-color:#f0b64955}
+.rc-key i.l{background:var(--warn);border-color:#f0b64955}
 .rc-key i.n{border-style:dashed;border-color:var(--heat-line)}
 .rc-foot{padding:12px 16px 13px;border-top:1px solid var(--rule);display:flex;align-items:center;gap:14px}
 .btn-line{height:30px;white-space:nowrap;border:1px solid var(--ring);border-radius:999px;padding:0 14px;font-size:12.5px;color:var(--text-1)}
@@ -316,14 +316,13 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .cap tr:last-child td{border-bottom:0}
 .cap tr.blind td:first-child{box-shadow:inset 2px 0 0 var(--heat)}
 .cap tr.blind td{background:var(--heat-soft)}
-.mk{width:16px;height:16px;border-radius:5px;border:1px solid var(--rule);background:var(--surface-2);display:inline-block;vertical-align:-3px;
-    position:relative;overflow:hidden}
-.mk::before{content:"";position:absolute;left:0;top:0;bottom:0;width:0;background:var(--text-1)}
-.mk.full::before{width:100%}
-.mk.half::before{width:50%}
-.mk.live::before{background:var(--heat)}
-.mk.live{border-color:var(--heat-line)}
-.cap td .sub{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);margin-left:9px;vertical-align:middle}
+/* No marks in here. Twenty seven squares repeated the value written beside every one
+   of them, and they read like the recall nodes, which mean something else entirely.
+   The value carries its own state: bright is done, dim is nothing, orange is a live
+   file with nothing read behind it. */
+.cap td .sub{font-family:'Geist Mono',monospace;font-size:11.5px;color:var(--text-3);vertical-align:middle}
+.cap td .sub.part{color:var(--text-2)}
+.cap td .sub.on{color:var(--text-1)}
 .cap td .sub.heat{color:var(--heat)}
 .cap-foot{display:flex;align-items:center;gap:18px;padding:14px 16px 15px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--text-3)}
 .key{display:flex;align-items:center;gap:7px}
@@ -350,10 +349,10 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .ct .cat i{width:6px;height:6px;flex:0 0 6px;border-radius:2px;background:var(--cat,var(--text-3));display:block}
 .ttl{font-size:15px;color:var(--text-1);font-weight:500;letter-spacing:-.01em;line-height:1.2}
 .ttl-d{font-size:12px;color:var(--text-3);margin-top:3px;line-height:1.45;max-width:50ch;white-space:normal}
-.chbar{display:flex;gap:3px}
-.chbar i{width:14px;height:20px;border-radius:2px;background:var(--surface-3);border:1px solid var(--rule-2);display:block}
-.chbar i.f{background:var(--text-2);border-color:transparent}
-.chbar i.l{background:var(--heat);border-color:transparent}
+/* Lessons read is a count, not a row of boxes. The boxes said the same thing the
+   number says, in a mark that looked like two other marks on the page. */
+.lessons{font-family:'Geist Mono',monospace;font-size:12.5px;color:var(--text-2)}
+.lessons.none{color:var(--text-3)}
 .covers{font-size:12px;color:var(--text-2);white-space:normal;line-height:1.4}
 .covers b{color:var(--text-1);font-weight:500}
 .covers span{font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);display:block;margin-top:3px}
@@ -806,11 +805,8 @@ body{padding-bottom:34px}
         <tbody id="capRows"></tbody>
       </table>
       <div class="cap-foot">
-        <span class="key"><i class="mk full"></i>done</span>
-        <span class="key"><i class="mk half"></i>partial</span>
-        <span class="key"><i class="mk live"></i>doing it with nothing read</span>
-        <span class="key"><i class="mk"></i>none</span>
-        <div class="thesis"><b>Three of these have a live loan on the desk and nothing read behind them.</b> That is the whole reason this page exists. Nothing counts as handled until all three boxes are filled.</div>
+        <span class="key">Bright is done. Dim is nothing yet. Orange is a live file with nothing read behind it.</span>
+        <div class="thesis"><b>Three of these have a live loan on the desk and nothing read behind them.</b> That is the whole reason this page exists. Nothing counts as handled until you have read it, still known it a week later, and run it on a live file.</div>
       </div>
       <div class="pl-rel" style="--d:200ms;padding:0 16px 14px">read ⨝ verified <b>NEW</b> · run ← <s>loan (exists)</s> · <b>NEW: capability table, 9 rows, authored once</b></div>
     </div>
@@ -1240,9 +1236,9 @@ const CAP = [
   {s:'Rate lock and float-down',read:0, readN:'not read',  ver:0, verN:'never',   run:2, runN:'1 extended, cost 0.25',br:'9 of 17',  blind:1},
   {s:'Non-QM referral',         read:0, readN:'not read',  ver:0, verN:'never',   run:0, runN:'none open',            br:'4 of 17'}
 ];
-function mark(v,live){ return '<i class="mk '+(v===2?'full':v===1?'half':'')+(live&&v?' live':'')+'"></i>'; }
 function cell(v,label,live){
-  return mark(v,live)+'<span class="sub'+(live&&v?' heat':'')+'">'+label+'</span>';
+  const c = live&&v ? ' heat' : v===2 ? ' on' : v===1 ? ' part' : '';
+  return '<span class="sub'+c+'">'+label+'</span>';
 }
 document.getElementById('capRows').innerHTML = CAP.map(c=>
   '<tr'+(c.blind?' class="blind"':'')+'>'+
@@ -1274,16 +1270,11 @@ const COURSES = [
    d:'Proven strategies for lead generation, referral partner development, and consistent follow-up that keeps your pipeline full.',
    covers:'nothing open', coversSub:'twelve loans is a full book', ver:'Jul 24', why:'Your pipeline is full. This comes back when it is not.', hot:0}
 ];
-function chbar(n,done,live){
-  let s='<div class="chbar">';
-  for(let i=0;i<n;i++) s+='<i class="'+(i<done?'f':(live&&i===done?'l':''))+'"></i>';
-  return s+'</div>';
-}
 function rowHTML(c){
   return '<tr class="rowlink">'+
     '<td><span class="cat" style="--cat:var(--cat-'+c.cat.toLowerCase()+')"><i></i>'+c.cat+'</span></td>'+
     '<td><div class="ttl">'+c.ttl+'</div><div class="ttl-d">'+c.d+'</div></td>'+
-    '<td>'+chbar(c.n,c.done,c.live)+'<div class="mono" style="font-size:11px;color:var(--text-2);margin-top:7px">'+c.done+' of '+c.n+' read</div></td>'+
+    '<td><span class="lessons'+(c.done?'':' none')+'">'+c.done+' of '+c.n+' read</span></td>'+
     '<td><div class="covers"><b>'+c.covers+'</b><span>'+c.coversSub+'</span></div></td>'+
     '<td class="mono" style="color:'+(c.ver==='never'?'var(--text-3)':c.ver.indexOf('lapsed')===0?'var(--warn)':'var(--text-2)')+'">'+c.ver+'</td>'+
     '<td><div class="why'+(c.hot?' hot':'')+'">'+c.why+'</div></td>'+

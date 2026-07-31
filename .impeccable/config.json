@@ -1,0 +1,20 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "overused-font",
+        "value": "geist mono",
+        "createdAt": "2026-07-31T16:10:53.262Z",
+        "reason": "Pinned by docs/BRAND.md as the live Origna8 identifier face; reproducing the app's type stack is this brief's hard constraint. Confirmed by Aidan 2026-07-31."
+      },
+      {
+        "rule": "overused-font",
+        "value": "google fonts: geist mono",
+        "createdAt": "2026-07-31T16:14:56.527Z",
+        "reason": "Same Geist Mono decision, matched via the Google Fonts link rather than a CSS declaration."
+      }
+    ]
+  }
+}

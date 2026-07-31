@@ -16,8 +16,8 @@
   --surface-1:#111114; --surface-2:#16161a; --surface-3:#1e1e23; --card:#111114;
   --text-1:#f4f4f5; --text-2:#a0a0a8; --text-3:#6c6c74;
   --border:#ffffff1a; --border-2:#ffffff0e; --ring:#ffffff38;
-  --rainbow-logo:linear-gradient(115deg,#f2680c 0%,#ffa31c 22%,#ffd15e 38%,#9fe3ec 46%,#4fc0e0 55%,#3e6ff0 74%,#5b45ce 90%,#7c3aed 100%);
-  --brand-orange:#f2680c; --brand-amber:#ffa31c; --brand-cyan:#22b8c9;
+  --rainbow-logo:linear-gradient(115deg,#FF7A2F 0%,#FF4D8D 32%,#B14DFF 64%,#4D6BFF 100%);
+  --brand-orange:#FF7A2F;
   --brand-blue:#3e6ff0; --brand-violet:#7c3aed;
   --pos:#34d399; --pos-soft:#34d3991f;
   --neg:#f87171; --neg-soft:#f8717124;
@@ -33,10 +33,10 @@
 
 /* ── Content-column scope: tighter radii, one accent ───────── */
 .edu{
-  --acc:#f2680c;
+  --acc:#FF7A2F;
   --acc-txt:#ff8a3d;
-  --acc-soft:rgba(242,104,12,.10);
-  --acc-line:rgba(242,104,12,.30);
+  --acc-soft:rgba(255,122,47,.10);
+  --acc-line:rgba(255,122,47,.30);
   --r:10px; --r-tight:6px;
   --row-h:52px;
 }
@@ -188,11 +188,11 @@ a{color:inherit;text-decoration:none}
 }
 .hero::before{ /* the one considered gradient, used as depth */
   content:'';position:absolute;inset:0;pointer-events:none;
-  background:radial-gradient(680px 320px at 74% 8%,rgba(242,104,12,.16),rgba(242,104,12,.03) 42%,transparent 68%);
+  background:radial-gradient(680px 320px at 74% 8%,rgba(255,122,47,.16),rgba(255,122,47,.03) 42%,transparent 68%);
 }
 .hero-l{position:relative;padding:20px 22px 20px;border-right:1px solid var(--border-2)}
 .hero-eye{display:flex;align-items:center;gap:7px;margin-bottom:14px}
-.hero-eye .d{width:5px;height:5px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 3px rgba(242,104,12,.16)}
+.hero-eye .d{width:5px;height:5px;border-radius:50%;background:var(--acc);box-shadow:0 0 0 3px rgba(255,122,47,.16)}
 .hero h2{font-size:21px;font-weight:600;letter-spacing:-.4px;line-height:1.2}
 .hero-meta{display:flex;align-items:center;gap:9px;margin-top:8px;font-size:12px;color:var(--text-2)}
 .hero-meta .sep{color:var(--text-3);opacity:.6}
@@ -209,7 +209,7 @@ a{color:inherit;text-decoration:none}
   font-size:13.5px;font-weight:600;display:flex;align-items:center;gap:9px;
   transition:transform var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease)
 }
-.btn-acc:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(242,104,12,.28)}
+.btn-acc:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(255,122,47,.28)}
 .btn-acc .kbd{border-color:#00000030;background:#00000018;color:#3a1400}
 .btn-line{
   height:36px;padding:0 13px;border-radius:var(--r);border:1px solid var(--border);
@@ -338,7 +338,7 @@ a{color:inherit;text-decoration:none}
 tr.row:hover .btn-row,tr.row.foc .btn-row{opacity:1;transform:none}
 .btn-row:hover{border-color:var(--ring);color:var(--text-1)}
 .btn-row.primary{background:var(--acc-soft);border-color:var(--acc-line);color:var(--acc-txt);opacity:1;transform:none}
-.btn-row.primary:hover{background:rgba(242,104,12,.18);color:#ffa15c}
+.btn-row.primary:hover{background:rgba(255,122,47,.18);color:#ffa15c}
 .lockmark{display:flex;align-items:center;gap:6px;color:var(--text-3);font-size:11.5px;justify-content:flex-end}
 .lockmark svg{width:12px;height:12px}
 .tblfoot{
@@ -473,7 +473,7 @@ tr.row:hover .btn-row,tr.row.foc .btn-row{opacity:1;transform:none}
 .fig-foot .hd{font-size:9.5px;letter-spacing:.11em;color:var(--text-3);opacity:.75}
 .fig-foot b{color:var(--text-1);font-weight:500}
 
-.check{margin-top:26px;border:1px solid var(--acc-line);border-radius:var(--r-tight);background:rgba(242,104,12,.045)}
+.check{margin-top:26px;border:1px solid var(--acc-line);border-radius:var(--r-tight);background:rgba(255,122,47,.045)}
 .check .ch-h{display:flex;align-items:center;gap:9px;padding:12px 14px;border-bottom:1px solid var(--border-2)}
 .check .ch-h .t{font-size:12.5px;font-weight:600}
 .check .ch-h .xp{margin-left:auto;font-family:'Geist Mono',monospace;font-size:11px;color:var(--acc-txt)}
@@ -985,7 +985,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
             <div class="empty">
               <svg class="empty-dial" viewBox="0 0 84 84" width="84" height="84">
                 <circle cx="42" cy="42" r="33" fill="none" stroke="#ffffff12" stroke-width="6"/>
-                <circle cx="42" cy="42" r="33" fill="none" stroke="#f2680c" stroke-width="6" stroke-linecap="round"
+                <circle cx="42" cy="42" r="33" fill="none" stroke="#FF7A2F" stroke-width="6" stroke-linecap="round"
                         stroke-dasharray="207.3" stroke-dashoffset="124.4" transform="rotate(-90 42 42)"/>
                 <text x="42" y="45" text-anchor="middle" font-family="Geist Mono, monospace" font-size="17" fill="#f4f4f5">40%</text>
                 <text x="42" y="58" text-anchor="middle" font-family="Geist Mono, monospace" font-size="8" letter-spacing="1" fill="#6c6c74">CLOSEST</text>
@@ -1108,7 +1108,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
                 <b>Where the payment goes</b>
                 <span>$400,000 · 6.50% · 360 months</span>
                 <div class="lg">
-                  <span><i style="background:#f2680c"></i>Principal</span>
+                  <span><i style="background:#FF7A2F"></i>Principal</span>
                   <span><i style="background:#3a3a42"></i>Interest</span>
                 </div>
               </div>
@@ -1132,7 +1132,7 @@ body.tech .pl-navsw{background:#FF7A2F14}
                     <!-- interest, above the split line -->
                     <path d="M34,108.8 C120,105.9 190,100.4 250,89.5 C300,80.5 360,66.1 420,50.6 C470,37.8 520,22.4 606,6.6 L606,6 L34,6 Z" fill="#1c1c22"/>
                     <!-- principal, below the split line -->
-                    <path d="M34,108.8 C120,105.9 190,100.4 250,89.5 C300,80.5 360,66.1 420,50.6 C470,37.8 520,22.4 606,6.6 L606,126 L34,126 Z" fill="#f2680c" fill-opacity=".20"/>
+                    <path d="M34,108.8 C120,105.9 190,100.4 250,89.5 C300,80.5 360,66.1 420,50.6 C470,37.8 520,22.4 606,6.6 L606,126 L34,126 Z" fill="#FF7A2F" fill-opacity=".20"/>
                     <path d="M34,108.8 C120,105.9 190,100.4 250,89.5 C300,80.5 360,66.1 420,50.6 C470,37.8 520,22.4 606,6.6"
                           fill="none" stroke="#ff8a3d" stroke-width="1.6"/>
                   </g>

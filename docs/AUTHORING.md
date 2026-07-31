@@ -82,7 +82,7 @@ A full course builder, in the order Andrew would actually work:
 5. **Add the question at the end.** Write a prompt, three or four answers, mark the right
    one, write why. Andrew should be able to do this without being told what retrieval
    practice is.
-6. **Set what must be finished first.** Pick from the other courses. Show what it unlocks
+6. **Set what must be finished first.** Pick from the other courses. Show what it opens
    and what it blocks, in a sentence, not a graph.
 7. **Set what they earn**, with the effect stated in plain terms: "finishing this lesson
    moves someone about one place on their branch board."

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Educa8 · B, relevance and mastery · Origna8</title>
+<title>Educa8 · C, mastery edited · Origna8</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700;800&family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -258,26 +258,46 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
           font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600}
 .ev-foot{padding:12px 16px 13px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--text-3);line-height:1.55}
 
-/* recall, the spaced retrieval instrument */
-.rc{padding:4px 0 0}
-.rcrow{display:grid;grid-template-columns:1fr 96px 96px;gap:12px;align-items:center;padding:9px 16px;border-bottom:1px solid var(--rule-2)}
-.rcrow:last-of-type{border-bottom:0}
-.rcrow .cn{font-size:13px;color:var(--text-2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.rcrow.hot .cn{color:var(--text-1)}
-.meter{height:5px;background:var(--rule-2);position:relative;margin-top:6px;width:100%}
-.meter i{position:absolute;left:0;top:0;bottom:0;width:100%;background:var(--text-2);transform-origin:left center;
-         transition:transform .78s var(--ease),background .4s var(--ease)}
-.meter i.lapsed{background:repeating-linear-gradient(135deg,#f0b64966 0 4px,transparent 4px 8px)}
-.meter i.gone{background:repeating-linear-gradient(135deg,#6c6c7455 0 4px,transparent 4px 8px)}
-.meter i.fresh{background:var(--pos)}
-.rcrow .when{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);text-align:right;white-space:nowrap;
-             transition:color .4s var(--ease)}
-.rcrow .when.fresh{color:var(--pos)}
-.rcrow .hold{font-family:'Geist Mono',monospace;font-size:11px;text-align:right;white-space:nowrap;color:var(--text-3)}
-.rcrow .hold.warn{color:var(--warn)} .rcrow .hold.gone{color:var(--text-3)} .rcrow .hold.ok{color:var(--text-2)}
-.rc-head{display:grid;grid-template-columns:1fr 96px 96px;gap:12px;padding:0 16px 7px;border-bottom:1px solid var(--rule-2)}
-.rc-head span{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);font-weight:600;text-align:right}
-.rc-head span:first-child{text-align:left}
+/* recall as an instrument, not a table. Nineteen concepts, fill height is strength,
+   border state is what to do about it. The one non-tabular band on the page. */
+.rcband{padding:15px 16px 4px}
+.rcnodes{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
+.rcn{aspect-ratio:1/1;border-radius:6px;border:1px solid var(--rule);background:var(--surface-2);position:relative;
+     overflow:hidden;cursor:default;transition:border-color var(--dur-fast) var(--ease),transform .3s var(--ease)}
+.rcn::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--s,0%);background:var(--text-2);
+            transition:height .78s var(--ease),background .5s var(--ease)}
+.rcn.lapsed{border-color:#f0b64955}
+.rcn.lapsed::after{background:repeating-linear-gradient(135deg,#f0b64988 0 3px,transparent 3px 6px)}
+.rcn.gone{border-color:var(--rule-2)}
+.rcn.gone::after{background:#ffffff1f;min-height:3px}
+.rcn.never{border-style:dashed;border-color:var(--heat-line)}
+.rcn.never::after{height:0}
+.rcn.fresh::after{background:var(--pos)}
+.rcn:hover,.rcn.on{border-color:var(--ring);transform:translateY(-2px)}
+.rcn.fresh{border-color:var(--pos)}
+.rc-axis{display:flex;align-items:baseline;gap:14px;padding:11px 16px 0;font-size:10px;color:var(--text-3);
+         letter-spacing:.1em;text-transform:uppercase}
+.rc-axis span:last-child{margin-left:auto;letter-spacing:0;text-transform:none;font-size:11px}
+.rc-read{padding:9px 16px 13px;font-size:12.5px;color:var(--text-2);line-height:1.5;min-height:56px;
+         border-bottom:1px solid var(--rule-2)}
+.rc-read b{color:var(--text-1);font-weight:500}
+.rc-read em{font-style:normal;font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);
+            display:block;margin-top:3px}
+.rc-read em.warn{color:var(--warn)} .rc-read em.ok{color:var(--pos)}
+.rc-due{padding:4px 0 0}
+.rc-duerow{display:flex;align-items:baseline;gap:12px;padding:8px 16px;border-bottom:1px solid var(--rule-2);font-size:12.5px}
+.rc-duerow:last-child{border-bottom:0}
+.rc-duerow .cn{color:var(--text-2);flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-duerow .wh{font-family:'Geist Mono',monospace;font-size:11px;color:var(--warn);flex:0 0 auto}
+.rc-duerow.done .cn{color:var(--text-3)}
+.rc-duerow.done .wh{color:var(--pos)}
+.rc-key{display:flex;gap:16px;padding:11px 16px 0;font-size:10.5px;color:var(--text-3);align-items:center;flex-wrap:wrap}
+.rc-key .note{flex:1 0 100%;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);padding-top:2px}
+.rc-key span{display:flex;align-items:center;gap:6px}
+.rc-key i{width:11px;height:11px;border-radius:4px;border:1px solid var(--rule);background:var(--surface-2);display:block}
+.rc-key i.h{background:var(--text-2);border-color:transparent}
+.rc-key i.l{background:repeating-linear-gradient(135deg,#f0b64988 0 3px,transparent 3px 6px);border-color:#f0b64955}
+.rc-key i.n{border-style:dashed;border-color:var(--heat-line)}
 .rc-foot{padding:12px 16px 13px;border-top:1px solid var(--rule);display:flex;align-items:center;gap:14px}
 .btn-line{height:30px;white-space:nowrap;border:1px solid var(--ring);border-radius:999px;padding:0 14px;font-size:12.5px;color:var(--text-1)}
 .btn-line:hover{background:#ffffff0a}
@@ -672,11 +692,11 @@ body{padding-bottom:34px}
         <div class="t"><i>A</i>Competition</div>
         <div class="s">Streak, branch leaderboard, XP, a season track. Learning feeds the scoreboard the app already has.</div>
       </a>
-      <a href="learner-b-mastery.html" class="on" aria-current="page">
+      <a href="learner-b-mastery.html">
         <div class="t"><i>B</i>Relevance and mastery</div>
         <div class="s">No streak, no board, no points. Your open loans set the order and your own files supply the evidence.</div>
       </a>
-      <a href="learner-c-mastery-edited.html">
+      <a href="learner-c-mastery-edited.html" class="on" aria-current="page">
         <div class="t"><i>C</i>The same, edited</div>
         <div class="s">B after a density pass. The thesis moved up, the recall table became an instrument, one figure cut from the header.</div>
       </a>
@@ -701,11 +721,6 @@ body{padding-bottom:34px}
             <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Running blind</i><i class="pl-lt mono">unbacked_scenarios<b class="pl-ty new">derived</b></i></span></div>
             <div class="stat-v mono heat">3</div>
             <div class="dl mono">live files, nothing read</div>
-          </div>
-          <div class="stat">
-            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Recall verified</i><i class="pl-lt mono">concept_recall<b class="pl-ty new">table</b></i></span></div>
-            <div class="stat-v mono" id="verified">9<em>of 14</em></div>
-            <div class="dl warn mono" id="lapsedLine">3 lapsed this week</div>
           </div>
           <div class="stat">
             <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Queued by your book</i><i class="pl-lt mono">sum(duration_minutes)<b class="pl-ty">int</b></i></span></div>
@@ -776,7 +791,35 @@ body{padding-bottom:34px}
       </div>
     </div>
 
-    <!-- row 3 : evidence + recall -->
+    <!-- row 3 : what you can run. Promoted: it is the thesis. -->
+    <div class="pnl" style="margin-top:16px">
+      <div class="pnl-h">
+        <h2><span class="pl-lb"><i class="pl-lp">What you can run</i><i class="pl-lt mono">capability ⨝ loan ⨝ concept_recall</i></span></h2>
+        <span class="r mono">nine scenarios · your branch runs all nine</span>
+      </div>
+      <table class="cap">
+        <colgroup><col><col style="width:158px"><col style="width:140px"><col style="width:236px"><col style="width:118px"></colgroup>
+        <thead><tr>
+          <th><span class="pl-lb"><i class="pl-lp">Scenario</i><i class="pl-lt mono">capability.key</i></span></th>
+          <th><span class="pl-lb"><i class="pl-lp">Read</i><i class="pl-lt mono">chapter_completion</i></span></th>
+          <th><span class="pl-lb"><i class="pl-lp">Verified later</i><i class="pl-lt mono">retrieval_check_attempt</i></span></th>
+          <th><span class="pl-lb"><i class="pl-lp">Run on a live file</i><i class="pl-lt mono">loan.status</i></span></th>
+          <th><span class="pl-lb"><i class="pl-lp">Branch</i><i class="pl-lt mono">count(*) over branch</i></span></th>
+        </tr></thead>
+        <tbody id="capRows"></tbody>
+      </table>
+      <div class="cap-foot">
+        <span class="key"><i class="mk full"></i>held</span>
+        <span class="key"><i class="mk half"></i>partial</span>
+        <span class="key"><i class="mk live"></i>live file, nothing behind it</span>
+        <span class="key"><i class="mk"></i>none</span>
+        <div class="thesis"><b>Three rows have a live file and no reading behind them.</b> Those three are the only reason this page exists. A capability is claimed when all three marks are filled, never before.</div>
+      </div>
+      <div class="pl-rel" style="--d:200ms;padding:0 16px 14px">read ⨝ verified <b>NEW</b> · run ← <s>loan (exists)</s> · <b>NEW: capability table, 9 rows, authored once</b></div>
+    </div>
+
+
+    <!-- row 4 : the evidence, and what is still holding -->
     <div class="r3">
       <div class="pnl ev">
         <div class="pnl-h">
@@ -810,13 +853,8 @@ body{padding-bottom:34px}
         </div>
         <div class="ev-split">And where you are not thin</div>
         <div class="evrow good">
-          <div class="src"><i>Disclosures</i>disclosure_event</div>
-          <div class="say"><b>Twenty two initial disclosures, all inside three days.</b> Nobody on the branch has a cleaner record on the initial LE.</div>
-          <div class="fix"><span style="font-size:11px;color:var(--text-3);font-family:'Geist Mono',monospace">nothing queued</span></div>
-        </div>
-        <div class="evrow good">
-          <div class="src"><i>Conditions</i>loan_condition</div>
-          <div class="say"><b>Seven conventional purchases, no income conditions on any of them.</b> This is the thing you are already good at.</div>
+          <div class="src"><i>Disclosures, conditions</i>disclosure_event, loan_condition</div>
+          <div class="say"><b>Twenty two initial disclosures, all inside three days</b>, the cleanest record on the branch. And <b>seven conventional purchases with no income conditions on any of them.</b> Those two are what you are already good at.</div>
           <div class="fix"><span style="font-size:11px;color:var(--text-3);font-family:'Geist Mono',monospace">nothing queued</span></div>
         </div>
         <div class="ev-foot">Every line here points at a record in your own files. None of it comes from a test, and none of it is visible to anyone but you and your manager.
@@ -827,45 +865,26 @@ body{padding-bottom:34px}
       <div class="pnl" style="display:flex;flex-direction:column">
         <div class="pnl-h">
           <h2><span class="pl-lb"><i class="pl-lp">What you would still get right</i><i class="pl-lt mono">concept_recall</i></span></h2>
-          <span class="r mono" id="rcHead">9 of 14 holding · 5 lapsed</span>
+          <span class="r mono" id="rcHead">9 of 14 holding<span id="verified" hidden>9</span></span>
         </div>
-        <div class="rc">
-          <div class="rc-head"><span>Concept</span><span>Last checked</span><span>Holds until</span></div>
-          <div id="rcRows"></div>
+        <div class="rcband">
+          <div class="rcnodes" id="rcNodes"></div>
+          <div class="rc-key">
+            <span><i class="h"></i>holding</span>
+            <span><i class="l"></i>lapsed</span>
+            <span><i class="n"></i>never read</span>
+            <span class="note">fill height is how well it would hold today</span>
+          </div>
         </div>
+        <div class="rc-read" id="rcRead"></div>
+        <div class="ev-split">Lapsed this week <em id="lapsedLine" style="font-style:normal;color:var(--warn)">3</em></div>
+        <div class="rc-due" id="rcDue"></div>
         <div class="rc-foot">
           <button class="btn-line" id="rcBtn">Check the 3 that lapsed this week</button>
-          <span class="rc-note">Four minutes. Answering re-dates the row, it does not score you. Spacing is the only reason these come back at all.</span>
+          <span class="rc-note">Four minutes. Answering re-dates it, it does not score you.</span>
         </div>
-        <div class="pl-rel" style="--d:160ms;padding:0 16px 12px">strength = exp(-days_since / half_life) <b>NEW: computed on read, half_life per concept</b></div>
+        <div class="pl-rel" style="--d:160ms;padding:0 16px 12px">fill = exp(-days_since / half_life) <b>NEW: computed on read</b> · 19 nodes = 14 read + 5 never</div>
       </div>
-    </div>
-
-    <!-- row 4 : capability map -->
-    <div class="pnl" style="margin-top:16px">
-      <div class="pnl-h">
-        <h2><span class="pl-lb"><i class="pl-lp">What you can run</i><i class="pl-lt mono">capability ⨝ loan ⨝ concept_recall</i></span></h2>
-        <span class="r mono">nine scenarios · your branch runs all nine</span>
-      </div>
-      <table class="cap">
-        <colgroup><col><col style="width:158px"><col style="width:140px"><col style="width:236px"><col style="width:118px"></colgroup>
-        <thead><tr>
-          <th><span class="pl-lb"><i class="pl-lp">Scenario</i><i class="pl-lt mono">capability.key</i></span></th>
-          <th><span class="pl-lb"><i class="pl-lp">Read</i><i class="pl-lt mono">chapter_completion</i></span></th>
-          <th><span class="pl-lb"><i class="pl-lp">Verified later</i><i class="pl-lt mono">retrieval_check_attempt</i></span></th>
-          <th><span class="pl-lb"><i class="pl-lp">Run on a live file</i><i class="pl-lt mono">loan.status</i></span></th>
-          <th><span class="pl-lb"><i class="pl-lp">Branch</i><i class="pl-lt mono">count(*) over branch</i></span></th>
-        </tr></thead>
-        <tbody id="capRows"></tbody>
-      </table>
-      <div class="cap-foot">
-        <span class="key"><i class="mk full"></i>held</span>
-        <span class="key"><i class="mk half"></i>partial</span>
-        <span class="key"><i class="mk live"></i>live file, nothing behind it</span>
-        <span class="key"><i class="mk"></i>none</span>
-        <div class="thesis"><b>Three rows have a live file and no reading behind them.</b> Those three are the only reason this page exists. A capability is claimed when all three marks are filled, never before.</div>
-      </div>
-      <div class="pl-rel" style="--d:200ms;padding:0 16px 14px">read ⨝ verified <b>NEW</b> · run ← <s>loan (exists)</s> · <b>NEW: capability table, 9 rows, authored once</b></div>
     </div>
 
     <!-- row 5 : tabs + course ledger -->
@@ -1103,8 +1122,8 @@ body{padding-bottom:34px}
   <a href="index.html"><i>◂</i>Hub</a>
   <a href="andrew-authoring.html"><i>W</i>Course studio</a>
   <a href="learner-a-competitive.html"><i>A</i>Competition</a>
-  <a href="learner-b-mastery.html" class="on" aria-current="page"><i>B</i>Relevance and mastery</a>
-  <a href="learner-c-mastery-edited.html"><i>C</i>Edited</a>
+  <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
+  <a href="learner-c-mastery-edited.html" class="on" aria-current="page"><i>C</i>Edited</a>
   <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
   <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
   <a href="v3-editorial-longform.html"><i>03</i>Publication</a>
@@ -1153,35 +1172,65 @@ document.getElementById('pipe').innerHTML = PIPE.map(l=>
   '<span class="mono">+ 5 more</span> conventional purchases, all covered by what you have already read</td></tr>';
 
 /* ══════════ recall: spaced retrieval, stated honestly ══════════ */
-/* fourteen concepts read. Nine still holding, five lapsed, three of those in the last seven days. */
-const HOLDING = [
-  {c:'Loan estimate timing, the 3 day rule', last:'Jul 29', hold:'Aug 19', s:96},
-  {c:'Principal against interest',           last:'Jul 27', hold:'Aug 14', s:88},
-  {c:'Loan types, conforming limits',        last:'Jul 29', hold:'Aug 09', s:81},
-  {c:'Qualifying ratios, housing and total', last:'Jul 26', hold:'Aug 06', s:71},
-  {c:'Appraisal, who orders and who pays',   last:'Jul 24', hold:'Aug 04', s:64},
-  {c:'Amortization, the early years',        last:'Jul 22', hold:'Aug 02', s:58}
+/* Fourteen concepts read, nine still holding, five lapsed, three of those in the
+   last seven days. Plus five never read, which is what "running blind" counts. */
+const CONCEPTS = [
+  {c:'Loan estimate timing, the 3 day rule', last:'Jul 29', hold:'Aug 19', s:96, k:'ok'},
+  {c:'Principal against interest',           last:'Jul 27', hold:'Aug 14', s:88, k:'ok'},
+  {c:'Loan types, conforming limits',        last:'Jul 29', hold:'Aug 09', s:81, k:'ok'},
+  {c:'Qualifying ratios, housing and total', last:'Jul 26', hold:'Aug 06', s:71, k:'ok'},
+  {c:'Appraisal, who orders and who pays',   last:'Jul 24', hold:'Aug 04', s:64, k:'ok'},
+  {c:'Amortization, the early years',        last:'Jul 22', hold:'Aug 02', s:58, k:'ok'},
+  {c:'Fees, lender credit against points',   last:'Jul 21', hold:'Aug 01', s:56, k:'ok'},
+  {c:'Occupancy, and why it changes pricing',last:'Jul 20', hold:'Jul 31', s:53, k:'ok'},
+  {c:'Reserves, what counts as one',         last:'Jul 20', hold:'Jul 31', s:51, k:'ok'},
+  {c:'Escrow against prepaid items',         last:'Jul 22', hold:'lapsed Jul 29', s:34, k:'lapsed', id:'escrow', wk:1},
+  {c:'Debt to income, front and back',       last:'Jul 19', hold:'lapsed Jul 26', s:29, k:'lapsed', wk:1},
+  {c:'What a lender credit actually does',   last:'Jul 18', hold:'lapsed Jul 25', s:26, k:'lapsed', wk:1},
+  {c:'Changed circumstance, what counts',    last:'Jun 30', hold:'lapsed Jul 07', s:12, k:'gone'},
+  {c:'Title, what the borrower chooses',     last:'Jun 24', hold:'lapsed Jul 01', s:9,  k:'gone'},
+  {c:'FHA case number, who it follows',      last:'never',  hold:'never read',    s:0,  k:'never'},
+  {c:'VA entitlement, and restoring it',     last:'never',  hold:'never read',    s:0,  k:'never'},
+  {c:'Self-employed income averaging',       last:'never',  hold:'never read',    s:0,  k:'never'},
+  {c:'Float-down, when it is available',     last:'never',  hold:'never read',    s:0,  k:'never'},
+  {c:'Non-QM, when to refer it out',         last:'never',  hold:'never read',    s:0,  k:'never'}
 ];
-const LAPSED = [
-  {c:'Escrow against prepaid items',       last:'Jul 22', hold:'lapsed Jul 29', s:34, k:'lapsed', id:'escrow'},
-  {c:'Debt to income, front and back',     last:'Jul 19', hold:'lapsed Jul 26', s:29, k:'lapsed'},
-  {c:'What a lender credit actually does', last:'Jul 18', hold:'lapsed Jul 25', s:26, k:'lapsed'},
-  {c:'Changed circumstance, what counts',  last:'Jun 30', hold:'lapsed Jul 07', s:12, k:'gone'},
-  {c:'Title, what the borrower chooses',   last:'Jun 24', hold:'lapsed Jul 01', s:9,  k:'gone'}
-];
-function rcHTML(r){
-  const k = r.k || 'ok';
-  return '<div class="rcrow'+(k!=='ok'?' hot':'')+'"'+(r.id?' id="rc-'+r.id+'"':'')+'>'+
-    '<div><div class="cn">'+r.c+'</div><div class="meter"><i class="'+(k==='ok'?'':k)+'" style="transform:scaleX('+(r.s/100)+')"></i></div></div>'+
-    '<div class="when">'+r.last+'</div>'+
-    '<div class="hold '+(k==='ok'?'ok':k==='lapsed'?'warn':'gone')+'">'+r.hold+'</div></div>';
+const KCLS = {ok:'', lapsed:'lapsed', gone:'gone', never:'never'};
+
+function renderNodes(){
+  document.getElementById('rcNodes').innerHTML = CONCEPTS.map((r,i)=>
+    '<div class="rcn '+KCLS[r.k]+'" data-i="'+i+'" style="--s:'+r.s+'%"'+(r.id?' id="rcn-'+r.id+'"':'')+
+    ' title="'+r.c+'"></div>').join('');
 }
-document.getElementById('rcRows').innerHTML =
-  HOLDING.map(rcHTML).join('') +
-  '<div class="rcrow"><div class="cn" style="color:var(--text-3);font-size:12px">3 more, all holding into August</div>'+
-  '<div class="when"></div><div class="hold"></div></div>' +
-  '<div class="ev-split" id="rcSplit">Lapsed, and worth four minutes</div>' +
-  LAPSED.map(rcHTML).join('');
+renderNodes();
+
+/* the reading line under the band. Defaults to the one that matters today. */
+function readOut(i, pinned){
+  const r = CONCEPTS[i];
+  const cls = r.k==='ok' ? 'ok' : r.k==='lapsed' ? 'warn' : '';
+  const tail = r.k==='never' ? 'never read. This is one of the five behind "running blind".'
+             : r.k==='ok'    ? 'last checked '+r.last+', holds to '+r.hold
+             :                 'last checked '+r.last+', '+r.hold;
+  document.getElementById('rcRead').innerHTML =
+    '<b>'+r.c+'</b><em class="'+cls+'">'+tail+'</em>';
+  document.querySelectorAll('.rcn').forEach(n=>n.classList.toggle('on', +n.dataset.i===i && pinned));
+}
+let pinned = 9;                      /* escrow: the one the mentor is asking about */
+readOut(pinned, true);
+document.getElementById('rcNodes').addEventListener('mousemove', e=>{
+  const n=e.target.closest('.rcn'); if(n) readOut(+n.dataset.i, false);
+});
+document.getElementById('rcNodes').addEventListener('mouseleave', ()=>readOut(pinned, true));
+
+/* only the three that lapsed this week are actionable, so only those get a row */
+function renderDue(){
+  const due = CONCEPTS.filter(r=>r.wk);
+  document.getElementById('rcDue').innerHTML = due.map(r=>
+    '<div class="rc-duerow'+(r.done?' done':'')+'" data-c="'+(r.id||'')+'">'+
+    '<span class="cn">'+r.c+'</span>'+
+    '<span class="wh">'+(r.done?'re-dated, holds to '+r.done:r.hold)+'</span></div>').join('');
+}
+renderDue();
 
 /* ══════════ capability map ══════════ */
 const CAP = [
@@ -1303,14 +1352,14 @@ opts.addEventListener('click', e=>{
 
 function reverify(firstTry){
   const hold = firstTry ? 'Aug 20' : 'Aug 03';
-  /* 1. the meter refills in place and the row stops being amber */
-  const row = document.getElementById('rc-escrow');
-  const meter = row.querySelector('.meter i');
-  meter.className='fresh'; meter.style.transform='scaleX('+(firstTry?.97:.78)+')';
-  const w=row.querySelector('.when'); w.textContent='Jul 30'; w.classList.add('fresh');
-  const h=row.querySelector('.hold'); h.className='hold ok'; h.textContent=hold;
-  row.classList.remove('hot');
-  /* 2. the same date lands in the reading, then in the counters. Staggered, not one fade. */
+  const r = CONCEPTS[9];
+  /* 1. the node fills and turns green in place */
+  const node = document.getElementById('rcn-escrow');
+  node.className = 'rcn fresh on';
+  node.style.setProperty('--s', (firstTry?97:78)+'%');
+  r.k='ok'; r.s=firstTry?97:78; r.last='Jul 30'; r.hold=hold; r.done=hold;
+  readOut(9, true);
+  /* 2. the same date lands in the reading, then in the counters. Staggered. */
   setTimeout(()=>{
     const hv=document.getElementById('holdV');
     hv.textContent='holds to '+hold; hv.classList.add('fresh');
@@ -1320,35 +1369,15 @@ function reverify(firstTry){
     document.getElementById('chkNext').textContent='4 lapsed left · 3 min';
     document.getElementById('strengthV').textContent='10';
     document.getElementById('lapsedN').textContent='2';
-    document.getElementById('lapsedLine').textContent='2 lapsed this week';
-    document.getElementById('verified').innerHTML='10<em>of 14</em>';
-    document.getElementById('rcHead').textContent='10 of 14 holding · 4 lapsed';
+    document.getElementById('lapsedLine').textContent='2';
+    document.getElementById('verified').textContent='10';
+    document.getElementById('rcHead').firstChild.textContent='10 of 14 holding';
     document.getElementById('courseVer').textContent='5 of 6';
     document.getElementById('sess').textContent='6 min · nothing scored';
     document.getElementById('rcBtn').textContent='Check the 2 that lapsed this week';
   },520);
-  /* 3. last, the row crosses the divider into the holding group. FLIP, so only transform moves. */
-  setTimeout(()=>{
-    const split=document.getElementById('rcSplit');
-    const moving=[row, split, ...siblingsBetween(split,row)];
-    const before=new Map(moving.map(el=>[el, el.getBoundingClientRect().top]));
-    split.parentNode.insertBefore(row, split);
-    moving.forEach(el=>{
-      const dy=before.get(el)-el.getBoundingClientRect().top;
-      if(!dy) return;
-      el.style.transition='none';
-      el.style.transform='translateY('+dy+'px)';
-    });
-    requestAnimationFrame(()=>requestAnimationFrame(()=>{
-      moving.forEach(el=>{ el.style.transition='transform .44s var(--ease)'; el.style.transform=''; });
-      setTimeout(()=>moving.forEach(el=>{ el.style.transition=''; }),480);
-    }));
-  },820);
-}
-function siblingsBetween(a,b){
-  const out=[]; let n=a.nextElementSibling;
-  while(n && n!==b){ out.push(n); n=n.nextElementSibling; }
-  return out;
+  /* 3. last, its row in the due list settles out */
+  setTimeout(renderDue, 820);
 }
 
 /* ══════════ the plumbing panel: every number, its source, its cadence ══════════ */
@@ -1378,11 +1407,12 @@ const PLUMB = [
     ['recall misses','retrieval_check_attempt where correct = false','NEW','on answer'],
     ['the sentence','template per signal_type, authored once','NEW evidence_signal','nightly']
   ]],
-  ['What you would still get right', 'the recall panel', [
+  ['What you would still get right', 'the recall band', [
     ['concept','concept, authored by Andrew in the studio','NEW','static'],
-    ['last checked','concept_recall.last_verified_at','NEW','on answer'],
-    ['holds until','last_verified_at + half_life(concept, streak of correct)','NEW','on read'],
-    ['strength bar','exp(-days_since / half_life), clamped','NEW','on read']
+    ['node fill','exp(-days_since / half_life), clamped','NEW','on read'],
+    ['node state','holding, lapsed, long gone, or never read','NEW','on read'],
+    ['the three rows','only concepts that lapsed inside 7 days are actionable','NEW','on read'],
+    ['on answer','update last_verified_at, refill the node. Nothing else fires.','NEW','on answer']
   ]],
   ['What you can run', 'the capability map', [
     ['scenario','capability, 9 rows, authored once','NEW','static'],

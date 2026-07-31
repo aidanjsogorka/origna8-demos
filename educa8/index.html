@@ -123,6 +123,16 @@
     border-left:2px solid var(--accent);padding:2px 0 3px 13px;
   }
   .notes .verdict b{color:var(--t1)}
+  .cnote{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:0;
+         display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
+  .cnote-h{grid-column:1/-1;display:flex;align-items:center;gap:11px;font-size:19px;font-weight:600;
+           letter-spacing:-.015em;padding:20px 0 4px}
+  .cnote-h .tag{font-family:var(--mono);font-size:11px;font-weight:400;border:1px solid var(--accent);
+                color:var(--accent);border-radius:2px;padding:2px 7px;letter-spacing:.06em}
+  .cnote-b{grid-column:1/-1;padding:6px 0 24px;max-width:88ch}
+  .cnote-b p{font-size:14.5px;color:var(--t2);line-height:1.6}
+  .cnote-b p b{color:var(--t1);font-weight:600}
+  .cnote-b .ab-l li b{color:var(--t1);font-weight:600}
   footer{padding-top:66px;color:var(--t3);font-size:13px;max-width:70ch;line-height:1.6}
   footer b{color:var(--t2);font-weight:500}
 
@@ -209,12 +219,13 @@ body{padding-bottom:34px}
 
 <section class="v" id="system" style="padding-top:44px">
   <div class="vhead">
-    <h2><em>three screens · arcade-ledger · all interactive</em>Start here</h2>
+    <h2><em>four screens · arcade-ledger · all interactive</em>Start here</h2>
   </div>
   <nav class="idx" style="border-top:0;margin-top:0">
     <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">W</span><span class="nm">Course studio<span>Andrew's side. Write lessons, set questions, publish. Plain English, with one switch that shows the plumbing underneath.</span></span><span class="fam">authoring</span><span class="go">open →</span></a>
     <a class="row" href="learner-a-competitive.html" target="_blank"><span class="n">A</span><span class="nm">Your ledger<span>The learner's side, argued as competition. One lit lesson, a streak, and the branch board that moves when you finish something.</span></span><span class="fam">reading · A</span><span class="go">open →</span></a>
     <a class="row" href="learner-b-mastery.html" target="_blank"><span class="n">B</span><span class="nm">What your files need<span>The learner's side, argued as relevance. No streak, no board, no points. Your open loans set the order and your own files supply the evidence.</span></span><span class="fam">reading · B</span><span class="go">open →</span></a>
+    <a class="row" href="learner-c-mastery-edited.html" target="_blank"><span class="n">C</span><span class="nm">What your files need, edited<span>B after a density pass. Same argument, same content. The thesis moved up, the recall table became an instrument, one figure cut from the header.</span></span><span class="fam">reading · C</span><span class="go">open →</span></a>
   </nav>
   <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">
     <b style="color:var(--t1)">The switch in the header is the thing to try, on all three.</b> Off, every screen reads in ordinary English. On, every label becomes the real field name with its type, the sources appear inline under the numbers, and a panel opens showing where each figure comes from, whether it is computed live or on a schedule, and what the backend would have to add that does not exist today. Same screen, two audiences: Andrew never meets a piece of jargon, and Jawad gets the data model to build against.
@@ -252,6 +263,20 @@ body{padding-bottom:34px}
         <li><i>−</i>Needs a concept taxonomy and a rule set mapping loan attributes to concepts. That is real work, and it is Andrew's, not Jawad's</li>
       </ul>
       <div class="ab-cost"><b>5</b> new tables · <b>1</b> event · <b>1</b> job<span>plus a taxonomy of roughly forty concepts</span></div>
+    </div>
+  </div>
+
+  <div class="cnote">
+    <div class="cnote-h"><span class="tag">C</span>B, edited<a class="ab-go" href="learner-c-mastery-edited.html" target="_blank">open ↗</a></div>
+    <div class="cnote-b">
+      <p><b>C is not a third argument.</b> It is B after a density pass, and if it reads better it replaces B rather than sitting beside it. B put five tables one after another, which made the page feel like a report rather than a tool. Four changes:</p>
+      <ul class="ab-l" style="margin-top:14px">
+        <li><i>01</i><span><b>What you can run</b> moved up under the queued reading. It is the thesis, and it was fourth.</span></li>
+        <li><i>02</i><span>The recall table became <b>an instrument</b>: nineteen concepts as nodes, fill height is how well each would hold today, and only the three that lapsed this week get a row.</span></li>
+        <li><i>03</i><span>The two "where you are not thin" rows merged into one, so the good news still lands without costing three hundred pixels.</span></li>
+        <li><i>04</i><span>The header lost a figure. "Recall verified" was already stated on the panel below it.</span></li>
+      </ul>
+      <p style="margin-top:16px;color:var(--t3)">Worth saying plainly: this is barely shorter, about two percent. The gain is that the page now alternates between shapes rather than stacking five tables, and the strongest artifact is the second thing you see instead of the fourth. Density was never the problem. Sameness was.</p>
     </div>
   </div>
 
@@ -416,7 +441,7 @@ body{padding-bottom:34px}
 <footer>
   <div class="rule thin" style="margin-bottom:26px"></div>
   <p><b>On colour.</b> Everything here is built on Origna8's real palette, sampled from what the app actually paints rather than from the variable names in its stylesheet, which turned out to disagree. The true logo sweep runs <b>#FF7A2F</b> orange to <b>#FF4D8D</b> pink to <b>#B14DFF</b> purple to <b>#4D6BFF</b> blue: warmer and younger than anything the product uses outside the logo mark, which is worth noticing on its own. The orange is the accent throughout, and it means one thing only: this is yours, this is next. The six course colours are the app's own.</p>
-  <p style="margin-top:16px">Every screen here is fully interactive and carries the plumbing switch. The previews on this page are scaled and not clickable; <b>open full size</b> to use them. A bar across the bottom of every screen jumps between all nine.</p>
+  <p style="margin-top:16px">Every screen here is fully interactive and carries the plumbing switch. The previews on this page are scaled and not clickable; <b>open full size</b> to use them. A bar across the bottom of every screen jumps between all ten.</p>
   <p style="margin-top:16px">Known gap: the app has a light theme and these are dark only.</p>
 </footer>
 
@@ -428,12 +453,13 @@ body{padding-bottom:34px}
   <a href="andrew-authoring.html"><i>W</i>Course studio</a>
   <a href="learner-a-competitive.html"><i>A</i>Competition</a>
   <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
+  <a href="learner-c-mastery-edited.html"><i>C</i>Edited</a>
   <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
   <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
   <a href="v3-editorial-longform.html"><i>03</i>Publication</a>
   <a href="v4-mono-technical.html"><i>04</i>Instrument</a>
   <a href="v5-arcade-ledger.html"><i>05</i>Ledger</a>
-  <span class="end">9 screens · nothing is connected to a backend</span>
+  <span class="end">10 screens · nothing is connected to a backend</span>
 </nav>
 </body>
 </html>

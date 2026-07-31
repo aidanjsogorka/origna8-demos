@@ -670,18 +670,14 @@ body.tech .pl-panel .pl-inner{transform:none}
 
     <!-- the argument switch -->
     <div class="arg">
-      <div class="arg-k"><b>Two ways to do this</b><span>The same lessons, the same app, two different ideas about why a loan officer would ever open it.</span></div>
+      <div class="arg-k"><b>Two ways to do this</b><span>The same lessons, the same app, two different ideas about why a loan officer would ever open it. Pick one.</span></div>
       <a href="learner-a-competitive.html" class="on" aria-current="page">
-        <div class="t"><i>A</i>Framed as competition</div>
-        <div class="s">Points, a daily streak, and a weekly branch ranking. Finishing a lesson moves you up the board the app already has.</div>
+        <div class="t"><i>A</i>Points and rankings</div>
+        <div class="s">Points for every lesson, a daily streak, and a weekly branch ranking. Finishing something moves you up the board the app already has.</div>
       </a>
       <a href="learner-b-mastery.html">
-        <div class="t"><i>B</i>Framed as useful</div>
-        <div class="s">No points, no streak, no ranking. Your open loans decide what to read next, and your closed files show what you keep getting wrong.</div>
-      </a>
-      <a href="learner-c-mastery-edited.html">
-        <div class="t"><i>C</i>Same as B, tidied up</div>
-        <div class="s">B with the most important panel moved to the top, one long table turned into something you read at a glance, and one number removed.</div>
+        <div class="t"><i>B</i>Driven by your open loans</div>
+        <div class="s">No points, no streak, no ranking. Your twelve open loans decide what to read next, and your closed files show what you keep getting wrong.</div>
       </a>
     </div>
 
@@ -714,11 +710,6 @@ body.tech .pl-panel .pl-inner{transform:none}
             <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Branch rank</i><i class="pl-lt mono">rank() over branch<b class="pl-ty new">15 min</b></i></span></div>
             <div class="stat-v mono" id="rank1">3<em>of 17</em></div>
             <div class="dl up mono" id="rank1d">+2 since Jul 20</div>
-          </div>
-          <div class="stat">
-            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Lessons done</i><i class="pl-lt mono">chapter_completion<b class="pl-ty new">table</b></i></span></div>
-            <div class="stat-v mono">3<em>of 29</em></div>
-            <div class="dl mono">70 min to next course</div>
           </div>
         </div>
       </div>
@@ -775,10 +766,6 @@ body.tech .pl-panel .pl-inner{transform:none}
       <div class="pnl" style="display:flex;flex-direction:column">
         <div class="pnl-h"><h2><span class="pl-lb"><i class="pl-lp">Streak</i><i class="pl-lt mono">streak_day<b class="pl-ty new">job</b></i></span></h2><span class="r mono">5 days · longest 14, Jun 2 – Jun 15 · 10 minutes counts as a day</span></div>
         <div class="wk" id="wk"></div>
-        <div class="hist">
-          <div class="hist-k">Prior weeks</div>
-          <div class="hist-rows" id="hist"></div>
-        </div>
         <div class="wk-foot">
           <div><span class="k">This week</span><span class="mono">110 min</span></div>
           <div><span class="k">Last week</span><span class="mono">85 min</span></div>
@@ -833,16 +820,16 @@ body.tech .pl-panel .pl-inner{transform:none}
 
     <div id="pane-all">
       <table class="ct">
-        <colgroup><col style="width:54px"><col style="width:112px"><col><col style="width:134px"><col style="width:118px"><col style="width:100px"><col style="width:82px"><col style="width:146px"></colgroup>
-        <thead><tr><th class="mono">Pos</th><th>Category</th><th>Course</th><th>Lessons</th><th>Level</th><th class="n">XP</th><th class="n">Left</th><th class="n">Status</th></tr></thead>
+        <colgroup><col style="width:118px"><col><col style="width:140px"><col style="width:118px"><col style="width:88px"><col style="width:152px"></colgroup>
+        <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th class="n">Points</th><th class="n">Left</th><th class="n">Status</th></tr></thead>
         <tbody id="courses"></tbody>
       </table>
     </div>
 
     <div id="pane-act" style="display:none">
       <table class="ct">
-        <colgroup><col style="width:54px"><col style="width:112px"><col><col style="width:134px"><col style="width:118px"><col style="width:100px"><col style="width:82px"><col style="width:146px"></colgroup>
-        <thead><tr><th class="mono">Pos</th><th>Category</th><th>Course</th><th>Lessons</th><th>Level</th><th class="n">XP</th><th class="n">Left</th><th class="n">Status</th></tr></thead>
+        <colgroup><col style="width:118px"><col><col style="width:140px"><col style="width:118px"><col style="width:88px"><col style="width:152px"></colgroup>
+        <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th class="n">Points</th><th class="n">Left</th><th class="n">Status</th></tr></thead>
         <tbody id="coursesAct"></tbody>
       </table>
     </div>
@@ -1053,21 +1040,14 @@ function chbar(n, done, live){
   }
   return s+'</div>';
 }
-function lvlmeter(lv, label){
-  let u='<u>';
-  for(let i=1;i<=3;i++) u+='<b class="'+(i<=lv?'f':'')+'"></b>';
-  return '<div class="lvl">'+u+'</u>'+label+'</div>';
-}
 function rowHTML(c){
   const pct = Math.round(c.xp/c.xpT*100);
   const stIcon = c.st==='lock' ? '<svg><use href="#i-lock"/></svg>' : '';
   return '<tr class="rowlink">'+
-    '<td class="mono" style="color:var(--text-3)">'+c.pos+'</td>'+
     '<td><span class="cat" style="--cat:var(--cat-'+c.cat.toLowerCase()+')"><i></i>'+c.cat+'</span></td>'+
-    '<td><div class="ttl">'+c.ttl+'</div><div class="ttl-d">'+c.d+'</div></td>'+
+    '<td><div class="ttl">'+c.ttl+' <span style="color:var(--text-3);font-weight:400;font-size:12px">· '+c.lvl.toLowerCase()+'</span></div><div class="ttl-d">'+c.d+'</div></td>'+
     '<td>'+chbar(c.n,c.done,c.live)+'<div class="mono" style="font-size:11px;color:var(--text-2);margin-top:7px">'+c.done+' of '+c.n+'</div>'+
       '<div class="mono" style="font-size:10.5px;color:var(--text-3);margin-top:2px">'+c.branch+'</div></td>'+
-    '<td>'+lvlmeter(c.lv,c.lvl)+'</td>'+
     '<td class="n"><span class="mono" style="color:'+(c.xp?'var(--text-1)':'var(--text-3)')+'">'+c.xp+' / '+c.xpT+'</span>'+
       '<div class="bar-mini"><i class="'+(c.st==='live'?'h':'')+'" style="width:'+pct+'%"></i></div></td>'+
     '<td class="n mono" style="color:var(--text-2)">'+c.left+'</td>'+
@@ -1123,12 +1103,6 @@ document.getElementById('wk').innerHTML = WEEK.map(w=>
 ).join('');
 setTimeout(()=>{ const l=document.querySelector('.d-cell.live'); if(l) l.classList.add('land'); }, 520);
 
-const HIST=[{w:'wk 27',m:65,d:'4 / 7'},{w:'wk 28',m:120,d:'6 / 7'},{w:'wk 29',m:40,d:'3 / 7'},{w:'wk 30',m:85,d:'5 / 7'},{w:'wk 31',m:110,d:'5 / 6',now:1}];
-document.getElementById('hist').innerHTML = HIST.map(h=>
-  '<div class="hrow'+(h.now?' now':'')+'"><span class="wkn mono">'+h.w+'</span>'+
-  '<span class="track"><i style="width:'+(h.m/120*100)+'%"></i></span>'+
-  '<span class="mins mono">'+h.m+' min</span><span class="days mono">'+h.d+'</span></div>'
-).join('');
 
 /* earned rule draws once */
 setTimeout(()=>{ document.getElementById('ruleEarn').style.transform = 'scaleX('+(LIVE/29)+')'; }, 260);
@@ -1316,9 +1290,8 @@ function flyChip(from, amount){
   <span class="lbl">Origna8 · Educa8</span>
   <a href="index.html"><i>◂</i>Hub</a>
   <a href="andrew-authoring.html"><i>W</i>Course studio</a>
-  <a href="learner-a-competitive.html" class="on" aria-current="page"><i>A</i>Competition</a>
-  <a href="learner-b-mastery.html"><i>B</i>Useful</a>
-  <a href="learner-c-mastery-edited.html"><i>C</i>Useful, tidied</a>
+  <a href="learner-a-competitive.html" class="on" aria-current="page"><i>A</i>Points and rankings</a>
+  <a href="learner-b-mastery.html"><i>B</i>Driven by your loans</a>
   <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
   <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
   <a href="v3-editorial-longform.html"><i>03</i>Publication</a>

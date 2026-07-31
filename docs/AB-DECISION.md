@@ -86,3 +86,16 @@ with a bad week.
 
 They are not mutually exclusive forever, but they are for the first build. Whichever ships
 second will be read as decoration on the first.
+
+---
+
+## A note on layout, added 2026-07-31
+
+Both screens were originally denser than they needed to be: five tables stacked one after
+another on B, and three sub-panels crammed into the streak block on A. A third variant, C, was
+built to test a lighter layout for B, and once it read better it simply became B, which is what
+it was always for. A got the same treatment.
+
+Neither the argument nor the content changed. What changed is that each screen now alternates
+between shapes instead of repeating one, and the most important panel on each is near the top
+rather than buried. Density was never the problem. Sameness was.

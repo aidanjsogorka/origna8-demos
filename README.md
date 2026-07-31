@@ -14,11 +14,10 @@ Start at `educa8/index.html`, the hub.
 |---|---|
 | `educa8/andrew-authoring.html` | The course studio. Andrew writes lessons here, in plain English. |
 | `educa8/learner-a-competitive.html` | The reading view, argued as competition: streak, branch leaderboard, XP, season track. |
-| `educa8/learner-b-mastery.html` | The reading view, argued as relevance and mastery: no streak, no board, no points. Ordered by the officer's open pipeline, with evidence drawn from their own closed files. |
-| `educa8/learner-c-mastery-edited.html` | B after a density pass. Same argument and same content, but the thesis moved up, the recall table became an instrument, and the header lost a figure. Replaces B if it reads better. |
+| `educa8/learner-b-mastery.html` | The reading view, driven by the officer's own open loans. No points, no streak, no ranking. Evidence for what they keep getting wrong is drawn from their own closed files. |
 | `educa8/v1` … `v5` | The five design directions the aesthetic was chosen from. v5, the ledger, won. |
 
-**A and B are the open question. C is B, edited.** Same content, same app shell, opposite theory of why a loan
+**A and B are the open question.** Same content, same app shell, opposite theory of why a loan
 officer in their twenties would open the section at all. Both keep spaced retrieval. They differ
 on everything else.
 

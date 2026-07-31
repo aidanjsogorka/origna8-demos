@@ -17,7 +17,7 @@ to the hub each time.
 
 Two answers, and only two. Everything else is showing.
 
-1. **Is the writing job realistic?** Two of the three learner versions need Andrew to write
+1. **Is the writing job realistic?** Version B needs Andrew to write
    something he has never had to write before, and only he can say whether that is a week of
    work or a month.
 2. **Which version does he think loan officers will actually open?** He talks to them. You do
@@ -81,9 +81,9 @@ doing?"
 
 ---
 
-## Stop 2. Version A, competition
+## Stop 2. Version A, points and rankings
 
-**Open:** Competition, from the bottom bar. The screen is headed "Where you stand".
+**Open:** Points and rankings, from the bottom bar. The screen is headed "Where you stand".
 
 > "This is the version that says the reason you open a training section is to win something."
 
@@ -110,9 +110,9 @@ your instinct.
 
 ---
 
-## Stop 3. Version B, relevance
+## Stop 3. Version B, driven by your loans
 
-**Open:** Useful, from the bottom bar. The screen is headed "What your files need".
+**Open:** Driven by your loans, from the bottom bar. The screen is headed "What your files need".
 
 > "This is the version that says nobody opens training to win. They skip it because it feels
 > disconnected from the work. So this one runs off your actual loans."
@@ -157,26 +157,7 @@ September.
 
 ---
 
-## Stop 4. Version C
-
-**Open:** Useful, tidied, from the bottom bar.
-
-Keep this short. It is a design note, not a decision he owns.
-
-> "Same as B, same words, same numbers. I thought B was getting cluttered so I moved the most
-> important panel to the top and turned one table into something you read at a glance. If this
-> one feels calmer to you, it replaces B. If you cannot tell the difference, that is also a
-> useful answer."
-
-Show the one thing that changed shape: the row of small squares near the bottom right. Each
-square is one thing they were taught, and how full it is shows how well they would still
-remember it today. Amber means it has gone stale.
-
-**Ask:** "Does C feel calmer than B, or the same?" Then move on. Do not spend ten minutes here.
-
----
-
-## Stop 5. The five design directions, only if there is time
+## Stop 4. The five design directions, only if there is time
 
 **Open:** the hub. There is a side by side table near the top comparing all three, which is the
 fastest way to show him the differences. Then scroll to "How we got here".

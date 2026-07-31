@@ -588,6 +588,7 @@ body{padding-bottom:34px}
   .pl-panel,.pl-panel .pl-inner{transition-duration:1ms !important}
   .d-cell.live,.d-cell.live.land{animation:none !important;transform:none !important;opacity:1 !important}
   .meter i,.rule-earn{transition-duration:1ms !important}
+  .rcn::after{transition-duration:1ms !important}   /* the band lands at once, unstaggered in JS */
   .flychip{display:none !important}
 }
 </style>
@@ -1191,10 +1192,34 @@ const KCLS = {ok:'', lapsed:'lapsed', gone:'gone', never:'never'};
 
 function renderNodes(){
   document.getElementById('rcNodes').innerHTML = CONCEPTS.map((r,i)=>
-    '<div class="rcn '+KCLS[r.k]+'" data-i="'+i+'" style="--s:'+(r.s/100)+'"'+(r.id?' id="rcn-'+r.id+'"':'')+
+    '<div class="rcn '+KCLS[r.k]+'" data-i="'+i+'" data-s="'+(r.s/100)+'" style="--s:0"'+(r.id?' id="rcn-'+r.id+'"':'')+
     ' title="'+r.c+'"></div>').join('');
 }
 renderNodes();
+
+/* ── the band fills once, the first time it scrolls into view ──
+   Left to right is strongest to weakest, so the wave runs out of fuel before it
+   reaches the five that were never read, and those five stay empty. That is the
+   argument this panel makes, drawn instead of stated. It is the only thing on
+   the screen that moves on arrival, which is why it reads as the point rather
+   than as decoration. Fills from data-s so a later answer can rewrite the target
+   without a pending step reverting it. */
+let bandFilled = false;
+function fillBand(stagger){
+  bandFilled = true;
+  document.querySelectorAll('#rcNodes .rcn').forEach((n,i)=>{
+    const set = ()=>n.style.setProperty('--s', n.dataset.s);
+    stagger ? setTimeout(set, i*30) : set();
+  });
+}
+(function(){
+  const band = document.getElementById('rcNodes');
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches){ fillBand(false); return; }
+  const io = new IntersectionObserver(es=>{
+    if(es.some(e=>e.isIntersecting)){ io.disconnect(); requestAnimationFrame(()=>fillBand(true)); }
+  }, {threshold:.4});
+  io.observe(band);
+})();
 
 /* the reading line under the band. Defaults to the one that matters today. */
 function readOut(i, pinned){
@@ -1340,10 +1365,14 @@ opts.addEventListener('click', e=>{
 function reverify(firstTry){
   const hold = firstTry ? 'Aug 20' : 'Aug 03';
   const r = CONCEPTS[9];
-  /* 1. the node fills and turns green in place */
+  /* 1. the node fills and turns green in place. If the reader jumped straight
+        here without passing the band, fill it first so there is a level to
+        rise from rather than a jump out of nothing. */
+  if(!bandFilled) fillBand(false);
   const node = document.getElementById('rcn-escrow');
   node.className = 'rcn fresh on';
-  node.style.setProperty('--s', firstTry?0.97:0.78);
+  node.dataset.s = firstTry?0.97:0.78;
+  node.style.setProperty('--s', node.dataset.s);
   r.k='ok'; r.s=firstTry?97:78; r.last='Jul 30'; r.hold=hold; r.done=hold;
   readOut(9, true);
   /* 2. the same date lands in the reading, then in the counters. Staggered. */

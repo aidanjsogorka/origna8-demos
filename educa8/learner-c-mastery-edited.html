@@ -687,27 +687,27 @@ body{padding-bottom:34px}
 
     <!-- the argument switch -->
     <div class="arg">
-      <div class="arg-k"><b>This demo argues</b><span>Two versions of the same section. Same content, same shell, opposite theory of why anybody opens it.</span></div>
+      <div class="arg-k"><b>Two ways to do this</b><span>The same lessons, the same app, two different ideas about why a loan officer would ever open it.</span></div>
       <a href="learner-a-competitive.html">
-        <div class="t"><i>A</i>Competition</div>
-        <div class="s">Streak, branch leaderboard, XP, a season track. Learning feeds the scoreboard the app already has.</div>
+        <div class="t"><i>A</i>Framed as competition</div>
+        <div class="s">Points, a daily streak, and a weekly branch ranking. Finishing a lesson moves you up the board the app already has.</div>
       </a>
       <a href="learner-b-mastery.html">
-        <div class="t"><i>B</i>Relevance and mastery</div>
-        <div class="s">No streak, no board, no points. Your open loans set the order and your own files supply the evidence.</div>
+        <div class="t"><i>B</i>Framed as useful</div>
+        <div class="s">No points, no streak, no ranking. Your open loans decide what to read next, and your closed files show what you keep getting wrong.</div>
       </a>
       <a href="learner-c-mastery-edited.html" class="on" aria-current="page">
-        <div class="t"><i>C</i>The same, edited</div>
-        <div class="s">B after a density pass. The thesis moved up, the recall table became an instrument, one figure cut from the header.</div>
+        <div class="t"><i>C</i>Same as B, tidied up</div>
+        <div class="s">B with the most important panel moved to the top, one long table turned into something you read at a glance, and one number removed.</div>
       </a>
     </div>
 
     <!-- header ledger -->
     <div class="hd">
       <div class="hd-l">
-        <div class="hd-kick">Educa8 <span style="color:var(--rule)">/</span> Ordered by your pipeline <span style="color:var(--rule)">/</span> Wed Jul 30 <s>· 12 loans open</s></div>
+        <div class="hd-kick">Educa8 <span style="color:var(--rule)">/</span> Ordered by your loans <span style="color:var(--rule)">/</span> Wed Jul 30 <s>· 12 loans open</s></div>
         <h1>What your files need</h1>
-        <div class="hd-sub">Nothing here is locked and nothing is scored. The order comes from the twelve loans you have open, and from what those files have already shown about you.</div>
+        <div class="hd-sub">Nothing here is locked and nothing is scored. What goes first is decided by the twelve loans you have open, and by what your finished files have already shown about you.</div>
         <div class="pl-rel" style="--d:0ms">order: rank(loan_concept ⨝ concept_recall) <b>recomputed on loan write + nightly</b></div>
       </div>
       <div class="hd-r">
@@ -723,7 +723,7 @@ body{padding-bottom:34px}
             <div class="dl mono">live files, nothing read</div>
           </div>
           <div class="stat">
-            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Queued by your book</i><i class="pl-lt mono">sum(duration_minutes)<b class="pl-ty">int</b></i></span></div>
+            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Reading for your loans</i><i class="pl-lt mono">sum(duration_minutes)<b class="pl-ty">int</b></i></span></div>
             <div class="stat-v mono">50<em>min</em></div>
             <div class="dl mono">covers 5 of 12 loans</div>
           </div>
@@ -740,12 +740,12 @@ body{padding-bottom:34px}
     <div class="r2">
 
       <div class="lit">
-        <div class="lit-top"><i class="livedot"></i>Queued by file 4471 · Delgado
-          <span class="r mono">not by a curriculum, not by a schedule</span></div>
+        <div class="lit-top"><i class="livedot"></i>Because of file 4471 · Delgado
+          <span class="r mono">picked by this loan, not by a course</span></div>
         <div class="lit-body">
           <div class="node-xl"><b class="mono">15</b><span>min</span></div>
           <div class="lit-copy">
-            <div class="lit-crumb">FHA &amp; VA Loan Programs <span style="color:var(--text-3)">·</span> Chapter 02 <span style="color:var(--text-3)">·</span> Products</div>
+            <div class="lit-crumb">FHA &amp; VA Loan Programs <span style="color:var(--text-3)">·</span> Lesson 2 <span style="color:var(--text-3)">·</span> Products</div>
             <h3>The case number, and who it follows</h3>
             <div class="lit-why">Delgado is <b>your first FHA file</b>. The case number has to be pulled before the appraisal is ordered, and it stays attached to the borrower rather than to you. Two of the last four FHA appraisals on Pacific Ridge were paid for twice because that order was reversed. You have an appointment on it <b>in two days</b>.</div>
           </div>
@@ -770,7 +770,7 @@ body{padding-bottom:34px}
         </div>
 
         <div class="lit-act">
-          <button class="cta" id="startBtn">Read the 15 minutes <span class="m mono">chapter 02</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <button class="cta" id="startBtn">Read the 15 minutes <span class="m mono">lesson 2</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
           <button class="alt">Give me the one page version instead</button>
           <div style="margin-left:auto;font-size:11.5px;color:var(--text-3)" class="mono">queued Jul 28, when the file was keyed</div>
         </div>
@@ -778,8 +778,8 @@ body{padding-bottom:34px}
 
       <div class="pnl" style="display:flex;flex-direction:column">
         <div class="pnl-h">
-          <h2><span class="pl-lb"><i class="pl-lp">Your pipeline, mapped</i><i class="pl-lt mono">loan ⨝ loan_concept</i></span></h2>
-          <span class="r mono">12 open · 7 touch something unread</span>
+          <h2><span class="pl-lb"><i class="pl-lp">Your loans</i><i class="pl-lt mono">loan ⨝ loan_concept</i></span></h2>
+          <span class="r mono">12 open · 7 need something unread</span>
         </div>
         <table class="pipe">
           <colgroup><col style="width:52px"><col><col style="width:150px"><col style="width:112px"></colgroup>
@@ -787,7 +787,7 @@ body{padding-bottom:34px}
           <tbody id="pipe"></tbody>
         </table>
         <div class="pl-rel" style="--d:80ms;padding:6px 14px 0">loan.* <s>exists today</s> · what_it_needs <b>NEW: rules on product_type, purpose, income_type, lock_state</b></div>
-        <div class="pipe-foot" style="margin-top:auto">Seven open files touch a concept you have never read, and <b>three of them have an appointment on the calendar this week</b>. That is the whole ordering rule on this page.</div>
+        <div class="pipe-foot" style="margin-top:auto">Seven of your open loans need something you have never read, and <b>three of those have an appointment this week</b>. That is the whole rule for what goes to the top of this page.</div>
       </div>
     </div>
 
@@ -795,25 +795,25 @@ body{padding-bottom:34px}
     <div class="pnl" style="margin-top:16px">
       <div class="pnl-h">
         <h2><span class="pl-lb"><i class="pl-lp">What you can run</i><i class="pl-lt mono">capability ⨝ loan ⨝ concept_recall</i></span></h2>
-        <span class="r mono">nine scenarios · your branch runs all nine</span>
+        <span class="r mono">nine things a loan officer has to handle</span>
       </div>
       <table class="cap">
         <colgroup><col><col style="width:158px"><col style="width:140px"><col style="width:236px"><col style="width:118px"></colgroup>
         <thead><tr>
-          <th><span class="pl-lb"><i class="pl-lp">Scenario</i><i class="pl-lt mono">capability.key</i></span></th>
+          <th><span class="pl-lb"><i class="pl-lp">Situation</i><i class="pl-lt mono">capability.key</i></span></th>
           <th><span class="pl-lb"><i class="pl-lp">Read</i><i class="pl-lt mono">chapter_completion</i></span></th>
-          <th><span class="pl-lb"><i class="pl-lp">Verified later</i><i class="pl-lt mono">retrieval_check_attempt</i></span></th>
+          <th><span class="pl-lb"><i class="pl-lp">Knew it a week later</i><i class="pl-lt mono">retrieval_check_attempt</i></span></th>
           <th><span class="pl-lb"><i class="pl-lp">Run on a live file</i><i class="pl-lt mono">loan.status</i></span></th>
           <th><span class="pl-lb"><i class="pl-lp">Branch</i><i class="pl-lt mono">count(*) over branch</i></span></th>
         </tr></thead>
         <tbody id="capRows"></tbody>
       </table>
       <div class="cap-foot">
-        <span class="key"><i class="mk full"></i>held</span>
+        <span class="key"><i class="mk full"></i>done</span>
         <span class="key"><i class="mk half"></i>partial</span>
-        <span class="key"><i class="mk live"></i>live file, nothing behind it</span>
+        <span class="key"><i class="mk live"></i>doing it with nothing read</span>
         <span class="key"><i class="mk"></i>none</span>
-        <div class="thesis"><b>Three rows have a live file and no reading behind them.</b> Those three are the only reason this page exists. A capability is claimed when all three marks are filled, never before.</div>
+        <div class="thesis"><b>Three of these have a live loan on the desk and nothing read behind them.</b> That is the whole reason this page exists. Nothing counts as handled until all three boxes are filled.</div>
       </div>
       <div class="pl-rel" style="--d:200ms;padding:0 16px 14px">read ⨝ verified <b>NEW</b> · run ← <s>loan (exists)</s> · <b>NEW: capability table, 9 rows, authored once</b></div>
     </div>
@@ -823,8 +823,8 @@ body{padding-bottom:34px}
     <div class="r3">
       <div class="pnl ev">
         <div class="pnl-h">
-          <h2><span class="pl-lb"><i class="pl-lp">Where you are thin, and why we say so</i><i class="pl-lt mono">evidence_signal</i></span></h2>
-          <span class="r mono">from your last 22 files, not from a quiz</span>
+          <h2><span class="pl-lb"><i class="pl-lp">What keeps going wrong, and how we know</i><i class="pl-lt mono">evidence_signal</i></span></h2>
+          <span class="r mono">from your last 22 files, not a test</span>
         </div>
         <div class="evrow">
           <div class="src"><i>Conditions</i>loan_condition</div>
@@ -857,31 +857,31 @@ body{padding-bottom:34px}
           <div class="say"><b>Twenty two initial disclosures, all inside three days</b>, the cleanest record on the branch. And <b>seven conventional purchases with no income conditions on any of them.</b> Those two are what you are already good at.</div>
           <div class="fix"><span style="font-size:11px;color:var(--text-3);font-family:'Geist Mono',monospace">nothing queued</span></div>
         </div>
-        <div class="ev-foot">Every line here points at a record in your own files. None of it comes from a test, and none of it is visible to anyone but you and your manager.
+        <div class="ev-foot">Every line here points at something that actually happened on your own files. None of it comes from a test, and nobody sees it but you and your manager.
           <div class="pl-rel" style="--d:120ms;margin-top:6px">all four sources <s>exist in the LOS today</s> · <b>NEW: evidence_signal materialised nightly</b></div>
         </div>
       </div>
 
       <div class="pnl" style="display:flex;flex-direction:column">
         <div class="pnl-h">
-          <h2><span class="pl-lb"><i class="pl-lp">What you would still get right</i><i class="pl-lt mono">concept_recall</i></span></h2>
-          <span class="r mono" id="rcHead">9 of 14 holding<span id="verified" hidden>9</span></span>
+          <h2><span class="pl-lb"><i class="pl-lp">What you would still remember today</i><i class="pl-lt mono">concept_recall</i></span></h2>
+          <span class="r mono" id="rcHead">9 of 14 remembered<span id="verified" hidden>9</span></span>
         </div>
         <div class="rcband">
           <div class="rcnodes" id="rcNodes"></div>
           <div class="rc-key">
-            <span><i class="h"></i>holding</span>
-            <span><i class="l"></i>lapsed</span>
+            <span><i class="h"></i>remembered</span>
+            <span><i class="l"></i>gone stale</span>
             <span><i class="n"></i>never read</span>
-            <span class="note">fill height is how well it would hold today</span>
+            <span class="note">how full each one is shows how well you would still remember it</span>
           </div>
         </div>
         <div class="rc-read" id="rcRead"></div>
-        <div class="ev-split">Lapsed this week <em id="lapsedLine" style="font-style:normal;color:var(--warn)">3</em></div>
+        <div class="ev-split">Gone stale this week <em id="lapsedLine" style="font-style:normal;color:var(--warn)">3</em></div>
         <div class="rc-due" id="rcDue"></div>
         <div class="rc-foot">
-          <button class="btn-line" id="rcBtn">Check the 3 that lapsed this week</button>
-          <span class="rc-note">Four minutes. Answering re-dates it, it does not score you.</span>
+          <button class="btn-line" id="rcBtn">Answer the 3 that went stale</button>
+          <span class="rc-note">Four minutes. Answering just resets the clock, there is no score.</span>
         </div>
         <div class="pl-rel" style="--d:160ms;padding:0 16px 12px">fill = exp(-days_since / half_life) <b>NEW: computed on read</b> · 19 nodes = 14 read + 5 never</div>
       </div>
@@ -893,13 +893,13 @@ body{padding-bottom:34px}
       <button class="tab" data-t="act">Touching your files <span class="c mono">4</span></button>
       <button class="tab" data-t="done">Verified <span class="c mono">0</span></button>
       <button class="tab" data-t="gd">Guides <span class="c mono">28</span></button>
-      <span class="r mono">sorted by what your open files need, not by course number</span>
+      <span class="r mono">ordered by what your open loans need</span>
     </div>
 
     <div id="pane-all">
       <table class="ct">
         <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:126px"><col style="width:258px"></colgroup>
-        <thead><tr><th>Category</th><th>Course</th><th>Chapters</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
+        <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
         <tbody id="courses"></tbody>
       </table>
     </div>
@@ -907,7 +907,7 @@ body{padding-bottom:34px}
     <div id="pane-act" style="display:none">
       <table class="ct">
         <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:126px"><col style="width:258px"></colgroup>
-        <thead><tr><th>Category</th><th>Course</th><th>Chapters</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
+        <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
         <tbody id="coursesAct"></tbody>
       </table>
     </div>
@@ -958,7 +958,7 @@ body{padding-bottom:34px}
   </div><!-- /page -->
 
   <!-- ═══════════ VIEW 2 LABEL ═══════════ -->
-  <div class="vbar" id="read">View 2 · Course detail <span class="mono">Mortgage Fundamentals · chapter 01 · a lapsed concept, re-asked against a live file</span></div>
+  <div class="vbar" id="read">View 2 · Course detail <span class="mono">Mortgage Fundamentals · lesson 1 · a lapsed concept, re-asked against a live file</span></div>
 
   <!-- ═══════════ VIEW 2 ═══════════ -->
   <div class="page" style="padding-top:6px">
@@ -979,12 +979,12 @@ body{padding-bottom:34px}
           <div><div class="ch-t">Key Documents Checklist</div><div class="ch-m mono">15 min · covers 4510 Achebe</div></div></div>
 
         <div class="spine-h" style="margin:26px 0 12px">This course, against your book</div>
-        <div class="led" style="padding-left:0;padding-right:0"><span>Chapters read</span><b class="mono">2 of 5</b></div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Lessons read</span><b class="mono">2 of 5</b></div>
         <div class="led" style="padding-left:0;padding-right:0"><span>Concepts verified</span><b class="mono" id="courseVer">4 of 6</b></div>
         <div class="led" style="padding-left:0;padding-right:0"><span>Open files it covers</span><b class="mono heat">4 of 12</b></div>
         <div class="led" style="padding-left:0;padding-right:0;border-bottom:0"><span>Reading left</span><b class="mono">70 min</b></div>
         <div class="bar-mini" style="margin-top:12px"><i class="h" style="width:40%"></i></div>
-        <div class="foot-note" style="margin-top:8px">Nothing in this course is locked. Chapter 03 is at the top because Bianchi is in underwriting and the file needs it this week.</div>
+        <div class="foot-note" style="margin-top:8px">Nothing in this course is locked. Lesson 3 is at the top because Bianchi is in underwriting and the file needs it this week.</div>
 
         <div class="spine-h" style="margin:26px 0 12px">Not queued, and why</div>
         <div class="led" style="padding-left:0;padding-right:0"><span>Rate Lock Strategies</span><b class="mono" style="font-size:11.5px;color:var(--text-3)">1 file, low urgency</b></div>
@@ -994,13 +994,13 @@ body{padding-bottom:34px}
 
       <!-- reading column -->
       <div class="rd">
-        <div class="rd-crumb">Educa8 <span style="color:var(--rule)">/</span> <b>Mortgage Fundamentals</b> <span style="color:var(--rule)">/</span> <span class="mono">Chapter 01</span></div>
+        <div class="rd-crumb">Educa8 <span style="color:var(--rule)">/</span> <b>Mortgage Fundamentals</b> <span style="color:var(--rule)">/</span> <span class="mono">Lesson 1</span></div>
         <h2>What Is a Mortgage?</h2>
         <div class="rd-meta">
           <div class="mono">15 min</div>
           <div class="mono">Read Jul 27</div>
           <div class="mono ok">3 of 4 concepts holding</div>
-          <div class="mono" style="color:var(--heat)">Escrow lapsed Jul 29</div>
+          <div class="mono" style="color:var(--heat)">Escrow went stale Jul 29</div>
           <div class="mono">Appears in 2 open files</div>
         </div>
         <div class="pl-rel" style="--d:0ms;margin-top:8px">chapter_completion.read_at <b>NEW</b> · holding = concept_recall.strength &gt; .5 <b>NEW</b> · appears_in ← <s>loan (exists)</s></div>
@@ -1012,7 +1012,7 @@ body{padding-bottom:34px}
           <tr><td>Principal</td><td>The amount borrowed.</td><td class="mono">holds to Aug 14</td></tr>
           <tr><td>Interest</td><td>The cost of borrowing.</td><td class="mono">holds to Aug 09</td></tr>
           <tr><td>Amortization</td><td>How the loan is paid off over time.</td><td class="mono">holds to Aug 02</td></tr>
-          <tr><td>Escrow</td><td>Funds held for taxes and insurance.</td><td class="mono" id="ktEscrow"><em>lapsed Jul 29</em></td></tr>
+          <tr><td>Escrow</td><td>Funds held for taxes and insurance.</td><td class="mono" id="ktEscrow"><em>went stale Jul 29</em></td></tr>
         </table>
 
         <div class="dg">
@@ -1027,7 +1027,7 @@ body{padding-bottom:34px}
 
         <!-- retrieval check, asked against a real open file -->
         <div class="chk" id="chk">
-          <div class="chk-h"><i class="livedot"></i><span class="who">Mentor asks</span><span class="t mono">lapsed 1 day ago · asked against file 4510</span></div>
+          <div class="chk-h"><i class="livedot"></i><span class="who">Mentor asks</span><span class="t mono">went stale yesterday · asked using your file 4510</span></div>
           <div class="chk-q">You have <b>4510 Achebe</b> open. The payment is 2,340 a month, and the servicer collects the property tax and the homeowners insurance inside it. Which part of that payment is the tax and insurance?</div>
           <div class="opts" id="opts">
             <button class="opt" data-k="a"><span class="k mono">A</span>Interest accrued on the principal balance</button>
@@ -1036,15 +1036,15 @@ body{padding-bottom:34px}
           </div>
           <div class="chk-f" id="chkF"></div>
           <div class="chk-bar">
-            <span class="hold-v" id="holdV">lapsed Jul 29</span>
-            <span class="mono">answering re-dates this concept, it does not score you</span>
+            <span class="hold-v" id="holdV">went stale Jul 29</span>
+            <span class="mono">answering just resets the clock on it, there is no score</span>
             <span style="margin-left:auto" class="mono" id="chkNext">2 lapsed after this</span>
           </div>
         </div>
         <div class="pl-rel" style="--d:40ms;margin-top:10px">on submit: insert retrieval_check_attempt <b>NEW</b> → update concept_recall.last_verified_at <b>NEW</b>. No xp_event, no rank recompute, nothing leaves your row.</div>
 
         <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
-          <button class="cta" id="startBtn2">Read chapter 03 next <span class="m mono">25 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <button class="cta" id="startBtn2">Read lesson 3 next <span class="m mono">25 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
           <span class="mono" style="font-size:11.5px;color:var(--text-3)">because Bianchi is in underwriting, not because it is next in the list</span>
         </div>
       </div>
@@ -1054,16 +1054,16 @@ body{padding-bottom:34px}
         <div class="rail-b">
           <div class="strength">
             <div class="v mono"><span id="strengthV">9</span> <em id="strengthD">of 14</em></div>
-            <div class="k">Concepts holding today</div>
+            <div class="k">Things you would still remember</div>
           </div>
-          <div class="led"><span>Lapsed this week</span><b class="mono" id="lapsedN">3</b></div>
-          <div class="led"><span>Never taught</span><b class="mono heat">5</b></div>
+          <div class="led"><span>Gone stale this week</span><b class="mono" id="lapsedN">3</b></div>
+          <div class="led"><span>Never read</span><b class="mono heat">5</b></div>
           <div class="led"><span>Longest hold</span><b class="mono">21 d, LE timing</b></div>
           <div class="led"><span>This session</span><b class="mono" id="sess">4 min · nothing scored</b></div>
         </div>
 
         <div class="rail-b">
-          <div class="rail-h"><i class="st-dot"></i>In your live files<span class="r mono">escrow</span></div>
+          <div class="rail-h"><i class="st-dot"></i>Open loans using this<span class="r mono">escrow</span></div>
           <div class="filerow"><span class="fn">4510</span><div><b>Achebe</b><span> conventional purchase</span></div><span class="fx">application</span></div>
           <div class="filerow"><span class="fn">4433</span><div><b>Petrosyan</b><span> conventional purchase</span></div><span class="fx">clear to close</span></div>
           <div class="filerow" style="border-top:1px solid var(--rule);color:var(--text-3);font-size:11.5px;line-height:1.5;display:block;padding:11px 14px">
@@ -1071,7 +1071,7 @@ body{padding-bottom:34px}
         </div>
 
         <div class="rail-b">
-          <div class="rail-h">Next 15 minutes<span class="r mono">chosen by your book</span></div>
+          <div class="rail-h">Next 15 minutes<span class="r mono">picked by your loans</span></div>
           <div class="next-mini">
             <div class="n mono">15<span>min</span></div>
             <div><div class="t">FHA case number and appraisal order</div><div class="s mono">4471 Delgado · appointment Thu 2:00pm</div></div>
@@ -1122,8 +1122,8 @@ body{padding-bottom:34px}
   <a href="index.html"><i>◂</i>Hub</a>
   <a href="andrew-authoring.html"><i>W</i>Course studio</a>
   <a href="learner-a-competitive.html"><i>A</i>Competition</a>
-  <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
-  <a href="learner-c-mastery-edited.html" class="on" aria-current="page"><i>C</i>Edited</a>
+  <a href="learner-b-mastery.html"><i>B</i>Useful</a>
+  <a href="learner-c-mastery-edited.html" class="on" aria-current="page"><i>C</i>Useful, tidied</a>
   <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
   <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
   <a href="v3-editorial-longform.html"><i>03</i>Publication</a>
@@ -1161,7 +1161,7 @@ const PIPE = [
   {f:'4510', nm:'Achebe',    p:'Conventional purchase', st:'Application',  need:'Escrow',          gap:'stale'},
   {f:'4433', nm:'Petrosyan', p:'Conventional purchase', st:'Clear to close', need:'Redisclosure',  gap:'ok'}
 ];
-const GAPTXT = {no:'never read', stale:'lapsed', ok:'holding'};
+const GAPTXT = {no:'never read', stale:'gone stale', ok:'remembered'};
 document.getElementById('pipe').innerHTML = PIPE.map(l=>
   '<tr class="prow'+(l.soon?' soon':'')+'">'+
   '<td class="f">'+l.f+'</td>'+
@@ -1184,11 +1184,11 @@ const CONCEPTS = [
   {c:'Fees, lender credit against points',   last:'Jul 21', hold:'Aug 01', s:56, k:'ok'},
   {c:'Occupancy, and why it changes pricing',last:'Jul 20', hold:'Jul 31', s:53, k:'ok'},
   {c:'Reserves, what counts as one',         last:'Jul 20', hold:'Jul 31', s:51, k:'ok'},
-  {c:'Escrow against prepaid items',         last:'Jul 22', hold:'lapsed Jul 29', s:34, k:'lapsed', id:'escrow', wk:1},
-  {c:'Debt to income, front and back',       last:'Jul 19', hold:'lapsed Jul 26', s:29, k:'lapsed', wk:1},
-  {c:'What a lender credit actually does',   last:'Jul 18', hold:'lapsed Jul 25', s:26, k:'lapsed', wk:1},
-  {c:'Changed circumstance, what counts',    last:'Jun 30', hold:'lapsed Jul 07', s:12, k:'gone'},
-  {c:'Title, what the borrower chooses',     last:'Jun 24', hold:'lapsed Jul 01', s:9,  k:'gone'},
+  {c:'Escrow against prepaid items',         last:'Jul 22', hold:'went stale Jul 29', s:34, k:'lapsed', id:'escrow', wk:1},
+  {c:'Debt to income, front and back',       last:'Jul 19', hold:'went stale Jul 26', s:29, k:'lapsed', wk:1},
+  {c:'What a lender credit actually does',   last:'Jul 18', hold:'went stale Jul 25', s:26, k:'lapsed', wk:1},
+  {c:'Changed circumstance, what counts',    last:'Jun 30', hold:'went stale Jul 07', s:12, k:'gone'},
+  {c:'Title, what the borrower chooses',     last:'Jun 24', hold:'went stale Jul 01', s:9,  k:'gone'},
   {c:'FHA case number, who it follows',      last:'never',  hold:'never read',    s:0,  k:'never'},
   {c:'VA entitlement, and restoring it',     last:'never',  hold:'never read',    s:0,  k:'never'},
   {c:'Self-employed income averaging',       last:'never',  hold:'never read',    s:0,  k:'never'},
@@ -1208,9 +1208,9 @@ renderNodes();
 function readOut(i, pinned){
   const r = CONCEPTS[i];
   const cls = r.k==='ok' ? 'ok' : r.k==='lapsed' ? 'warn' : '';
-  const tail = r.k==='never' ? 'never read. This is one of the five behind "running blind".'
-             : r.k==='ok'    ? 'last checked '+r.last+', holds to '+r.hold
-             :                 'last checked '+r.last+', '+r.hold;
+  const tail = r.k==='never' ? 'never read. One of the five behind "running blind".'
+             : r.k==='ok'    ? 'last answered '+r.last+', good until '+r.hold
+             :                 'last answered '+r.last+', '+r.hold;
   document.getElementById('rcRead').innerHTML =
     '<b>'+r.c+'</b><em class="'+cls+'">'+tail+'</em>';
   document.querySelectorAll('.rcn').forEach(n=>n.classList.toggle('on', +n.dataset.i===i && pinned));
@@ -1228,7 +1228,7 @@ function renderDue(){
   document.getElementById('rcDue').innerHTML = due.map(r=>
     '<div class="rc-duerow'+(r.done?' done':'')+'" data-c="'+(r.id||'')+'">'+
     '<span class="cn">'+r.c+'</span>'+
-    '<span class="wh">'+(r.done?'re-dated, holds to '+r.done:r.hold)+'</span></div>').join('');
+    '<span class="wh">'+(r.done?'answered, good until '+r.done:r.hold)+'</span></div>').join('');
 }
 renderDue();
 
@@ -1267,10 +1267,10 @@ const COURSES = [
    covers:'3 open files', coversSub:'4468 · 4471 · 4502', ver:'never', why:'Three of your last nine files came back for the same income condition.', hot:1},
   {cat:'Compliance', ttl:'Compliance & TRID', n:4, done:0, live:0,
    d:'Navigate regulatory requirements confidently. Master TRID timelines, disclosure rules, and compliance best practices.',
-   covers:'4 open files', coversSub:'4433 · 4455 · 4468 · 4510', ver:'lapsed Jul 07', why:'Two late redisclosures in July, both on changed circumstance timing.', hot:1},
+   covers:'4 open files', coversSub:'4433 · 4455 · 4468 · 4510', ver:'went stale Jul 07', why:'Two late redisclosures in July, both on changed circumstance timing.', hot:1},
   {cat:'Fundamentals', ttl:'Mortgage Fundamentals', n:5, done:2, live:1,
    d:'Master the basics of mortgage lending, from loan types and qualifying criteria to the full application-to-closing workflow.',
-   covers:'4 open files', coversSub:'4433 · 4468 · 4510 · 4489', ver:'Jul 29', why:'Two chapters left. One concept from chapter 01 lapsed yesterday.', hot:0},
+   covers:'4 open files', coversSub:'4433 · 4468 · 4510 · 4489', ver:'Jul 29', why:'Two chapters left. One concept from lesson 1 lapsed yesterday.', hot:0},
   {cat:'Pricing', ttl:'Rate Lock Strategies', n:4, done:0, live:0,
    d:'Advanced pricing tactics: when to lock, float-down options, and how to protect your borrower in volatile markets.',
    covers:'1 open file', coversSub:'4455 Trần, locked 21 d', ver:'never', why:'One extension already paid for. Nothing else in the book is locked yet.', hot:0},
@@ -1371,10 +1371,10 @@ function reverify(firstTry){
     document.getElementById('lapsedN').textContent='2';
     document.getElementById('lapsedLine').textContent='2';
     document.getElementById('verified').textContent='10';
-    document.getElementById('rcHead').firstChild.textContent='10 of 14 holding';
+    document.getElementById('rcHead').firstChild.textContent='10 of 14 remembered';
     document.getElementById('courseVer').textContent='5 of 6';
     document.getElementById('sess').textContent='6 min · nothing scored';
-    document.getElementById('rcBtn').textContent='Check the 2 that lapsed this week';
+    document.getElementById('rcBtn').textContent='Answer the 2 that went stale';
   },520);
   /* 3. last, its row in the due list settles out */
   setTimeout(renderDue, 820);

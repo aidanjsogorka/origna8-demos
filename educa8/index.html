@@ -136,6 +136,25 @@
   footer{padding-top:66px;color:var(--t3);font-size:13px;max-width:70ch;line-height:1.6}
   footer b{color:var(--t2);font-weight:500}
 
+
+  /* the head to head, so the differences are visible without reading prose */
+  table.vs{width:100%;border-collapse:collapse;margin-top:0;border-top:1px solid var(--line);table-layout:fixed}
+  table.vs th{text-align:left;padding:16px 18px 14px 0;border-bottom:1px solid var(--line);vertical-align:bottom}
+  table.vs th:first-child{width:270px}
+  table.vs th a{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:600;letter-spacing:-.012em;
+                text-decoration:none;color:var(--t1)}
+  table.vs th a:hover{color:var(--accent)}
+  table.vs th .tag{font-family:var(--mono);font-size:10.5px;font-weight:400;border:1px solid var(--accent);
+                   color:var(--accent);border-radius:2px;padding:2px 6px;letter-spacing:.06em}
+  table.vs td{padding:12px 18px 13px 0;border-bottom:1px solid var(--line2);font-size:14px;color:var(--t2);
+              line-height:1.45;vertical-align:top}
+  table.vs td:first-child{color:var(--t3);font-size:13.5px}
+  table.vs td.hot{color:var(--t1)}
+  table.vs tr:last-child td{border-bottom:0}
+  table.vs tr:hover td{background:#ffffff05}
+  .vs-note{margin-top:18px;font-size:14px;color:var(--t2);line-height:1.6;max-width:78ch}
+  .vs-note b{color:var(--t1);font-weight:600}
+
   /* the A/B comparison */
   .abgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-top:1px solid var(--line);margin-top:0}
   .ab{padding:22px 30px 26px 0;border-right:1px solid var(--line2);display:flex;flex-direction:column}
@@ -211,90 +230,114 @@ body{padding-bottom:34px}
 <div class="wrap">
 
 <header>
-  <div class="kicker">Origna8 · Educa8 · 30 Jul 2026 · one question left open</div>
+  <div class="kicker">Origna8 · Educa8 · 30 Jul 2026 · one decision left</div>
   <h1>Educa8, rebuilt</h1>
-  <p class="deck">A redesign of the learning section, in two halves: <strong>the side Andrew writes on</strong> and <strong>the side loan officers read on</strong>. The reading side is built twice, because there are two defensible answers to why anybody opens it, and picking between them is a product decision rather than a design one.</p>
+  <p class="deck">A rebuild of the learning section, in two halves: <strong>the screen Andrew writes on</strong> and <strong>the screen loan officers read on</strong>. The reading screen is built twice, because there are two good answers to why anybody would open it and we need you to pick one. That is a business call, not a design one.</p>
   <div class="rule"></div>
 </header>
 
 <section class="v" id="system" style="padding-top:44px">
   <div class="vhead">
-    <h2><em>four screens · arcade-ledger · all interactive</em>Start here</h2>
+    <h2><em>four screens, all clickable</em>Start here</h2>
   </div>
   <nav class="idx" style="border-top:0;margin-top:0">
-    <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">W</span><span class="nm">Course studio<span>Andrew's side. Write lessons, set questions, publish. Plain English, with one switch that shows the plumbing underneath.</span></span><span class="fam">authoring</span><span class="go">open →</span></a>
-    <a class="row" href="learner-a-competitive.html" target="_blank"><span class="n">A</span><span class="nm">Your ledger<span>The learner's side, argued as competition. One lit lesson, a streak, and the branch board that moves when you finish something.</span></span><span class="fam">reading · A</span><span class="go">open →</span></a>
-    <a class="row" href="learner-b-mastery.html" target="_blank"><span class="n">B</span><span class="nm">What your files need<span>The learner's side, argued as relevance. No streak, no board, no points. Your open loans set the order and your own files supply the evidence.</span></span><span class="fam">reading · B</span><span class="go">open →</span></a>
-    <a class="row" href="learner-c-mastery-edited.html" target="_blank"><span class="n">C</span><span class="nm">What your files need, edited<span>B after a density pass. Same argument, same content. The thesis moved up, the recall table became an instrument, one figure cut from the header.</span></span><span class="fam">reading · C</span><span class="go">open →</span></a>
+    <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">W</span><span class="nm">Course studio<span>Andrew's screen. Write a lesson, add the question at the end, press publish. Plain English throughout, with one switch that shows the technical version underneath.</span></span><span class="fam">for Andrew</span><span class="go">open →</span></a>
+    <a class="row" href="learner-a-competitive.html" target="_blank"><span class="n">A</span><span class="nm">Where you stand<span>The loan officer's screen, framed as competition. One lesson to do next, a daily streak, and the branch board that moves when you finish something.</span></span><span class="fam">version A</span><span class="go">open →</span></a>
+    <a class="row" href="learner-b-mastery.html" target="_blank"><span class="n">B</span><span class="nm">What your files need<span>The same screen, framed as useful instead. No points, no streak, no ranking. Your open loans decide what to read next.</span></span><span class="fam">version B</span><span class="go">open →</span></a>
+    <a class="row" href="learner-c-mastery-edited.html" target="_blank"><span class="n">C</span><span class="nm">What your files need, tidied<span>Version B with the clutter taken out. Same words, same numbers, easier to read at a glance.</span></span><span class="fam">version C</span><span class="go">open →</span></a>
   </nav>
   <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">
-    <b style="color:var(--t1)">The switch in the header is the thing to try, on all three.</b> Off, every screen reads in ordinary English. On, every label becomes the real field name with its type, the sources appear inline under the numbers, and a panel opens showing where each figure comes from, whether it is computed live or on a schedule, and what the backend would have to add that does not exist today. Same screen, two audiences: Andrew never meets a piece of jargon, and Jawad gets the data model to build against.
+    <b style="color:var(--t1)">Try the switch in the header, on all three.</b> Off, every screen reads in ordinary English, which is the version Andrew uses. On, the same screen shows Jawad where every number on it would come from and what would have to be built to produce it. One screen, two audiences, and neither one has to learn the other's words.
   </p>
 </section>
 
 <!-- ═══════════ the A/B comparison, the point of this round ═══════════ -->
 <section class="v" id="ab" style="padding-top:72px">
   <div class="vhead">
-    <h2><em>the open question · same content, same shell, opposite theory</em>Why would a 24 year old open this</h2>
+    <h2><em>the decision we need to make</em>Why would a 24 year old open this</h2>
   </div>
+
+
+  <table class="vs">
+    <thead><tr>
+      <th>&nbsp;</th>
+      <th><a href="learner-a-competitive.html" target="_blank"><span class="tag">A</span>Competition</a></th>
+      <th><a href="learner-b-mastery.html" target="_blank"><span class="tag">B</span>Useful</a></th>
+      <th><a href="learner-c-mastery-edited.html" target="_blank"><span class="tag">C</span>Useful, tidied</a></th>
+    </tr></thead>
+    <tbody>
+      <tr><td>The first thing you see</td><td>Where you sit on the branch board</td><td class="hot">The loan you have on Thursday</td><td class="hot">The loan you have on Thursday</td></tr>
+      <tr><td>Points for finishing a lesson</td><td class="hot">Yes</td><td>No</td><td>No</td></tr>
+      <tr><td>A weekly ranking of the branch, by name</td><td class="hot">Yes</td><td>No</td><td>No</td></tr>
+      <tr><td>A daily streak you can break</td><td class="hot">Yes</td><td>No</td><td>No</td></tr>
+      <tr><td>What decides what you read next</td><td>A fixed course order</td><td class="hot">Your twelve open loans</td><td class="hot">Your twelve open loans</td></tr>
+      <tr><td>Where "you are weak at this" comes from</td><td>Your quiz answers</td><td class="hot">Your own closed files</td><td class="hot">Your own closed files</td></tr>
+      <tr><td>Being asked a question a few days later</td><td>Yes</td><td>Yes</td><td>Yes</td></tr>
+      <tr><td>What "finished" means</td><td>You read it and got the points</td><td class="hot">You read it, still knew it a week later, and did it on a real loan</td><td class="hot">You read it, still knew it a week later, and did it on a real loan</td></tr>
+      <tr><td>Who else can see how you are doing</td><td class="hot">Everyone on the branch</td><td>Your manager only</td><td>Your manager only</td></tr>
+      <tr><td>What Andrew has to write</td><td>Lessons and questions</td><td class="hot">Lessons, questions, and a list of about forty topics</td><td class="hot">Lessons, questions, and a list of about forty topics</td></tr>
+      <tr><td>Cost to build</td><td class="hot">Highest of the three</td><td>Lower</td><td>Lower</td></tr>
+    </tbody>
+  </table>
+  <p class="vs-note">Orange marks where a version is doing something the others are not. <b>C is not a third option.</b> It is B with the clutter taken out, so the real choice is A or B, and C only decides how B should look if B wins.</p>
 
   <div class="abgrid">
     <div class="ab">
-      <div class="ab-h"><span class="tag">A</span>Competition<a class="ab-go" href="learner-a-competitive.html" target="_blank">open ↗</a></div>
+      <div class="ab-h"><span class="tag">A</span>Framed as competition<a class="ab-go" href="learner-a-competitive.html" target="_blank">open ↗</a></div>
       <div class="stage sm"><iframe src="learner-a-competitive.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-      <p class="ab-claim">Learning should feed the scoreboard the app already has. Finishing a chapter moves your row on Domina8 Standings, in front of the branch, this week.</p>
+      <p class="ab-claim">People finish things when they are competing. The app already has a branch scoreboard, so plug learning into it. Finish a lesson, move up in front of everyone, this week.</p>
       <ul class="ab-l">
-        <li><i>+</i>Highest engagement ceiling of anything in the round, and the mechanics are proven elsewhere</li>
-        <li><i>+</i>Uses Domina8 Standings, which exists and is currently unused by Educa8</li>
-        <li><i>−</i>Motivates the top three and names the bottom half, weekly. The people who most need the training will rank lowest</li>
-        <li><i>−</i>The streak borrows a Duolingo mechanic where the stakes were self-chosen. Here the guilt comes from an employer</li>
+        <li><i>+</i>The most likely to get people opening it at all. These mechanics work in other apps.</li>
+        <li><i>+</i>Uses the branch scoreboard you already built, which Educa8 currently ignores</li>
+        <li><i>−</i>It motivates the top three people and puts the bottom half on a list by name, every week. The people who most need the training are the ones who will be at the bottom.</li>
+        <li><i>−</i>The daily streak is borrowed from language apps, where you chose to be there. Here the pressure comes from your employer.</li>
       </ul>
-      <div class="ab-cost"><b>7</b> new tables · <b>3</b> events · <b>2</b> jobs<span>plus a policy decision nobody has made</span></div>
+      <div class="ab-cost">the most expensive of the three to build<span>and it needs a decision nobody has made: publishing a ranked list of seventeen people, by name, every week</span></div>
     </div>
 
     <div class="ab">
-      <div class="ab-h"><span class="tag">B</span>Relevance and mastery<a class="ab-go" href="learner-b-mastery.html" target="_blank">open ↗</a></div>
+      <div class="ab-h"><span class="tag">B</span>Framed as useful<a class="ab-go" href="learner-b-mastery.html" target="_blank">open ↗</a></div>
       <div class="stage sm"><iframe src="learner-b-mastery.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-      <p class="ab-claim">Educa8 sits beside a live pipeline, which almost no LMS can say. Your twelve open loans set the reading order, and your own closed files supply the evidence for what you are weak at.</p>
+      <p class="ab-claim">People finish things when they are useful today. Educa8 sits right next to a loan officer's actual loans, which almost no training tool can say. So let the loans decide what to read, and let the closed files show what keeps going wrong.</p>
       <ul class="ab-l">
-        <li><i>+</i>Answers the real reason training goes unfinished: it feels disconnected from the work</li>
-        <li><i>+</i>Nothing is public, so nobody is demoralised by name. A manager sees capability, not a rank</li>
-        <li><i>+</i>Cheaper to run: no rank job, no timezone-correct streak, no season</li>
-        <li><i>−</i>Needs a concept taxonomy and a rule set mapping loan attributes to concepts. That is real work, and it is Andrew's, not Jawad's</li>
+        <li><i>+</i>Answers the real reason training goes unfinished, which is that it feels nothing to do with the job</li>
+        <li><i>+</i>Nothing is public, so nobody is embarrassed in front of the branch. A manager sees what someone can handle, not a league position.</li>
+        <li><i>+</i>Cheaper to build. No rankings to keep updated, no streak to get right across time zones.</li>
+        <li><i>−</i>Somebody has to write a list of about forty topics and say which kind of loan needs which ones. That is real work, and it is Andrew's, not Jawad's.</li>
       </ul>
-      <div class="ab-cost"><b>5</b> new tables · <b>1</b> event · <b>1</b> job<span>plus a taxonomy of roughly forty concepts</span></div>
+      <div class="ab-cost">cheaper to build than A<span>but about forty topics have to be written first, and that part is Andrew's</span></div>
     </div>
   </div>
 
   <div class="cnote">
-    <div class="cnote-h"><span class="tag">C</span>B, edited<a class="ab-go" href="learner-c-mastery-edited.html" target="_blank">open ↗</a></div>
+    <div class="cnote-h"><span class="tag">C</span>B with the clutter taken out<a class="ab-go" href="learner-c-mastery-edited.html" target="_blank">open ↗</a></div>
     <div class="cnote-b">
-      <p><b>C is not a third argument.</b> It is B after a density pass, and if it reads better it replaces B rather than sitting beside it. B put five tables one after another, which made the page feel like a report rather than a tool. Four changes:</p>
+      <p><b>C is not a third option.</b> It is version B with the clutter taken out, so if it reads better it simply becomes B. The problem with B was that it put five tables one after another, which made the screen feel like a report instead of something you use. Four changes, and nothing else moved:</p>
       <ul class="ab-l" style="margin-top:14px">
-        <li><i>01</i><span><b>What you can run</b> moved up under the queued reading. It is the thesis, and it was fourth.</span></li>
-        <li><i>02</i><span>The recall table became <b>an instrument</b>: nineteen concepts as nodes, fill height is how well each would hold today, and only the three that lapsed this week get a row.</span></li>
-        <li><i>03</i><span>The two "where you are not thin" rows merged into one, so the good news still lands without costing three hundred pixels.</span></li>
-        <li><i>04</i><span>The header lost a figure. "Recall verified" was already stated on the panel below it.</span></li>
+        <li><i>01</i><span>The panel showing <b>what you can and cannot handle</b> moved to the top. It is the most important thing on the screen and it was buried fourth.</span></li>
+        <li><i>02</i><span>A long list of everything you have been taught became <b>a row of small squares</b>. How full each square is shows how well you would still remember it today. Only the three that have gone stale this week get a line of text.</span></li>
+        <li><i>03</i><span>The two lines about what you are already good at became one line, so the good news is still there without taking up half the panel.</span></li>
+        <li><i>04</i><span>One number came out of the header, because the panel below it already said the same thing.</span></li>
       </ul>
-      <p style="margin-top:16px;color:var(--t3)">Worth saying plainly: this is barely shorter, about two percent. The gain is that the page now alternates between shapes rather than stacking five tables, and the strongest artifact is the second thing you see instead of the fourth. Density was never the problem. Sameness was.</p>
+      <p style="margin-top:16px;color:var(--t3)">Worth saying plainly: the screen is barely shorter, about two percent. What changed is that it no longer looks like five tables in a row, and the most important panel is now the second thing you see. There was never too much information on it. Everything just looked the same.</p>
     </div>
   </div>
 
   <p style="margin-top:26px;font-size:14px;color:var(--t2);line-height:1.65;max-width:78ch">
-    <b style="color:var(--t1)">Both keep spaced retrieval</b>, because a mentor re-asking a question three days later is real pedagogy rather than a game trick, and it is the strongest mechanic in either version. They differ on everything else. A says the page should be exciting. B says it should be right. They are not mutually exclusive forever, but they are for the first build, because the second one to arrive will be read as decoration on the first.
+    <b style="color:var(--t1)">Both versions ask you a question a few days after you read something</b>, because that is when people forget. It is the strongest thing in either version and it is not a game trick, it is just how memory works. They differ on everything else. A says the screen should be exciting. B says it should be useful. We could do both eventually, but not in the first build: whichever one arrives second gets read as decoration on the first.
   </p>
 </section>
 
 <!-- ═══════════ the price list ═══════════ -->
 <section class="v" id="price" style="padding-top:72px">
   <div class="vhead">
-    <h2><em>what each one costs to build · switch on any screen to see the detail</em>The price list</h2>
+    <h2><em>for Jawad · the switch on any screen shows the detail</em>What each one costs to build</h2>
   </div>
   <table class="price">
     <thead><tr><th>Screen</th><th class="n">New tables</th><th class="n">Events</th><th class="n">Jobs</th><th>The line that carries the cost</th></tr></thead>
     <tbody>
       <tr><td><a href="v3-editorial-longform.html" target="_blank">03 · The publication</a></td><td class="n">3</td><td class="n">2</td><td class="n">0</td><td>Nothing. No streak, no board, no sessions. If the decision is on build cost alone this one wins.</td></tr>
-      <tr><td><a href="learner-b-mastery.html" target="_blank">B · Relevance and mastery</a></td><td class="n">5</td><td class="n">1</td><td class="n">1</td><td>The concept taxonomy, and the rules mapping loan attributes to concepts. Authoring work, not engineering.</td></tr>
+      <tr><td><a href="learner-b-mastery.html" target="_blank">B · Framed as useful</a></td><td class="n">5</td><td class="n">1</td><td class="n">1</td><td>The concept taxonomy, and the rules mapping loan attributes to concepts. Authoring work, not engineering.</td></tr>
       <tr><td><a href="v2-swiss-grid.html" target="_blank">02 · The syllabus</a></td><td class="n">6</td><td class="n">3</td><td class="n">2</td><td>"Minutes read" needs a session heartbeat, so a tab left open overnight is not nine hours of study.</td></tr>
       <tr><td><a href="v1-product-dense.html" target="_blank">01 · The dashboard</a></td><td class="n">7</td><td class="n">3</td><td class="n">2</td><td>The 14 day sparkline and the competency readout. The table itself is nearly free.</td></tr>
       <tr class="hot"><td><a href="learner-a-competitive.html" target="_blank">A · Competition</a> <em>and</em> <a href="v5-arcade-ledger.html" target="_blank">05</a></td><td class="n">7</td><td class="n">3</td><td class="n">2</td><td>Streak rollover at midnight in each officer's own timezone, and a rank fast enough that finishing visibly moves you.</td></tr>
@@ -308,16 +351,16 @@ body{padding-bottom:34px}
 
 <section class="v" id="archive" style="padding-top:66px">
   <div class="vhead">
-    <h2><em>the record · five directions · one was chosen</em>How we got here</h2>
+    <h2><em>we built it five ways and picked one</em>How we got here</h2>
   </div>
-  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">The same content built five times in five different design families, to choose by comparison instead of by argument. <b style="color:var(--t1)">05, the ledger, won</b> and became the system above. The other four are left up because the reasons they lost are useful, and because <b style="color:var(--t1)">all five now carry the plumbing switch</b>, which is what the price list above is drawn from. Open any of them and turn it on.</p>
+  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:76ch">The same lessons built five times, five different ways, so the look could be picked by comparison instead of by argument. <b style="color:var(--t1)">Number 05 won</b> and became the three screens above. The other four are still here because the reasons they lost are worth knowing, and because <b style="color:var(--t1)">all five have the switch on them</b>, which is where the build costs above came from. Open any one and turn it on.</p>
 </section>
 
 <dl class="meta">
   <div><dt>What is fixed</dt><dd>Sidebar, top bar, tokens, <b>Hanken Grotesk</b>. Every variant is inside the real product, not a microsite.</dd></div>
-  <div><dt>What each one fixes</dt><dd>No reason to start · progress that means nothing · six identical cards · a dead AI Mentor · <b>Domina8 Standings unused</b>.</dd></div>
-  <div><dt>Sourced from</dt><dd>Four families from the taste library. The fifth is new, proposed for this brief, and named. A and B share it, and differ only in argument.</dd></div>
-  <div><dt>State shown</dt><dd>A real in-progress learner, never an empty account. In A: <b>3 of 29 chapters</b>, 5 day streak, 3rd on the branch. In B: <b>12 open loans</b>, three of them running on something never read.</dd></div>
+  <div><dt>What is wrong today</dt><dd>No reason to start · progress that means nothing · six identical cards · an AI Mentor nobody talks to · <b>the branch scoreboard sitting unused</b>.</dd></div>
+  <div><dt>How the look was chosen</dt><dd>Five designs, built side by side, picked by comparison rather than by argument. <b>A, B and C all use the one we picked</b> and differ only in what they do.</dd></div>
+  <div><dt>Who you are looking at</dt><dd>A loan officer partway through, never an empty account. In A: <b>3 of 29 lessons done</b>, a 5 day streak, 3rd on the branch. In B and C: <b>12 open loans</b>, three of them on something never read.</dd></div>
 </dl>
 
 <nav class="idx">
@@ -330,29 +373,29 @@ body{padding-bottom:34px}
 
 <section class="v" id="v1">
   <div class="vhead">
-    <h2><em>01 · product-dense · Linear, Mercury, Stripe</em>The dashboard</h2>
+    <h2><em>01 · built like a piece of software</em>The dashboard</h2>
     <a class="open" href="v1-product-dense.html" target="_blank">OPEN FULL SIZE ↗</a>
   </div>
   <div class="vbody">
     <div class="stage"><iframe src="v1-product-dense.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
     <div class="notes">
       <h3>The move</h3>
-      <p>The six-card wall becomes a <b>real data table</b>: sequence, level, chapters done, time left, progress, last touched. Sortable. Locked rows say what opens them. The hero is the product itself, the chapter reader shown at an angle with real content in it.</p>
+      <p>The six identical cards become a <b>proper table</b> you can sort: order, level, lessons done, time left, progress, when you last opened it. Locked rows say what opens them.</p>
       <h3>Carries</h3>
       <ul>
-        <li><i>01</i>⌘K jump-to-chapter, J/K row navigation, real key chips</li>
-        <li><i>02</i>Telemetry strip: streak, XP, branch rank, 14-day study sparkline</li>
-        <li><i>03</i>Competency readout that names your weakest topic and routes to it</li>
-        <li><i>04</i>Mentor asks two queued questions instead of waiting</li>
+        <li><i>01</i>Keyboard shortcuts, so you never touch the mouse</li>
+        <li><i>02</i>A strip along the top: streak, points, branch rank, and the last fortnight of study</li>
+        <li><i>03</i>Names your weakest topic outright and sends you straight to it</li>
+        <li><i>04</i>The mentor asks you two questions instead of sitting there waiting</li>
       </ul>
-      <p class="verdict"><b>Reads as:</b> the most obviously shippable of the five, and the least surprising. It will look right to anyone who already uses the app all day. It is also the one a competitor could arrive at independently.</p>
+      <p class="verdict"><b>In short:</b> the easiest to build and the least surprising. It will look right to anyone who uses the app all day. It is also the one any competitor could arrive at on their own.</p>
     </div>
   </div>
 </section>
 
 <section class="v" id="v2">
   <div class="vhead">
-    <h2><em>02 · swiss-grid · Klim, Grilli Type, Fonts In Use</em>The syllabus</h2>
+    <h2><em>02 · built like a printed index</em>The syllabus</h2>
     <a class="open" href="v2-swiss-grid.html" target="_blank">OPEN FULL SIZE ↗</a>
   </div>
   <div class="vbody">
@@ -362,19 +405,19 @@ body{padding-bottom:34px}
       <p>Tabs are gone. Courses and guides live in <b>one ruled index</b> under a shared taxonomy, all 29 chapters expandable in place, so the entire body of work is legible on one screen. You can see exactly where you are in it. Hairline rules do every separation, no cards anywhere.</p>
       <h3>Carries</h3>
       <ul>
-        <li><i>01</i>Four-weight rule system built for dark ground, not inverted from paper</li>
-        <li><i>02</i>Progress ledger replaces the banner: chapters, minutes, XP, rank, recall %</li>
-        <li><i>03</i>Orange marks exactly one thing on the page: your position</li>
-        <li><i>04</i>Wrong quiz answers cite the definition row in the text above</li>
+        <li><i>01</i>Everything separated by thin lines, no boxes anywhere</li>
+        <li><i>02</i>The "0 Completed" banner becomes a real progress line: lessons, minutes, points, rank</li>
+        <li><i>03</i>Orange marks exactly one thing on the whole page: where you are</li>
+        <li><i>04</i>Get a question wrong and it points at the line in the lesson that explains it</li>
       </ul>
-      <p class="verdict"><b>Reads as:</b> the most confident and the most information-dense. Strongest family in your library, executed properly. Risk is that a 23-year-old reads a syllabus as homework rather than as a game.</p>
+      <p class="verdict"><b>In short:</b> the most confident of the five, and the one that fits the most on a screen. The risk is that a 23 year old looks at it and sees homework.</p>
     </div>
   </div>
 </section>
 
 <section class="v" id="v3">
   <div class="vhead">
-    <h2><em>03 · editorial-longform, End B · Works in Progress, Quanta</em>The publication</h2>
+    <h2><em>03 · built like a magazine</em>The publication</h2>
     <a class="open" href="v3-editorial-longform.html" target="_blank">OPEN FULL SIZE ↗</a>
   </div>
   <div class="vbody">
@@ -384,19 +427,19 @@ body{padding-bottom:34px}
       <p>Educa8 becomes something you <b>read</b>, and the design gets out of the way. The index is issue front matter with a contents list ordered by prerequisite. Definitions move into the margin as side notes. The Mentor is a question written in the margin like an editor's note, not a chat rail.</p>
       <h3>Carries</h3>
       <ul>
-        <li><i>01</i>Reading-position rule in the margin instead of a progress bar</li>
-        <li><i>02</i>Measure held at 68 characters, serif set at 19px on warmed ink</li>
-        <li><i>03</i>Thumbnails replaced by a chapter register: filled boxes, current one ruled</li>
-        <li><i>04</i>Figure numbers, footnotes, a real table. Zero shadows, zero radius.</li>
+        <li><i>01</i>A mark in the margin showing where you stopped, instead of a progress bar</li>
+        <li><i>02</i>Set like a printed page, at a width that is comfortable to read for a while</li>
+        <li><i>03</i>The stock images are gone. Each course shows filled boxes, one per lesson.</li>
+        <li><i>04</i>Numbered figures, footnotes and a real table, like an article rather than an app</li>
       </ul>
-      <p class="verdict"><b>Reads as:</b> the most expensive and the least like software. Best single answer to the reading view specifically. Weakest on the index, because prestige is not the same thing as pull.</p>
+      <p class="verdict"><b>In short:</b> by far the nicest thing to actually read. It is the weakest at getting somebody to start, though, because looking expensive is not the same as being inviting.</p>
     </div>
   </div>
 </section>
 
 <section class="v" id="v4">
   <div class="vhead">
-    <h2><em>04 · mono-technical · State of AI Design, Val Town</em>The instrument</h2>
+    <h2><em>04 · built like a measuring device</em>The instrument</h2>
     <a class="open" href="v4-mono-technical.html" target="_blank">OPEN FULL SIZE ↗</a>
   </div>
   <div class="vbody">
@@ -406,41 +449,41 @@ body{padding-bottom:34px}
       <p>Study becomes <b>instrumented activity</b>. A coverage map puts all 29 chapters on screen as state-marked cells, so competency is one glance. Prerequisites are drawn as a real diagram with dimension lines. A run log records sessions with timestamps, durations, and outcomes.</p>
       <h3>Carries</h3>
       <ul>
-        <li><i>01</i>Coverage map, 6 courses × 29 chapters, hover for detail</li>
-        <li><i>02</i>Prerequisite graph with orthogonal connectors and met/unmet edges</li>
-        <li><i>03</i>Retrieval checks as pass/fail assertions, three colors, all semantic</li>
-        <li><i>04</i>One serif jump at 52px against a flat mono scale, so it is not austere</li>
+        <li><i>01</i>All 29 lessons on one grid, so you see everything you have and have not done at once</li>
+        <li><i>02</i>A diagram of what has to be finished before what</li>
+        <li><i>03</i>Questions marked pass or fail, like a test report rather than a quiz</li>
+        <li><i>04</i>One large serif headline so the whole thing is not cold</li>
       </ul>
-      <p class="verdict"><b>Reads as:</b> the sharpest break from every other LMS on earth. Strava for underwriting. It is also the variant most likely to divide the room, and it tells the learner plainly that past effort scored zero.</p>
+      <p class="verdict"><b>In short:</b> the sharpest break from every other training tool out there. Strava for underwriting. It will also divide the room, and it tells somebody plainly that everything they did before this counted for nothing.</p>
     </div>
   </div>
 </section>
 
 <section class="v" id="v5">
   <div class="vhead">
-    <h2><em>05 · arcade-ledger · new family · CHOSEN</em>The ledger</h2>
+    <h2><em>05 · built like a game, minus the cartoon · WE PICKED THIS ONE</em>The scoreboard</h2>
     <a class="open" href="v5-arcade-ledger.html" target="_blank">OPEN FULL SIZE ↗</a>
   </div>
   <div class="vbody">
     <div class="stage"><iframe src="v5-arcade-ledger.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
     <div class="notes">
       <h3>The move</h3>
-      <p>The one that goes furthest on mechanics. <b>One lit node</b>, its cost and its payout stated in the same breath. The branch leaderboard sits next to it, so finishing a chapter visibly moves you from 3rd to 2nd. Every reward is a figure in a ledger, never a badge or a trophy.</p>
+      <p>The one that leans hardest into the game. <b>One lesson highlighted</b>, with how long it takes and what it pays side by side. The branch board sits next to it, so finishing something visibly moves you from 3rd to 2nd. Every reward is a number, never a badge or a trophy.</p>
       <h3>Carries</h3>
       <ul>
-        <li><i>01</i>Domina8 Standings wired in, with the exact XP gap to the next rank</li>
-        <li><i>02</i>Streak as a dated week grid, with the cost of breaking it stated</li>
-        <li><i>03</i>Spaced retrieval: checks decay from +40 to +20 after seven days</li>
-        <li><i>04</i>Motion spent on four specific events, not a page-wide fade</li>
+        <li><i>01</i>The branch scoreboard built in, showing exactly how many points take you up a place</li>
+        <li><i>02</i>The streak shown as a week of dated squares, saying plainly what breaking it costs</li>
+        <li><i>03</i>Questions come back days later, and are worth less the longer you leave them</li>
+        <li><i>04</i>Things only animate when something actually happens, never just on load</li>
       </ul>
-      <p class="verdict"><b>Reads as:</b> the direct answer to the actual brief. Highest engagement ceiling, highest backend cost, and the only one with a real design risk: the streak pressure could read as coercive rather than motivating. That risk is what <a href="#ab" style="color:var(--accent)">the A and B pair above</a> exists to settle.</p>
+      <p class="verdict"><b>In short:</b> the most direct answer to the problem, and the most expensive to build. It carries one real risk: the streak could feel like pressure from your employer rather than encouragement. That risk is exactly what <a href="#ab" style="color:var(--accent)">A and B above</a> exist to settle.</p>
     </div>
   </div>
 </section>
 
 <footer>
   <div class="rule thin" style="margin-bottom:26px"></div>
-  <p><b>On colour.</b> Everything here is built on Origna8's real palette, sampled from what the app actually paints rather than from the variable names in its stylesheet, which turned out to disagree. The true logo sweep runs <b>#FF7A2F</b> orange to <b>#FF4D8D</b> pink to <b>#B14DFF</b> purple to <b>#4D6BFF</b> blue: warmer and younger than anything the product uses outside the logo mark, which is worth noticing on its own. The orange is the accent throughout, and it means one thing only: this is yours, this is next. The six course colours are the app's own.</p>
+  <p><b>On colour.</b> Everything here uses Origna8's real colours, taken from what the app actually puts on screen rather than from the names in its stylesheet, which turned out to disagree with each other. The logo runs orange to pink to purple to blue, and it is warmer and younger than anything the product uses anywhere else, which is worth noticing on its own. The orange is used throughout and it means one thing only: this is yours, this is next. The six course colours are the app's own.</p>
   <p style="margin-top:16px">Every screen here is fully interactive and carries the plumbing switch. The previews on this page are scaled and not clickable; <b>open full size</b> to use them. A bar across the bottom of every screen jumps between all ten.</p>
   <p style="margin-top:16px">Known gap: the app has a light theme and these are dark only.</p>
 </footer>
@@ -452,8 +495,8 @@ body{padding-bottom:34px}
   <a href="index.html" class="on" aria-current="page"><i>◂</i>Hub</a>
   <a href="andrew-authoring.html"><i>W</i>Course studio</a>
   <a href="learner-a-competitive.html"><i>A</i>Competition</a>
-  <a href="learner-b-mastery.html"><i>B</i>Relevance and mastery</a>
-  <a href="learner-c-mastery-edited.html"><i>C</i>Edited</a>
+  <a href="learner-b-mastery.html"><i>B</i>Useful</a>
+  <a href="learner-c-mastery-edited.html"><i>C</i>Useful, tidied</a>
   <a href="v1-product-dense.html"><i>01</i>Dashboard</a>
   <a href="v2-swiss-grid.html"><i>02</i>Syllabus</a>
   <a href="v3-editorial-longform.html"><i>03</i>Publication</a>

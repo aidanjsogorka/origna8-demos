@@ -28,6 +28,14 @@ minutes, stop showing and start talking.
 
 ---
 
+## Before you open anything
+
+There is now a **side by side table** at the top of the hub comparing A, B and C on eleven
+plain-English rows: points, ranking, streak, what decides the reading order, who else can see
+how you are doing, and what Andrew has to write. If Andrew is short on time, show him that table
+and skip to the two questions at the end. It says more in thirty seconds than the walkthrough
+does in twenty minutes.
+
 ## The frame, before you open anything
 
 Say this first, because it changes how he reads the rest:
@@ -77,7 +85,7 @@ doing?"
 
 ## Stop 2. Version A, competition
 
-**Open:** Competition, from the bottom bar.
+**Open:** Competition, from the bottom bar. The screen is headed "Where you stand".
 
 > "This is the version that says the reason you open a training section is to win something."
 
@@ -106,7 +114,7 @@ your instinct.
 
 ## Stop 3. Version B, relevance
 
-**Open:** Relevance and mastery, from the bottom bar.
+**Open:** Useful, from the bottom bar. The screen is headed "What your files need".
 
 > "This is the version that says nobody opens training to win. They skip it because it feels
 > disconnected from the work. So this one runs off your actual loans."
@@ -154,7 +162,7 @@ September.
 
 ## Stop 4. Version C
 
-**Open:** Edited, from the bottom bar.
+**Open:** Useful, tidied, from the bottom bar.
 
 Keep this short. It is a design note, not a decision he owns.
 
@@ -163,9 +171,9 @@ Keep this short. It is a design note, not a decision he owns.
 > one feels calmer to you, it replaces B. If you cannot tell the difference, that is also a
 > useful answer."
 
-Show the one thing that changed shape: the recall band, the row of small squares. Each square is
-one thing they were taught, and how full it is tells you how well they would still remember it
-today. Amber means it has gone stale.
+Show the one thing that changed shape: the row of small squares near the bottom right. Each
+square is one thing they were taught, and how full it is shows how well they would still
+remember it today. Amber means it has gone stale.
 
 **Ask:** "Does C feel calmer than B, or the same?" Then move on. Do not spend ten minutes here.
 
@@ -173,7 +181,8 @@ today. Amber means it has gone stale.
 
 ## Stop 5. The five design directions, only if there is time
 
-**Open:** the hub, scroll to "How we got here".
+**Open:** the hub. There is a side by side table near the top comparing all three, which is the
+fastest way to show him the differences. Then scroll to "How we got here".
 
 > "Before any of this we built the same content five different ways to choose the look by
 > comparison instead of by argument. We picked the fifth. The other four are still up because the

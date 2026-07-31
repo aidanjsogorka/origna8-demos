@@ -161,7 +161,7 @@ Continue the Origna8 Educa8 work. Read first:
 
 Repo: github.com/aidanjsogorka/origna8-demos, cloned at ~/code/origna8-demos.
 Launch this session from the repo root, not from the vault, so the design hook
-reads the right config. Live at aidansogorka.github.io/origna8-demos/educa8/.
+reads the right config. Live at aidanjsogorka.github.io/origna8-demos/educa8/.
 
 GOAL
 Make the two learner screens more dynamic and more digestible. Those pull

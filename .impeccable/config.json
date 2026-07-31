@@ -14,6 +14,16 @@
         "value": "google fonts: geist mono",
         "createdAt": "2026-07-31T16:14:56.527Z",
         "reason": "Same Geist Mono decision, matched via the Google Fonts link rather than a CSS declaration."
+      },
+      {
+        "rule": "overused-font",
+        "value": "*",
+        "files": [
+          "educa8/*.html",
+          "index.html"
+        ],
+        "createdAt": "2026-07-31T22:02:35.009Z",
+        "reason": "The Google Fonts link form carries no extractable value, so a value-ignore cannot match it. Geist Mono here is pinned by docs/BRAND.md. Inter and the other overused faces are still caught by the banlist grep run on every pass."
       }
     ]
   }

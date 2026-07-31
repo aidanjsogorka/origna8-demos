@@ -49,6 +49,7 @@ names, which disagree. Details in `docs/BRAND.md`.
 
 | File | For |
 |---|---|
+| `docs/NEXT-SESSION.md` | The handoff for the next session, with a paste-ready prompt. Start here if you are picking this up. |
 | `docs/ANDREW-WALKTHROUGH.md` | Walking Andrew through the work. Plain English, no field names, with the two questions worth getting answers to. |
 | `docs/AB-DECISION.md` | The A versus B argument, with a recommendation. |
 | `docs/PLUMBING.md` | What the switch shows, and what each direction costs to build. The Jawad document. |

@@ -30,15 +30,13 @@ minutes, stop showing and start talking.
 
 ## Before you open anything
 
-There is now a **side by side table** at the top of the hub comparing A, B and C on eleven
-plain-English rows: points, ranking, streak, what decides the reading order, who else can see
-how you are doing, and what Andrew has to write. If Andrew is short on time, show him that table
-and skip to the two questions at the end. It says more in thirty seconds than the walkthrough
-does in twenty minutes.
+**If he is short on time, show him one thing.** There is a side by side table at the top of the
+hub comparing A, B and C across eleven plain rows: points, ranking, streak, what decides the
+reading order, who else can see how you are doing, and what Andrew has to write. It says more in
+thirty seconds than this walkthrough does in twenty minutes. Show that, then jump to the two
+questions at the end.
 
-## The frame, before you open anything
-
-Say this first, because it changes how he reads the rest:
+If you have the full forty minutes, say this first, because it changes how he reads the rest:
 
 > "Educa8 today is six cards that all say Not Started. Nobody opens it. We rebuilt it twice,
 > because there are two honest answers to why anybody would, and I want you to tell me which
@@ -91,8 +89,8 @@ doing?"
 
 Point at three things, in this order:
 
-1. **One lit thing.** Not six cards. There is exactly one next lesson, it says how long it takes
-   and what it pays, and everything else on the page is quieter than it.
+1. **One thing highlighted.** Not six cards. Exactly one lesson to do next, with how long it
+   takes and what it pays side by side, and everything else on the screen is quieter than it.
 2. **The branch board.** Finishing a lesson moves your row in front of the other sixteen people
    on the branch, this week.
 3. **Show it moving.** Scroll to the reading view at the bottom, answer the mentor's question,
@@ -123,16 +121,15 @@ Four things, in this order:
 
 1. **The top of the page is a real appointment.** Thursday, two o'clock, an FHA cash-out, and it
    is this officer's first FHA file. The fifteen minutes on offer is the fifteen minutes that
-   makes Thursday go better. Nothing on the page is there because a curriculum said so.
-2. **"Your pipeline, mapped."** Twelve open loans. Seven of them touch something the officer has
-   never read. Three of those have an appointment this week. That is the entire ordering rule and
+   makes Thursday go better. The screen says so out loud: "picked by this loan, not by a course".
+2. **"Your loans."** Twelve of them open. Seven need something the officer has never read. Three of those have an appointment this week. That is the entire ordering rule and
    the page says so out loud.
-3. **"Where you are thin, and why we say so."** This is the part to slow down on. Every line
+3. **"What keeps going wrong, and how we know."** This is the part to slow down on. Every line
    points at something that already happened on their own files: a condition that came back three
    times for the same reason, two disclosures that went out late, a rate lock that was extended
    when it did not need to be. It is not a quiz result.
 
-   Point out the section underneath it, "and where you are not thin", and say why it is there:
+   Point out the section underneath it, "And what you are already good at", and say why it is there:
 
    > "That half is not decoration. Without it this screen is a performance review, and nobody
    > opens a performance review twice."

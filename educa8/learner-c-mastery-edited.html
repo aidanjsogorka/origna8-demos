@@ -264,14 +264,15 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .rcnodes{display:grid;grid-template-columns:repeat(10,1fr);gap:6px}
 .rcn{aspect-ratio:1/1;border-radius:6px;border:1px solid var(--rule);background:var(--surface-2);position:relative;
      overflow:hidden;cursor:default;transition:border-color var(--dur-fast) var(--ease),transform .3s var(--ease)}
-.rcn::after{content:"";position:absolute;left:0;right:0;bottom:0;height:var(--s,0%);background:var(--text-2);
-            transition:height .78s var(--ease),background .5s var(--ease)}
+.rcn::after{content:"";position:absolute;left:0;right:0;bottom:0;height:100%;background:var(--text-2);
+            transform:scaleY(var(--s,0));transform-origin:bottom center;
+            transition:transform .78s var(--ease),background .5s var(--ease)}
 .rcn.lapsed{border-color:#f0b64955}
 .rcn.lapsed::after{background:repeating-linear-gradient(135deg,#f0b64988 0 3px,transparent 3px 6px)}
 .rcn.gone{border-color:var(--rule-2)}
-.rcn.gone::after{background:#ffffff1f;min-height:3px}
+.rcn.gone::after{background:#ffffff1f}
 .rcn.never{border-style:dashed;border-color:var(--heat-line)}
-.rcn.never::after{height:0}
+.rcn.never::after{transform:scaleY(0)}
 .rcn.fresh::after{background:var(--pos)}
 .rcn:hover,.rcn.on{border-color:var(--ring);transform:translateY(-2px)}
 .rcn.fresh{border-color:var(--pos)}
@@ -898,7 +899,7 @@ body{padding-bottom:34px}
 
     <div id="pane-all">
       <table class="ct">
-        <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:126px"><col style="width:258px"></colgroup>
+        <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:152px"><col style="width:232px"></colgroup>
         <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
         <tbody id="courses"></tbody>
       </table>
@@ -906,7 +907,7 @@ body{padding-bottom:34px}
 
     <div id="pane-act" style="display:none">
       <table class="ct">
-        <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:126px"><col style="width:258px"></colgroup>
+        <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:152px"><col style="width:232px"></colgroup>
         <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
         <tbody id="coursesAct"></tbody>
       </table>
@@ -1199,7 +1200,7 @@ const KCLS = {ok:'', lapsed:'lapsed', gone:'gone', never:'never'};
 
 function renderNodes(){
   document.getElementById('rcNodes').innerHTML = CONCEPTS.map((r,i)=>
-    '<div class="rcn '+KCLS[r.k]+'" data-i="'+i+'" style="--s:'+r.s+'%"'+(r.id?' id="rcn-'+r.id+'"':'')+
+    '<div class="rcn '+KCLS[r.k]+'" data-i="'+i+'" style="--s:'+(r.s/100)+'"'+(r.id?' id="rcn-'+r.id+'"':'')+
     ' title="'+r.c+'"></div>').join('');
 }
 renderNodes();
@@ -1356,7 +1357,7 @@ function reverify(firstTry){
   /* 1. the node fills and turns green in place */
   const node = document.getElementById('rcn-escrow');
   node.className = 'rcn fresh on';
-  node.style.setProperty('--s', (firstTry?97:78)+'%');
+  node.style.setProperty('--s', firstTry?0.97:0.78);
   r.k='ok'; r.s=firstTry?97:78; r.last='Jul 30'; r.hold=hold; r.done=hold;
   readOut(9, true);
   /* 2. the same date lands in the reading, then in the counters. Staggered. */

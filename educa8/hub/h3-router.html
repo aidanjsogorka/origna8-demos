@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H3 · Router and the ask · Educa8 rebuilt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* H3 · ROUTER AND THE ASK. Two blocks and nothing else: what to open, and the one
+   decision. The difference between A and B is drawn rather than described, at 1/20
+   the height of a screenshot, so you can see it before you read it. */
+.sec{margin-top:34px}
+.sec>.lbl{display:block;padding-bottom:9px;border-bottom:1px solid var(--line)}
+
+.row{display:grid;grid-template-columns:34px 1fr 190px 74px;gap:22px;align-items:baseline;
+     padding:15px 0 16px;border-bottom:1px solid var(--line2)}
+.row:hover{background:#ffffff06}
+.row.pick{background:#ff7a2f0a;box-shadow:inset 2px 0 0 var(--accent);padding-left:14px;
+          grid-template-columns:20px 1fr 190px 74px}
+.row.pick:hover{background:#ff7a2f14}
+.row .n{font-family:var(--mono);font-size:12px;color:var(--t3)}
+.row.pick .n{color:var(--accent)}
+.row .nm{font-size:16.5px;font-weight:600;letter-spacing:-.015em}
+.row .nm span{display:block;font-weight:400;font-size:13.5px;color:var(--t2);margin-top:3px;
+              line-height:1.45;letter-spacing:0}
+.row .who{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3)}
+.row .go{text-align:right}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:2px}
+.side{padding:20px 24px 22px;border-left:1px solid var(--line2);border-bottom:1px solid var(--line)}
+.side:first-child{border-left:0;padding-left:0}
+.side.pick{background:#ff7a2f08}
+.side h3{font-size:17px;font-weight:600;letter-spacing:-.018em;display:flex;align-items:center;gap:9px}
+.side h3 a{margin-left:auto}
+.wire{margin:14px 0 15px;height:64px;border:1px solid var(--line2);background:var(--s1);padding:8px 10px}
+.side .claim{font-size:14px;color:var(--t1);line-height:1.5}
+.side ul{list-style:none;margin-top:12px}
+.side li{font-size:13px;color:var(--t2);line-height:1.45;padding:7px 0;border-top:1px solid var(--line2);
+         display:grid;grid-template-columns:14px 1fr;gap:9px}
+.side li i{font-style:normal;font-family:var(--mono);font-size:11px;color:var(--t3)}
+.side li.minus i{color:var(--t3)}
+.side .cost{margin-top:13px;font-family:var(--mono);font-size:11.5px;color:var(--t3);line-height:1.5}
+
+.verdict{margin-top:22px;display:grid;grid-template-columns:112px 1fr;gap:22px;align-items:start}
+.verdict .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+            color:var(--accent);padding-top:3px}
+.verdict p{font-size:14.5px;color:var(--t2);line-height:1.6;max-width:80ch}
+.verdict p b{color:var(--t1);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kick">Origna8 · Educa8 · <b>one decision left</b></div>
+  <h1>Educa8, rebuilt</h1>
+  <p class="deck">The learning section of Origna8, rebuilt. One screen for <b>Andrew</b>, who writes the lessons, and one for the <b>loan officers</b> who read them. The reading screen exists twice and you need to pick one.</p>
+
+  <div class="sec">
+    <span class="lbl">Open these three</span>
+    <a class="row" href="../andrew-authoring.html" target="_blank">
+      <span class="n">W</span>
+      <span class="nm">Course studio<span>Write a lesson, add the question at the end, press publish.</span></span>
+      <span class="who">for Andrew</span><span class="go">open ↗</span>
+    </a>
+    <a class="row" href="../learner-a-competitive.html" target="_blank">
+      <span class="n">A</span>
+      <span class="nm">Points and rankings<span>Points, a daily streak, and a weekly branch ranking.</span></span>
+      <span class="who">version A</span><span class="go">open ↗</span>
+    </a>
+    <a class="row pick" href="../learner-b-mastery.html" target="_blank">
+      <span class="n">B</span>
+      <span class="nm">Driven by your open loans<span>Your twelve open loans decide what to read next.</span></span>
+      <span class="who">version B</span><span class="go">open ↗</span>
+    </a>
+  </div>
+
+  <div class="sec">
+    <span class="lbl">The one call · both use the same lessons, the same guides and the same app shell</span>
+    <div class="two" data-stack>
+
+      <div class="side">
+        <h3><span class="tag">A</span>Points and rankings<a class="go" href="../learner-a-competitive.html" target="_blank">open ↗</a></h3>
+        <div class="wire" role="img" aria-label="Sketch of version A: a ranked list of the branch with your row highlighted">
+          <svg viewBox="0 0 220 48" width="100%" height="100%" preserveAspectRatio="none">
+            <rect x="0" y="2"  width="150" height="6" fill="#ffffff26"/>
+            <rect x="0" y="13" width="126" height="6" fill="#ffffff26"/>
+            <rect x="0" y="24" width="104" height="6" fill="#FF7A2F"/>
+            <rect x="0" y="35" width="82"  height="6" fill="#ffffff17"/>
+            <rect x="196" y="2" width="24" height="39" fill="#ffffff0e"/>
+          </svg>
+        </div>
+        <p class="claim">People finish things when they are competing, and the app already has a branch scoreboard sitting unused.</p>
+        <ul>
+          <li><i>+</i>The most likely of the two to get people opening it at all</li>
+          <li><i>+</i>Uses the branch scoreboard you already built</li>
+          <li class="minus"><i>−</i>Publishes a ranked list of seventeen people by name, every week. The bottom half is exactly who needs the training.</li>
+        </ul>
+        <div class="cost">the higher of the two to build · and it needs a policy decision nobody has made</div>
+      </div>
+
+      <div class="side pick">
+        <h3><span class="tag pick">B</span>Driven by your open loans<a class="go" href="../learner-b-mastery.html" target="_blank">open ↗</a></h3>
+        <div class="wire" role="img" aria-label="Sketch of version B: one highlighted reading, then a grid of memory nodes at different levels">
+          <svg viewBox="0 0 220 48" width="100%" height="100%" preserveAspectRatio="none">
+            <rect x="0" y="0" width="220" height="17" fill="#ff7a2f22"/>
+            <rect x="0" y="0" width="2" height="17" fill="#FF7A2F"/>
+            <rect x="7" y="5" width="58" height="7" fill="#FF7A2F"/>
+            <rect x="72" y="6" width="96" height="5" fill="#ffffff26"/>
+            <g>
+              <rect x="0"  y="26" width="18" height="18" fill="#ffffff2e"/>
+              <rect x="22" y="30" width="18" height="14" fill="#ffffff2e"/>
+              <rect x="44" y="33" width="18" height="11" fill="#ffffff2e"/>
+              <rect x="66" y="35" width="18" height="9"  fill="#ffffff2e"/>
+              <rect x="88" y="38" width="18" height="6"  fill="#f0b649"/>
+              <rect x="110" y="39" width="18" height="5" fill="#f0b649"/>
+              <rect x="132" y="26" width="18" height="18" fill="none" stroke="#ff7a2f66" stroke-dasharray="3 2"/>
+              <rect x="154" y="26" width="18" height="18" fill="none" stroke="#ff7a2f66" stroke-dasharray="3 2"/>
+              <rect x="176" y="26" width="18" height="18" fill="none" stroke="#ff7a2f66" stroke-dasharray="3 2"/>
+              <rect x="198" y="26" width="18" height="18" fill="none" stroke="#ff7a2f66" stroke-dasharray="3 2"/>
+            </g>
+          </svg>
+        </div>
+        <p class="claim">People finish things when they are useful today, and Educa8 sits right beside a loan officer's live pipeline, which almost no training tool can say.</p>
+        <ul>
+          <li><i>+</i>Answers the real reason training goes unfinished, that it feels unrelated to the job</li>
+          <li><i>+</i>Nothing is public, so nobody is embarrassed in front of the branch</li>
+          <li class="minus"><i>−</i>About forty topics have to be written first, and that work is Andrew's rather than Jawad's</li>
+        </ul>
+        <div class="cost">cheaper to build · no rankings to keep current, no streak to get right across time zones</div>
+      </div>
+    </div>
+
+    <div class="verdict">
+      <span class="k">we recommend</span>
+      <p><b>B.</b> If a loan officer asks why they should spend twenty minutes here instead of on a call, A answers "to move up the board" and B answers "because Delgado is Thursday and you have never done one of these." The second answer survives a bad week. Both versions ask you a question a few days after you read something, which is the strongest thing in either one and is not a game trick.</p>
+    </div>
+  </div>
+
+  <div class="foot">
+    <span class="lbl">earlier looks</span>
+    <a href="../v1-product-dense.html" target="_blank">01 dashboard</a>
+    <a href="../v2-swiss-grid.html" target="_blank">02 syllabus</a>
+    <a href="../v3-editorial-longform.html" target="_blank">03 publication</a>
+    <a href="../v4-mono-technical.html" target="_blank">04 instrument</a>
+    <a href="../v5-arcade-ledger.html" target="_blank">05 scoreboard</a>
+    <span style="color:var(--accent)" class="mono">05 won and became the three above</span>
+  </div>
+  <div class="foot" style="margin-top:14px;border:0;padding-top:0">
+    <span>Every screen has a switch marked <b style="color:var(--t2)">Show the plumbing</b>. Off, it reads in plain English. On, every number shows where it would come from and what would have to be built.</span>
+  </div>
+
+</div>
+</body>
+</html>

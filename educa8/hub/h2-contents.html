@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H2 · The contents page · Educa8 rebuilt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* H2 · THE CONTENTS PAGE. One object, one rhythm. Every screen in the project is a
+   row. Live work reads at full strength, the archive is the same rows dimmed, so
+   the hierarchy is carried by weight rather than by a second layout. */
+.toc{width:100%;border-collapse:collapse;margin-top:28px;table-layout:fixed}
+.toc col.a{width:52px} .toc col.c{width:206px} .toc col.d{width:88px}
+.toc th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+        text-transform:uppercase;color:var(--t3);font-weight:400;
+        padding:0 16px 8px;border-bottom:1px solid var(--line)}
+.toc th:first-child{padding-left:0} .toc th:last-child{text-align:right;padding-right:0}
+.toc td{padding:14px 16px;border-bottom:1px solid var(--line2);vertical-align:baseline}
+.toc td:first-child{padding-left:0} .toc td:last-child{text-align:right;padding-right:0}
+.toc tr:hover td{background:#ffffff06}
+.toc .n{font-family:var(--mono);font-size:12px;color:var(--t3)}
+.toc .nm{font-size:16.5px;font-weight:600;letter-spacing:-.015em}
+.toc .nm i{font-style:normal;display:block;font-weight:400;font-size:13.5px;color:var(--t2);
+           margin-top:3px;line-height:1.45;letter-spacing:0}
+.toc .who{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3)}
+
+.toc tr.pick td{background:#ff7a2f0a}
+.toc tr.pick td:first-child{box-shadow:inset 2px 0 0 var(--accent)}
+.toc tr.pick .n{color:var(--accent)}
+.toc tr.pick:hover td{background:#ff7a2f14}
+
+.toc tr.head td{padding:26px 0 8px;border-bottom:1px solid var(--line);background:none !important}
+.toc tr.head span{font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+                  text-transform:uppercase;color:var(--t3)}
+.toc tr.head span em{font-style:normal;color:var(--t3);text-transform:none;letter-spacing:0;
+                     font-size:11.5px;margin-left:10px}
+
+.toc tr.old .nm{font-size:14.5px;font-weight:500;color:var(--t2)}
+.toc tr.old .nm i{font-size:12.5px;color:var(--t3);margin-top:2px}
+.toc tr.old .go{color:var(--t3)}
+.toc tr.old:hover .go{color:var(--accent)}
+
+.call{margin-top:34px;border:1px solid var(--line);border-left:2px solid var(--accent);padding:18px 22px 20px}
+.call h2{font-size:17px;font-weight:600;letter-spacing:-.015em}
+.call p{margin-top:9px;font-size:14px;color:var(--t2);line-height:1.6;max-width:82ch}
+.call p b{color:var(--t1);font-weight:600}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kick">Origna8 · Educa8 · <b>one decision left</b></div>
+  <h1>Educa8, rebuilt</h1>
+  <p class="deck">The learning section of Origna8, rebuilt. Everything in the project, in one list. The top three are live and clickable. Below them are the five earlier looks, kept because the reasons they lost are worth knowing.</p>
+
+  <table class="toc">
+    <colgroup><col class="a"><col><col class="c"><col class="d"></colgroup>
+    <thead><tr><th>&nbsp;</th><th>Screen</th><th>Who it is for</th><th>&nbsp;</th></tr></thead>
+    <tbody>
+      <tr onclick="location=this.querySelector('a').href" style="cursor:pointer">
+        <td class="n">W</td>
+        <td><a class="nm" href="../andrew-authoring.html" target="_blank">Course studio<i>Write a lesson, add the question at the end, press publish.</i></a></td>
+        <td class="who">Andrew</td>
+        <td><a class="go" href="../andrew-authoring.html" target="_blank">open ↗</a></td>
+      </tr>
+      <tr onclick="location=this.querySelector('a').href" style="cursor:pointer">
+        <td class="n">A</td>
+        <td><a class="nm" href="../learner-a-competitive.html" target="_blank">Points and rankings<i>Finish a lesson, earn points, keep a daily streak, climb the weekly branch board.</i></a></td>
+        <td class="who">loan officers</td>
+        <td><a class="go" href="../learner-a-competitive.html" target="_blank">open ↗</a></td>
+      </tr>
+      <tr class="pick" onclick="location=this.querySelector('a').href" style="cursor:pointer">
+        <td class="n">B</td>
+        <td><a class="nm" href="../learner-b-mastery.html" target="_blank">Driven by your open loans<i>No points, no streak, no ranking. Your twelve open loans decide what to read next, and your closed files show what keeps going wrong.</i></a></td>
+        <td class="who">loan officers</td>
+        <td><a class="go" href="../learner-b-mastery.html" target="_blank">open ↗</a></td>
+      </tr>
+
+      <tr class="head"><td colspan="4"><span>Earlier looks<em>the same lessons built five ways, so the look could be picked by comparison. 05 won and became the three above.</em></span></td></tr>
+
+      <tr class="old"><td class="n">01</td><td><a class="nm" href="../v1-product-dense.html" target="_blank">The dashboard<i>Courses as a sortable table you can drive from the keyboard</i></a></td><td class="who">like software</td><td><a class="go" href="../v1-product-dense.html" target="_blank">open ↗</a></td></tr>
+      <tr class="old"><td class="n">02</td><td><a class="nm" href="../v2-swiss-grid.html" target="_blank">The syllabus<i>Every lesson and guide on one page, separated by thin lines</i></a></td><td class="who">like a printed index</td><td><a class="go" href="../v2-swiss-grid.html" target="_blank">open ↗</a></td></tr>
+      <tr class="old"><td class="n">03</td><td><a class="nm" href="../v3-editorial-longform.html" target="_blank">The publication<i>Something you actually read, with margins and numbered figures</i></a></td><td class="who">like a magazine</td><td><a class="go" href="../v3-editorial-longform.html" target="_blank">open ↗</a></td></tr>
+      <tr class="old"><td class="n">04</td><td><a class="nm" href="../v4-mono-technical.html" target="_blank">The instrument<i>Study measured like exercise, everything on one grid</i></a></td><td class="who">like a measuring device</td><td><a class="go" href="../v4-mono-technical.html" target="_blank">open ↗</a></td></tr>
+      <tr class="old"><td class="n">05</td><td><a class="nm" href="../v5-arcade-ledger.html" target="_blank">The scoreboard<i>A game with the cartoon taken out. This is the one we kept.</i></a></td><td class="who">we picked this</td><td><a class="go" href="../v5-arcade-ledger.html" target="_blank">open ↗</a></td></tr>
+    </tbody>
+  </table>
+
+  <div class="call">
+    <h2>The one thing we need from you: A or B</h2>
+    <p><b>A says the screen should be exciting.</b> Points, a daily streak, and a weekly ranking of the branch by name. It has the highest chance of getting people to open it, and it puts the bottom half of the branch on a public list every week, which is exactly the people who need the training most.</p>
+    <p><b>B says it should be useful.</b> Your open loans pick what you read, and your closed files show what keeps going wrong. Nothing is public. It is cheaper to build, but about forty topics have to be written before it means anything, and that is Andrew's job rather than Jawad's.</p>
+    <p><b>We recommend B.</b> If a loan officer asks why they should spend twenty minutes on this instead of on a call, A answers "to move up the board" and B answers "because Delgado is Thursday and you have never done one of these." The second answer survives a bad week.</p>
+  </div>
+
+  <div class="foot">
+    <span>Every screen has a switch marked <b style="color:var(--t2)">Show the plumbing</b>. Off, it reads in plain English. On, every number shows where it would come from and what would have to be built.</span>
+  </div>
+
+</div>
+</body>
+</html>

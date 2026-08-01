@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H5 · Progressive · Educa8 rebuilt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* H5 · PROGRESSIVE. Short by default, deep on demand, never leaves the page. Native
+   details/summary so it works with a keyboard and needs no script. The glance is the
+   three routes and one sentence; everything that argues is one click down. */
+.row{display:grid;grid-template-columns:34px 1fr 168px 74px;gap:22px;align-items:baseline;
+     padding:15px 0 16px;border-bottom:1px solid var(--line2)}
+.row:first-of-type{border-top:1px solid var(--line)}
+.row:hover{background:#ffffff06}
+.row.pick{background:#ff7a2f0a;box-shadow:inset 2px 0 0 var(--accent);
+          padding-left:14px;grid-template-columns:20px 1fr 168px 74px}
+.row.pick:hover{background:#ff7a2f14}
+.row .n{font-family:var(--mono);font-size:12px;color:var(--t3)}
+.row.pick .n{color:var(--accent)}
+.row .nm{font-size:16.5px;font-weight:600;letter-spacing:-.015em}
+.row .nm span{display:block;font-weight:400;font-size:13.5px;color:var(--t2);margin-top:3px;
+              line-height:1.45;letter-spacing:0}
+.row .who{font-family:var(--mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--t3)}
+.row .go{text-align:right}
+
+.verdict{margin-top:30px;padding:17px 20px 19px;border:1px solid var(--line);
+         border-left:2px solid var(--accent)}
+.verdict h2{font-size:17px;font-weight:600;letter-spacing:-.018em}
+.verdict p{margin-top:8px;font-size:14px;color:var(--t2);line-height:1.6;max-width:84ch}
+.verdict p b{color:var(--t1);font-weight:600}
+
+details{border-bottom:1px solid var(--line2)}
+details:first-of-type{border-top:1px solid var(--line);margin-top:32px}
+summary{list-style:none;cursor:pointer;padding:14px 0 15px;display:flex;align-items:baseline;gap:14px}
+summary::-webkit-details-marker{display:none}
+summary .t{font-size:15.5px;font-weight:600;letter-spacing:-.014em}
+summary .s{font-size:13px;color:var(--t3)}
+summary .m{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--accent);letter-spacing:.06em}
+summary:hover .t{color:var(--accent)}
+details[open] summary .m::after{content:" ↑"}
+details:not([open]) summary .m::after{content:" ↓"}
+.dbody{padding:2px 0 26px}
+
+table.d{width:100%;border-collapse:collapse;table-layout:fixed}
+table.d th{text-align:left;font-family:var(--mono);font-size:10px;letter-spacing:.13em;
+           text-transform:uppercase;color:var(--t3);font-weight:400;
+           padding:0 14px 8px;border-bottom:1px solid var(--line)}
+table.d th:first-child{padding-left:0;width:236px}
+table.d td{padding:10px 14px;border-bottom:1px solid var(--line2);font-size:13.5px;
+           color:var(--t2);line-height:1.45}
+table.d td:first-child{padding-left:0;color:var(--t3);font-size:12.5px}
+table.d td.hot{color:var(--t1)}
+table.d tr:last-child td{border-bottom:0}
+table.d td.n{text-align:right;font-family:var(--mono);font-size:12.5px}
+table.d th.n{text-align:right}
+.dnote{margin-top:14px;font-size:12.5px;color:var(--t3);line-height:1.6;max-width:84ch}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kick">Origna8 · Educa8 · <b>one decision left</b></div>
+  <h1>Educa8, rebuilt</h1>
+  <p class="deck">The learning section of Origna8, rebuilt. One screen for <b>Andrew</b>, who writes the lessons, and one for the <b>loan officers</b> who read them. The reading screen exists twice, because there are two answers to why anyone would open it.</p>
+
+  <a class="row" href="../andrew-authoring.html" target="_blank">
+    <span class="n">W</span>
+    <span class="nm">Course studio<span>Write a lesson, add the question at the end, press publish.</span></span>
+    <span class="who">for Andrew</span><span class="go">open ↗</span>
+  </a>
+  <a class="row" href="../learner-a-competitive.html" target="_blank">
+    <span class="n">A</span>
+    <span class="nm">Points and rankings<span>Points, a daily streak, and a weekly ranking of the branch.</span></span>
+    <span class="who">version A</span><span class="go">open ↗</span>
+  </a>
+  <a class="row pick" href="../learner-b-mastery.html" target="_blank">
+    <span class="n">B</span>
+    <span class="nm">Driven by your open loans<span>Your twelve open loans decide what to read next, and your closed files show what keeps going wrong.</span></span>
+    <span class="who">version B</span><span class="go">open ↗</span>
+  </a>
+
+  <div class="verdict">
+    <h2>The one thing we need: A or B</h2>
+    <p><b>A says the screen should be exciting</b>, B says it should be useful. <b>We recommend B.</b> If a loan officer asks why they should spend twenty minutes here instead of on a call, A answers "to move up the board" and B answers "because Delgado is Thursday and you have never done one of these." The second answer survives a bad week. Everything below opens in place if you want the detail.</p>
+  </div>
+
+  <details>
+    <summary><span class="t">How A and B actually differ</span><span class="s">eleven rows, orange marks the difference</span><span class="m">open</span></summary>
+    <div class="dbody">
+      <table class="d">
+        <thead><tr><th>&nbsp;</th><th>A · Points and rankings</th><th>B · Driven by your open loans</th></tr></thead>
+        <tbody>
+          <tr><td>The first thing you see</td><td>Where you sit on the branch board</td><td class="hot">The loan you have on Thursday</td></tr>
+          <tr><td>Points for finishing a lesson</td><td class="hot">Yes</td><td>No</td></tr>
+          <tr><td>A weekly ranking of the branch, by name</td><td class="hot">Yes</td><td>No</td></tr>
+          <tr><td>A daily streak you can break</td><td class="hot">Yes</td><td>No</td></tr>
+          <tr><td>What decides what you read next</td><td>A fixed course order</td><td class="hot">Your twelve open loans</td></tr>
+          <tr><td>Where "you are weak at this" comes from</td><td>Your quiz answers</td><td class="hot">Your own closed files</td></tr>
+          <tr><td>Being asked a question a few days later</td><td>Yes</td><td>Yes</td></tr>
+          <tr><td>What "finished" means</td><td>You read it and got the points</td><td class="hot">You read it, still knew it a week later, and did it on a real loan</td></tr>
+          <tr><td>Who else can see how you are doing</td><td class="hot">Everyone on the branch</td><td>Your manager only</td></tr>
+          <tr><td>What Andrew has to write</td><td>Lessons and questions</td><td class="hot">Lessons, questions, and a list of about forty topics</td></tr>
+          <tr><td>Cost to build</td><td class="hot">The higher of the two</td><td>Lower</td></tr>
+        </tbody>
+      </table>
+      <p class="dnote">Both versions ask you a question a few days after you read something, because that is when people forget. It is the strongest thing in either version and it is not a game trick, it is just how memory works. We could do both eventually, but not in the first build: whichever arrives second gets read as decoration on the first.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="t">What each one costs to build</span><span class="s">for Jawad</span><span class="m">open</span></summary>
+    <div class="dbody">
+      <table class="d">
+        <thead><tr><th>Screen</th><th class="n">New tables</th><th class="n">Events</th><th class="n">Jobs</th></tr></thead>
+        <tbody>
+          <tr><td><a href="../v3-editorial-longform.html" target="_blank">03 · The publication</a></td><td class="n">3</td><td class="n">2</td><td class="n">1</td></tr>
+          <tr><td><a href="../learner-b-mastery.html" target="_blank">B · Driven by your open loans</a></td><td class="n">5</td><td class="n">1</td><td class="n">2</td></tr>
+          <tr><td><a href="../v2-swiss-grid.html" target="_blank">02 · The syllabus</a></td><td class="n">6</td><td class="n">3</td><td class="n">2</td></tr>
+          <tr><td><a href="../v1-product-dense.html" target="_blank">01 · The dashboard</a></td><td class="n">7</td><td class="n">3</td><td class="n">3</td></tr>
+          <tr><td><a href="../learner-a-competitive.html" target="_blank">A · Points and rankings</a></td><td class="n">7</td><td class="n">3</td><td class="n">3</td></tr>
+          <tr><td><a href="../v4-mono-technical.html" target="_blank">04 · The instrument</a></td><td class="n">8</td><td class="n">4</td><td class="n">4</td></tr>
+        </tbody>
+      </table>
+      <p class="dnote">Two things are needed by every version and so are not counted as a difference: a record of who has read what, and a record of who answered which question. Anything Educa8 does needs both. Turning the switch on inside any screen lists every number on it and where it would come from.</p>
+    </div>
+  </details>
+
+  <details>
+    <summary><span class="t">The five earlier looks</span><span class="s">05 won and became the three above</span><span class="m">open</span></summary>
+    <div class="dbody">
+      <table class="d">
+        <tbody>
+          <tr><td><a href="../v1-product-dense.html" target="_blank">01 · The dashboard</a></td><td colspan="2">Courses as a sortable table you can drive from the keyboard. Built like a piece of software.</td></tr>
+          <tr><td><a href="../v2-swiss-grid.html" target="_blank">02 · The syllabus</a></td><td colspan="2">Every lesson and guide on one page, separated by thin lines. Built like a printed index.</td></tr>
+          <tr><td><a href="../v3-editorial-longform.html" target="_blank">03 · The publication</a></td><td colspan="2">Something you actually read, with margins and numbered figures. Built like a magazine.</td></tr>
+          <tr><td><a href="../v4-mono-technical.html" target="_blank">04 · The instrument</a></td><td colspan="2">Study measured like exercise, everything on one grid. Built like a measuring device.</td></tr>
+          <tr><td><a href="../v5-arcade-ledger.html" target="_blank">05 · The scoreboard</a></td><td colspan="2" class="hot">A game with the cartoon taken out. This one won and became the three screens above.</td></tr>
+        </tbody>
+      </table>
+      <p class="dnote">The same lessons built five ways, so the look could be picked by comparison rather than by argument. All five carry the plumbing switch, which is where the build costs came from.</p>
+    </div>
+  </details>
+
+  <div class="foot">
+    <span>Every screen has a switch marked <b style="color:var(--t2)">Show the plumbing</b>. Off, it reads in plain English. On, every number shows where it would come from and what would have to be built.</span>
+  </div>
+
+</div>
+</body>
+</html>

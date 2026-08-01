@@ -20,6 +20,7 @@
         "value": "*",
         "files": [
           "educa8/*.html",
+          "educa8/**/*.html",
           "index.html"
         ],
         "createdAt": "2026-07-31T22:02:35.009Z",

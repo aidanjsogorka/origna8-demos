@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>H4 · The briefing · Educa8 rebuilt</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="_base.css">
+<style>
+/* H4 · THE BRIEFING. A one-page memo. No tables, no thumbnails, no panels. Three
+   uneven columns divided by hairlines, the middle one dominant because it holds the
+   only thing being asked. Everything is type. */
+.cols{display:grid;grid-template-columns:1fr 1.32fr .88fr;gap:0;margin-top:32px;
+      border-top:1px solid var(--line)}
+.col{padding:20px 28px 26px;border-left:1px solid var(--line2)}
+.col:first-child{border-left:0;padding-left:0}
+.col:last-child{padding-right:0}
+.col>.lbl{display:block;margin-bottom:16px}
+.col.ask{background:#ff7a2f06}
+
+.item{padding:11px 0 12px;border-bottom:1px solid var(--line2)}
+.item:last-of-type{border-bottom:0}
+.item a{font-size:16px;font-weight:600;letter-spacing:-.015em;display:flex;align-items:baseline;gap:8px}
+.item a:hover{color:var(--accent)}
+.item a .arrow{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--t3)}
+.item a:hover .arrow{color:var(--accent)}
+.item p{font-size:13px;color:var(--t2);line-height:1.5;margin-top:4px}
+.item.pick a{color:var(--accent)}
+
+.ask h2{font-size:19px;font-weight:600;letter-spacing:-.02em;line-height:1.25}
+.ask .opt{padding:14px 0 15px;border-bottom:1px solid var(--line2)}
+.ask .opt:last-of-type{border-bottom:0}
+.ask .opt h3{font-size:15px;font-weight:600;display:flex;align-items:center;gap:9px;margin-bottom:6px}
+.ask .opt h3 a{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--accent)}
+.ask .opt p{font-size:13.5px;color:var(--t2);line-height:1.55}
+.ask .opt p b{color:var(--t1);font-weight:600}
+.ask .opt p.against{color:var(--t3);margin-top:6px}
+
+.pull{margin-top:20px;padding:16px 0 0;border-top:1px solid var(--accent)}
+.pull .k{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+         color:var(--accent);display:block;margin-bottom:8px}
+.pull p{font-size:15px;color:var(--t1);line-height:1.55;font-weight:500;letter-spacing:-.008em}
+.pull p span{display:block;margin-top:8px;font-weight:400;font-size:13.5px;color:var(--t2);letter-spacing:0}
+
+.old{padding:9px 0 10px;border-bottom:1px solid var(--line2);display:flex;align-items:baseline;gap:10px}
+.old:last-of-type{border-bottom:0}
+.old .n{font-family:var(--mono);font-size:11px;color:var(--t3);width:18px;flex:0 0 18px}
+.old a{font-size:13.5px;color:var(--t2)}
+.old a:hover{color:var(--t1)}
+.old .w{margin-left:auto;font-family:var(--mono);font-size:10px;color:var(--accent)}
+.col.arch p.note{margin-top:14px;font-size:12px;color:var(--t3);line-height:1.55}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="kick">Origna8 · Educa8 · <b>one decision left</b></div>
+  <h1>Educa8, rebuilt</h1>
+  <p class="deck">The learning section of Origna8, rebuilt. One screen for <b>Andrew</b>, who writes the lessons, and one for the <b>loan officers</b> who read them. The reading screen exists twice, because there are two answers to why anyone would open it.</p>
+
+  <div class="cols" data-stack>
+
+    <div class="col">
+      <span class="lbl">What exists, all clickable</span>
+      <div class="item">
+        <a href="../andrew-authoring.html" target="_blank">Course studio<span class="arrow">open ↗</span></a>
+        <p>Andrew's screen. Write a lesson, add the question at the end, press publish.</p>
+      </div>
+      <div class="item">
+        <a href="../learner-a-competitive.html" target="_blank">A · Points and rankings<span class="arrow">open ↗</span></a>
+        <p>Points, a daily streak, and a weekly ranking of the branch.</p>
+      </div>
+      <div class="item pick">
+        <a href="../learner-b-mastery.html" target="_blank">B · Driven by your open loans<span class="arrow">open ↗</span></a>
+        <p>Your twelve open loans decide what to read next, and your closed files show what keeps going wrong.</p>
+      </div>
+      <p style="margin-top:18px;font-size:12.5px;color:var(--t3);line-height:1.6">
+        All three carry a switch marked <b style="color:var(--t2)">Show the plumbing</b>. Off, the screen reads in plain English. On, every number shows where it would come from and what would have to be built.
+      </p>
+    </div>
+
+    <div class="col ask">
+      <span class="lbl">What we need from you</span>
+      <h2>A or B. Both use the same lessons, the same guides and the same app shell, so the difference is only what the screen is for.</h2>
+
+      <div class="opt" style="margin-top:16px">
+        <h3><span class="tag">A</span>The screen should be exciting<a href="../learner-a-competitive.html" target="_blank">open ↗</a></h3>
+        <p>Finishing a lesson pays points and moves your row up the branch board the app already has. <b>The highest chance of getting anyone to open it.</b></p>
+        <p class="against">Against: it publishes a ranked list of seventeen people by name every week, and the bottom half is exactly who needs the training. It is also the higher of the two to build.</p>
+      </div>
+
+      <div class="opt">
+        <h3><span class="tag pick">B</span>The screen should be useful<a href="../learner-b-mastery.html" target="_blank">open ↗</a></h3>
+        <p>Your live pipeline picks what you read, and your closed files show what keeps going wrong. <b>Nothing is public and nothing is scored.</b></p>
+        <p class="against">Against: about forty topics have to be written before it means anything, and that work is Andrew's rather than Jawad's. It is also the quieter of the two, so it gives no launch moment.</p>
+      </div>
+
+      <div class="pull">
+        <span class="k">we recommend</span>
+        <p>B, and keep A's points as a private counter if something visible is wanted.
+          <span>If a loan officer asks why they should spend twenty minutes here instead of on a call, A answers "to move up the board" and B answers "because Delgado is Thursday and you have never done one of these." The second answer survives a bad week.</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="col arch">
+      <span class="lbl">Earlier looks</span>
+      <div class="old"><span class="n">01</span><a href="../v1-product-dense.html" target="_blank">The dashboard</a></div>
+      <div class="old"><span class="n">02</span><a href="../v2-swiss-grid.html" target="_blank">The syllabus</a></div>
+      <div class="old"><span class="n">03</span><a href="../v3-editorial-longform.html" target="_blank">The publication</a></div>
+      <div class="old"><span class="n">04</span><a href="../v4-mono-technical.html" target="_blank">The instrument</a></div>
+      <div class="old"><span class="n">05</span><a href="../v5-arcade-ledger.html" target="_blank">The scoreboard</a><span class="w">won</span></div>
+      <p class="note">The same lessons built five ways, so the look could be picked by comparison rather than by argument. 05 won and became the three screens on the left. The other four are kept because the reasons they lost are worth knowing.</p>
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>

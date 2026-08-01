@@ -176,7 +176,7 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .pnl-h .r{margin-left:auto;font-size:11px;color:var(--text-3);white-space:nowrap;text-align:right}
 
 /* ── row 2: the lit reading + the pipeline it came from ── */
-.r2{display:grid;grid-template-columns:minmax(0,1fr) 476px;gap:16px;margin-top:18px}
+.r2{margin-top:18px}
 .lit{position:relative;background:var(--surface-1);border:1px solid var(--rule);border-left:1px solid var(--heat);border-radius:var(--panel-r);
      padding:18px 20px 16px;display:flex;flex-direction:column}
 .lit-top{display:flex;align-items:center;gap:9px;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--heat);font-weight:600}
@@ -214,31 +214,6 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .cta .m{font-size:12px;opacity:.72}
 .alt{font-size:12.5px;color:var(--text-2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--rule);white-space:nowrap}
 .alt:hover{color:var(--text-1)}
-
-/* ── the pipeline table. This is what the leaderboard is replaced by. ── */
-.pipe{width:100%;border-collapse:collapse;table-layout:fixed}
-.pipe th{font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--text-3);font-weight:600;text-align:left;
-       padding:0 14px 7px;border-bottom:1px solid var(--rule-2);white-space:nowrap}
-.pipe th.n{text-align:right}
-.pipe td{font-size:12.5px;padding:0 12px;color:var(--text-2);border-bottom:1px solid var(--rule-2);white-space:nowrap;
-       overflow:hidden;text-overflow:ellipsis}
-.prow{height:calc(var(--dense) + 29px);cursor:default;transition:background var(--dur-fast) var(--ease)}
-.prow:hover td{background:#ffffff05}
-.prow td.f{font-family:'Geist Mono',monospace;color:var(--text-3);font-size:11.5px}
-.prow td.nm{color:var(--text-1);font-weight:500;font-size:13px;white-space:normal;line-height:1.3}
-.prow td.nm span{display:block;font-size:11px;color:var(--text-3);font-weight:400;margin-top:1px}
-.prow td.nd{white-space:normal;line-height:1.3;font-size:12px}
-.prow td.nd span{display:block;font-size:10.5px;color:var(--text-3);margin-top:1px;font-family:'Geist Mono',monospace}
-.prow td.n{text-align:right}
-.prow.soon td{background:var(--heat-soft)}
-.prow.soon td:first-child{box-shadow:inset 2px 0 0 var(--heat);color:var(--heat)}
-.gap{font-size:9.5px;letter-spacing:.09em;text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;padding:2px 6px;
-     color:var(--text-3);white-space:nowrap;display:inline-block}
-.gap.no{color:var(--heat);border-color:var(--heat-line)}
-.gap.stale{color:var(--warn);border-color:#f0b64955}
-.gap.ok{color:var(--pos);border-color:#34d39955}
-.pipe-foot{padding:11px 16px 13px;border-top:1px solid var(--rule);font-size:12.5px;color:var(--text-2);line-height:1.55}
-.pipe-foot b{color:var(--heat);font-weight:600}
 
 /* ── row 3: evidence + recall ── */
 .r3{display:grid;grid-template-columns:minmax(0,1fr) 452px;gap:16px;margin-top:16px;align-items:start}
@@ -704,7 +679,7 @@ body{padding-bottom:34px}
       <div class="hd-l">
         <div class="hd-kick">Educa8 <span style="color:var(--rule)">/</span> Ordered by your loans <span style="color:var(--rule)">/</span> Wed Jul 30 <s>· 12 loans open</s></div>
         <h1>What your files need</h1>
-        <div class="hd-sub">Nothing here is locked and nothing is scored. What goes first is decided by the twelve loans you have open, and by what your finished files have already shown about you.</div>
+        <div class="hd-sub">Nothing here is locked and nothing is scored. Seven of your twelve open loans need something you have never read, and three of those have an appointment this week. That is the whole rule for what goes first. What your finished files already show about you sets the rest.</div>
         <div class="pl-rel" style="--d:0ms">order: rank(loan_concept ⨝ concept_recall) <b>recomputed on loan write + nightly</b></div>
       </div>
       <div class="hd-r">
@@ -733,7 +708,9 @@ body{padding-bottom:34px}
       </div>
     </div>
 
-    <!-- row 2 : the lit reading + the pipeline that chose it -->
+    <!-- row 2 : the lit reading. The loan table that used to sit beside it is gone:
+         a borrower roster with workflow stages is the Loan Center's job, and the
+         course table below already says which files each course covers and why. -->
     <div class="r2">
 
       <div class="lit">
@@ -773,19 +750,6 @@ body{padding-bottom:34px}
         </div>
       </div>
 
-      <div class="pnl" style="display:flex;flex-direction:column">
-        <div class="pnl-h">
-          <h2><span class="pl-lb"><i class="pl-lp">Your loans</i><i class="pl-lt mono">loan ⨝ loan_concept</i></span></h2>
-          <span class="r mono">12 open · 7 need something unread</span>
-        </div>
-        <table class="pipe">
-          <colgroup><col style="width:52px"><col><col style="width:150px"><col style="width:112px"></colgroup>
-          <thead><tr><th>File</th><th>Borrower and stage</th><th>What it needs</th><th class="n">You</th></tr></thead>
-          <tbody id="pipe"></tbody>
-        </table>
-        <div class="pl-rel" style="--d:80ms;padding:6px 14px 0">loan.* <s>exists today</s> · what_it_needs <b>NEW: rules on product_type, purpose, income_type, lock_state</b></div>
-        <div class="pipe-foot" style="margin-top:auto">Seven of your open loans need something you have never read, and <b>three of those have an appointment this week</b>. That is the whole rule for what goes to the top of this page.</div>
-      </div>
     </div>
 
     <!-- row 3 : what you can run. Promoted: it is the thesis. -->
@@ -1145,25 +1109,6 @@ body{padding-bottom:34px}
 
 <script>
 /* ══════════ pipeline: the twelve open loans, seven of which need something ══════════ */
-const PIPE = [
-  {f:'4471', nm:'Delgado',   p:'FHA cash-out',          st:'Appraisal',    need:'FHA case number', gap:'no',    soon:1},
-  {f:'4489', nm:'Halvorsen', p:'VA purchase',           st:'Application',  need:'Entitlement',     gap:'no',    soon:1},
-  {f:'4468', nm:'Bianchi',   p:'Conventional purchase', st:'Underwriting', need:'Self-employed',   gap:'stale', soon:1},
-  {f:'4502', nm:'Okonkwo',   p:'FHA purchase',          st:'Processing',   need:'FHA case number', gap:'no'},
-  {f:'4455', nm:'Trần',      p:'Conventional refi',     st:'Locked 21 d',  need:'Float-down',      gap:'no'},
-  {f:'4510', nm:'Achebe',    p:'Conventional purchase', st:'Application',  need:'Escrow',          gap:'stale'},
-  {f:'4433', nm:'Petrosyan', p:'Conventional purchase', st:'Clear to close', need:'Redisclosure',  gap:'ok'}
-];
-const GAPTXT = {no:'never read', stale:'gone stale', ok:'remembered'};
-document.getElementById('pipe').innerHTML = PIPE.map(l=>
-  '<tr class="prow'+(l.soon?' soon':'')+'">'+
-  '<td class="f">'+l.f+'</td>'+
-  '<td class="nm">'+l.nm+'<span>'+l.st+'</span></td>'+
-  '<td class="nd">'+l.need+'<span>'+l.p.toLowerCase()+'</span></td>'+
-  '<td class="n"><span class="gap '+l.gap+'">'+GAPTXT[l.gap]+'</span></td></tr>'
-).join('') + '<tr class="prow" style="height:34px"><td colspan="4" style="color:var(--text-3);font-size:11.5px">'+
-  '<span class="mono">+ 5 more</span> conventional purchases, all covered by what you have already read</td></tr>';
-
 /* ══════════ recall: spaced retrieval, stated honestly ══════════ */
 /* Fourteen concepts read, nine still holding, five lapsed, three of those in the
    last seven days. Plus five never read, which is what "running blind" counts. */
@@ -1409,12 +1354,6 @@ const PLUMB = [
     ['covers','loan_id[] sharing that concept','NEW rules, existing loans','on loan write'],
     ['needed_by','min(calendar_event.starts_at)','EXISTS','live'],
     ['evidence','count(loan_condition) over branch, 90 d','EXISTS','nightly']
-  ]],
-  ['Your pipeline, mapped', 'the right panel of row two', [
-    ['loan.number, borrower, stage','loan, borrower','EXISTS','live'],
-    ['product','loan.product_type, purpose, occupancy','EXISTS','live'],
-    ['what it needs','rules(product_type, purpose, income_type, lock_state) → concept','NEW rules table','on loan write'],
-    ['you','concept_recall.strength bucketed to three states','NEW','on read']
   ]],
   ['Where you are thin', 'the evidence panel', [
     ['conditions','loan_condition group by condition_type, last 9 files','EXISTS','nightly'],

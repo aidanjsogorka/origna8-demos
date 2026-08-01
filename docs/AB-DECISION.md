@@ -55,8 +55,8 @@ can say, and neither the current design nor variant A uses that at all.
   pedagogy rather than a game trick. It is reframed as a date, not a score: answering re-dates
   the concept, and the "holds until" moves.
 - **Completion is capability, not points.** Nine scenarios an LO actually runs, each marked
-  read / verified later / run on a live file. Three rows have a live file and nothing behind
-  them. Those three are the reason the page exists.
+  read / verified later / run on a live file. Five rows have a live file and nothing behind
+  them. Those five are the reason the page exists.
 
 **Against**
 

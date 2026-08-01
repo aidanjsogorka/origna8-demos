@@ -107,9 +107,10 @@ even then, prefer drawing it.
 - **The pipeline panel has no empty state.** B rests entirely on "your open loans decide what
   to read", so an officer with zero loans gets a blank argument. That is the new hire who most
   needs the training. Real hole, needs a decision.
-- **"Running blind: 3" is B's own thesis and it is the third stat in the header**, same size as
+- **"Running blind: 5" is B's own thesis and it is the third stat in the header**, same size as
   the other two, and restated in a footnote. The most important number on the screen is never
-  the most prominent thing on it.
+  the most prominent thing on it. (It read 3 until 2026-07-31, against five tinted rows and the
+  page's own formula, `count(capability) where run_on_live_file and not read`. Now 5 everywhere.)
 - **`--text-3` (`#6c6c74`) is 3.8:1 on the app background**, under the 4.5:1 AA threshold. It is
   inherited from the live app, so it was reported rather than silently changed. `#7a7a83` clears
   it. Aidan's call.

@@ -552,6 +552,30 @@ body{padding-bottom:34px}
 .pl-twopen.on{display:block}
 .pl-twopen:hover{color:var(--text-1);border-color:var(--ring)}
 
+/* ── View 2 holds two lessons, one shown at a time ──
+   Both live in the DOM as siblings inside .c2, which is a three column grid. Exactly
+   three children are ever visible, so auto-placement puts spine / reading / rail in
+   the right columns without any grid-area bookkeeping. */
+.les{display:none}
+body.les-fha .les-fha{display:block}
+body:not(.les-fha) .les-mf{display:block}
+
+/* the order-of-operations figure. Four steps, and the one that costs money if you
+   reverse it. Drawn, because a screenshot of HUD would be a lie. */
+.seq{display:flex;align-items:stretch;gap:0;margin-top:14px}
+.seq .st{flex:1;min-width:0;border:1px solid var(--rule-2);border-right:0;padding:11px 12px 12px;background:var(--surface-2)}
+.seq .st:last-child{border-right:1px solid var(--rule-2)}
+.seq .st .i{font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:.12em;color:var(--text-3)}
+.seq .st .t{font-size:12.5px;color:var(--text-1);margin-top:5px;line-height:1.35}
+.seq .st .s{font-size:11px;color:var(--text-3);margin-top:4px;line-height:1.4}
+.seq .st.now{background:var(--heat-soft);border-color:var(--heat-line)}
+.seq .st.now .i{color:var(--heat)}
+.seq-warn{margin-top:11px;display:grid;grid-template-columns:auto 1fr;gap:11px;align-items:baseline;
+          padding:11px 13px;border:1px solid #f0b64955;background:#f0b6490d;font-size:12.5px;
+          color:var(--text-2);line-height:1.5}
+.seq-warn b{color:var(--warn);font-weight:500;font-family:'Geist Mono',monospace;font-size:10.5px;
+            letter-spacing:.1em;text-transform:uppercase;white-space:nowrap}
+
 /* ═════════ reduced motion ═════════
    Not a blanket 0.01s kill, which destroys the feedback the page depends on.
    The infinite loop stops, travel is removed, and every state change still
@@ -691,7 +715,7 @@ body{padding-bottom:34px}
         <div class="stats">
           <div class="stat">
             <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Running blind</i><i class="pl-lt mono">unbacked_scenarios<b class="pl-ty new">derived</b></i></span></div>
-            <div class="stat-v mono heat">5</div>
+            <div class="stat-v mono heat" id="blindN">5</div>
             <div class="dl mono">of nine, nothing read</div>
           </div>
           <div class="stat">
@@ -771,7 +795,7 @@ body{padding-bottom:34px}
       </table>
       <div class="cap-foot">
         <span class="key">Bright is done. Dim is nothing yet. Orange is a live file with nothing read behind it.</span>
-        <div class="thesis"><b>Five of these have a live loan on the desk and nothing read behind them.</b> That is the whole reason this page exists. Nothing counts as handled until you have read it, still known it a week later, and run it on a live file.</div>
+        <div class="thesis"><b><span id="blindWord">Five</span> of these have a live loan on the desk and nothing read behind them.</b> That is the whole reason this page exists. Nothing counts as handled until you have read it, still known it a week later, and run it on a live file.</div>
       </div>
       <div class="pl-rel" style="--d:200ms;padding:0 16px 14px">read ⨝ verified <b>NEW</b> · run ← <s>loan (exists)</s> · <b>NEW: capability table, 9 rows, authored once</b></div>
     </div>
@@ -916,14 +940,14 @@ body{padding-bottom:34px}
   </div><!-- /page -->
 
   <!-- ═══════════ VIEW 2 LABEL ═══════════ -->
-  <div class="vbar" id="read">View 2 · Course detail <span class="mono">Mortgage Fundamentals · lesson 1 · a lapsed concept, re-asked against a live file</span></div>
+  <div class="vbar" id="read">View 2 · Course detail <span class="mono" id="vbarSub">Mortgage Fundamentals · lesson 1 · a lapsed concept, re-asked against a live file</span></div>
 
   <!-- ═══════════ VIEW 2 ═══════════ -->
   <div class="page" style="padding-top:6px">
     <div class="c2">
 
       <!-- chapter spine -->
-      <div class="spine">
+      <div class="spine les les-mf">
         <div class="spine-h">Mortgage Fundamentals</div>
         <div class="ch read"><div class="stem"></div><div class="n mono">01</div>
           <div><div class="ch-t">What Is a Mortgage?</div><div class="ch-m mono">15 min · read Jul 27 · <span class="hit">1 concept lapsed</span></div></div></div>
@@ -951,7 +975,7 @@ body{padding-bottom:34px}
       </div>
 
       <!-- reading column -->
-      <div class="rd">
+      <div class="rd les les-mf">
         <div class="rd-crumb">Educa8 <span style="color:var(--rule)">/</span> <b>Mortgage Fundamentals</b> <span style="color:var(--rule)">/</span> <span class="mono">Lesson 1</span></div>
         <h2>What Is a Mortgage?</h2>
         <div class="rd-meta">
@@ -1002,8 +1026,92 @@ body{padding-bottom:34px}
         <div class="pl-rel" style="--d:40ms;margin-top:10px">on submit: insert retrieval_check_attempt <b>NEW</b> → update concept_recall.last_verified_at <b>NEW</b>. No xp_event, no rank recompute, nothing leaves your row.</div>
 
         <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
-          <button class="cta" id="startBtn2">Read lesson 3 next <span class="m mono">25 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
-          <span class="mono" style="font-size:11.5px;color:var(--text-3)">because Bianchi is in underwriting, not because it is next in the list</span>
+          <button class="cta" id="startBtn2">Read the FHA case number next <span class="m mono">15 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <span class="mono" style="font-size:11.5px;color:var(--text-3)">because Delgado is Thursday and none of that course has been read</span>
+        </div>
+      </div>
+
+      <!-- ═══ the lesson the top of the page actually sends you to ═══
+           FHA case number is one of the five behind "running blind", so finishing it
+           is the one action on this page that moves that number. -->
+      <div class="spine les les-fha">
+        <div class="spine-h">FHA &amp; VA Loan Programs</div>
+        <div class="ch"><div class="stem"></div><div class="n mono">01</div>
+          <div><div class="ch-t">Which borrower an FHA loan is for</div><div class="ch-m mono">20 min · nothing open needs it yet</div></div></div>
+        <div class="ch live"><div class="stem"></div><div class="n mono">02</div>
+          <div><div class="ch-t">The case number, and who it follows</div><div class="ch-m mono">15 min · <span class="hit">4471 Delgado, Thu 2:00pm</span></div></div></div>
+        <div class="ch"><div class="stem"></div><div class="n mono">03</div>
+          <div><div class="ch-t">Mortgage insurance, up front and annual</div><div class="ch-m mono">25 min · covers 4502 Okonkwo</div></div></div>
+        <div class="ch"><div class="stem"></div><div class="n mono">04</div>
+          <div><div class="ch-t">VA entitlement, and restoring it</div><div class="ch-m mono">20 min · <span class="hit">covers 4489 Halvorsen</span></div></div></div>
+        <div class="ch last"><div class="n mono">05</div>
+          <div><div class="ch-t">Appraisal rules the other programs do not have</div><div class="ch-m mono">25 min · covers 4471 Delgado</div></div></div>
+
+        <div class="spine-h" style="margin:26px 0 12px">This course, against your book</div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Lessons read</span><b class="mono" id="fhaRead">0 of 5</b></div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Concepts verified</span><b class="mono" id="fhaVer">0 of 7</b></div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Open files it covers</span><b class="mono heat">3 of 12</b></div>
+        <div class="led" style="padding-left:0;padding-right:0;border-bottom:0"><span>Reading left</span><b class="mono" id="fhaLeft">105 min</b></div>
+        <div class="bar-mini" style="margin-top:12px"><i class="h" id="fhaBar" style="width:0%"></i></div>
+        <div class="foot-note" style="margin-top:8px">Nothing here is locked. Lesson 2 is open because Delgado has an appointment on Thursday and the appraisal has not been ordered yet.</div>
+
+        <div class="spine-h" style="margin:26px 0 12px">Why this came first</div>
+        <div class="foot-note">Three open files touch this course and none of it has been read. Two of them are FHA and one is VA. It is the largest gap between what you are running and what you have behind you.</div>
+      </div>
+
+      <div class="rd les les-fha">
+        <div class="rd-crumb">Educa8 <span style="color:var(--rule)">/</span> <b>FHA &amp; VA Loan Programs</b> <span style="color:var(--rule)">/</span> <span class="mono">Lesson 2</span></div>
+        <h2>The case number, and who it follows</h2>
+        <div class="rd-meta">
+          <div class="mono">15 min</div>
+          <div class="mono" id="fhaState" style="color:var(--heat)">Never read</div>
+          <div class="mono">Needed by Thu 2:00pm</div>
+          <div class="mono">Appears in 3 open files</div>
+        </div>
+        <div class="pl-rel" style="--d:0ms;margin-top:8px">queued_by ← rules(product_type=fha) ⨝ loan_concept <b>NEW</b> · needed_by ← calendar_event.starts_at · <s>loan (exists)</s></div>
+
+        <p class="lede">An FHA case number is the file's identity with HUD. You pull it once, before the appraisal is ordered, and it belongs to the borrower rather than to you.</p>
+
+        <div class="h3">Key concepts</div>
+        <table class="kt">
+          <tr><td>Case number</td><td>HUD's identifier for the loan. Pulled once, at the start.</td><td class="mono" id="fhaK1"><em>never read</em></td></tr>
+          <tr><td>Order</td><td>Case number first, appraisal second. The appraisal is ordered against the number.</td><td class="mono" id="fhaK2"><em>never read</em></td></tr>
+          <tr><td>Transfer</td><td>The number follows the borrower to another lender, and the appraisal goes with it.</td><td class="mono" id="fhaK3"><em>never read</em></td></tr>
+          <tr><td>Cancellation</td><td>A number pulled and not used has to be cancelled, or it blocks the borrower's next file.</td><td class="mono" id="fhaK4"><em>never read</em></td></tr>
+        </table>
+
+        <div class="dg">
+          <div class="dg-h">The order it has to happen in<span class="mono">4471 Delgado is at step 1</span></div>
+          <div class="seq">
+            <div class="st now"><div class="i">01 · now</div><div class="t">Pull the case number</div><div class="s">HUD assigns it. Minutes, not days.</div></div>
+            <div class="st"><div class="i">02</div><div class="t">Order the appraisal</div><div class="s">Against the number, never before it.</div></div>
+            <div class="st"><div class="i">03</div><div class="t">Underwrite</div><div class="s">The number is on every document.</div></div>
+            <div class="st"><div class="i">04</div><div class="t">Close</div><div class="s">It stays with the borrower afterwards.</div></div>
+          </div>
+          <div class="seq-warn"><b>reversed</b><span>Order the appraisal first and it is not attached to a case number, so it does not count. You pay for a second one. <b style="font-family:inherit;font-size:inherit;letter-spacing:0;text-transform:none;color:var(--text-1);font-weight:500">Two of the last four FHA appraisals on Pacific Ridge were paid for twice</b>, both for this reason.</span></div>
+        </div>
+
+        <!-- retrieval check, asked against the file that queued the lesson -->
+        <div class="chk" id="fhaChk">
+          <div class="chk-h"><i class="livedot"></i><span class="who">Mentor asks</span><span class="t mono">never read · asked using your file 4471</span></div>
+          <div class="chk-q">You have <b>4471 Delgado</b> open, an FHA cash-out with an appointment on Thursday. The appraisal has not been ordered yet. What has to happen first?</div>
+          <div class="opts" id="fhaOpts">
+            <button class="opt" data-k="a"><span class="k mono">A</span>Order the appraisal, then pull the case number when it comes back</button>
+            <button class="opt" data-k="b"><span class="k mono">B</span>Pull the FHA case number, then order the appraisal against it</button>
+            <button class="opt" data-k="c"><span class="k mono">C</span>Either order works, as long as both are done before underwriting</button>
+          </div>
+          <div class="chk-f" id="fhaChkF"></div>
+          <div class="chk-bar">
+            <span class="hold-v" id="fhaHold">never read</span>
+            <span class="mono">answering starts the clock on it, there is no score</span>
+            <span style="margin-left:auto" class="mono" id="fhaNext">4 never read after this</span>
+          </div>
+        </div>
+        <div class="pl-rel" style="--d:40ms;margin-top:10px">on submit: insert chapter_completion <b>NEW</b> + retrieval_check_attempt <b>NEW</b> → concept_recall row created <b>NEW</b> → unbacked_scenarios recomputes. Still no xp_event, still nothing leaves your row.</div>
+
+        <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
+          <button class="cta" id="fhaBtn">Back to what a mortgage is <span class="m mono">15 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <span class="mono" style="font-size:11.5px;color:var(--text-3)">one concept from it lapsed yesterday and the mentor is asking about it</span>
         </div>
       </div>
 
@@ -1015,12 +1123,13 @@ body{padding-bottom:34px}
             <div class="k">Things you would still remember</div>
           </div>
           <div class="led"><span>Gone stale this week</span><b class="mono" id="lapsedN">3</b></div>
-          <div class="led"><span>Never read</span><b class="mono heat">5</b></div>
+          <div class="led"><span>Never read</span><b class="mono heat" id="neverN">5</b></div>
           <div class="led"><span>Longest hold</span><b class="mono">21 d, LE timing</b></div>
           <div class="led"><span>This session</span><b class="mono" id="sess">4 min · nothing scored</b></div>
         </div>
 
-        <div class="rail-b">
+        <!-- both of these are about the lesson you are reading, so both switch with it -->
+        <div class="rail-b les les-mf">
           <div class="rail-h"><i class="st-dot"></i>Open loans using this<span class="r mono">escrow</span></div>
           <div class="filerow"><span class="fn">4510</span><div><b>Achebe</b><span> conventional purchase</span></div><span class="fx">application</span></div>
           <div class="filerow"><span class="fn">4433</span><div><b>Petrosyan</b><span> conventional purchase</span></div><span class="fx">clear to close</span></div>
@@ -1028,11 +1137,28 @@ body{padding-bottom:34px}
             Petrosyan closes Friday and the escrow figure is on the CD the borrower will read. That is why this one came back today rather than next week.</div>
         </div>
 
-        <div class="rail-b">
+        <div class="rail-b les les-fha">
+          <div class="rail-h"><i class="st-dot"></i>Open loans using this<span class="r mono">fha case number</span></div>
+          <div class="filerow"><span class="fn">4471</span><div><b>Delgado</b><span> fha cash-out</span></div><span class="fx">appraisal</span></div>
+          <div class="filerow"><span class="fn">4502</span><div><b>Okonkwo</b><span> fha purchase</span></div><span class="fx">processing</span></div>
+          <div class="filerow"><span class="fn">4489</span><div><b>Halvorsen</b><span> va purchase</span></div><span class="fx">application</span></div>
+          <div class="filerow" style="border-top:1px solid var(--rule);color:var(--text-3);font-size:11.5px;line-height:1.5;display:block;padding:11px 14px">
+            Delgado has an appointment on Thursday and the appraisal has not been ordered yet, so this is the only one of the three where the order still matters today.</div>
+        </div>
+
+        <div class="rail-b les les-mf">
           <div class="rail-h">Next 15 minutes<span class="r mono">picked by your loans</span></div>
           <div class="next-mini">
             <div class="n mono">15<span>min</span></div>
             <div><div class="t">FHA case number and appraisal order</div><div class="s mono">4471 Delgado · appointment Thu 2:00pm</div></div>
+          </div>
+        </div>
+
+        <div class="rail-b les les-fha">
+          <div class="rail-h">Next 25 minutes<span class="r mono">picked by your loans</span></div>
+          <div class="next-mini">
+            <div class="n mono">25<span>min</span></div>
+            <div><div class="t">The qualification process</div><div class="s mono">4468 Bianchi · in underwriting now</div></div>
           </div>
         </div>
         <div class="rail-b">
@@ -1210,14 +1336,17 @@ function cell(v,label,live){
   const c = live&&v ? ' heat' : v===2 ? ' on' : v===1 ? ' part' : '';
   return '<span class="sub'+c+'">'+label+'</span>';
 }
-document.getElementById('capRows').innerHTML = CAP.map(c=>
-  '<tr'+(c.blind?' class="blind"':'')+'>'+
-  '<td>'+c.s+'</td>'+
-  '<td>'+cell(c.read,c.readN)+'</td>'+
-  '<td>'+cell(c.ver,c.verN)+'</td>'+
-  '<td>'+cell(c.run,c.runN,c.blind)+'</td>'+
-  '<td>'+c.br+'</td></tr>'
-).join('');
+function renderCap(){
+  document.getElementById('capRows').innerHTML = CAP.map(c=>
+    '<tr'+(c.blind?' class="blind"':'')+'>'+
+    '<td>'+c.s+'</td>'+
+    '<td>'+cell(c.read,c.readN)+'</td>'+
+    '<td>'+cell(c.ver,c.verN)+'</td>'+
+    '<td>'+cell(c.run,c.runN,c.blind)+'</td>'+
+    '<td>'+c.br+'</td></tr>'
+  ).join('');
+}
+renderCap();
 
 /* ══════════ course ledger, ordered by what the book needs ══════════ */
 const COURSES = [
@@ -1339,6 +1468,97 @@ function reverify(firstTry){
   },520);
   /* 3. last, its row in the due list settles out */
   setTimeout(renderDue, 820);
+}
+
+/* ══════════ two lessons, one view ══════════ */
+/* Every button that names a lesson now lands on that lesson. The header CTA promises
+   FHA lesson 2 and goes there; each "next" lands on the one the other view shows. */
+const VBAR = {
+  mf : 'Mortgage Fundamentals · lesson 1 · a lapsed concept, re-asked against a live file',
+  fha: 'FHA &amp; VA Loan Programs · lesson 2 · never read, and Delgado has an appointment Thursday'
+};
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+function showLesson(which){
+  document.body.classList.toggle('les-fha', which === 'fha');
+  document.getElementById('vbarSub').innerHTML = VBAR[which];
+  document.getElementById('read').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'start'});
+}
+document.getElementById('startBtn') .addEventListener('click', ()=>showLesson('fha'));
+document.getElementById('startBtn2').addEventListener('click', ()=>showLesson('fha'));
+document.getElementById('fhaBtn')   .addEventListener('click', ()=>showLesson('mf'));
+
+/* ══════════ the check on the FHA lesson ══════════ */
+/* Same shape as the escrow one, and the same rule: getting it wrong costs nothing.
+   Getting it right is the only action on this page that moves "running blind", because
+   FHA case number is one of the five sitting behind that number. */
+const fhaOpts = document.getElementById('fhaOpts');
+const fhaChkF = document.getElementById('fhaChkF');
+let fhaTries = 0, fhaSettled = false;
+fhaOpts.addEventListener('click', e=>{
+  const b = e.target.closest('.opt'); if(!b || fhaSettled) return;
+  if(b.dataset.k === 'b'){
+    fhaSettled = true;
+    b.classList.add('right');
+    [...fhaOpts.children].forEach(o=>{ if(o!==b) o.classList.add('dim'); o.disabled = true; });
+    fhaChkF.className = 'chk-f show';
+    fhaChkF.innerHTML = '<b>Right.</b> The number comes first and the appraisal is ordered against it. It is HUD\'s identifier for the file, it follows the borrower rather than you, and a number pulled and then not used has to be cancelled or it blocks their next application.'+
+      (fhaTries ? ' Second try, so this one comes back in four days rather than in three weeks.' : ' First time, so it will not come back for three weeks.')+
+      ' Delgado is still at step one, so there is nothing to redo.';
+    finishFha(fhaTries === 0);
+  } else {
+    fhaTries++;
+    b.classList.add('wrong'); b.disabled = true;
+    fhaChkF.className = 'chk-f show';
+    fhaChkF.innerHTML = '<b>Not that one.</b> An appraisal ordered before the case number exists is not attached to the file, so it does not count and you pay for a second one. Try again, nothing is lost by getting it wrong.';
+  }
+});
+
+/* what finishing it actually changes. Five things, staggered, same as the escrow flow. */
+function finishFha(firstTry){
+  const hold = firstTry ? 'Aug 20' : 'Aug 03';
+
+  /* 1. the concept stops being one of the never-read, in the band and in the data */
+  if(!bandFilled) fillBand(false);
+  const c = CONCEPTS[14];                       /* FHA case number, who it follows */
+  c.k = 'ok'; c.s = firstTry ? 94 : 78; c.last = 'Jul 30'; c.hold = hold;
+  const node = document.querySelector('#rcNodes .rcn[data-i="14"]');
+  node.className = 'rcn fresh on';
+  node.dataset.s = c.s / 100;
+  node.style.setProperty('--s', node.dataset.s);
+  readOut(14, true); pinned = 14;
+
+  /* 2. the lesson stops saying never read */
+  setTimeout(()=>{
+    document.getElementById('fhaState').textContent = 'Read Jul 30';
+    document.getElementById('fhaState').style.color = 'var(--pos)';
+    document.getElementById('fhaHold').textContent = 'holds to '+hold;
+    ['fhaK1','fhaK2','fhaK3','fhaK4'].forEach(id=>document.getElementById(id).innerHTML = 'holds to '+hold);
+  }, 240);
+
+  /* 3. the course counters in the spine */
+  setTimeout(()=>{
+    document.getElementById('fhaRead').textContent = '1 of 5';
+    document.getElementById('fhaVer').textContent  = '4 of 7';
+    document.getElementById('fhaLeft').textContent = '90 min';
+    document.getElementById('fhaBar').style.width  = '20%';
+    document.getElementById('fhaNext').textContent = '4 never read after this';
+  }, 420);
+
+  /* 4. running blind, in all three places it is stated */
+  setTimeout(()=>{
+    document.getElementById('blindN').textContent    = '4';
+    document.getElementById('blindWord').textContent = 'Four';
+    document.getElementById('neverN').textContent    = '4';
+    document.getElementById('strengthV').textContent = String(+document.getElementById('strengthV').textContent + 1);
+    document.getElementById('sess').textContent      = '9 min · nothing scored';
+  }, 620);
+
+  /* 5. and the capability that was running on a live file with nothing behind it */
+  setTimeout(()=>{
+    const cap = CAP.find(x=>x.s === 'FHA cash-out');
+    cap.read = 1; cap.readN = '1 of 5 ch'; delete cap.blind;
+    renderCap();
+  }, 820);
 }
 
 /* ══════════ the plumbing panel: every number, its source, its cadence ══════════ */

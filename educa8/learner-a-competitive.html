@@ -737,8 +737,8 @@ body.tech .pl-panel .pl-inner{transform:none}
         </div>
         <div class="pl-rel" style="--d:40ms">position ← <b>NEW season_node</b> · pays ← <b>NEW chapter.xp_award</b> · banks today ← <b>NEW study_session</b> · opens ← <b>NEW requires[]</b></div>
         <div class="lit-act">
-          <button class="cta" id="startBtn">Start lesson 3 <span class="m mono">25 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
-          <button class="alt">Read lesson 2 again instead</button>
+          <button class="cta" id="startBtn">Open Mortgage Fundamentals <span class="m mono">lesson 3 is next</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <button class="alt" id="altBtn">Read lesson 2 again instead</button>
           <div style="margin-left:auto;font-size:11.5px;color:var(--text-3)" class="mono">last session 18:42 · Jul 27</div>
         </div>
       </div>
@@ -880,7 +880,7 @@ body.tech .pl-panel .pl-inner{transform:none}
   </div><!-- /page -->
 
   <!-- ═══════════ VIEW 2 LABEL ═══════════ -->
-  <div class="vbar">View 2 · Course detail <span class="mono">Mortgage Fundamentals · lesson 1 open · a question is due</span></div>
+  <div class="vbar" id="read">View 2 · Course detail <span class="mono">Mortgage Fundamentals · lesson 1 open · a question is due</span></div>
 
   <!-- ═══════════ VIEW 2 ═══════════ -->
   <div class="page" style="padding-top:6px">
@@ -965,7 +965,7 @@ body.tech .pl-panel .pl-inner{transform:none}
         <div class="pl-rel" style="--d:40ms;margin-top:10px">on submit: insert attempt <b>NEW</b> → insert xp_event <b>NEW</b> → recompute rank over the branch <b>NEW, 15 min job or on write</b> → animate the board</div>
 
         <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
-          <button class="cta" id="startBtn2">Start lesson 3 <span class="m mono">25 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <button class="cta" id="startBtn2">Back to your week <span class="m mono">lesson 3 stays next</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
           <span class="mono" style="font-size:11.5px;color:var(--text-3)">lesson 2 finished Jul 29 · two lessons left in this course</span>
         </div>
       </div>
@@ -1351,6 +1351,18 @@ function flyChip(from, amount){
   document.getElementById('twClose').addEventListener('click',function(){ bar.classList.remove('on'); open.classList.add('on'); });
   open.addEventListener('click',function(){ bar.classList.add('on'); open.classList.remove('on'); });
   document.getElementById('twReset').addEventListener('click',function(){ location.reload(); });
+})();
+
+/* ══════════ the lesson buttons actually go somewhere ══════════ */
+/* All three were dead. A's reading view is Mortgage Fundamentals lesson 1 with a
+   question due, so the labels say that rather than promising lesson 3, which is
+   marked live in the spine but is not the screen you land on. */
+(function(){
+  const smooth = matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+  const to = sel => () => document.querySelector(sel).scrollIntoView({behavior:smooth, block:'start'});
+  document.getElementById('startBtn') .addEventListener('click', to('#read'));
+  document.getElementById('altBtn')   .addEventListener('click', to('#read'));
+  document.getElementById('startBtn2').addEventListener('click', to('.hd'));
 })();
 </script>
 </body>

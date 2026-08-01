@@ -23,6 +23,7 @@
     -webkit-font-smoothing:antialiased;
   }
   a{color:inherit}
+  a:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
   .wrap{max-width:1560px;margin:0 auto;padding:0 40px 120px}
 
   /* masthead */
@@ -45,7 +46,7 @@
   /* meta strip */
   .meta{
     display:grid;grid-template-columns:repeat(4,1fr);
-    border-bottom:1px solid var(--line);
+    border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:72px;
   }
   .meta div{padding:16px 20px 18px;border-left:1px solid var(--line2)}
   .meta div:first-child{border-left:0;padding-left:0}
@@ -56,8 +57,8 @@
   .meta dd{font-size:14px;color:var(--t2);line-height:1.4}
   .meta dd b{color:var(--t1);font-weight:600}
 
-  /* index of variants */
-  .idx{margin-top:40px;border-top:1px solid var(--line)}
+  /* the ledger of screens. This is how you get to any of them. */
+  .idx{margin-top:0;border-top:1px solid var(--line)}
   .idx a.row{
     display:grid;grid-template-columns:44px 1fr 200px 96px;
     gap:24px;align-items:baseline;
@@ -65,7 +66,11 @@
     text-decoration:none;transition:background .14s cubic-bezier(.22,.61,.36,1);
   }
   .idx a.row:hover{background:#ffffff08}
+  .idx a.row.pick{background:#ff7a2f0a;box-shadow:inset 2px 0 0 var(--accent);
+                  padding-left:14px;grid-template-columns:30px 1fr 200px 96px}
+  .idx a.row.pick:hover{background:#ff7a2f14}
   .idx .n{font-family:var(--mono);font-size:12px;color:var(--t3)}
+  .idx a.row.pick .n{color:var(--accent)}
   .idx .nm{font-size:17px;font-weight:600;letter-spacing:-.012em}
   .idx .nm span{
     display:block;font-weight:400;font-size:13.5px;color:var(--t2);
@@ -75,9 +80,14 @@
     text-transform:uppercase;color:var(--t3)}
   .idx .go{font-family:var(--mono);font-size:11px;color:var(--accent);text-align:right;
     letter-spacing:.06em}
+  .idx.old a.row{grid-template-columns:44px 1fr 200px 96px}
+  .idx.old .nm{font-size:15px;font-weight:500;color:var(--t2)}
+  .idx.old .nm span{font-size:12.5px;color:var(--t3);margin-top:2px}
+  .idx.old .go{color:var(--t3)}
+  .idx.old a.row:hover .go{color:var(--accent)}
 
-  /* panels */
-  section.v{padding-top:76px}
+  /* section heads. These are the headlines the page is built on. */
+  section.v{padding-top:72px}
   .vhead{display:flex;align-items:flex-end;gap:22px;justify-content:space-between;
     border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:0}
   .vhead h2{font-size:29px;font-weight:700;letter-spacing:-.028em;line-height:1.1}
@@ -86,56 +96,11 @@
     letter-spacing:.1em;text-transform:uppercase;display:block;margin-bottom:9px;
     font-weight:400;
   }
-  .vhead .open{
-    font-family:var(--mono);font-size:11.5px;letter-spacing:.07em;color:var(--t2);
-    text-decoration:none;border:1px solid var(--line);padding:8px 14px;white-space:nowrap;
-    transition:all .14s;
-  }
-  .vhead .open:hover{border-color:var(--accent);color:var(--accent)}
+  .snote{margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:76ch}
+  .snote b{color:var(--t1);font-weight:600}
 
-  .vbody{display:grid;grid-template-columns:minmax(0,1fr) 336px;gap:0;border-bottom:1px solid var(--line)}
-  .stage{
-    position:relative;overflow:hidden;
-    height:600px;border-right:1px solid var(--line2);
-    background:var(--bg);
-  }
-  .stage iframe{
-    width:1440px;height:1600px;border:0;
-    transform:scale(.812);transform-origin:0 0;
-    pointer-events:none;
-  }
-  .stage .veil{position:absolute;inset:0}
-  .notes{padding:26px 0 30px 26px}
-  .notes h3{
-    font-family:var(--mono);font-size:10.5px;letter-spacing:.13em;text-transform:uppercase;
-    color:var(--t3);font-weight:400;margin-bottom:10px;
-  }
-  .notes p{font-size:14px;color:var(--t2);line-height:1.6;margin-bottom:20px}
-  .notes p b{color:var(--t1);font-weight:600}
-  .notes ul{list-style:none;margin-bottom:20px}
-  .notes li{
-    font-size:13.5px;color:var(--t2);line-height:1.5;padding:7px 0 8px;
-    border-bottom:1px solid var(--line2);display:grid;grid-template-columns:16px 1fr;gap:9px;
-  }
-  .notes li i{font-family:var(--mono);font-style:normal;font-size:11px;color:var(--t3)}
-  .notes .verdict{
-    font-size:13.5px;line-height:1.55;color:var(--t2);
-    border-left:2px solid var(--accent);padding:2px 0 3px 13px;
-  }
-  .notes .verdict b{color:var(--t1)}
-  .cnote{border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin-top:0;
-         display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0}
-  .cnote-h{grid-column:1/-1;display:flex;align-items:center;gap:11px;font-size:19px;font-weight:600;
-           letter-spacing:-.015em;padding:20px 0 4px}
-  .cnote-h .tag{font-family:var(--mono);font-size:11px;font-weight:400;border:1px solid var(--accent);
-                color:var(--accent);border-radius:2px;padding:2px 7px;letter-spacing:.06em}
-  .cnote-b{grid-column:1/-1;padding:6px 0 24px;max-width:88ch}
-  .cnote-b p{font-size:14.5px;color:var(--t2);line-height:1.6}
-  .cnote-b p b{color:var(--t1);font-weight:600}
-  .cnote-b .ab-l li b{color:var(--t1);font-weight:600}
-  footer{padding-top:66px;color:var(--t3);font-size:13px;max-width:70ch;line-height:1.6}
+  footer{padding-top:60px;color:var(--t3);font-size:13px;max-width:76ch;line-height:1.6}
   footer b{color:var(--t2);font-weight:500}
-
 
   /* the head to head, so the differences are visible without reading prose */
   table.vs{width:100%;border-collapse:collapse;margin-top:0;border-top:1px solid var(--line);table-layout:fixed}
@@ -155,8 +120,9 @@
   .vs-note{margin-top:18px;font-size:14px;color:var(--t2);line-height:1.6;max-width:78ch}
   .vs-note b{color:var(--t1);font-weight:600}
 
-  /* the A/B comparison */
-  .abgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;border-top:1px solid var(--line);margin-top:0}
+  /* the A/B case. No previews: the screens are one click away and speak for themselves. */
+  .abgrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0;
+          border-top:1px solid var(--line);margin-top:34px}
   .ab{padding:22px 30px 26px 0;border-right:1px solid var(--line2);display:flex;flex-direction:column}
   .ab:last-child{border-right:0;padding-right:0;padding-left:30px}
   .ab-h{display:flex;align-items:center;gap:11px;font-size:19px;font-weight:600;letter-spacing:-.015em}
@@ -164,16 +130,16 @@
              border-radius:2px;padding:2px 7px;letter-spacing:.06em}
   .ab-h .ab-go{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--t3);text-decoration:none;letter-spacing:.06em}
   .ab-h .ab-go:hover{color:var(--accent)}
-  .stage.sm{height:342px;margin-top:16px;border:1px solid var(--line2);border-right:1px solid var(--line2)}
-  .stage.sm iframe{width:1440px;height:1010px;transform:scale(.415);transform-origin:0 0}
-  .ab-claim{margin-top:18px;font-size:14.5px;color:var(--t1);line-height:1.55;font-weight:400}
-  .ab-l{list-style:none;margin-top:16px}
+  .ab-claim{margin-top:14px;font-size:14.5px;color:var(--t1);line-height:1.55;font-weight:400}
+  .ab-l{list-style:none;margin-top:14px}
   .ab-l li{font-size:13.5px;color:var(--t2);line-height:1.5;padding:8px 0 9px;border-bottom:1px solid var(--line2);
            display:grid;grid-template-columns:15px 1fr;gap:10px}
   .ab-l li i{font-family:var(--mono);font-style:normal;font-size:12px;color:var(--t3)}
   .ab-cost{margin-top:auto;padding-top:18px;font-family:var(--mono);font-size:12px;color:var(--t3);letter-spacing:.02em}
-  .ab-cost b{color:var(--accent);font-weight:400}
   .ab-cost span{display:block;margin-top:5px;color:var(--t3);font-size:11px}
+  .pick-line{margin-top:26px;padding:15px 0 0;border-top:2px solid var(--accent);
+             font-size:15.5px;color:var(--t2);line-height:1.6;max-width:84ch}
+  .pick-line b{color:var(--t1);font-weight:600}
 
   /* the price list */
   table.price{width:100%;border-collapse:collapse;margin-top:0;border-top:1px solid var(--line)}
@@ -185,7 +151,6 @@
   table.price td:first-child{font-size:14.5px;color:var(--t1);white-space:nowrap;width:264px}
   table.price td:first-child a{text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
   table.price td:first-child a:hover{color:var(--accent);border-color:var(--accent)}
-  table.price td:first-child em{font-style:normal;color:var(--t3);font-size:12px}
   table.price td.n{font-family:var(--mono);font-size:15px;color:var(--t1)}
   table.price tr.hot td.n{color:var(--accent)}
   table.price tr.hot td:first-child{box-shadow:inset 2px 0 0 var(--accent);padding-left:13px}
@@ -211,18 +176,9 @@
              padding-left:14px;white-space:nowrap}
 body{padding-bottom:34px}
 
-/* ═════════ reduced motion ═════════
-   Not a blanket 0.01s kill, which destroys the feedback the page depends on.
-   The infinite loop stops, travel is removed, and every state change still
-   lands: colours, dates and counters update, rows still reorder, just at once. */
 @media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation-duration:1ms !important;animation-iteration-count:1 !important}
-  .node-xl::after,.nd.live::after{animation:none !important;opacity:.4 !important;transform:none !important}
-  .pl-lb>i,.pl-rel{transition-delay:0ms !important;transition-duration:80ms !important;transform:none !important}
-  .pl-panel,.pl-panel .pl-inner{transition-duration:1ms !important}
-  .d-cell.live,.d-cell.live.land{animation:none !important;transform:none !important;opacity:1 !important}
-  .meter i,.rule-earn{transition-duration:1ms !important}
-  .flychip{display:none !important}
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:1ms !important;animation-duration:1ms !important}
 }
 </style>
 </head>
@@ -232,7 +188,7 @@ body{padding-bottom:34px}
 <header>
   <div class="kicker">Origna8 · Educa8 · 30 Jul 2026 · one decision left</div>
   <h1>Educa8, rebuilt</h1>
-  <p class="deck">A rebuild of the learning section, in two halves: <strong>the screen Andrew writes on</strong> and <strong>the screen loan officers read on</strong>. The reading screen is built twice, because there are two good answers to why anybody would open it and we need you to pick one. That is a business call, not a design one.</p>
+  <p class="deck">The learning section, rebuilt in two halves: <strong>the screen Andrew writes on</strong> and <strong>the screen loan officers read on</strong>. The reading screen is built twice, because there are two good answers to why anybody would open it. Picking one is a business call, not a design one.</p>
   <div class="rule"></div>
 </header>
 
@@ -240,22 +196,18 @@ body{padding-bottom:34px}
   <div class="vhead">
     <h2><em>three screens, all clickable</em>Start here</h2>
   </div>
-  <nav class="idx" style="border-top:0;margin-top:0">
-    <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">W</span><span class="nm">Course studio<span>Andrew's screen. Write a lesson, add the question at the end, press publish. Plain English throughout, with one switch that shows the technical version underneath.</span></span><span class="fam">for Andrew</span><span class="go">open →</span></a>
-    <a class="row" href="learner-a-competitive.html" target="_blank"><span class="n">A</span><span class="nm">Points and rankings<span>Finish a lesson, earn points, keep a daily streak, and move up the weekly branch board the app already has.</span></span><span class="fam">version A</span><span class="go">open →</span></a>
-    <a class="row" href="learner-b-mastery.html" target="_blank"><span class="n">B</span><span class="nm">Driven by your open loans<span>No points, no streak, no ranking. Your twelve open loans decide what to read next, and your closed files show what keeps going wrong.</span></span><span class="fam">version B</span><span class="go">open →</span></a>
+  <nav class="idx">
+    <a class="row" href="andrew-authoring.html" target="_blank"><span class="n">W</span><span class="nm">Course studio<span>Andrew's screen. Write a lesson, add the question at the end, press publish.</span></span><span class="fam">for Andrew</span><span class="go">open ↗</span></a>
+    <a class="row" href="learner-a-competitive.html" target="_blank"><span class="n">A</span><span class="nm">Points and rankings<span>Points, a daily streak, and a weekly ranking of the branch.</span></span><span class="fam">version A</span><span class="go">open ↗</span></a>
+    <a class="row pick" href="learner-b-mastery.html" target="_blank"><span class="n">B</span><span class="nm">Driven by your open loans<span>Your twelve open loans decide what to read next, and your closed files show what keeps going wrong.</span></span><span class="fam">version B</span><span class="go">open ↗</span></a>
   </nav>
-  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:74ch">
-    <b style="color:var(--t1)">All three have a switch in the header, marked "Show the plumbing".</b> Off, the screen reads in plain English. On, every number on it shows where it would come from and what would have to be built.
-  </p>
+  <p class="snote"><b>All three have a switch marked "Show the plumbing".</b> Off, the screen reads in plain English. On, every number shows where it would come from and what would have to be built.</p>
 </section>
 
-<!-- ═══════════ the A/B comparison, the point of this round ═══════════ -->
-<section class="v" id="ab" style="padding-top:72px">
+<section class="v" id="ab">
   <div class="vhead">
     <h2><em>the decision we need to make</em>Why would a 24 year old open this</h2>
   </div>
-
 
   <table class="vs">
     <thead><tr>
@@ -265,212 +217,86 @@ body{padding-bottom:34px}
     </tr></thead>
     <tbody>
       <tr><td>The first thing you see</td><td>Where you sit on the branch board</td><td class="hot">The loan you have on Thursday</td></tr>
-      <tr><td>Points for finishing a lesson</td><td class="hot">Yes</td><td>No</td></tr>
-      <tr><td>A weekly ranking of the branch, by name</td><td class="hot">Yes</td><td>No</td></tr>
-      <tr><td>A daily streak you can break</td><td class="hot">Yes</td><td>No</td></tr>
+      <tr><td>Points, a daily streak, and a weekly ranking by name</td><td class="hot">Yes</td><td>No</td></tr>
       <tr><td>What decides what you read next</td><td>A fixed course order</td><td class="hot">Your twelve open loans</td></tr>
       <tr><td>Where "you are weak at this" comes from</td><td>Your quiz answers</td><td class="hot">Your own closed files</td></tr>
-      <tr><td>Being asked a question a few days later</td><td>Yes</td><td>Yes</td></tr>
       <tr><td>What "finished" means</td><td>You read it and got the points</td><td class="hot">You read it, still knew it a week later, and did it on a real loan</td></tr>
       <tr><td>Who else can see how you are doing</td><td class="hot">Everyone on the branch</td><td>Your manager only</td></tr>
-      <tr><td>What Andrew has to write</td><td>Lessons and questions</td><td class="hot">Lessons, questions, and a list of about forty topics</td></tr>
-      <tr><td>Cost to build</td><td class="hot">Highest of the three</td><td>Lower</td></tr>
+      <tr><td>What Andrew has to write</td><td>Lessons and questions</td><td class="hot">Lessons, questions, and about forty topics</td></tr>
+      <tr><td>Cost to build</td><td class="hot">The higher of the two</td><td>Lower</td></tr>
     </tbody>
   </table>
-  <p class="vs-note">Orange marks where the two versions differ. Both use the same lessons, the same guides and the same app shell, so everything below is a real difference in what the screen does, not a difference in content.</p>
+  <p class="vs-note">Orange marks where they differ. Both use the same lessons, guides and app shell, and <b>both ask you a question a few days after you read something</b>, which is the strongest thing in either one.</p>
 
   <div class="abgrid">
     <div class="ab">
       <div class="ab-h"><span class="tag">A</span>Points and rankings<a class="ab-go" href="learner-a-competitive.html" target="_blank">open ↗</a></div>
-      <div class="stage sm"><iframe src="learner-a-competitive.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-      <p class="ab-claim">People finish things when they are competing. The app already has a branch scoreboard, so plug learning into it. Finish a lesson, move up in front of everyone, this week.</p>
+      <p class="ab-claim">People finish things when they are competing, and the app already has a branch scoreboard sitting unused.</p>
       <ul class="ab-l">
-        <li><i>+</i>The most likely to get people opening it at all. These mechanics work in other apps.</li>
-        <li><i>+</i>Uses the branch scoreboard you already built, which Educa8 currently ignores</li>
-        <li><i>−</i>It motivates the top three people and puts the bottom half on a list by name, every week. The people who most need the training are the ones who will be at the bottom.</li>
-        <li><i>−</i>The daily streak is borrowed from language apps, where you chose to be there. Here the pressure comes from your employer.</li>
+        <li><i>+</i>The more likely of the two to get anyone opening it at all</li>
+        <li><i>+</i>Uses the scoreboard you already built, which Educa8 currently ignores</li>
+        <li><i>−</i>Puts the bottom half of the branch on a public list by name, every week. That is exactly who needs the training.</li>
       </ul>
-      <div class="ab-cost">the more expensive of the two to build<span>and it needs a decision nobody has made: publishing a ranked list of seventeen people, by name, every week</span></div>
+      <div class="ab-cost">the higher of the two to build<span>and it needs a decision nobody has made: publishing a ranked list of seventeen people, by name, weekly</span></div>
     </div>
 
     <div class="ab">
       <div class="ab-h"><span class="tag">B</span>Driven by your open loans<a class="ab-go" href="learner-b-mastery.html" target="_blank">open ↗</a></div>
-      <div class="stage sm"><iframe src="learner-b-mastery.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-      <p class="ab-claim">People finish things when they are useful today. Educa8 sits right next to a loan officer's actual loans, which almost no training tool can say. So let the loans decide what to read, and let the closed files show what keeps going wrong.</p>
+      <p class="ab-claim">People finish things when they are useful today, and Educa8 sits beside a live pipeline, which almost no training tool can say.</p>
       <ul class="ab-l">
-        <li><i>+</i>Answers the real reason training goes unfinished, which is that it feels nothing to do with the job</li>
-        <li><i>+</i>Nothing is public, so nobody is embarrassed in front of the branch. A manager sees what someone can handle, not a league position.</li>
-        <li><i>+</i>Cheaper to build. No rankings to keep updated, no streak to get right across time zones.</li>
-        <li><i>−</i>Somebody has to write a list of about forty topics and say which kind of loan needs which ones. That is real work, and it is Andrew's, not Jawad's.</li>
+        <li><i>+</i>Answers the real reason training goes unfinished, that it feels nothing to do with the job</li>
+        <li><i>+</i>Nothing is public, so nobody is embarrassed in front of the branch</li>
+        <li><i>−</i>About forty topics have to be written first, and that work is Andrew's, not Jawad's</li>
       </ul>
-      <div class="ab-cost">cheaper to build than A<span>but about forty topics have to be written first, and that part is Andrew's</span></div>
+      <div class="ab-cost">cheaper to build<span>no rankings to keep current, no streak to get right across time zones</span></div>
     </div>
   </div>
 
-
-  <p style="margin-top:26px;font-size:14px;color:var(--t2);line-height:1.65;max-width:78ch">
-    <b style="color:var(--t1)">Both versions ask you a question a few days after you read something</b>, because that is when people forget. It is the strongest thing in either version and it is not a game trick, it is just how memory works. They differ on everything else. A says the screen should be exciting. B says it should be useful. We could do both eventually, but not in the first build: whichever one arrives second gets read as decoration on the first.
-  </p>
+  <p class="pick-line"><b>We recommend B.</b> Asked why they should spend twenty minutes here instead of on a call, A answers "to move up the board" and B answers "because Delgado is Thursday and you have never done one of these." The second answer survives a bad week.</p>
 </section>
 
-<!-- ═══════════ the price list ═══════════ -->
-<section class="v" id="price" style="padding-top:72px">
+<section class="v" id="price">
   <div class="vhead">
     <h2><em>for Jawad · the switch on any screen shows the detail</em>What each one costs to build</h2>
   </div>
   <table class="price">
-    <thead><tr><th>Screen</th><th class="n">New tables</th><th class="n">Events</th><th class="n">Jobs</th><th>The line that carries the cost</th></tr></thead>
+    <thead><tr><th>Screen</th><th class="n">New tables</th><th class="n">Events</th><th class="n">Jobs</th></tr></thead>
     <tbody>
-      <tr><td><a href="v3-editorial-longform.html" target="_blank">03 · The publication</a></td><td class="n">3</td><td class="n">2</td></tr>
-      <tr><td><a href="learner-b-mastery.html" target="_blank">B · Driven by your open loans</a></td><td class="n">5</td><td class="n">1</td></tr>
-      <tr><td><a href="v2-swiss-grid.html" target="_blank">02 · The syllabus</a></td><td class="n">6</td><td class="n">3</td></tr>
-      <tr><td><a href="v1-product-dense.html" target="_blank">01 · The dashboard</a></td><td class="n">7</td><td class="n">3</td></tr>
-      <tr class="hot"><td><a href="learner-a-competitive.html" target="_blank">A · Points and rankings</a> <em>and</em> <a href="v5-arcade-ledger.html" target="_blank">05</a></td><td class="n">7</td><td class="n">3</td></tr>
-      <tr><td><a href="v4-mono-technical.html" target="_blank">04 · The instrument</a></td><td class="n">8</td><td class="n">4</td></tr>
+      <tr><td><a href="v3-editorial-longform.html" target="_blank">03 · The publication</a></td><td class="n">3</td><td class="n">2</td><td class="n">1</td></tr>
+      <tr><td><a href="learner-b-mastery.html" target="_blank">B · Driven by your open loans</a></td><td class="n">5</td><td class="n">1</td><td class="n">2</td></tr>
+      <tr><td><a href="v2-swiss-grid.html" target="_blank">02 · The syllabus</a></td><td class="n">6</td><td class="n">3</td><td class="n">2</td></tr>
+      <tr><td><a href="v1-product-dense.html" target="_blank">01 · The dashboard</a></td><td class="n">7</td><td class="n">3</td><td class="n">3</td></tr>
+      <tr class="hot"><td><a href="learner-a-competitive.html" target="_blank">A · Points and rankings</a></td><td class="n">7</td><td class="n">3</td><td class="n">3</td></tr>
+      <tr><td><a href="v4-mono-technical.html" target="_blank">04 · The instrument</a></td><td class="n">8</td><td class="n">4</td><td class="n">4</td></tr>
     </tbody>
   </table>
-  <p style="margin-top:18px;font-size:13.5px;color:var(--t3);line-height:1.65;max-width:78ch">
-    Two things are needed by every version and so are not counted as a difference: a record of who has read what, and a record of who answered which question. Anything Educa8 does needs both. Turning the switch on inside any screen lists every number on it and where it would come from.
-  </p>
+  <p class="snote">Two things every version needs, so they are not counted as a difference: a record of who has read what, and a record of who answered which question. The switch inside any screen lists the rest.</p>
 </section>
 
-<section class="v" id="archive" style="padding-top:66px">
+<section class="v" id="archive">
   <div class="vhead">
     <h2><em>we built it five ways and picked one</em>How we got here</h2>
   </div>
-  <p style="margin-top:20px;font-size:14px;color:var(--t2);line-height:1.65;max-width:76ch">The same lessons built five times, five different ways, so the look could be picked by comparison instead of by argument. <b style="color:var(--t1)">Number 05 won</b> and became the three screens above. The other four are still here because the reasons they lost are worth knowing, and because <b style="color:var(--t1)">all five have the switch on them</b>, which is where the build costs above came from. Open any one and turn it on.</p>
+  <nav class="idx old">
+    <a class="row" href="v1-product-dense.html" target="_blank"><span class="n">01</span><span class="nm">The dashboard<span>Courses as a sortable table you can drive from the keyboard</span></span><span class="fam">like software</span><span class="go">open ↗</span></a>
+    <a class="row" href="v2-swiss-grid.html" target="_blank"><span class="n">02</span><span class="nm">The syllabus<span>Every lesson and guide on one page, separated by thin lines</span></span><span class="fam">like a printed index</span><span class="go">open ↗</span></a>
+    <a class="row" href="v3-editorial-longform.html" target="_blank"><span class="n">03</span><span class="nm">The publication<span>Something you actually read, with margins and numbered figures</span></span><span class="fam">like a magazine</span><span class="go">open ↗</span></a>
+    <a class="row" href="v4-mono-technical.html" target="_blank"><span class="n">04</span><span class="nm">The instrument<span>Study measured like exercise, everything on one grid</span></span><span class="fam">like a measuring device</span><span class="go">open ↗</span></a>
+    <a class="row" href="v5-arcade-ledger.html" target="_blank"><span class="n">05</span><span class="nm">The scoreboard<span>A game with the cartoon taken out</span></span><span class="fam">we picked this one</span><span class="go">open ↗</span></a>
+  </nav>
+  <p class="snote">The same lessons built five times, so the look could be picked by comparison instead of argument. <b>05 won</b> and became the three screens at the top. The other four are kept because the reasons they lost are worth knowing, and all five carry the plumbing switch.</p>
 </section>
 
 <dl class="meta">
-  <div><dt>What is fixed</dt><dd>Sidebar, top bar, tokens, <b>Hanken Grotesk</b>. Every variant is inside the real product, not a microsite.</dd></div>
-  <div><dt>What is wrong today</dt><dd>No reason to start · progress that means nothing · six identical cards · an AI Mentor nobody talks to · <b>the branch scoreboard sitting unused</b>.</dd></div>
-  <div><dt>How the look was chosen</dt><dd>Five designs, built side by side, picked by comparison rather than by argument. <b>Both reading versions use the one we picked</b> and differ only in what they do.</dd></div>
-  <div><dt>Who you are looking at</dt><dd>A loan officer partway through, never an empty account. In A: <b>3 of 29 lessons done</b>, a 5 day streak, 3rd on the branch. In B and C: <b>12 open loans</b>, three of them on something never read.</dd></div>
+  <div><dt>What is fixed</dt><dd>Sidebar, top bar, tokens, <b>Hanken Grotesk</b>. Every screen sits inside the real product, not a microsite.</dd></div>
+  <div><dt>What is wrong today</dt><dd>No reason to start · progress that means nothing · six identical cards · <b>the branch scoreboard sitting unused</b>.</dd></div>
+  <div><dt>Who you are looking at</dt><dd>A loan officer partway through, never an empty account. In A, <b>3 of 29 lessons done</b>. In B, <b>12 open loans</b>.</dd></div>
+  <div><dt>Known gap</dt><dd>The app has a light theme behind the sun and moon toggle. These are <b>dark only</b>.</dd></div>
 </dl>
 
-<nav class="idx">
-  <a class="row" href="#v1"><span class="n">01</span><span class="nm">The dashboard<span>Courses as a sortable table you can drive from the keyboard</span></span><span class="fam">like software</span><span class="go">jump →</span></a>
-  <a class="row" href="#v2"><span class="n">02</span><span class="nm">The syllabus<span>All 29 lessons and 28 guides on one page, separated by thin lines</span></span><span class="fam">like a printed index</span><span class="go">jump →</span></a>
-  <a class="row" href="#v3"><span class="n">03</span><span class="nm">The publication<span>Something you actually read, with margins and numbered figures</span></span><span class="fam">like a magazine</span><span class="go">jump →</span></a>
-  <a class="row" href="#v4"><span class="n">04</span><span class="nm">The instrument<span>Study measured like exercise, with everything on one grid</span></span><span class="fam">like a measuring device</span><span class="go">jump →</span></a>
-  <a class="row" href="#v5"><span class="n">05</span><span class="nm">The scoreboard<span>A game, with the cartoon taken out</span></span><span class="fam">we picked this one</span><span class="go">jump →</span></a>
-</nav>
-
-<section class="v" id="v1">
-  <div class="vhead">
-    <h2><em>01 · built like a piece of software</em>The dashboard</h2>
-    <a class="open" href="v1-product-dense.html" target="_blank">OPEN FULL SIZE ↗</a>
-  </div>
-  <div class="vbody">
-    <div class="stage"><iframe src="v1-product-dense.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-    <div class="notes">
-      <h3>The move</h3>
-      <p>The six identical cards become a <b>proper table</b> you can sort: order, level, lessons done, time left, progress, when you last opened it. Locked rows say what opens them.</p>
-      <h3>Carries</h3>
-      <ul>
-        <li><i>01</i>Keyboard shortcuts, so you never touch the mouse</li>
-        <li><i>02</i>A strip along the top: streak, points, branch rank, and the last fortnight of study</li>
-        <li><i>03</i>Names your weakest topic outright and sends you straight to it</li>
-        <li><i>04</i>The mentor asks you two questions instead of sitting there waiting</li>
-      </ul>
-      <p class="verdict"><b>In short:</b> the easiest to build and the least surprising. It will look right to anyone who uses the app all day. It is also the one any competitor could arrive at on their own.</p>
-    </div>
-  </div>
-</section>
-
-<section class="v" id="v2">
-  <div class="vhead">
-    <h2><em>02 · built like a printed index</em>The syllabus</h2>
-    <a class="open" href="v2-swiss-grid.html" target="_blank">OPEN FULL SIZE ↗</a>
-  </div>
-  <div class="vbody">
-    <div class="stage"><iframe src="v2-swiss-grid.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-    <div class="notes">
-      <h3>The move</h3>
-      <p>Tabs are gone. Courses and guides live in <b>one ruled index</b> under a shared taxonomy, all 29 chapters expandable in place, so the entire body of work is legible on one screen. You can see exactly where you are in it. Hairline rules do every separation, no cards anywhere.</p>
-      <h3>Carries</h3>
-      <ul>
-        <li><i>01</i>Everything separated by thin lines, no boxes anywhere</li>
-        <li><i>02</i>The "0 Completed" banner becomes a real progress line: lessons, minutes, points, rank</li>
-        <li><i>03</i>Orange marks exactly one thing on the whole page: where you are</li>
-        <li><i>04</i>Get a question wrong and it points at the line in the lesson that explains it</li>
-      </ul>
-      <p class="verdict"><b>In short:</b> the most confident of the five, and the one that fits the most on a screen. The risk is that a 23 year old looks at it and sees homework.</p>
-    </div>
-  </div>
-</section>
-
-<section class="v" id="v3">
-  <div class="vhead">
-    <h2><em>03 · built like a magazine</em>The publication</h2>
-    <a class="open" href="v3-editorial-longform.html" target="_blank">OPEN FULL SIZE ↗</a>
-  </div>
-  <div class="vbody">
-    <div class="stage"><iframe src="v3-editorial-longform.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-    <div class="notes">
-      <h3>The move</h3>
-      <p>Educa8 becomes something you <b>read</b>, and the design gets out of the way. The index is issue front matter with a contents list ordered by prerequisite. Definitions move into the margin as side notes. The Mentor is a question written in the margin like an editor's note, not a chat rail.</p>
-      <h3>Carries</h3>
-      <ul>
-        <li><i>01</i>A mark in the margin showing where you stopped, instead of a progress bar</li>
-        <li><i>02</i>Set like a printed page, at a width that is comfortable to read for a while</li>
-        <li><i>03</i>The stock images are gone. Each course shows filled boxes, one per lesson.</li>
-        <li><i>04</i>Numbered figures, footnotes and a real table, like an article rather than an app</li>
-      </ul>
-      <p class="verdict"><b>In short:</b> by far the nicest thing to actually read. It is the weakest at getting somebody to start, though, because looking expensive is not the same as being inviting.</p>
-    </div>
-  </div>
-</section>
-
-<section class="v" id="v4">
-  <div class="vhead">
-    <h2><em>04 · built like a measuring device</em>The instrument</h2>
-    <a class="open" href="v4-mono-technical.html" target="_blank">OPEN FULL SIZE ↗</a>
-  </div>
-  <div class="vbody">
-    <div class="stage"><iframe src="v4-mono-technical.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-    <div class="notes">
-      <h3>The move</h3>
-      <p>Study becomes <b>instrumented activity</b>. A coverage map puts all 29 chapters on screen as state-marked cells, so competency is one glance. Prerequisites are drawn as a real diagram with dimension lines. A run log records sessions with timestamps, durations, and outcomes.</p>
-      <h3>Carries</h3>
-      <ul>
-        <li><i>01</i>All 29 lessons on one grid, so you see everything you have and have not done at once</li>
-        <li><i>02</i>A diagram of what has to be finished before what</li>
-        <li><i>03</i>Questions marked pass or fail, like a test report rather than a quiz</li>
-        <li><i>04</i>One large serif headline so the whole thing is not cold</li>
-      </ul>
-      <p class="verdict"><b>In short:</b> the sharpest break from every other training tool out there. Strava for underwriting. It will also divide the room, and it tells somebody plainly that everything they did before this counted for nothing.</p>
-    </div>
-  </div>
-</section>
-
-<section class="v" id="v5">
-  <div class="vhead">
-    <h2><em>05 · built like a game, minus the cartoon · WE PICKED THIS ONE</em>The scoreboard</h2>
-    <a class="open" href="v5-arcade-ledger.html" target="_blank">OPEN FULL SIZE ↗</a>
-  </div>
-  <div class="vbody">
-    <div class="stage"><iframe src="v5-arcade-ledger.html" loading="lazy" scrolling="no"></iframe><div class="veil"></div></div>
-    <div class="notes">
-      <h3>The move</h3>
-      <p>The one that leans hardest into the game. <b>One lesson highlighted</b>, with how long it takes and what it pays side by side. The branch board sits next to it, so finishing something visibly moves you from 3rd to 2nd. Every reward is a number, never a badge or a trophy.</p>
-      <h3>Carries</h3>
-      <ul>
-        <li><i>01</i>The branch scoreboard built in, showing exactly how many points take you up a place</li>
-        <li><i>02</i>The streak shown as a week of dated squares, saying plainly what breaking it costs</li>
-        <li><i>03</i>Questions come back days later, and are worth less the longer you leave them</li>
-        <li><i>04</i>Things only animate when something actually happens, never just on load</li>
-      </ul>
-      <p class="verdict"><b>In short:</b> the most direct answer to the problem, and the most expensive to build. It carries one real risk: the streak could feel like pressure from your employer rather than encouragement. That risk is exactly what <a href="#ab" style="color:var(--accent)">A and B above</a> exist to settle.</p>
-    </div>
-  </div>
-</section>
-
 <footer>
-  <div class="rule thin" style="margin-bottom:26px"></div>
-  <p><b>On colour.</b> Everything here uses Origna8's real colours, taken from what the app actually puts on screen rather than from the names in its stylesheet, which turned out to disagree with each other. The logo runs orange to pink to purple to blue, and it is warmer and younger than anything the product uses anywhere else, which is worth noticing on its own. The orange is used throughout and it means one thing only: this is yours, this is next. The six course colours are the app's own.</p>
-  <p style="margin-top:16px">Every screen here is fully interactive and carries the plumbing switch. The previews on this page are scaled and not clickable; <b>open full size</b> to use them. A bar across the bottom of every screen jumps between all nine.</p>
-  <p style="margin-top:16px">Known gap: the app has a light theme and these are dark only.</p>
+  <p><b>On colour.</b> Everything uses Origna8's real colours, sampled from what the app puts on screen rather than the names in its stylesheet, which disagreed with each other. The logo runs orange to pink to purple to blue, warmer and younger than anything the product uses elsewhere. Orange means one thing here: this is yours, this is next.</p>
+  <p style="margin-top:14px">Every screen is fully interactive and carries the plumbing switch. The bar along the bottom jumps between all nine.</p>
 </footer>
 
 </div>

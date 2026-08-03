@@ -473,6 +473,13 @@ body.tech .pl-panel .pl-inner{transform:none}
     font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-2);font-weight:600}
 .pl-hd .pl-dot{width:5px;height:5px;border-radius:50%;background:var(--heat);box-shadow:0 0 0 3px var(--heat-soft)}
 .pl-hd .r{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10px;letter-spacing:0;text-transform:none;color:var(--text-3);font-weight:400}
+/* The panel is fixed to the right edge and covers the switch that opened it,
+   so it has to carry its own way out. Escape closes it too. */
+.pl-x{width:26px;height:26px;flex:0 0 26px;margin-left:10px;border-radius:6px;border:1px solid var(--rule);
+      display:flex;align-items:center;justify-content:center;color:var(--text-3);
+      transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease)}
+.pl-x:hover{background:#ffffff0a;color:var(--text-1);border-color:var(--ring)}
+.pl-x:focus-visible{outline:2px solid var(--heat);outline-offset:2px}
 .pl-cost{display:grid;grid-template-columns:repeat(3,1fr);border-bottom:1px solid var(--rule-2)}
 .pl-cost div{padding:11px 14px;border-right:1px solid var(--rule-2)}
 .pl-cost div:last-child{border-right:0}
@@ -1153,7 +1160,7 @@ body:not(.les-fha) .les-mf{display:block}
 <!-- ═══════════ plumbing panel ═══════════ -->
 <aside class="pl-panel" aria-hidden="true">
  <div class="pl-inner">
-  <div class="pl-hd"><i class="pl-dot"></i>Where every number comes from<span class="r">variant B</span></div>
+  <div class="pl-hd"><i class="pl-dot"></i>Where every number comes from<span class="r">variant B</span><button class="pl-x" id="plX" aria-label="Hide the plumbing"><svg viewBox="0 0 14 14" style="width:11px;height:11px" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M3 3l8 8M11 3l-8 8"/></svg></button></div>
   <div class="pl-cost">
     <div><div class="k">New tables</div><div class="v heat">5</div><div class="s">concept, concept_chapter, concept_recall, capability, evidence_signal</div></div>
     <div><div class="k">New events</div><div class="v">1</div><div class="s">retrieval_check_attempt</div></div>
@@ -1593,14 +1600,20 @@ let tech=false;
 const swT=document.getElementById('swT');
 function stagger(){ document.querySelectorAll('.pl-lb,.pl-rel').forEach((e,i)=>e.style.setProperty('--d',((i*13)%230)+'ms')); }
 stagger();
-swT.addEventListener('click',()=>{
-  tech=!tech;
+/* One path in and out. The panel is fixed to the right edge and covers the switch
+   that opened it, so it also closes from its own header button and from Escape.
+   Focus returns to the switch, so a keyboard user is not left where the panel was. */
+function setTech(v){
+  tech=v;
   document.body.classList.toggle('tech',tech);
   swT.setAttribute('aria-checked',String(tech));
   document.querySelector('.pl-panel').setAttribute('aria-hidden',String(!tech));
   document.getElementById('swS').innerHTML = tech ? 'on · sources,<br>cadence, cost' : 'off';
   stagger();
-});
+}
+swT.addEventListener('click',()=>setTech(!tech));
+document.getElementById('plX').addEventListener('click',()=>{ setTech(false); swT.focus(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape' && tech){ setTech(false); swT.focus(); } });
 
 /* ══════════ tweak bar, dev only ══════════ */
 (function(){

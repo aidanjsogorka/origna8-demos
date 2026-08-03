@@ -334,7 +334,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .rd-crumb{font-size:11.5px;color:var(--text-3);display:flex;align-items:center;gap:8px}
 .rd-crumb b{color:var(--text-2);font-weight:400}
 .rd h2{font-size:30px;font-weight:600;letter-spacing:-.035em;margin-top:8px;line-height:1.1}
-.rd-meta{display:flex;align-items:center;gap:0;margin-top:12px;padding:9px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.rd-meta{display:flex;align-items:center;flex-wrap:wrap;gap:0 0;row-gap:7px;margin-top:12px;padding:9px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .rd-meta div{padding-right:15px;margin-right:15px;border-right:1px solid var(--rule-2);font-size:12px;color:var(--text-2);white-space:nowrap}
 .rd-meta div:last-child{border:0;margin:0;padding:0}
 .rd-meta .ok{color:var(--pos)}
@@ -424,11 +424,15 @@ body.tech .pl-lb>i.pl-lt{opacity:1;transform:none}
 .pl-ty.new{color:#FF7A2F;border-color:#FF7A2F66}
 
 /* reserved provenance strip: never changes height, only fills */
-.pl-rel{height:14px;overflow:hidden;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
+/* Collapsed, not just transparent, when the switch is off. It used to keep its
+   14px band while invisible, so nine of these left a column of dead gaps in the
+   default view. The .pl-lb labels still crossfade; only this block was costing
+   layout it was not using. */
+.pl-rel{display:none;overflow:hidden;font-family:'Geist Mono',ui-monospace,monospace;font-size:10px;color:#6c6c74;
      opacity:0;transform:translateX(-5px);
      transition:opacity .24s cubic-bezier(.22,.61,.36,1),transform .3s cubic-bezier(.22,.61,.36,1);
      transition-delay:var(--d,0ms);white-space:nowrap;line-height:14px}
-body.tech .pl-rel{opacity:1;transform:none}
+body.tech .pl-rel{display:block;height:14px;opacity:1;transform:none}
 .pl-rel b{color:#FF7A2F;font-weight:400}
 .pl-rel s{text-decoration:none;color:#34d399}
 
@@ -883,12 +887,12 @@ body.tech .pl-panel .pl-inner{transform:none}
         <div class="led" style="padding-left:0;padding-right:0"><span>Time left</span><b class="mono">70 min</b></div>
         <div class="led" style="padding-left:0;padding-right:0;border-bottom:0"><span>Branch finished</span><b class="mono">4 of 17</b></div>
         <div class="bar-mini" style="margin-top:12px"><i class="h" style="width:33.3%"></i></div>
-        <div class="foot-note" style="margin-top:8px">140 of 420 points. Finishing the last lesson closes the course and puts a permanent row on Standings.</div>
+        <div class="foot-note" style="margin-top:8px">Finishing the last lesson closes the course and puts a permanent row on Standings.</div>
 
         <div class="spine-h" style="margin:26px 0 12px">Closing this opens</div>
         <div class="unl"><span class="n mono">11–14</span><div><div class="ch-t" style="font-size:13px">Compliance &amp; TRID</div><div class="ch-m mono">4 ch · 95 min · +380</div></div></div>
         <div class="unl"><span class="n mono">15–20</span><div><div class="ch-t" style="font-size:13px">Underwriting Essentials</div><div class="ch-m mono">6 ch · 130 min · +520</div></div></div>
-        <div class="foot-note" style="margin-top:12px">Both are locked to every officer on the branch until Fundamentals closes. Two have cleared it.</div>
+        <div class="foot-note" style="margin-top:12px">Locked for everyone until Fundamentals closes. Two on the branch have cleared it.</div>
       </div>
 
       <!-- reading column -->
@@ -899,7 +903,7 @@ body.tech .pl-panel .pl-inner{transform:none}
           <div class="mono">15 min</div>
           <div class="mono ok">Finished Jul 27 · +60</div>
           <div class="mono">Position 01</div>
-          <div class="mono" style="color:var(--heat)">A question is waiting · +40</div>
+          <div class="mono" style="color:var(--heat)">Question due · +40</div>
         </div>
         <div class="pl-rel" style="--d:0ms;margin-top:8px">banked ← chapter_completion + xp_event <b>NEW</b> · unclaimed ← attempt where correct is null <b>NEW</b></div>
 
@@ -935,8 +939,8 @@ body.tech .pl-panel .pl-inner{transform:none}
           <div class="chk-f" id="chkF"></div>
           <div class="chk-bar">
             <span class="mono pay-v" id="payV">+40 XP</span>
-            <span class="mono">answer first time and it pays 40, second time 20</span>
-            <span style="margin-left:auto" class="mono" id="chkNext">2 questions left after this</span>
+            <span class="mono">first try pays 40, second pays 20</span>
+            <span style="margin-left:auto" class="mono" id="chkNext">2 left after this</span>
           </div>
         </div>
         <div class="pl-rel" style="--d:40ms;margin-top:10px">on submit: insert attempt <b>NEW</b> → insert xp_event <b>NEW</b> → recompute rank over the branch <b>NEW, 15 min job or on write</b> → animate the board</div>
@@ -962,7 +966,7 @@ body.tech .pl-panel .pl-inner{transform:none}
 
         <div class="rail-b">
           <div class="rail-h"><i class="st-dot"></i>AI Mentor<span class="r mono">asking</span></div>
-          <div class="mentor-say" id="mentorSay">You finished this lesson three days ago. <b>I am re-asking one question from it</b> because that is when recall drops. Answer below and the 40 posts to your branch row immediately.</div>
+          <div class="mentor-say" id="mentorSay">You read this three days ago, which is when recall starts to drop. <b>One question below</b>, worth 40 to your branch row.</div>
           <div class="led"><span>Questions due today</span><b class="mono" id="dueN">3</b></div>
           <div class="led"><span>Worth</span><b class="mono heat" id="dueXP">+120 XP</b></div>
           <div class="led"><span>Answered right</span><b class="mono">11 of 13 · 85%</b></div>
@@ -977,7 +981,7 @@ body.tech .pl-panel .pl-inner{transform:none}
         </div>
 
         <div class="pl-rel" style="--d:80ms;margin-bottom:6px">learning_xp is a <b>NEW column on domina8_standings</b>, kept apart from funded volume</div>
-        <div class="foot-note">Educa8 XP is the learning column of Domina8 Standings. It does not touch funded volume or units.</div>
+        <div class="foot-note">Learning XP is its own column on Standings. It never touches funded volume.</div>
       </div>
 
     </div>

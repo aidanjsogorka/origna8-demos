@@ -114,10 +114,14 @@ body.tech .pl-lb>i.pl-lt{opacity:1;transform:none}
     border:1px solid var(--border);border-radius:2px;padding:1px 4px;margin-left:6px;line-height:1.25}
 .pl-ty.new{color:var(--heat);border-color:var(--heat-line)}
 /* reserved provenance strip: never changes height, only fills */
-.pl-rel{height:14px;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
+/* Collapsed, not just transparent, when the switch is off. It used to keep its
+   14px band while invisible, so nine of these left a column of dead gaps in the
+   default view. The .pl-lb labels still crossfade; only this block was costing
+   layout it was not using. */
+.pl-rel{display:none;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
      opacity:0;transform:translateX(-5px);transition:opacity .24s var(--ease),transform .3s var(--ease);transition-delay:var(--d,0ms);
      white-space:nowrap;line-height:14px}
-body.tech .pl-rel{opacity:1;transform:none}
+body.tech .pl-rel{display:block;height:14px;opacity:1;transform:none}
 .pl-rel b{color:var(--heat);font-weight:400}
 .pl-rel s{text-decoration:none;color:var(--pos)}
 
@@ -379,7 +383,7 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .rd-crumb{font-size:11.5px;color:var(--text-3);display:flex;align-items:center;gap:8px}
 .rd-crumb b{color:var(--text-2);font-weight:400}
 .rd h2{font-size:30px;font-weight:600;letter-spacing:-.035em;margin-top:8px;line-height:1.1}
-.rd-meta{display:flex;align-items:center;gap:0;margin-top:12px;padding:9px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
+.rd-meta{display:flex;align-items:center;flex-wrap:wrap;gap:0 0;row-gap:7px;margin-top:12px;padding:9px 0;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule)}
 .rd-meta div{padding-right:15px;margin-right:15px;border-right:1px solid var(--rule-2);font-size:12px;color:var(--text-2);white-space:nowrap}
 .rd-meta div:last-child{border:0;margin:0;padding:0}
 .rd-meta .ok{color:var(--pos)}
@@ -692,9 +696,9 @@ body:not(.les-fha) .les-mf{display:block}
         </div>
         <div class="stats">
           <div class="stat">
-            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Running blind</i><i class="pl-lt mono">unbacked_scenarios<b class="pl-ty new">derived</b></i></span></div>
+            <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Live loan, nothing read</i><i class="pl-lt mono">unbacked_scenarios<b class="pl-ty new">derived</b></i></span></div>
             <div class="stat-v mono heat" id="blindN">5</div>
-            <div class="dl mono">of nine, nothing read</div>
+            <div class="dl mono">of the nine things you handle</div>
           </div>
           <div class="stat">
             <div class="stat-k"><span class="pl-lb"><i class="pl-lp">Reading for your loans</i><i class="pl-lt mono">sum(duration_minutes)<b class="pl-ty">int</b></i></span></div>
@@ -858,7 +862,7 @@ body:not(.les-fha) .les-mf{display:block}
 
     <div id="pane-all">
       <table class="ct">
-        <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:152px"><col style="width:232px"></colgroup>
+        <colgroup><col style="width:126px"><col><col style="width:112px"><col style="width:230px"><col style="width:152px"><col style="width:232px"></colgroup>
         <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
         <tbody id="courses"></tbody>
       </table>
@@ -866,7 +870,7 @@ body:not(.les-fha) .les-mf{display:block}
 
     <div id="pane-act" style="display:none">
       <table class="ct">
-        <colgroup><col style="width:112px"><col><col style="width:126px"><col style="width:230px"><col style="width:152px"><col style="width:232px"></colgroup>
+        <colgroup><col style="width:126px"><col><col style="width:112px"><col style="width:230px"><col style="width:152px"><col style="width:232px"></colgroup>
         <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
         <tbody id="coursesAct"></tbody>
       </table>
@@ -959,9 +963,9 @@ body:not(.les-fha) .les-mf{display:block}
         <div class="rd-meta">
           <div class="mono">15 min</div>
           <div class="mono">Read Jul 27</div>
-          <div class="mono ok">3 of 4 concepts holding</div>
-          <div class="mono" style="color:var(--heat)">Escrow went stale Jul 29</div>
-          <div class="mono">Appears in 2 open files</div>
+          <div class="mono ok">3 of 4 still known</div>
+          <div class="mono" style="color:var(--heat)">Escrow needs redoing</div>
+          <div class="mono">In 2 open files</div>
         </div>
         <div class="pl-rel" style="--d:0ms;margin-top:8px">chapter_completion.read_at <b>NEW</b> · holding = concept_recall.strength &gt; .5 <b>NEW</b> · appears_in ← <s>loan (exists)</s></div>
 
@@ -1274,7 +1278,7 @@ function fillBand(stagger){
 function readOut(i, pinned){
   const r = CONCEPTS[i];
   const cls = r.k==='ok' ? 'ok' : r.k==='lapsed' ? 'warn' : '';
-  const tail = r.k==='never' ? 'never read. One of the five behind "running blind".'
+  const tail = r.k==='never' ? 'never read, and you have a live loan that needs it.'
              : r.k==='ok'    ? 'last answered '+r.last+', good until '+r.hold
              :                 'last answered '+r.last+', '+r.hold;
   document.getElementById('rcRead').innerHTML =

@@ -378,6 +378,27 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 .flychip{position:fixed;z-index:60;font-size:13px;font-weight:600;color:#0b0b0c;background:var(--heat);border-radius:999px;padding:3px 10px;
          pointer-events:none;transition:transform .62s cubic-bezier(.3,.85,.4,1),opacity .62s linear}
 
+/* ── two lessons in one view, same mechanism as the other version ── */
+.les{display:none}
+body[data-les="mf"] .les-mf{display:block}
+body[data-les="ch"] .les-ch{display:block}
+
+/* ── a lesson that is a video. Poster is drawn, so nothing external loads until
+   somebody presses play, and the lesson still reads if Loom is unreachable. ── */
+.lvid{margin-top:20px;border:1px solid var(--rule);border-radius:3px;overflow:hidden;background:var(--surface-2)}
+.lvid .p{aspect-ratio:16/9;width:100%;position:relative;background:var(--surface-3);display:grid;place-items:center;
+         border:0;padding:0;transition:background var(--dur-fast) var(--ease)}
+.lvid button.p:hover{background:#24242b}
+.lvid button.p:hover .pb{border-color:var(--heat);color:var(--heat)}
+.lvid .film{position:absolute;inset:0;display:flex;align-items:flex-end;gap:3px;padding:0 12px 12px;opacity:.3}
+.lvid .film i{flex:1;background:var(--text-3);border-radius:1px;display:block}
+.lvid .pb{width:46px;height:46px;border-radius:50%;background:#0b0b0cd9;border:1px solid var(--ring);
+          display:grid;place-items:center;color:var(--text-1)}
+.lvid iframe.p{display:block;border:0}
+.lvid .cap{padding:9px 13px;font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);
+           display:flex;gap:10px;align-items:center;border-top:1px solid var(--rule-2)}
+.lvid .cap a{color:var(--text-2);text-decoration:underline;text-underline-offset:3px}
+
 /* right rail */
 .rail{padding:16px 0 20px 20px;display:flex;flex-direction:column;gap:16px}
 .rail-b{border:1px solid var(--rule);border-radius:3px;background:var(--surface-1)}
@@ -568,7 +589,7 @@ body.tech .pl-panel .pl-inner{transform:none}
 }
 </style>
 </head>
-<body>
+<body data-les="mf">
 
 <svg style="display:none" aria-hidden="true">
   <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
@@ -868,7 +889,7 @@ body.tech .pl-panel .pl-inner{transform:none}
     <div class="c2">
 
       <!-- chapter spine -->
-      <div class="spine">
+      <div class="spine les les-mf">
         <div class="spine-h">Mortgage Fundamentals</div>
         <div class="ch done"><div class="stem"></div><div class="n mono"><svg style="width:13px;height:13px"><use href="#i-check"/></svg></div>
           <div><div class="ch-t">What Is a Mortgage?</div><div class="ch-m mono">15 min · <b>+60</b> · Jul 27</div></div></div>
@@ -896,7 +917,28 @@ body.tech .pl-panel .pl-inner{transform:none}
       </div>
 
       <!-- reading column -->
-      <div class="rd">
+      <!-- ═══ CallHarbor. In this version it is simply another course worth points. ═══ -->
+      <div class="spine les les-ch">
+        <div class="spine-h">CallHarbor Soft Phone</div>
+        <div class="ch done"><div class="stem"></div><div class="n mono"><svg style="width:13px;height:13px"><use href="#i-check"/></svg></div>
+          <div><div class="ch-t">Set it up and go live</div><div class="ch-m mono">8 min · <b>+60</b> · Aug 01</div></div></div>
+        <div class="ch live"><div class="stem"></div><div class="n mono">02</div>
+          <div><div class="ch-t">Using it day to day</div><div class="ch-m mono">6 min · <b>+60</b> · live</div></div></div>
+        <div class="ch"><div class="stem"></div><div class="n mono">03</div>
+          <div><div class="ch-t">On your cell phone</div><div class="ch-m mono">4 min · +40 · open</div></div></div>
+        <div class="ch last"><div class="n mono">04</div>
+          <div><div class="ch-t">When it is not working</div><div class="ch-m mono">3 min · +40 · open</div></div></div>
+
+        <div class="spine-h" style="margin:26px 0 12px">Course ledger</div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Lessons</span><b class="mono">1 / 4</b></div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Points earned</span><b class="mono">60 / 200</b></div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Time left</span><b class="mono">13 min</b></div>
+        <div class="led" style="padding-left:0;padding-right:0;border-bottom:0"><span>Branch finished</span><b class="mono">2 of 17</b></div>
+        <div class="bar-mini" style="margin-top:12px"><i class="h" style="width:30%"></i></div>
+        <div class="foot-note" style="margin-top:8px">Nothing is locked behind this one. It is worth the fewest points on the board because it is the shortest.</div>
+      </div>
+
+      <div class="rd les les-mf">
         <div class="rd-crumb">Educa8 <span style="color:var(--rule)">/</span> <b>Mortgage Fundamentals</b> <span style="color:var(--rule)">/</span> <span class="mono">Lesson 1</span></div>
         <h2>What Is a Mortgage?</h2>
         <div class="rd-meta">
@@ -952,6 +994,59 @@ body.tech .pl-panel .pl-inner{transform:none}
       </div>
 
       <!-- right rail -->
+      <div class="rd les les-ch">
+        <div class="rd-crumb">Educa8 <span style="color:var(--rule)">/</span> <b>CallHarbor Soft Phone</b> <span style="color:var(--rule)">/</span> <span class="mono">Lesson 2</span></div>
+        <h2>Using it day to day</h2>
+        <div class="rd-meta">
+          <div class="mono">6 min</div>
+          <div class="mono ok">+60 on finishing</div>
+          <div class="mono">6 min of video</div>
+          <div class="mono" style="color:var(--heat)">2 of 17 on the branch have done it</div>
+        </div>
+
+        <div class="lvid">
+          <button class="p" id="chPlay" aria-label="Play the video">
+            <div class="film"><i style="height:34%"></i><i style="height:61%"></i><i style="height:28%"></i><i style="height:72%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:38%"></i><i style="height:66%"></i><i style="height:24%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:31%"></i><i style="height:59%"></i><i style="height:43%"></i><i style="height:77%"></i><i style="height:36%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:52%"></i><i style="height:68%"></i><i style="height:40%"></i><i style="height:57%"></i></div>
+            <span class="pb"><svg viewBox="0 0 24 24" style="width:17px;height:17px" fill="currentColor"><path d="M8 5l11 7-11 7V5Z"/></svg></span>
+          </button>
+          <div class="cap" id="chCap">6:01<span style="color:var(--rule)">|</span>press play and it loads from Loom</div>
+        </div>
+
+        <p class="lede">Six things down the left menu, and one trick worth knowing before the day you need it.</p>
+
+        <div class="h3">What each part does</div>
+        <table class="kt">
+          <tr><td>Dial pad</td><td>Calls out. Click the pushpin to keep it on screen.</td><td class="mono">left menu</td></tr>
+          <tr><td>Call history</td><td>Green is outbound, blue is incoming, red is missed.</td><td class="mono">filterable</td></tr>
+          <tr><td>Voicemail</td><td>New and saved messages on your extension.</td><td class="mono">left menu</td></tr>
+          <tr><td>Chat and SMS</td><td>Text a client if SMS is on for your line.</td><td class="mono">if enabled</td></tr>
+        </table>
+
+        <div class="h3">Moving a live call to your cell</div>
+        <p style="font-size:15px;color:var(--text-2);line-height:1.65;margin-top:2px">You are on a call at your desk and you have to leave. Dial <b style="color:var(--text-1)">*88</b> in the app and the call moves to your phone. The borrower is never put on hold and never hears it happen.</p>
+
+        <div class="chk" id="chChk">
+          <div class="chk-h"><i class="livedot"></i><span class="who">Mentor asks</span><span class="t mono">worth +40 · first try</span></div>
+          <div class="chk-q">You are on a call at your desk and you have to leave right now. How do you move it to your cell without the borrower noticing?</div>
+          <div class="opts" id="chOpts">
+            <button class="opt" data-k="a"><span class="k mono">A</span>Put them on hold, hang up, and call back from your cell</button>
+            <button class="opt" data-k="b"><span class="k mono">B</span>Dial *88 in the app</button>
+            <button class="opt" data-k="c"><span class="k mono">C</span>Transfer the call to your own extension</button>
+          </div>
+          <div class="chk-f" id="chChkF"></div>
+          <div class="chk-bar">
+            <span class="mono pay-v">+40 XP</span>
+            <span class="mono">first try pays 40, second pays 20</span>
+            <span style="margin-left:auto" class="mono">posts to Domina8 Standings</span>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
+          <button class="cta" id="chBtn">Back to Mortgage Fundamentals <span class="m mono">15 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <span class="mono" style="font-size:11.5px;color:var(--text-3)">worth more points, and it unlocks two courses</span>
+        </div>
+      </div>
+
       <div class="rail">
         <div class="rail-b">
           <div class="xpbig">
@@ -1004,6 +1099,9 @@ const COURSES = [
   {pos:'15–20', cat:'Underwriting', ttl:'Underwriting Essentials', lvl:'Intermediate', lv:2, n:6, done:0, live:0,
    d:'Think like an underwriter. Learn how income, assets, and credit are analyzed so you can submit clean files that close faster.',
    xp:0, xpT:520, left:'130 min', st:'lock', stT:'Needs Ch.05', branch:'1 of 17 finished'},
+  {pos:'30–33', cat:'Tools', ttl:'CallHarbor Soft Phone', lvl:'Beginner', lv:1, n:4, done:1, live:1,
+   d:'Get the soft phone onto your computer and your cell, and know who to call when it stops working.',
+   xp:60, xpT:200, left:'13 min', st:'live', stT:'Ch.02 live', branch:'2 of 17 finished', ch:1},
   {pos:'21–25', cat:'Products', ttl:'FHA & VA Loan Programs', lvl:'Intermediate', lv:2, n:5, done:0, live:0,
    d:'Deep dive into government-backed loan programs. Understand eligibility, guidelines, and how to structure these loans for your borrowers.',
    xp:0, xpT:440, left:'110 min', st:'lock', stT:'Needs Compliance', branch:'2 of 17 finished'},
@@ -1350,6 +1448,48 @@ function flyChip(from, amount){
   document.getElementById('startBtn') .addEventListener('click', to('#read'));
   document.getElementById('altBtn')   .addEventListener('click', to('#read'));
   document.getElementById('startBtn2').addEventListener('click', to('.hd'));
+
+  /* ── two lessons in one view ── */
+  const VBAR = {
+    mf: 'Mortgage Fundamentals · lesson 1 open · a question is due',
+    ch: 'CallHarbor Soft Phone · lesson 2 · six minutes of video, worth 60'
+  };
+  function showLesson(which){
+    document.body.dataset.les = which;
+    document.querySelector('#read .mono').textContent = VBAR[which];
+    document.getElementById('read').scrollIntoView({behavior:smooth, block:'start'});
+  }
+  document.getElementById('chBtn').addEventListener('click', ()=>showLesson('mf'));
+  [...document.querySelectorAll('#courses tr')].forEach((tr,i)=>{
+    if(COURSES[i] && COURSES[i].ch){ tr.style.cursor='pointer';
+      tr.addEventListener('click', ()=>showLesson('ch')); }
+  });
+
+  /* the poster is drawn, so nothing external is fetched until this is pressed */
+  document.getElementById('chPlay').addEventListener('click', function(){
+    const cap = document.getElementById('chCap');
+    this.outerHTML = '<iframe class="p" src="https://www.loom.com/embed/e92d64baf9e646e2b4a215a3c561690e?autoplay=1&hideEmbedTopBar=true" '+
+      'title="CallHarbor soft phone, setup and features" frameborder="0" '+
+      'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+    cap.innerHTML = 'playing from Loom<span style="color:var(--rule)">|</span>'+
+      '<a href="https://www.loom.com/share/e92d64baf9e646e2b4a215a3c561690e" target="_blank" rel="noopener">open it full size</a>';
+  });
+
+  const chOpts = document.getElementById('chOpts'), chChkF = document.getElementById('chChkF');
+  let chDone = false;
+  chOpts.addEventListener('click', e=>{
+    const b = e.target.closest('.opt'); if(!b || chDone) return;
+    if(b.dataset.k === 'b'){
+      chDone = true; b.classList.add('right');
+      chOpts.querySelectorAll('.opt').forEach(x=>x.disabled = true);
+      chChkF.innerHTML = '<b>Right, +40.</b> *88 pulls the live call across to your phone. The borrower is never put on hold and hears nothing at all. The other two both cost you a hold or a callback, which is the exact thing you are trying to avoid on your way out the door.';
+      chChkF.className = 'chk-f show ok';
+    } else {
+      b.classList.add('wrong');
+      chChkF.innerHTML = '<b>Not that one.</b> Both of those put the borrower on hold or make them wait for a callback. There is a code that moves the call with them still on it, and it is in the paragraph above. Second try pays 20.';
+      chChkF.className = 'chk-f show';
+    }
+  });
 })();
 </script>
 </body>

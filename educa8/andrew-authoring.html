@@ -626,10 +626,10 @@ body.tech .jsonp .inner{transform:none}
       </div>
       <div class="hd-r">
         <div class="stats">
-          <div class="stat"><div class="stat-k">Live</div><div class="stat-v mono">5<em>courses</em></div></div>
-          <div class="stat"><div class="stat-k">Draft</div><div class="stat-v mono" style="color:var(--heat)">1</div></div>
+          <div class="stat"><div class="stat-k">Live</div><div class="stat-v mono"><span id="stLive">5</span><em>courses</em></div></div>
+          <div class="stat"><div class="stat-k">Draft</div><div class="stat-v mono" style="color:var(--heat)" id="stDraft">1</div></div>
           <div class="stat"><div class="stat-k">Lessons</div><div class="stat-v mono" id="stLessons">29</div></div>
-          <div class="stat"><div class="stat-k">Partway through</div><div class="stat-v mono">56<em>of 68</em></div></div>
+          <div class="stat"><div class="stat-k">Partway through</div><div class="stat-v mono"><span id="stPartway">56</span><em>of 68</em></div></div>
           <div class="sw">
             <span class="sw-l">Show the plumbing</span>
             <button class="sw-t" id="swT" role="switch" aria-checked="false" aria-label="Show the plumbing"><i></i></button>
@@ -681,7 +681,7 @@ body.tech .jsonp .inner{transform:none}
         <div class="fld-k"><span class="lb"><i class="lp">Subject</i><i class="lt mono">category<b class="ty">enum</b></i></span></div>
         <select class="inp" id="fCat">
           <option>Fundamentals</option><option>Products</option><option>Compliance</option>
-          <option selected>Pricing</option><option>Sales</option><option>Underwriting</option>
+          <option>Pricing</option><option>Sales</option><option>Underwriting</option><option selected>Tools</option>
         </select>
       </div>
       <div class="fld">
@@ -861,7 +861,7 @@ body.tech .jsonp .inner{transform:none}
 <script>
 /* ═════════ data ═════════ */
 const CATS={Fundamentals:'#F0B93A',Products:'#5EEAD4',Compliance:'#8B5CF6',Pricing:'#6D28D9',Sales:'#EF4444',Underwriting:'#10B981',Tools:'#60A5FA'};
-const CATORDER=['Fundamentals','Products','Compliance','Pricing','Sales','Underwriting'];
+const CATORDER=['Fundamentals','Products','Compliance','Pricing','Sales','Underwriting','Tools'];
 
 const B_RL1=`<p class="lede">A rate lock is the lender promising to hold one interest rate for a set number of days while the loan is processed. Once it is locked the rate does not move against your borrower. It also does not move in their favour, which is the part they forget.</p>
 <h3>What a lock costs</h3>
@@ -1022,7 +1022,7 @@ let COURSES=[
   ]}
 ];
 
-const S={ci:5,li:0,tech:false};
+const S={ci:6,li:0,tech:false};   /* opens on CallHarbor, built from Andrew's one pager */
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'\\"');
 /* esc is for the JSON panel and escapes quotes as \" . This one is for markup. */
@@ -1210,6 +1210,9 @@ function syncAll(){
   $('qbR').textContent = l.q.prompt.trim() ? 'asked 3 days after they finish' : 'not written yet';
   $('qb').querySelector('.rel').innerHTML='correct_index <b>'+l.q.correct+'</b> · check_xp <b>'+l.cx+'</b> · decay_after_days <b>7</b>';
   $('stLessons').textContent=COURSES.reduce((a,x)=>a+(x.lessons?x.lessons.length:x.n),0);
+  $('stLive').textContent=COURSES.filter(x=>x.status==='published').length;
+  $('stDraft').textContent=COURSES.filter(x=>x.status!=='published').length;
+  $('stPartway').textContent=COURSES.reduce((a,x)=>a+(x.partway||0),0);
   renderVideo(); renderPreview(); renderJSON(); renderPublish(); renderReqs();
   const lm=document.querySelector('.lrow.on .lm');
   if(lm) lm.textContent = l.body.trim() ? l.dur+' min · '+w+' w'+(l.q.prompt.trim()?' · question':'') : 'not written yet';
@@ -1501,7 +1504,7 @@ function renderPublish(){
   $('wsNode').textContent=c.title.split(' ').slice(0,2).map(x=>x[0]).join('');
   $('wsChip').innerHTML=dual(live?'Live, everyone on the branch':'Draft, only you can see it',(live?'status: "published"':'status: "draft"')+' · '+c.vis);stagger();
   $('wsChip').className='chip'+(live?'':' draft');
-  $('wsSaved').textContent='saved '+(c.status==='draft'?'9:14am':c.touched.toLowerCase());
+  $('wsSaved').textContent='saved '+c.touched.toLowerCase().replace(/^today, /,'');
   $('cListNote').textContent=COURSES.filter(x=>x.status==='published').length+' live · '+
     COURSES.filter(x=>x.status==='draft').length+' you have not published yet · open one to edit it';
 }

@@ -428,6 +428,22 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .dg-x{display:flex;justify-content:space-between;margin-top:7px;font-size:10.5px;color:var(--text-3)}
 
 /* retrieval check, anchored to a live file */
+/* ── a lesson that is a video. Poster is drawn, so nothing external loads until
+   somebody presses play, and the lesson still reads if Loom is unreachable. ── */
+.lvid{margin-top:20px;border:1px solid var(--rule);border-radius:var(--panel-r);overflow:hidden;background:var(--surface-2)}
+.lvid .p{aspect-ratio:16/9;width:100%;position:relative;background:var(--surface-3);display:grid;place-items:center;
+         border:0;padding:0;transition:background var(--dur-fast) var(--ease)}
+.lvid button.p:hover{background:#24242b}
+.lvid button.p:hover .pb{border-color:var(--heat);color:var(--heat)}
+.lvid .film{position:absolute;inset:0;display:flex;align-items:flex-end;gap:3px;padding:0 12px 12px;opacity:.3}
+.lvid .film i{flex:1;background:var(--text-3);border-radius:1px;display:block}
+.lvid .pb{width:46px;height:46px;border-radius:50%;background:#0b0b0cd9;border:1px solid var(--ring);
+          display:grid;place-items:center;color:var(--text-1);position:relative}
+.lvid iframe.p{display:block;border:0}
+.lvid .cap{padding:9px 13px;font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);
+           display:flex;gap:10px;align-items:center;border-top:1px solid var(--rule-2)}
+.lvid .cap a{color:var(--text-2);text-decoration:underline;text-underline-offset:3px}
+
 .chk{margin-top:26px;border:1px solid var(--rule);border-left:1px solid var(--heat);border-radius:var(--panel-r);background:var(--surface-1)}
 .chk-h{display:flex;align-items:center;gap:9px;padding:11px 16px;border-bottom:1px solid var(--rule-2)}
 .chk-h .who{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--heat);font-weight:600}
@@ -575,8 +591,9 @@ body{padding-bottom:34px}
    three children are ever visible, so auto-placement puts spine / reading / rail in
    the right columns without any grid-area bookkeeping. */
 .les{display:none}
-body.les-fha .les-fha{display:block}
-body:not(.les-fha) .les-mf{display:block}
+body[data-les="mf"]  .les-mf{display:block}
+body[data-les="fha"] .les-fha{display:block}
+body[data-les="ch"]  .les-ch{display:block}
 
 /* the order-of-operations figure. Four steps, and the one that costs money if you
    reverse it. Drawn, because a screenshot of HUD would be a lie. */
@@ -610,7 +627,7 @@ body:not(.les-fha) .les-mf{display:block}
 }
 </style>
 </head>
-<body>
+<body data-les="mf">
 
 <svg style="display:none" aria-hidden="true">
   <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
@@ -1058,6 +1075,29 @@ body:not(.les-fha) .les-mf{display:block}
       <!-- ═══ the lesson the top of the page actually sends you to ═══
            FHA case number is one of the five behind "running blind", so finishing it
            is the one action on this page that moves that number. -->
+      <!-- ═══ CallHarbor. Not picked by a loan, and the page says so rather than
+           pretending the ordering rule covers everything. ═══ -->
+      <div class="spine les les-ch">
+        <div class="spine-h">CallHarbor Soft Phone</div>
+        <div class="ch read"><div class="stem"></div><div class="n mono">01</div>
+          <div><div class="ch-t">Set it up and go live</div><div class="ch-m mono">8 min · read Aug 01</div></div></div>
+        <div class="ch live"><div class="stem"></div><div class="n mono">02</div>
+          <div><div class="ch-t">Using it day to day</div><div class="ch-m mono">6 min · <span class="hit">6 min of video</span></div></div></div>
+        <div class="ch"><div class="stem"></div><div class="n mono">03</div>
+          <div><div class="ch-t">On your cell phone</div><div class="ch-m mono">4 min · not read</div></div></div>
+        <div class="ch last"><div class="n mono">04</div>
+          <div><div class="ch-t">When it is not working</div><div class="ch-m mono">3 min · not read</div></div></div>
+
+        <div class="spine-h" style="margin:26px 0 12px">This course, against your book</div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Lessons read</span><b class="mono">1 of 4</b></div>
+        <div class="led" style="padding-left:0;padding-right:0"><span>Open files it covers</span><b class="mono" style="color:var(--text-3)">none</b></div>
+        <div class="led" style="padding-left:0;padding-right:0;border-bottom:0"><span>Reading left</span><b class="mono">13 min</b></div>
+        <div class="foot-note" style="margin-top:10px">Your loans did not put this here. Everybody on the branch is being moved onto the soft phone this month, so it sits above the queue until you have read it.</div>
+
+        <div class="spine-h" style="margin:26px 0 12px">Back to the queue</div>
+        <div class="foot-note">Your twelve open loans are still driving everything else. This is the one exception on the page and it goes away once you finish it.</div>
+      </div>
+
       <div class="spine les les-fha">
         <div class="spine-h">FHA &amp; VA Loan Programs</div>
         <div class="ch"><div class="stem"></div><div class="n mono">01</div>
@@ -1081,6 +1121,58 @@ body:not(.les-fha) .les-mf{display:block}
 
         <div class="spine-h" style="margin:26px 0 12px">Why this came first</div>
         <div class="foot-note">Three open files touch this course and none of it has been read. Two of them are FHA and one is VA. It is the largest gap between what you are running and what you have behind you.</div>
+      </div>
+
+      <div class="rd les les-ch">
+        <div class="rd-crumb">Educa8 <span style="color:var(--rule)">/</span> <b>CallHarbor Soft Phone</b> <span style="color:var(--rule)">/</span> <span class="mono">Lesson 2</span></div>
+        <h2>Using it day to day</h2>
+        <div class="rd-meta">
+          <div class="mono">6 min</div>
+          <div class="mono">6 min of video</div>
+          <div class="mono" style="color:var(--heat)">not from a loan</div>
+          <div class="mono">everyone on the branch</div>
+        </div>
+
+        <div class="lvid">
+          <button class="p" id="chPlay" aria-label="Play the video">
+            <div class="film"><i style="height:34%"></i><i style="height:61%"></i><i style="height:28%"></i><i style="height:72%"></i><i style="height:45%"></i><i style="height:80%"></i><i style="height:38%"></i><i style="height:66%"></i><i style="height:24%"></i><i style="height:55%"></i><i style="height:70%"></i><i style="height:31%"></i><i style="height:59%"></i><i style="height:43%"></i><i style="height:77%"></i><i style="height:36%"></i><i style="height:64%"></i><i style="height:27%"></i><i style="height:52%"></i><i style="height:68%"></i><i style="height:40%"></i><i style="height:57%"></i></div>
+            <span class="pb"><svg viewBox="0 0 24 24" style="width:17px;height:17px" fill="currentColor"><path d="M8 5l11 7-11 7V5Z"/></svg></span>
+          </button>
+          <div class="cap" id="chCap">6:01<span style="color:var(--rule)">|</span>press play and it loads from Loom</div>
+        </div>
+
+        <p class="lede">Six things down the left menu, and one trick worth knowing before the day you need it.</p>
+
+        <div class="h3">What each part does</div>
+        <table class="kt">
+          <tr><td>Dial pad</td><td>Calls out. Click the pushpin to keep it on screen.</td><td class="mono">left menu</td></tr>
+          <tr><td>Call history</td><td>Green is outbound, blue is incoming, red is missed.</td><td class="mono">filterable</td></tr>
+          <tr><td>Voicemail</td><td>New and saved messages on your extension.</td><td class="mono">left menu</td></tr>
+          <tr><td>Chat and SMS</td><td>Text a client if SMS is on for your line.</td><td class="mono">if enabled</td></tr>
+        </table>
+
+        <div class="h3">Moving a live call to your cell</div>
+        <p style="font-size:14px;color:var(--text-2);line-height:1.65;margin-top:2px">You are on a call at your desk and you have to leave. Dial <b style="color:var(--text-1)">*88</b> in the app and the call moves to your phone. The borrower is never put on hold and never hears it happen.</p>
+
+        <div class="chk" id="chChk">
+          <div class="chk-h"><i class="livedot"></i><span class="who">Mentor asks</span><span class="t mono">asked again in 3 days</span></div>
+          <div class="chk-q">You are on a call at your desk and you have to leave right now. How do you move it to your cell without the borrower noticing?</div>
+          <div class="opts" id="chOpts">
+            <button class="opt" data-k="a"><span class="k mono">A</span>Put them on hold, hang up, and call back from your cell</button>
+            <button class="opt" data-k="b"><span class="k mono">B</span>Dial *88 in the app</button>
+            <button class="opt" data-k="c"><span class="k mono">C</span>Transfer the call to your own extension</button>
+          </div>
+          <div class="chk-f" id="chChkF"></div>
+          <div class="chk-bar">
+            <span class="hold-v">not scored</span>
+            <span class="mono">answering just sets the clock on it, the same as everything else here</span>
+          </div>
+        </div>
+
+        <div style="display:flex;align-items:center;gap:14px;margin-top:22px">
+          <button class="cta" id="chBtn">Back to what your loans need <span class="m mono">15 min</span> <svg style="width:16px;height:16px"><use href="#i-arrow"/></svg></button>
+          <span class="mono" style="font-size:11.5px;color:var(--text-3)">Delgado is still Thursday</span>
+        </div>
       </div>
 
       <div class="rd les les-fha">
@@ -1159,6 +1251,12 @@ body:not(.les-fha) .les-mf{display:block}
           <div class="filerow"><span class="fn">4433</span><div><b>Petrosyan</b><span> conventional purchase</span></div><span class="fx">clear to close</span></div>
           <div class="filerow" style="border-top:1px solid var(--rule);color:var(--text-3);font-size:11.5px;line-height:1.5;display:block;padding:11px 14px">
             Petrosyan closes Friday and the escrow figure is on the CD the borrower will read. That is why this one came back today rather than next week.</div>
+        </div>
+
+        <div class="rail-b les les-ch">
+          <div class="rail-h">Why this is here<span class="r mono">not your pipeline</span></div>
+          <div class="filerow" style="color:var(--text-3);font-size:11.5px;line-height:1.55;display:block;padding:11px 14px">
+            Nothing in your book needs this. The branch is moving onto the soft phone this month, so it sits above the queue until it is read and then drops off the page entirely.</div>
         </div>
 
         <div class="rail-b les les-fha">
@@ -1389,6 +1487,9 @@ const COURSES = [
   {cat:'Pricing', ttl:'Rate Lock Strategies', n:4, done:0, live:0,
    d:'Advanced pricing tactics: when to lock, float-down options, and how to protect your borrower in volatile markets.',
    covers:'1 open file', coversSub:'4455 Trần, locked 21 d', ver:'never', why:'One extension already paid for. Nothing else in the book is locked yet.', hot:0},
+  {cat:'Tools', ttl:'CallHarbor Soft Phone', n:4, done:1, live:0,
+   d:'Get the soft phone onto your computer and your cell, and know who to call when it stops working.',
+   covers:'nothing open', coversSub:'not from your loans', ver:'never', why:'The branch is moving onto it this month. This is the one thing here your pipeline did not choose.', hot:0, ch:1},
   {cat:'Sales', ttl:'Building Your Pipeline', n:5, done:1, live:0,
    d:'Proven strategies for lead generation, referral partner development, and consistent follow-up that keeps your pipeline full.',
    covers:'nothing open', coversSub:'twelve loans is a full book', ver:'Jul 24', why:'Your pipeline is full. This comes back when it is not.', hot:0}
@@ -1404,6 +1505,12 @@ function rowHTML(c){
   '</tr>';
 }
 document.getElementById('courses').innerHTML = COURSES.map(rowHTML).join('');
+/* the CallHarbor row is the only one wired to a lesson, because it is the only one
+   whose lesson is drawn on this page */
+[...document.querySelectorAll('#courses tr')].forEach((tr,i)=>{
+  if(COURSES[i] && COURSES[i].ch){ tr.style.cursor='pointer';
+    tr.addEventListener('click', ()=>showLesson('ch')); }
+});
 
 /* ══════════ by loan type ══════════
    Andrew asked for recommended training by loan type and borrower profile, so both
@@ -1553,17 +1660,48 @@ function reverify(firstTry){
    FHA lesson 2 and goes there; each "next" lands on the one the other view shows. */
 const VBAR = {
   mf : 'Mortgage Fundamentals · lesson 1 · a lapsed concept, re-asked against a live file',
-  fha: 'FHA &amp; VA Loan Programs · lesson 2 · never read, and Delgado has an appointment Thursday'
+  fha: 'FHA &amp; VA Loan Programs · lesson 2 · never read, and Delgado has an appointment Thursday',
+  ch : 'CallHarbor Soft Phone · lesson 2 · not from your loans, this one is just new'
 };
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 function showLesson(which){
-  document.body.classList.toggle('les-fha', which === 'fha');
+  document.body.dataset.les = which;
   document.getElementById('vbarSub').innerHTML = VBAR[which];
   document.getElementById('read').scrollIntoView({behavior: reduced ? 'auto' : 'smooth', block:'start'});
 }
 document.getElementById('startBtn') .addEventListener('click', ()=>showLesson('fha'));
 document.getElementById('startBtn2').addEventListener('click', ()=>showLesson('fha'));
 document.getElementById('fhaBtn')   .addEventListener('click', ()=>showLesson('mf'));
+document.getElementById('chBtn')    .addEventListener('click', ()=>showLesson('fha'));
+
+/* ══════════ CallHarbor: the video, and the one question on it ══════════ */
+/* Poster is drawn, so nothing external is fetched until this is pressed. */
+document.getElementById('chPlay').addEventListener('click', function(){
+  const cap = document.getElementById('chCap');
+  this.outerHTML = '<iframe class="p" src="https://www.loom.com/embed/e92d64baf9e646e2b4a215a3c561690e?autoplay=1&hideEmbedTopBar=true" '+
+    'title="CallHarbor soft phone, setup and features" frameborder="0" '+
+    'allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>';
+  cap.innerHTML = 'playing from Loom<span style="color:var(--rule)">|</span>'+
+    '<a href="https://www.loom.com/share/e92d64baf9e646e2b4a215a3c561690e" target="_blank" rel="noopener">open it full size</a>';
+});
+
+const chOpts = document.getElementById('chOpts');
+const chChkF = document.getElementById('chChkF');
+let chSettled = false;
+chOpts.addEventListener('click', e=>{
+  const b = e.target.closest('.opt'); if(!b || chSettled) return;
+  if(b.dataset.k === 'b'){
+    chSettled = true;
+    b.classList.add('right');
+    chOpts.querySelectorAll('.opt').forEach(x=>x.disabled = true);
+    chChkF.innerHTML = '<b>Right.</b> *88 pulls the live call across to your phone. The borrower is never put on hold and hears nothing at all. The other two both cost you a hold or a callback, which is the exact thing you are trying to avoid on your way out the door.';
+    chChkF.className = 'chk-f show ok';
+  } else {
+    b.classList.add('wrong');
+    chChkF.innerHTML = '<b>Not that one.</b> Both of those put the borrower on hold or make them wait for a callback. There is a code that moves the call with them on it, and it is in the paragraph above.';
+    chChkF.className = 'chk-f show';
+  }
+});
 
 /* ══════════ the check on the FHA lesson ══════════ */
 /* Same shape as the escrow one, and the same rule: getting it wrong costs nothing.

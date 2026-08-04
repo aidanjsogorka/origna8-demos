@@ -321,6 +321,20 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .why{font-size:11.5px;color:var(--text-3);white-space:normal;line-height:1.45;max-width:34ch}
 .why.hot{color:var(--heat)}
 
+/* ── fell out. Andrew's idea from the 4 Aug demo: a loan that died for a reason
+   you never read about is proven, final evidence, which nothing else here is.
+   Rows are one per reason, not one per borrower: the roster belongs in the Loan
+   Center, and what this tab is for is picking what to read. ── */
+.fell-lede{padding:15px 2px 16px;font-size:13.5px;color:var(--text-2);line-height:1.6;max-width:96ch}
+.fell-lede b{color:var(--text-1);font-weight:500}
+.fell-why{font-size:14px;color:var(--text-1);font-weight:500;line-height:1.3;white-space:normal}
+.fell-why span{display:block;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3);
+               font-weight:400;margin-top:4px;line-height:1.45;white-space:normal}
+.fell-n{font-family:'Geist Mono',monospace;font-size:15px;color:var(--text-1)}
+.fell-n.hot{color:var(--heat)}
+.pipe-foot2{padding:13px 2px 2px;border-top:1px solid var(--rule-2);margin-top:2px;
+            font-size:12px;color:var(--text-3);line-height:1.55;max-width:104ch}
+
 /* empty state */
 .empty{padding:34px 16px 40px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .empty h3{font-size:17px;font-weight:600;letter-spacing:-.02em}
@@ -855,6 +869,7 @@ body:not(.les-fha) .les-mf{display:block}
     <div class="tabs">
       <button class="tab on" data-t="all">All Courses <span class="c mono">6</span></button>
       <button class="tab" data-t="act">Touching your files <span class="c mono">4</span></button>
+      <button class="tab" data-t="fell">Fell out <span class="c mono">6</span></button>
       <button class="tab" data-t="done">Verified <span class="c mono">0</span></button>
       <button class="tab" data-t="gd">Guides <span class="c mono">28</span></button>
       <span class="r mono">ordered by what your open loans need</span>
@@ -874,6 +889,16 @@ body:not(.les-fha) .les-mf{display:block}
         <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
         <tbody id="coursesAct"></tbody>
       </table>
+    </div>
+
+    <div id="pane-fell" style="display:none">
+      <div class="fell-lede">Six of your last nineteen fell out. <b>Four of those trace to something you have never read.</b> This is the only evidence on the page that is already final: nothing here can be saved, which is what makes it worth reading.</div>
+      <table class="ct">
+        <colgroup><col style="width:290px"><col style="width:74px"><col><col style="width:264px"></colgroup>
+        <thead><tr><th>Why they fell out</th><th class="n">Files</th><th>What covers it</th><th>Have you read it</th></tr></thead>
+        <tbody id="fellRows"></tbody>
+      </table>
+      <div class="pipe-foot2">Fallout is scored by nobody and seen by nobody but you. It is here because a loan that died for a reason you have not read about is the cheapest lesson you will ever get.</div>
     </div>
 
     <div id="pane-done" style="display:none">
@@ -1364,6 +1389,32 @@ function rowHTML(c){
 document.getElementById('courses').innerHTML = COURSES.map(rowHTML).join('');
 document.getElementById('coursesAct').innerHTML = COURSES.filter(c=>c.covers!=='nothing open'&&c.hot).map(rowHTML).join('');
 
+/* ══════════ fell out ══════════
+   Nineteen closed or dead in the last ninety days, six of them dead. Grouped by
+   the reason, because the reason is what you would read about. Two of the four
+   reasons have nothing read behind them, and those two cost four files. */
+const FELL = [
+  {why:'Rate, and they went to somebody else', files:2, ids:'4390 Nakamura · 4402 Brennan',
+   covers:'Rate Lock Strategies', sub:'when to lock, and float-down', read:'never', when:'-'},
+  {why:'Income documents on a self-employed borrower', files:2, ids:'4377 Oyelaran · 4418 Vasquez',
+   covers:'Underwriting Essentials', sub:'lesson 3, income analysis', read:'never', when:'-'},
+  {why:'Appraisal came in under the contract price', files:1, ids:'4361 Kowalski',
+   covers:'Mortgage Fundamentals', sub:'lesson 4, application to closing', read:'read', when:'Jul 29'},
+  {why:'Borrower went quiet after the loan estimate', files:1, ids:'4408 Sitthisak',
+   covers:'Building Your Pipeline', sub:'lesson 2, follow-up that lands', read:'read', when:'Jul 24'}
+];
+document.getElementById('fellRows').innerHTML = FELL.map(f=>{
+  const cold = f.read==='never';
+  return '<tr class="rowlink">'+
+    '<td><div class="fell-why">'+f.why+'<span>'+f.ids+'</span></div></td>'+
+    '<td class="n"><span class="fell-n'+(cold?' hot':'')+'">'+f.files+'</span></td>'+
+    '<td><div class="covers"><b>'+f.covers+'</b><span>'+f.sub+'</span></div></td>'+
+    '<td class="mono" style="font-size:12.5px;color:'+(cold?'var(--heat)':'var(--text-2)')+'">'+
+      (cold?'never read':'read, and still knew it'+
+        '<span style="display:block;color:var(--text-3);font-size:11px;margin-top:3px">'+f.when+'</span>')+'</td>'+
+  '</tr>';
+}).join('');
+
 /* ══════════ amortization figure ══════════ */
 (function(){
   const bars=document.getElementById('bars'); const P=400000, r=0.065/12, n=360;
@@ -1389,7 +1440,7 @@ document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
     t.classList.add('on');
-    ['all','act','done','gd'].forEach(k=>{
+    ['all','act','fell','done','gd'].forEach(k=>{
       document.getElementById('pane-'+k).style.display = (k===t.dataset.t)?'':'none';
     });
   });

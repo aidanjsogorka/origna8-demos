@@ -336,9 +336,12 @@ select.inp{cursor:pointer;appearance:none;background-image:url("data:image/svg+x
 .up-n{display:flex;align-items:baseline;gap:9px;font-size:12.5px;color:var(--text-1)}
 .up-n .sz{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);margin-left:auto;white-space:nowrap}
 .bar{height:3px;background:var(--surface-3);border-radius:2px;overflow:hidden;margin-top:11px}
-.bar i{display:block;height:100%;background:var(--heat);width:0;transition:width .2s linear}
-.bar.wait i{width:38%;background:var(--text-3);animation:slide 1.15s var(--ease) infinite}
-@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(360%)}}
+/* scaleX, not width: the percentage is animated on every tick and width would
+   relayout the block each time. transform-origin pins it to the left edge. */
+.bar i{display:block;height:100%;width:100%;background:var(--heat);
+       transform:scaleX(0);transform-origin:left center;transition:transform .2s linear}
+.bar.wait i{background:var(--text-3);transition:none;animation:slide 1.15s var(--ease) infinite}
+@keyframes slide{0%{transform:translateX(-38%) scaleX(.38)}100%{transform:translateX(100%) scaleX(.38)}}
 .up-s{display:flex;align-items:center;gap:12px;margin-top:9px;font-size:11.5px;color:var(--text-3)}
 .up-s .x{margin-left:auto;color:var(--text-2);text-decoration:underline;text-underline-offset:3px;
          text-decoration-color:var(--rule)}
@@ -1070,6 +1073,7 @@ body{padding-bottom:34px}
   .d-cell.live,.d-cell.live.land{animation:none !important;transform:none !important;opacity:1 !important}
   .meter i,.rule-earn{transition-duration:1ms !important}
   .flychip{display:none !important}
+  .bar.wait i{animation:none !important;transform:scaleX(1) !important}
 }
 </style>
 <script>
@@ -1198,7 +1202,7 @@ function renderVideo(){
     const sending=v.state==='up';
     B.innerHTML=
       '<div class="up-n">'+esc2(v.name)+'<span class="sz">'+fmtSize(v.size)+'</span></div>'+
-      '<div class="bar'+(sending?'':' wait')+'"><i style="width:'+(sending?v.pct:100)+'%"></i></div>'+
+      '<div class="bar'+(sending?'':' wait')+'"><i style="transform:scaleX('+(sending?v.pct/100:1)+')"></i></div>'+
       '<div class="up-s">'+
         (sending?'<span>Sending, '+v.pct+'%</span>':'<span>Making it playable. You can keep writing.</span>')+
         '<a class="x" id="vCancel">Cancel</a>'+

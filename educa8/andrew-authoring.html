@@ -103,9 +103,11 @@ body.tech .lb>i.lt{opacity:1;transform:none}
      opacity:0;transform:translateX(-5px);transition:opacity .24s var(--ease),transform .3s var(--ease);transition-delay:var(--d,0ms);
      white-space:nowrap;line-height:14px}
 body.tech .idl{opacity:1;transform:none}
-.rel{height:14px;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
+/* Collapsed, not just transparent. It used to hold its 14px band while invisible,
+   which left a dead gap under every field with the switch off. */
+.rel{display:none;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
      opacity:0;transition:opacity .24s var(--ease);line-height:14px;white-space:nowrap}
-body.tech .rel{opacity:1}
+body.tech .rel{display:block;height:14px;opacity:1}
 .rel b{color:var(--heat);font-weight:400}
 
 /* ───────── page header ───────── */
@@ -306,6 +308,80 @@ select.inp{cursor:pointer;appearance:none;background-image:url("data:image/svg+x
 .qb-f{display:flex;align-items:center;gap:14px;padding:12px 15px;border-top:1px solid var(--rule-2);font-size:11.5px;color:var(--text-3);flex-wrap:wrap}
 .qb-f .ok{color:var(--pos)}
 .qb-f .warn{color:var(--warn)}
+
+/* ═════════ video on a lesson ═════════
+   Andrew asked for this to be self-serve: he should never need Jawad or me to get
+   a video onto a lesson. So it takes a file or a link, and every state it can be
+   in is drawn, including the two ways it can fail. */
+.vid{margin-top:26px;border:1px solid var(--rule);border-radius:3px;background:var(--surface-1)}
+.vid-h{display:flex;align-items:center;gap:9px;padding:10px 15px;border-bottom:1px solid var(--rule-2)}
+.vid-h .k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);font-weight:600;display:flex;align-items:center}
+.vid-h .k .lb>i.lt{letter-spacing:0;text-transform:none;font-size:11px;color:var(--text-2)}
+.vid-h .r{margin-left:auto;font-family:'Geist Mono',monospace;font-size:10.5px;color:var(--text-3)}
+.vid-b{padding:14px 15px 15px}
+
+/* empty: a drop target that says what it takes */
+.drop{border:1px dashed var(--ring);border-radius:3px;padding:18px 16px;
+      transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.drop.over{border-color:var(--heat);background:var(--heat-soft)}
+.drop-t{font-size:13.5px;color:var(--text-1)}
+.drop-s{font-size:11.5px;color:var(--text-3);margin-top:4px;line-height:1.5}
+.drop-row{display:flex;align-items:center;gap:9px;margin-top:13px;flex-wrap:wrap}
+.lnk{flex:1 1 240px;min-width:0;height:30px;background:var(--surface-2);border:1px solid var(--rule);border-radius:2px;
+     padding:0 10px;font-size:11.5px;color:var(--text-1);font-family:'Geist Mono',monospace}
+.lnk::placeholder{color:var(--text-3);font-family:'Hanken Grotesk',system-ui,sans-serif;font-size:12px}
+.lnk:focus{outline:none;border-color:var(--ring)}
+
+/* uploading and processing */
+.up-n{display:flex;align-items:baseline;gap:9px;font-size:12.5px;color:var(--text-1)}
+.up-n .sz{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);margin-left:auto;white-space:nowrap}
+.bar{height:3px;background:var(--surface-3);border-radius:2px;overflow:hidden;margin-top:11px}
+.bar i{display:block;height:100%;background:var(--heat);width:0;transition:width .2s linear}
+.bar.wait i{width:38%;background:var(--text-3);animation:slide 1.15s var(--ease) infinite}
+@keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(360%)}}
+.up-s{display:flex;align-items:center;gap:12px;margin-top:9px;font-size:11.5px;color:var(--text-3)}
+.up-s .x{margin-left:auto;color:var(--text-2);text-decoration:underline;text-underline-offset:3px;
+         text-decoration-color:var(--rule)}
+.up-s .x:hover{color:var(--text-1)}
+
+/* ready */
+.vrow{display:flex;gap:14px;align-items:flex-start}
+.poster{width:150px;flex:0 0 150px;aspect-ratio:16/9;border-radius:3px;background:var(--surface-3);
+        border:1px solid var(--rule);position:relative;overflow:hidden}
+.poster .film{position:absolute;inset:0;display:flex;align-items:flex-end;gap:2px;padding:0 5px 5px;opacity:.5}
+.poster .film i{flex:1;background:var(--text-3);border-radius:1px;display:block}
+.poster .play{position:absolute;inset:0;display:grid;place-items:center}
+.poster .play span{width:34px;height:34px;border-radius:50%;background:#0b0b0ccc;border:1px solid var(--ring);
+                   display:grid;place-items:center}
+.poster .len{position:absolute;right:5px;top:5px;background:#0b0b0cd9;border-radius:2px;padding:1px 5px;
+             font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-1)}
+.vmeta{min-width:0;flex:1}
+.vmeta .t{font-size:13.5px;color:var(--text-1);line-height:1.3;word-break:break-word}
+.vmeta .d{font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);margin-top:5px;line-height:1.5}
+.src{display:inline-block;font-family:'Geist Mono',monospace;font-size:9.5px;letter-spacing:.06em;
+     text-transform:uppercase;border:1px solid var(--rule);border-radius:2px;padding:1px 5px;color:var(--text-3);
+     margin-right:7px;vertical-align:1px}
+.src.link{border-color:var(--heat-line);color:var(--heat)}
+.vacts{display:flex;gap:9px;margin-top:11px;flex-wrap:wrap}
+
+/* it failed, and the message says what to do about it */
+.verr{border:1px solid var(--neg);border-radius:3px;background:var(--neg-soft);padding:12px 14px}
+.verr .t{font-size:13px;color:var(--text-1);display:flex;align-items:center;gap:8px}
+.verr .s{font-size:11.5px;color:var(--text-2);margin-top:5px;line-height:1.5}
+
+/* the time it adds, folded into the lesson's own number */
+.vtime{margin-top:12px;padding-left:11px;border-left:1px solid var(--rule);font-size:11.5px;
+       color:var(--text-3);line-height:1.5}
+.vtime b{color:var(--text-1);font-weight:500}
+.vtime u{text-decoration:none;color:var(--heat);cursor:pointer;border-bottom:1px solid var(--heat-line)}
+
+/* the learner's side of it */
+.pv-vid{margin-top:13px;border:1px solid var(--rule);border-radius:3px;background:var(--surface-2);overflow:hidden}
+.pv-vid .p{aspect-ratio:16/9;position:relative;background:var(--surface-3);display:grid;place-items:center}
+.pv-vid .p span{width:30px;height:30px;border-radius:50%;background:#0b0b0ccc;border:1px solid var(--ring);
+                display:grid;place-items:center}
+.pv-vid .c{padding:7px 9px;font-size:10.5px;color:var(--text-3);font-family:'Geist Mono',monospace;
+           display:flex;gap:8px;align-items:center}
 
 /* right rail: preview + json drawer */
 .rail{padding:16px 0 20px 20px;min-width:0}
@@ -668,6 +744,17 @@ body.tech .jsonp .inner{transform:none}
           The reading time is measured from what you have written. Keep your own number higher if the lesson has a worksheet or a call to sit through.
         </div>
 
+        <!-- video · a file or a link, no developer in the loop -->
+        <div class="vid" id="vid">
+          <div class="vid-h">
+            <span class="k"><span class="lb"><i class="lp">Video for this lesson</i><i class="lt mono">video_asset<b class="ty">object</b></i></span></span>
+            <span class="r" id="vidR">optional</span>
+          </div>
+          <div class="vid-b" id="vidB"></div>
+          <div class="rel" style="padding:0 15px 12px">video_asset.chapter_id <b>→</b> chapter.id · file <b>NEW: object store + transcode job</b> · link <b>NEW: oembed lookup</b></div>
+        </div>
+        <input type="file" id="vidFile" accept="video/*" hidden>
+
         <!-- question builder -->
         <div class="qb" id="qb">
           <div class="qb-h">
@@ -855,6 +942,8 @@ let COURSES=[
 const S={ci:5,li:0,tech:false};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'\\"');
+/* esc is for the JSON panel and escapes quotes as \" . This one is for markup. */
+const esc2=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const cur=()=>COURSES[S.ci];
 const lsn=()=>cur().lessons[S.li];
 const slugify=s=>s.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'').slice(0,42)||'untitled';
@@ -1037,11 +1126,160 @@ function syncAll(){
   $('qbR').textContent = l.q.prompt.trim() ? 'asked 3 days after they finish' : 'not written yet';
   $('qb').querySelector('.rel').innerHTML='correct_index <b>'+l.q.correct+'</b> · check_xp <b>'+l.cx+'</b> · decay_after_days <b>7</b>';
   $('stLessons').textContent=COURSES.reduce((a,x)=>a+(x.lessons?x.lessons.length:x.n),0);
-  renderPreview(); renderJSON(); renderPublish(); renderReqs();
+  renderVideo(); renderPreview(); renderJSON(); renderPublish(); renderReqs();
   const lm=document.querySelector('.lrow.on .lm');
   if(lm) lm.textContent = l.body.trim() ? l.dur+' min · '+w+' w'+(l.q.prompt.trim()?' · question':'') : 'not written yet';
   const lt=document.querySelector('.lrow.on .lt2'); if(lt) lt.textContent=l.title||'Untitled lesson';
 }
+
+/* ═════════ video · a file or a link ═════════
+   Andrew's ask was that he never needs Jawad or me to get a video onto a lesson.
+   The send is simulated, but the states are the real ones: sending, transcoding,
+   ready, and the two ways it actually fails. He never leaves this screen. */
+const MAXMB=500;
+const fmtSize=b=>b>=1073741824?(b/1073741824).toFixed(1)+' GB':Math.round(b/1048576)+' MB';
+const fmtLen=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
+
+/* Loom, YouTube and Vimeo. Loom is the one he actually uses. */
+function readLink(u){
+  u=(u||'').trim(); if(!u) return null;
+  const h=(/^(?:https?:\/\/)?(?:www\.)?([^/\s]+)/.exec(u)||[])[1]||'';
+  let m;
+  const tidy=u.replace(/^https?:\/\//,'').replace(/^www\./,'').replace(/[?#].*$/,'');
+  if(/loom\.com$/i.test(h)   && (m=/share\/([a-f0-9]{8,})/i.exec(u))) return {at:'Loom',    id:m[1], tidy};
+  if(/youtu\.?be(\.com)?$/i.test(h) && (m=/(?:v=|youtu\.be\/)([\w-]{6,})/.exec(u))) return {at:'YouTube', id:m[1], tidy};
+  if(/vimeo\.com$/i.test(h)  && (m=/vimeo\.com\/(\d+)/.exec(u))) return {at:'Vimeo',   id:m[1], tidy};
+  return {bad:true};
+}
+/* a drawn filmstrip, same every time for a given name, so it does not flicker */
+function strip(seed){
+  let h=0; for(const ch of String(seed)) h=(h*31+ch.charCodeAt(0))&0xffff;
+  let out=''; for(let i=0;i<22;i++){ h=(h*1103515245+12345)&0x7fffffff;
+    out+='<i style="height:'+(18+(h>>7)%64)+'%"></i>'; }
+  return out;
+}
+const PLAY='<svg viewBox="0 0 24 24" style="width:13px;height:13px" fill="currentColor"><path d="M8 5l11 7-11 7V5Z"/></svg>';
+
+let upTick=null;
+function setVid(v){ lsn().vid=v; syncAll(); }
+
+function renderVideo(){
+  const l=lsn(), v=l.vid, B=$('vidB');
+  $('vidR').textContent = !v ? 'optional'
+    : v.state==='ready' ? (v.at||'uploaded')
+    : v.state==='err'   ? 'not added'
+    : 'working';
+
+  if(!v){
+    B.innerHTML=
+      '<div class="drop" id="drop">'+
+        '<div class="drop-t">Drop a video here, or choose a file.</div>'+
+        '<div class="drop-s">MP4 or MOV, up to '+MAXMB+' MB. Already on Loom? Paste the share link instead and nothing uploads.</div>'+
+        '<div class="drop-row">'+
+          '<button class="btn-q" id="vPick" style="height:30px">Choose a file</button>'+
+          '<input class="lnk" id="vLink" placeholder="or paste a Loom, YouTube or Vimeo link">'+
+          '<button class="btn-q" id="vAdd" style="height:30px">Add link</button>'+
+        '</div>'+
+      '</div>';
+    return;
+  }
+
+  if(v.state==='err'){
+    B.innerHTML=
+      '<div class="verr">'+
+        '<div class="t"><svg style="width:15px;height:15px;color:var(--neg)"><use href="#i-alert"/></svg>'+esc2(v.why)+'</div>'+
+        '<div class="s">'+v.fix+'</div>'+
+      '</div>'+
+      '<div class="vacts"><button class="btn-q" id="vAgain">Try another file</button></div>';
+    return;
+  }
+
+  if(v.state==='up'||v.state==='work'){
+    const sending=v.state==='up';
+    B.innerHTML=
+      '<div class="up-n">'+esc2(v.name)+'<span class="sz">'+fmtSize(v.size)+'</span></div>'+
+      '<div class="bar'+(sending?'':' wait')+'"><i style="width:'+(sending?v.pct:100)+'%"></i></div>'+
+      '<div class="up-s">'+
+        (sending?'<span>Sending, '+v.pct+'%</span>':'<span>Making it playable. You can keep writing.</span>')+
+        '<a class="x" id="vCancel">Cancel</a>'+
+      '</div>';
+    return;
+  }
+
+  /* ready */
+  const mins=Math.max(1,Math.round(v.secs/60));
+  B.innerHTML=
+    '<div class="vrow">'+
+      '<div class="poster"><div class="film">'+strip(v.name)+'</div>'+
+        '<div class="play"><span>'+PLAY+'</span></div>'+
+        '<div class="len">'+fmtLen(v.secs)+'</div></div>'+
+      '<div class="vmeta">'+
+        '<div class="t"><span class="src'+(v.kind==='link'?' link':'')+'">'+(v.at||'file')+'</span>'+esc2(v.name)+'</div>'+
+        '<div class="d">'+(v.kind==='link'
+            ? 'nothing uploaded, it plays from '+v.at
+            : fmtSize(v.size)+' · converted, plays everywhere')+'</div>'+
+        '<div class="vacts">'+
+          '<button class="btn-q" id="vSwap">Replace</button>'+
+          '<button class="btn-q" id="vDrop">Remove</button>'+
+        '</div>'+
+      '</div>'+
+    '</div>'+
+    '<div class="vtime">This video runs <b>'+fmtLen(v.secs)+'</b>, so the lesson is about <b>'+mins+' min</b> longer than the reading alone. '+
+      (l.dur>=mins?'Your number already covers it.':'<u id="vUse">Add '+mins+' min to the lesson time</u>')+'</div>';
+}
+
+/* one place that starts a send, so the file path and the drop path behave the same */
+function sendFile(f){
+  clearInterval(upTick);
+  if(!/^video\//.test(f.type||'')){
+    setVid({state:'err',why:'That is not a video.',
+      fix:'This slot takes MP4 or MOV. If it is a worksheet or a one pager, put it in the lesson body as a download instead.'});
+    return;
+  }
+  if(f.size>MAXMB*1048576){
+    setVid({state:'err',why:fmtSize(f.size)+' is over the limit.',
+      fix:'The limit is '+MAXMB+' MB. Either trim it, or put it on Loom and paste the share link, which uploads nothing at all.'});
+    return;
+  }
+  const v={state:'up',kind:'file',name:f.name,size:f.size,pct:0,
+           secs:Math.max(45,Math.min(3600,Math.round(f.size/1048576*7)))};
+  setVid(v);
+  upTick=setInterval(()=>{
+    if(lsn().vid!==v){ clearInterval(upTick); return; }
+    v.pct=Math.min(100,v.pct+Math.max(3,Math.round((100-v.pct)/7)));
+    if(v.pct>=100){
+      clearInterval(upTick); v.state='work'; renderVideo();
+      setTimeout(()=>{ if(lsn().vid===v){ v.state='ready'; renderVideo(); syncAll(); } },1500);
+    } else renderVideo();
+  },170);
+}
+
+/* delegated, because the block is rebuilt on every state change */
+$('vidB').addEventListener('click',e=>{
+  const id=e.target.closest('button,a,u')?.id;
+  if(id==='vPick'||id==='vAgain'||id==='vSwap') $('vidFile').click();
+  else if(id==='vAdd'){
+    const raw=$('vLink').value, r=readLink(raw);
+    if(!raw.trim()) return;
+    if(!r||r.bad) setVid({state:'err',why:'That link is not one we can play.',
+      fix:'Loom, YouTube and Vimeo work. Paste the share link, the one that opens the video in a browser.'});
+    else setVid({state:'ready',kind:'link',at:r.at,name:r.tidy,size:0,secs:504,id:r.id});
+  }
+  else if(id==='vCancel'||id==='vDrop'){ clearInterval(upTick); setVid(null); }
+  else if(id==='vUse'){ const l=lsn(); l.dur=Math.max(l.dur,0)+Math.max(1,Math.round(l.vid.secs/60));
+                        $('durV').textContent=l.dur+' min'; renderVideo(); syncAll(); }
+});
+$('vidB').addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&e.target.id==='vLink'){ e.preventDefault(); $('vAdd').click(); }
+});
+$('vidFile').addEventListener('change',e=>{ const f=e.target.files[0]; if(f) sendFile(f); e.target.value=''; });
+
+/* drag and drop onto the block */
+['dragenter','dragover'].forEach(ev=>$('vid').addEventListener(ev,e=>{
+  e.preventDefault(); const d=$('drop'); if(d) d.classList.add('over'); }));
+['dragleave','drop'].forEach(ev=>$('vid').addEventListener(ev,e=>{
+  e.preventDefault(); const d=$('drop'); if(d) d.classList.remove('over'); }));
+$('vid').addEventListener('drop',e=>{ const f=e.dataTransfer.files[0]; if(f) sendFile(f); });
 
 /* ═════════ learner preview (rail) ═════════ */
 function firstPara(html){const d=document.createElement('div');d.innerHTML=html;const p=d.querySelector('.lede')||d.querySelector('p');return p?p.innerText:'';}
@@ -1059,6 +1297,11 @@ function renderPreview(){
    '<div class="pv-crumb">Educa8 / '+c.title+' / Lesson '+String(S.li+1).padStart(2,'0')+'</div>'+
    '<div class="pv-h">'+(l.title||'Untitled lesson')+'</div>'+
    '<div class="pv-meta"><div>'+l.dur+' min</div><div class="h">+'+l.xp+' XP</div><div>'+c.level+'</div></div>'+
+   (l.vid&&l.vid.state==='ready'
+     ? '<div class="pv-vid"><div class="p"><span>'+PLAY+'</span></div>'+
+       '<div class="c">'+fmtLen(l.vid.secs)+'<span style="color:var(--rule)">|</span>'+
+       (l.vid.kind==='link'?'plays from '+l.vid.at:'uploaded')+'</div></div>'
+     : '')+
    '<div class="pv-lede">'+firstPara(l.body)+'</div>'+
    (defs.length?'<div class="pv-k">Key concepts</div><table class="pv-t">'+
      defs.map(d=>'<tr><td>'+d[0]+'</td><td>'+d[1]+'</td></tr>').join('')+'</table>':'')+
@@ -1089,6 +1332,19 @@ function renderJSON(){
    '  '+k('body')+': '+s(snip)+',\n'+
    '  <span class="jc">// richtext · '+bodyTxt.length+' chars · '+w+' words</span>\n'+
    '  '+k('xp_award')+': '+n(l.xp)+',\n'+
+   (l.vid&&l.vid.state==='ready'
+     ? '  '+k('video_asset')+': {\n'+
+       '    '+k('source')+': '+s(l.vid.kind)+',\n'+
+       (l.vid.kind==='link'
+         ? '    '+k('provider')+': '+s(l.vid.at.toLowerCase())+',\n'+
+           '    '+k('external_id')+': '+s(l.vid.id||'')+',\n'+
+           '    <span class="jc">// oembed lookup, nothing stored</span>\n'
+         : '    '+k('filename')+': '+s(l.vid.name)+',\n'+
+           '    '+k('bytes')+': '+n(l.vid.size)+',\n'+
+           '    <span class="jc">// object store + transcode job</span>\n')+
+       '    '+k('duration_seconds')+': '+n(Math.round(l.vid.secs))+'\n'+
+       '  },\n'
+     : '')+
    '  '+k('retrieval_check')+': {\n'+
    '    '+k('prompt')+': '+s(q.prompt.length>28?q.prompt.slice(0,28)+'…':q.prompt)+',\n'+
    '    '+k('options')+': [\n'+

@@ -99,10 +99,13 @@ body.tech .lb>i.lt{opacity:1;transform:none}
 .ty{font-family:'Geist Mono',monospace;font-size:9px;font-weight:400;letter-spacing:.02em;color:var(--text-3);
     border:1px solid var(--border);border-radius:2px;padding:1px 4px;margin-left:6px;line-height:1.25}
 /* reserved id strip: never changes height, only fills */
-.idl{height:14px;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
+/* Collapsed when off, like .rel. It also used to be one nowrap line clipped at
+   14px, so any lesson title longer than "When to Lock" lost the end of its slug.
+   Andrew types the titles, so it has to survive a long one. */
+.idl{display:none;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
      opacity:0;transform:translateX(-5px);transition:opacity .24s var(--ease),transform .3s var(--ease);transition-delay:var(--d,0ms);
-     white-space:nowrap;line-height:14px}
-body.tech .idl{opacity:1;transform:none}
+     white-space:normal;line-height:1.45;word-break:break-word}
+body.tech .idl{display:block;opacity:1;transform:none}
 /* Collapsed, not just transparent. It used to hold its 14px band while invisible,
    which left a dead gap under every field with the switch off. */
 .rel{display:none;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
@@ -857,7 +860,7 @@ body.tech .jsonp .inner{transform:none}
 <div class="toast" id="toast"></div>
 <script>
 /* ═════════ data ═════════ */
-const CATS={Fundamentals:'#F0B93A',Products:'#5EEAD4',Compliance:'#8B5CF6',Pricing:'#6D28D9',Sales:'#EF4444',Underwriting:'#10B981'};
+const CATS={Fundamentals:'#F0B93A',Products:'#5EEAD4',Compliance:'#8B5CF6',Pricing:'#6D28D9',Sales:'#EF4444',Underwriting:'#10B981',Tools:'#60A5FA'};
 const CATORDER=['Fundamentals','Products','Compliance','Pricing','Sales','Underwriting'];
 
 const B_RL1=`<p class="lede">A rate lock is the lender promising to hold one interest rate for a set number of days while the loan is processed. Once it is locked the rate does not move against your borrower. It also does not move in their favour, which is the part they forget.</p>
@@ -897,6 +900,57 @@ const B_MF2=`<p class="lede">Conventional, FHA, VA and USDA are the four familie
 const B_MF3=`<p class="lede">Qualifying is four questions: can they repay it, will they repay it, is there enough money to close, and is the property worth it.</p><p>Income, credit, assets and collateral. Every document you ask for maps to one of those four. If you cannot say which one a document belongs to, you probably do not need it.</p>`;
 const B_MF4=`<p class="lede">From application to closing is a fixed sequence, and most delays come from doing the steps out of order.</p><p>Application, disclosures, processing, appraisal, underwriting, conditions, clear to close, closing disclosure, signing, funding. Learn the order and you can tell a borrower where their file is without opening it.</p>`;
 const B_MF5=`<p class="lede">The document list looks long until you group it. Income, assets, identity, property.</p><p>Collect the whole group at once rather than asking three times. Every extra request costs a day and a little trust.</p>`;
+
+/* ═════════ CallHarbor · written from Andrew's own one pager, 4 Aug ═════════
+   The sheet gets it onto the computer, the Loom shows how to use it. Same split
+   here: lesson 1 is setup, lesson 2 is the day to day and carries the video. */
+const B_CH1=`<p class="lede">The soft phone puts your work line on your computer. No desk phone, no forwarding, and no second number to hand out. Setup takes about ten minutes and you only do it once.</p>
+<h3>Start from the email</h3>
+<p>CallHarbor sends a setup email. Open it, click Complete Setup, enter your login and pick a password. That lands you on the User View, which is the portal. The portal is not the phone.</p>
+<h3>Open the phone itself</h3>
+<p>Top right of the portal, click Apps, then Web Soft Phone. It opens in a new tab. Permission pop-ups then appear back to back for your microphone and your notifications. Keep clicking Allow until they stop. If you block one, the phone will not register and nothing on screen will tell you why.</p>
+<p>Pick your microphone, click Next, then pick where you want to hear the call. Top right will say Unregistered for up to a minute, then flip to Registered with a green phone icon. Green means you are connected.</p>
+<h3>Put it in your taskbar</h3>
+<p>In the left menu, scroll down to Settings and click Install PWA. It installs like a normal app, turns up in your taskbar, and you can right click to pin it. Inside the app, the three dots at the top open App Info, then Settings. Set Make calls using to This Phone, then set your microphone, output and ringtone. Set them once there and they stick every time.</p>
+<h3>Prove it works</h3>
+<p>Open the dial pad, place a call out, and have somebody call your extension back. A green phone icon and a call you can hear both ways is the whole test.</p>
+<div class="defs">
+<div class="def"><b>User View</b><span>The portal dashboard. Settings and history live here, calls do not.</span></div>
+<div class="def"><b>Registered</b><span>Connected and able to take a call. Green icon, top right.</span></div>
+<div class="def"><b>PWA</b><span>The installed desktop version. The same phone, in its own window.</span></div>
+</div>
+<p>It runs in Edge or Chrome. We are a Microsoft shop so Edge is fine. Run one or the other, never the app and the browser tab at the same time.</p>`;
+
+const B_CH2=`<p class="lede">Six things down the left menu, and one trick worth knowing before the day you need it.</p>
+<h3>What each part does</h3>
+<div class="defs">
+<div class="def"><b>Dial pad</b><span>Calls out. Click the pushpin to keep it on screen.</span></div>
+<div class="def"><b>Call history</b><span>Green is outbound, blue is incoming, red is missed. Filter by all, missed, inbound or outbound.</span></div>
+<div class="def"><b>Voicemail</b><span>New and saved messages on your extension.</span></div>
+<div class="def"><b>Chat and SMS</b><span>Text a client if SMS is on for your line, and message other extensions.</span></div>
+<div class="def"><b>Contacts</b><span>Your own. Shared contacts are set for everybody at once.</span></div>
+<div class="def"><b>Settings</b><span>Microphone, output, ringtone and volume, changeable whenever.</span></div>
+</div>
+<h3>Moving a live call to your cell</h3>
+<p>You are on a call at your desk and you have to leave. Dial <b>*88</b> in the app and the call moves to your phone. The borrower is never put on hold and never hears it happen. Practise it once on a colleague, so you are not learning it in the middle of a real call.</p>`;
+
+const B_CH3=`<p class="lede">The mobile app puts the same work line on your cell, so your personal number never goes out.</p>
+<h3>Getting it</h3>
+<p>Search <b>CallHarborUC</b> in the App Store or on Google Play, install it, and open it.</p>
+<h3>Signing in</h3>
+<p>Same username and password as the portal. The username is your extension, then an at sign, then the domain, so extension 100 signs in as 100@callharbor. If you were adding @CALLHARBOR on the end before, you do not need it any more.</p>
+<h3>Permissions</h3>
+<p>They come one at a time. Tap Next, then Allow, for each one. Allow notifications or the phone will simply not ring. On an iPhone the microphone is not asked for until your first call, which is normal and not a fault.</p>`;
+
+const B_CH4=`<p class="lede">Three numbers, in order. Do not sit on a broken phone for a day.</p>
+<h3>In order</h3>
+<ul><li>Dial <b>611</b> on the soft phone keypad. That rings CallHarbor support directly.</li>
+<li>Email support@callharbor.com if you cannot dial out at all.</li>
+<li>Andrew Lang, VP of Talent, Learning and Development, on 734 578 8031 or Andrew.l@origna8.com.</li></ul>
+<h3>The one that catches everybody</h3>
+<p>Run the desktop app or the browser tab. Never both. Two instances registered on one extension is the most common reason a call rings in the wrong place, or does not ring at all.</p>
+<h3>Before you call anybody</h3>
+<p>Check the top right says Registered. If it says Unregistered you almost certainly blocked a permission during setup. Clear the site permissions for CallHarbor in your browser, reload, and walk back through the Allow prompts.</p>`;
 
 let COURSES=[
  {id:'crs_1e07',slug:'mortgage-fundamentals',title:'Mortgage Fundamentals',cat:'Fundamentals',level:'Beginner',status:'published',vis:'branch',
@@ -939,7 +993,33 @@ let COURSES=[
        why:'38 days with an unordered appraisal makes a 30 day lock a coin flip, and an extension gets priced at worst case. 60 days costs the borrower a quarter point they do not need. Floating a file with a real closing date is not a strategy.'}},
    {id:'chp_4a1b',title:'Float-Down Options',dur:9,body:B_RL2,xp:90,cx:40,q:null},
    {id:'chp_4a1e',title:'Reading the Rate Sheet',dur:7,body:B_RL3,xp:90,cx:40,q:null},
-   {id:'chp_4a22',title:'Protecting the Borrower',dur:0,body:'',xp:90,cx:40,q:null}]}
+   {id:'chp_4a22',title:'Protecting the Borrower',dur:0,body:'',xp:90,cx:40,q:null}]},
+
+ /* Built from Andrew's CallHarbor one pager, 4 Aug, as the content test case for
+    the upload flow. Left as a draft on purpose: it is the state he would be looking
+    at the moment after writing it, with publish still to press. */
+ {id:'crs_7f4c',slug:'callharbor-soft-phone',title:'CallHarbor Soft Phone',cat:'Tools',level:'Beginner',status:'draft',vis:'branch',
+  summary:'Get the soft phone onto your computer and your cell, and know who to call when it stops working. Written from the setup sheet.',
+  touched:'Today, 9:52am',touchedT:'2026-08-04T09:52:11Z',partway:0,requires:[],n:4,
+  lessons:[
+   {id:'chp_7f4a',title:'Set it up and go live',dur:8,body:B_CH1,xp:60,cx:40,
+    q:{prompt:'You finished setup but the top right still says Unregistered several minutes later. What is the most likely cause?',
+       opts:['Your extension has not been assigned yet','You blocked one of the permission pop-ups during setup','You are in Chrome and it only works in Edge',''],
+       correct:1,why:'Registering needs the microphone and notification permissions. Block either one and it sits on Unregistered with nothing on screen explaining why. Clear the site permissions, reload, and walk back through the Allow prompts. Both browsers are fine.'}},
+   {id:'chp_7f4d',title:'Using it day to day',dur:6,body:B_CH2,xp:60,cx:40,
+    vid:{state:'ready',kind:'link',at:'Loom',name:'loom.com/share/e92d64baf9e646e2b4a215a3c561690e',size:0,secs:504,id:'e92d64baf9e646e2b4a215a3c561690e'},
+    q:{prompt:'You are on a call at your desk and you have to leave right now. How do you move it to your cell without the borrower noticing?',
+       opts:['Put them on hold, hang up, and call back from your cell','Dial *88 in the app','Transfer the call to your own extension',''],
+       correct:1,why:'*88 pulls the live call across to your phone. The borrower is never put on hold and hears nothing at all. The other two both cost you a hold or a callback, which is the exact thing you are trying to avoid on your way out the door.'}},
+   {id:'chp_7f51',title:'On your cell phone',dur:4,body:B_CH3,xp:40,cx:40,
+    q:{prompt:'What do you type as the username when you sign in to the mobile app?',
+       opts:['Your work email address','Your extension, then at, then the domain, so 100@callharbor','Your extension on its own',''],
+       correct:1,why:'It is extension@domain. If you set the app up before the change you may have been putting @CALLHARBOR on the end, which is not needed any more.'}},
+   {id:'chp_7f55',title:'When it is not working',dur:3,body:B_CH4,xp:40,cx:40,
+    q:{prompt:'The desktop app is open and you also left the browser tab open. What happens?',
+       opts:['Nothing, the two stay in sync','Calls ring in one of them and not the other, unpredictably','The second one refuses to register',''],
+       correct:1,why:'Two instances registered on one extension is the single most common support call there is. Pick the app or the tab and close the other.'}}
+  ]}
 ];
 
 const S={ci:5,li:0,tech:false};

@@ -335,6 +335,16 @@ body.tech .pl-sw-t i{transform:translateX(18px);background:var(--heat)}
 .pipe-foot2{padding:13px 2px 2px;border-top:1px solid var(--rule-2);margin-top:2px;
             font-size:12px;color:var(--text-3);line-height:1.55;max-width:104ch}
 
+/* the leads half of Andrew's ask. A strip, not a table, so the pane alternates
+   shape instead of stacking two of the same thing. */
+.coming{margin-top:20px;border-top:1px solid var(--rule);padding-top:14px;
+        display:grid;grid-template-columns:auto minmax(0,1fr) minmax(0,1fr);gap:0 26px;align-items:start}
+.coming-k{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--text-3);
+          font-weight:600;padding-top:2px;white-space:nowrap}
+.coming-r{font-size:12.5px;color:var(--text-2);line-height:1.55;padding-left:16px;
+          border-left:1px solid var(--rule-2)}
+.coming-r b{color:var(--text-1);font-weight:600}
+
 /* empty state */
 .empty{padding:34px 16px 40px;display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .empty h3{font-size:17px;font-weight:600;letter-spacing:-.02em}
@@ -868,7 +878,7 @@ body:not(.les-fha) .les-mf{display:block}
     <!-- row 5 : tabs + course ledger -->
     <div class="tabs">
       <button class="tab on" data-t="all">All Courses <span class="c mono">6</span></button>
-      <button class="tab" data-t="act">Touching your files <span class="c mono">4</span></button>
+      <button class="tab" data-t="type">By loan type <span class="c mono">12</span></button>
       <button class="tab" data-t="fell">Fell out <span class="c mono">6</span></button>
       <button class="tab" data-t="done">Verified <span class="c mono">0</span></button>
       <button class="tab" data-t="gd">Guides <span class="c mono">28</span></button>
@@ -883,12 +893,19 @@ body:not(.les-fha) .les-mf{display:block}
       </table>
     </div>
 
-    <div id="pane-act" style="display:none">
+    <div id="pane-type" style="display:none">
+      <div class="fell-lede">Your twelve open loans, grouped by what kind they are and who the borrower is. <b>Seven of them need something you have never read.</b> Nothing here is a to-do list for the loans themselves, that is the Loan Center. It is here to say which kind of file you are least ready for.</div>
       <table class="ct">
-        <colgroup><col style="width:126px"><col><col style="width:112px"><col style="width:230px"><col style="width:152px"><col style="width:232px"></colgroup>
-        <thead><tr><th>Category</th><th>Course</th><th>Lessons</th><th>Covers in your book</th><th>Last verified</th><th>Why it is here</th></tr></thead>
-        <tbody id="coursesAct"></tbody>
+        <colgroup><col style="width:310px"><col style="width:74px"><col><col style="width:264px"></colgroup>
+        <thead><tr><th>What you are holding</th><th class="n">Files</th><th>What that kind needs</th><th>Have you read it</th></tr></thead>
+        <tbody id="typeRows"></tbody>
       </table>
+      <div class="coming">
+        <div class="coming-k">And what is coming</div>
+        <div class="coming-r"><b>4 leads</b> in Live Leads are VA, and you have never read the entitlement rules. If two convert you are holding three VA files.</div>
+        <div class="coming-r"><b>2 leads</b> are asking about cash-out on a house they already own. Same FHA reading as Delgado on Thursday.</div>
+      </div>
+      <div class="pipe-foot2">Ordered by how little you have read, not by loan size or by closing date. A file you have done forty of does not need you to read anything, however big it is.</div>
     </div>
 
     <div id="pane-fell" style="display:none">
@@ -1387,7 +1404,35 @@ function rowHTML(c){
   '</tr>';
 }
 document.getElementById('courses').innerHTML = COURSES.map(rowHTML).join('');
-document.getElementById('coursesAct').innerHTML = COURSES.filter(c=>c.covers!=='nothing open'&&c.hot).map(rowHTML).join('');
+
+/* ══════════ by loan type ══════════
+   Andrew asked for recommended training by loan type and borrower profile, so both
+   are the first column. Grouped by kind, never by borrower: which sort of file you
+   are least ready for is a training question, the files themselves are the Loan
+   Center's. Twelve files, seven of them cold, which is what the header claims. */
+const BYTYPE = [
+  {kind:'FHA purchase', who:'two first-time buyers', files:2,
+   needs:'The case number, and mortgage insurance that never falls off', cold:1},
+  {kind:'FHA cash-out', who:'one, closing Thursday', files:1,
+   needs:'The case number, and proving a net tangible benefit', cold:1},
+  {kind:'VA purchase', who:'one, and your first VA file', files:1,
+   needs:'Entitlement, and who pays the funding fee', cold:1},
+  {kind:'Conventional refinance', who:'two, one locked for 21 days', files:2,
+   needs:'Float-down, and what an extension actually costs', cold:1},
+  {kind:'Conventional purchase', who:'one self-employed, three conditions already', files:1,
+   needs:'Averaging two years of self-employed income', cold:1},
+  {kind:'Conventional purchase', who:'five on W-2 income, nothing unusual', files:5,
+   needs:'Qualifying ratios, and escrow', cold:0, when:'Jul 29'}
+];
+document.getElementById('typeRows').innerHTML = BYTYPE.map(r=>
+  '<tr class="rowlink">'+
+  '<td><div class="fell-why">'+r.kind+'<span>'+r.who+'</span></div></td>'+
+  '<td class="n"><span class="fell-n'+(r.cold?' hot':'')+'">'+r.files+'</span></td>'+
+  '<td><div class="covers" style="color:var(--text-2)">'+r.needs+'</div></td>'+
+  '<td class="mono" style="font-size:12.5px;color:'+(r.cold?'var(--heat)':'var(--text-2)')+'">'+
+    (r.cold?'never read':'read, and still knew it'+
+      '<span style="display:block;color:var(--text-3);font-size:11px;margin-top:3px">'+r.when+'</span>')+'</td>'+
+  '</tr>').join('');
 
 /* ══════════ fell out ══════════
    Nineteen closed or dead in the last ninety days, six of them dead. Grouped by
@@ -1440,7 +1485,7 @@ document.querySelectorAll('.tab').forEach(t=>{
   t.addEventListener('click',()=>{
     document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
     t.classList.add('on');
-    ['all','act','fell','done','gd'].forEach(k=>{
+    ['all','type','fell','done','gd'].forEach(k=>{
       document.getElementById('pane-'+k).style.display = (k===t.dataset.t)?'':'none';
     });
   });

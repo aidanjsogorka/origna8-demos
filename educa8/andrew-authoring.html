@@ -507,8 +507,8 @@ body.tech .jsonp .inner{transform:none}
 iframe.p{display:block;border:0}
 .ovvid .film{position:absolute;inset:0;display:flex;align-items:flex-end;gap:3px;padding:0 12px 12px;opacity:.32}
 .ovvid .film i{flex:1;background:var(--text-3);border-radius:1px;display:block}
-.ovvid .p span{width:46px;height:46px;border-radius:50%;background:#0b0b0cd9;border:1px solid var(--ring);
-               display:grid;place-items:center;color:var(--text-1)}
+.ovvid .p .pb2{width:46px;height:46px;border-radius:50%;background:#0b0b0cd9;border:1px solid var(--ring);
+               display:grid;place-items:center;color:var(--text-1);position:relative}
 .ovvid .cap{padding:9px 13px;font-family:'Geist Mono',monospace;font-size:11px;color:var(--text-3);
             display:flex;gap:10px;align-items:center;border-top:1px solid var(--rule-2)}
 
@@ -806,7 +806,8 @@ iframe.p{display:block;border:0}
           <div class="rel" style="padding:0 15px 12px">video_asset.chapter_id <b>→</b> chapter.id · source enum(file|link)
             <br>link <b>NEW</b>: oembed server-side, store provider + external_id + duration_seconds. Nothing is stored, nothing is served by us.
             <br>file <b>NEW</b>: direct creator upload straight to Mux or Cloudflare Stream, webhook on ready, store asset_id + playback_id. <s>Do not build an object store and a transcode ladder for this.</s>
-            <br><b>The upload on this screen is drawn.</b> The link path is real: it calls the provider and reads back the true title and length. The file path has no storage behind it and is here to show the states, not to work.
+            <br><b>What is real here:</b> the file is read in slices with real progress, the duration and dimensions come off the file itself, the poster is a frame grabbed from it, and pressing play plays that file. Nothing on this screen is invented any more.
+            <br><b>What is missing:</b> the network hop. Nothing leaves the machine, because a static page has no server and a direct-upload URL needs a secret key. putFile() is the only function that changes: swap its body for the direct creator upload and every state above it already works.
             <br>playback progress <b>NEW</b>: a managed player emits it, an oembed iframe does not. That is the whole reason to pay for one.</div>
         </div>
         <input type="file" id="vidFile" accept="video/*" hidden>
@@ -1274,7 +1275,9 @@ function syncAll(){
    The send is simulated, but the states are the real ones: sending, transcoding,
    ready, and the two ways it actually fails. He never leaves this screen. */
 const MAXMB=500;
-const fmtSize=b=>b>=1073741824?(b/1073741824).toFixed(1)+' GB':Math.round(b/1048576)+' MB';
+const fmtSize=b=>b>=1073741824 ? (b/1073741824).toFixed(1)+' GB'
+               : b>=1048576    ? Math.round(b/1048576)+' MB'
+               :                 Math.max(1,Math.round(b/1024))+' KB';   /* a small file is not 0 MB */
 const fmtLen=s=>Math.floor(s/60)+':'+String(Math.round(s%60)).padStart(2,'0');
 
 /* Loom, YouTube and Vimeo. Loom is the one he actually uses. */
@@ -1337,7 +1340,7 @@ function renderVideo(){
       '<div class="up-n">'+esc2(v.name)+'<span class="sz">'+fmtSize(v.size)+'</span></div>'+
       '<div class="bar'+(sending?'':' wait')+'"><i style="transform:scaleX('+(sending?v.pct/100:1)+')"></i></div>'+
       '<div class="up-s">'+
-        (sending?'<span>Sending, '+v.pct+'%</span>':'<span>Making it playable. You can keep writing.</span>')+
+        (sending?'<span>Reading the file, '+v.pct+'%</span>':'<span>Reading its length and grabbing a frame.</span>')+
         '<a class="x" id="vCancel">Cancel</a>'+
       '</div>';
     return;
@@ -1356,16 +1359,18 @@ function renderVideo(){
     '<div class="vrow">'+
       (v.kind==='link'
         ? '<a class="poster" href="https://www.'+v.at.toLowerCase()+'.com/share/'+v.id+'" target="_blank" rel="noopener" title="Open on '+v.at+'">'
-        : '<div class="poster">')+
-        '<div class="film">'+strip(v.name)+'</div>'+
+        : '<button class="poster" id="vOpen" title="Play it">')+
+        (v.poster
+          ? '<img src="'+v.poster+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">'
+          : '<div class="film">'+strip(v.name)+'</div>')+
         '<div class="play"><span>'+PLAY+'</span></div>'+
         '<div class="len">'+(v.pending||!v.secs?'…':fmtLen(v.secs))+'</div>'+
-      (v.kind==='link'?'</a>':'</div>')+
+      (v.kind==='link'?'</a>':'</button>')+
       '<div class="vmeta">'+
         '<div class="t"><span class="src'+(v.kind==='link'?' link':'')+'">'+(v.at||'file')+'</span>'+esc2(v.name)+'</div>'+
         '<div class="d">'+(v.kind==='link'
             ? 'nothing uploaded, it plays from '+v.at+(v.pending?', reading its details…':'')
-            : fmtSize(v.size)+' · converted, plays everywhere')+'</div>'+
+            : fmtSize(v.size)+(v.w?' · '+v.w+' × '+v.h:'')+' · read off the file itself')+'</div>'+
         '<div class="vacts">'+
           '<button class="btn-q" id="vSwap">Replace</button>'+
           '<button class="btn-q" id="vDrop">Remove</button>'+
@@ -1375,9 +1380,61 @@ function renderVideo(){
     timeLine;
 }
 
+/* ══════════ the seam ══════════
+   putFile is the one function that changes in production. Here it reads the file
+   on this machine and nothing leaves it, because a static page has no server and a
+   direct-upload URL has to be minted with a secret key that cannot live in a public
+   repo. Everything it hands back is read out of the real file: the real duration,
+   the real dimensions, and a poster drawn off a real frame. No number on this screen
+   is invented any more.
+
+   In production the body of this becomes one call to Mux or Cloudflare Stream's
+   direct creator upload, onProgress comes off the XHR instead of the read, and it
+   resolves with their asset_id and playback_id. Same signature, same states, same
+   five things the UI draws. */
+function putFile(file, onProgress){
+  return new Promise((resolve, reject)=>{
+    /* a real read, in slices, so progress tracks the real bytes and memory stays flat */
+    const CHUNK = 4*1048576;
+    let read = 0;
+    (function next(){
+      if(read >= file.size) return readMeta();
+      const fr = new FileReader();
+      fr.onload  = ()=>{ read = Math.min(file.size, read+CHUNK); onProgress(read/file.size); next(); };
+      fr.onerror = ()=>reject(new Error('unreadable'));
+      fr.readAsArrayBuffer(file.slice(read, read+CHUNK));
+    })();
+
+    function readMeta(){
+      const url = URL.createObjectURL(file);
+      const v = document.createElement('video');
+      v.preload='metadata'; v.muted=true; v.playsInline=true;
+      const fail = e=>{ URL.revokeObjectURL(url); reject(new Error('undecodable')); };
+      v.onerror = fail;
+      v.onloadedmetadata = ()=>{
+        const secs=v.duration, w=v.videoWidth, h=v.videoHeight;
+        if(!isFinite(secs) || !secs || !w) return fail();
+        const grab = ()=>{
+          let poster='';
+          try{
+            const c=document.createElement('canvas');
+            c.width=480; c.height=Math.max(1,Math.round(480*h/w));
+            c.getContext('2d').drawImage(v,0,0,c.width,c.height);
+            poster=c.toDataURL('image/jpeg',0.72);
+          }catch(e){}
+          resolve({url,secs,w,h,poster});
+        };
+        v.onseeked = grab;
+        try{ v.currentTime = Math.min(secs*0.12, 3); }catch(e){ grab(); }
+        setTimeout(()=>{ if(v.onseeked){ v.onseeked=null; grab(); } }, 2500);
+      };
+      v.src = url;
+    }
+  });
+}
+
 /* one place that starts a send, so the file path and the drop path behave the same */
 function sendFile(f){
-  clearInterval(upTick);
   if(!/^video\//.test(f.type||'')){
     setVid({state:'err',why:'That is not a video.',
       fix:'This slot takes MP4 or MOV. If it is a worksheet or a one pager, put it in the lesson body as a download instead.'});
@@ -1388,22 +1445,33 @@ function sendFile(f){
       fix:'The limit is '+MAXMB+' MB. Either trim it, or put it on Loom and paste the share link, which uploads nothing at all.'});
     return;
   }
-  const v={state:'up',kind:'file',name:f.name,size:f.size,pct:0,
-           secs:Math.max(45,Math.min(3600,Math.round(f.size/1048576*7)))};
+  const v={state:'up',kind:'file',name:f.name,size:f.size,pct:0,secs:0};
   setVid(v);
-  upTick=setInterval(()=>{
-    if(lsn().vid!==v){ clearInterval(upTick); return; }
-    v.pct=Math.min(100,v.pct+Math.max(3,Math.round((100-v.pct)/7)));
-    if(v.pct>=100){
-      clearInterval(upTick); v.state='work'; renderVideo();
-      setTimeout(()=>{ if(lsn().vid===v){ v.state='ready'; renderVideo(); syncAll(); } },1500);
-    } else renderVideo();
-  },170);
+  putFile(f, pct=>{
+    if(lsn().vid!==v) return;
+    v.pct=Math.min(99,Math.round(pct*100));
+    renderVideo();
+  }).then(r=>{
+    if(lsn().vid!==v){ URL.revokeObjectURL(r.url); return; }
+    v.state='ready'; v.pct=100;
+    v.secs=Math.round(r.secs); v.w=r.w; v.h=r.h; v.poster=r.poster; v.url=r.url;
+    renderVideo(); syncAll();
+  }).catch(()=>{
+    if(lsn().vid!==v) return;
+    setVid({state:'err',why:'That file will not play in a browser.',
+      fix:'The name says video but nothing here can decode it. MP4 with H.264 is the safe one. A MOV off a phone usually works, a MOV off a camera often does not.'});
+  });
 }
 
 /* delegated, because the block is rebuilt on every state change */
 $('vidB').addEventListener('click',e=>{
   const id=e.target.closest('button,a,u')?.id;
+  if(id==='vOpen'){
+    const v=lsn().vid;
+    if(v&&v.url) e.target.closest('.poster').outerHTML=
+      '<video class="poster" src="'+v.url+'" controls autoplay style="object-fit:contain;background:#000"></video>';
+    return;
+  }
   if(id==='vPick'||id==='vAgain'||id==='vSwap') $('vidFile').click();
   else if(id==='vAdd'){
     const raw=$('vLink').value, r=readLink(raw);
@@ -1735,9 +1803,12 @@ function buildOverlay(i){
     ? '<div class="ovvid">'+
       (l.vid.kind==='link'
         ? '<button class="p" id="ovPlay" data-id="'+l.vid.id+'" data-at="'+l.vid.at.toLowerCase()+'" aria-label="Play the video">'
-        : '<div class="p">')+
-        '<div class="film">'+strip(l.vid.name)+'</div><span>'+OVPLAY+'</span>'+
-      (l.vid.kind==='link'?'</button>':'</div>')+
+        : '<button class="p" id="ovPlay" data-file="1" aria-label="Play the video">')+
+        (l.vid.poster
+          ? '<img src="'+l.vid.poster+'" alt="" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">'
+          : '<div class="film">'+strip(l.vid.name)+'</div>')+
+        '<span class="pb2">'+OVPLAY+'</span>'+
+      '</button>'+
       '<div class="cap">'+fmtLen(l.vid.secs)+'<span style="color:var(--rule)">|</span>'+
       (l.vid.kind==='link'?'press play and it loads from '+l.vid.at:'uploaded to Educa8')+'</div></div>'
     : '';
@@ -1777,6 +1848,11 @@ function wireOverlay(){
     b.addEventListener('click',()=>buildOverlay(+b.dataset.go)));
   const play=$('ovPlay');
   if(play) play.addEventListener('click',()=>{
+    if(play.dataset.file){
+      const v=ovLessons()[ovi].vid;
+      if(v&&v.url) play.outerHTML='<video class="p" src="'+v.url+'" controls autoplay style="object-fit:contain;background:#000"></video>';
+      return;
+    }
     const src = play.dataset.at==='loom'    ? 'https://www.loom.com/embed/'+play.dataset.id+'?autoplay=1&hideEmbedTopBar=true'
               : play.dataset.at==='youtube' ? 'https://www.youtube.com/embed/'+play.dataset.id+'?autoplay=1'
               :                               'https://player.vimeo.com/video/'+play.dataset.id+'?autoplay=1';

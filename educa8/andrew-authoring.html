@@ -108,9 +108,9 @@ body.tech .lb>i.lt{opacity:1;transform:none}
 body.tech .idl{display:block;opacity:1;transform:none}
 /* Collapsed, not just transparent. It used to hold its 14px band while invisible,
    which left a dead gap under every field with the switch off. */
-.rel{display:none;overflow:hidden;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
-     opacity:0;transition:opacity .24s var(--ease);line-height:14px;white-space:nowrap}
-body.tech .rel{display:block;height:14px;opacity:1}
+.rel{display:none;font-family:'Geist Mono',monospace;font-size:10px;color:var(--text-3);
+     opacity:0;transition:opacity .24s var(--ease);line-height:1.5;white-space:normal}
+body.tech .rel{display:block;opacity:1}
 .rel b{color:var(--heat);font-weight:400}
 
 /* ───────── page header ───────── */
@@ -803,7 +803,11 @@ iframe.p{display:block;border:0}
             <span class="r" id="vidR">optional</span>
           </div>
           <div class="vid-b" id="vidB"></div>
-          <div class="rel" style="padding:0 15px 12px">video_asset.chapter_id <b>→</b> chapter.id · file <b>NEW: object store + transcode job</b> · link <b>NEW: oembed lookup</b></div>
+          <div class="rel" style="padding:0 15px 12px">video_asset.chapter_id <b>→</b> chapter.id · source enum(file|link)
+            <br>link <b>NEW</b>: oembed server-side, store provider + external_id + duration_seconds. Nothing is stored, nothing is served by us.
+            <br>file <b>NEW</b>: direct creator upload straight to Mux or Cloudflare Stream, webhook on ready, store asset_id + playback_id. <s>Do not build an object store and a transcode ladder for this.</s>
+            <br><b>The upload on this screen is drawn.</b> The link path is real: it calls the provider and reads back the true title and length. The file path has no storage behind it and is here to show the states, not to work.
+            <br>playback progress <b>NEW</b>: a managed player emits it, an oembed iframe does not. That is the whole reason to pay for one.</div>
         </div>
         <input type="file" id="vidFile" accept="video/*" hidden>
 
@@ -1495,7 +1499,8 @@ function renderJSON(){
            '    <span class="jc">// oembed lookup, nothing stored</span>\n'
          : '    '+k('filename')+': '+s(l.vid.name)+',\n'+
            '    '+k('bytes')+': '+n(l.vid.size)+',\n'+
-           '    <span class="jc">// object store + transcode job</span>\n')+
+           '    '+k('playback_id')+': '+s('mux|cf-stream, set by the ready webhook')+',\n'+
+           '    <span class="jc">// drawn in this demo, nothing is stored</span>\n')+
        '    '+k('duration_seconds')+': '+n(Math.round(l.vid.secs))+'\n'+
        '  },\n'
      : '')+
@@ -1519,7 +1524,10 @@ function renderJSON(){
    '  '+k('requires')+': ['+c.requires.map(r=>s(r)).join(', ')+'] }';
   $('jBody').innerHTML=out;
   $('jFoot').innerHTML='chapter.course_id <b>→</b> course.id<br>course.requires[] <b>→</b> course.id<br>'+
-    'on complete: emit xp_event <b>→</b> domina8_standings';
+    'on complete: emit xp_event <b>→</b> domina8_standings'+
+    (lsn().vid&&lsn().vid.state==='ready'
+      ? '<br>video_asset.chapter_id <b>→</b> chapter.id · watched %% needs a managed player, not an iframe'
+      : '');
   $('jDot').classList.add('hot'); clearTimeout(window._jt);
   window._jt=setTimeout(()=>$('jDot').classList.remove('hot'),700);
 }
